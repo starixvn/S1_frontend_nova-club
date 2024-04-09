@@ -1,14 +1,14 @@
+import { useAppSelector } from 'app/provider/redux/store'
 import { useResponsiveValue } from 'dripsy'
 import { Skeleton } from 'moti/skeleton'
 import React from 'react'
 import { ScrollViewProps } from 'react-native'
 import { Game } from 'services/gameApi.type'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import DraggableScrollView from '../DraggableScrollView'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
 import GameCard from './GameCard'
-import { GAME_TYPE_CODE } from 'utils/constant'
 import { GAME_TAG_SIZE } from './GameTagsLabel'
-import { useAppSelector } from 'app/provider/redux/store'
 
 interface HorizontalGameListProps extends ScrollViewProps {
   data: Game[]
@@ -16,13 +16,16 @@ interface HorizontalGameListProps extends ScrollViewProps {
   tagSize?: GAME_TAG_SIZE
 }
 
+const DEFAULT_GAMESIZE = [80, 100]
+
 export default function HorizontalGameList({
   data,
-  size = [80, 100],
+  size,
   tagSize = GAME_TAG_SIZE.sm,
   ...rest
 }: HorizontalGameListProps) {
-  const shadowSize = useResponsiveValue(size)
+  const _localSize = size ?? DEFAULT_GAMESIZE
+  const shadowSize = useResponsiveValue(_localSize)
   const locale = useAppSelector((s) => s.setting.locale)
 
   return (
@@ -42,8 +45,8 @@ export default function HorizontalGameList({
             <GameCard
               // name={g.name[locale]}
               gameTagSize={tagSize}
-              width={size}
-              height={size}
+              width={_localSize}
+              height={_localSize}
               key={g.gtc === GAME_TYPE_CODE.LIVE_DEALER ? g.gpc : g.gc}
               isFullCard
               {...g}

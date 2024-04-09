@@ -22,8 +22,6 @@ export default function DeferredSection({}: Props) {
         seeMoreUrl="/tag/new"
       />
 
-      <CnyLantern />
-
       <GameListSectionAsyncByTag
         tag={SlotType.JACKPOT}
         title={t('game.jackpot').toUpperCase()}

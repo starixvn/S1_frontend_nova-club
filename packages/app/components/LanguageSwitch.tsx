@@ -1,12 +1,11 @@
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
+import { useAppDispatch } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { Image, Pressable, SxProp, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { ViewProps } from 'react-native'
 import { LANGUAGE_CODE } from 'utils/constant'
-import { usePlayerLangMutation } from '../../services/playerApi'
-import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
 
 const LANGUAGE_BUTTON_SIZE = 25

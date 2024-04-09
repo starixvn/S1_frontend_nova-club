@@ -7,7 +7,7 @@ import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import { Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiView } from 'moti'
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 
@@ -24,7 +24,7 @@ interface Props {
 
 export const SCORE_HEIGHT = [20, 30]
 
-export default function MatchItem({ width, match, onPress }: Props) {
+function MatchItem({ width, match, onPress }: Props) {
   // const leagueLogo = getLeagueLogo(match.LeagueId)
   let dateDisplay = '-'
 
@@ -114,6 +114,8 @@ export default function MatchItem({ width, match, onPress }: Props) {
     </Pressable>
   )
 }
+
+export default memo(MatchItem)
 
 function getLeagueLogo(leagueId: number) {
   return `${MEDIA_DOMAIN}${CONTENT_URI}/home/matches/${MatchLeagueLogoMapping[leagueId]}`

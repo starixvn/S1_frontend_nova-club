@@ -66,8 +66,6 @@ const GameCard = ({
   const ss = useSx()
   const { tags, gpc, isFullCard } = rest
 
-  const lang = useAppSelector((s) => s.setting.locale)
-
   if (lastLoadedRef.current != img) {
     lastLoadedRef.current = img
     startTransition(() => setLoaded(false))
