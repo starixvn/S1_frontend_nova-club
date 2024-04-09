@@ -55,6 +55,10 @@ const MENU: MenuProps[] = [
     menu: NAVIGATION_DROPDOWN_MENU.Sportsbook,
   },
   {
+    route: '/games/cockfighting',
+    label: 'game.category.cockfighting',
+  },
+  {
     route: '/livecasino',
     label: 'game.category.liveCasino',
     menu: NAVIGATION_DROPDOWN_MENU.LiveCasino,
@@ -174,7 +178,7 @@ const MenuButton = ({
         position: 'relative',
         justifyContent: 'center',
         flex: 1,
-        px: icon ? '$3' : ['$2', '$2', '$2', 6, 14, 25],
+        px: icon ? '$3' : ['$2', '$2', '$2', 6, 11, 22],
         alignItems: 'center',
       }}
       containerStyle={{ position: 'relative', ...style }}

@@ -44,6 +44,7 @@ const GameCategory = [
   GAME_TYPE_CODE.GAMES,
   GAME_TYPE_CODE.FISHING,
   GAME_TYPE_CODE.LOTTERY,
+  GAME_TYPE_CODE.COCKFIGHTING,
 ]
 
 const GamesScreen = () => {
@@ -190,7 +191,7 @@ const GamesScreen = () => {
                 label={r.label}
                 size={mobileGamesFilterResponsiveSize}
                 icon={r.icon ?? 'notice'}
-                labelProps={{ style: { fontSize: 11 }, numberOfLines: 2 }}
+                labelProps={{ style: { fontSize: 10 }, numberOfLines: 2 }}
                 onPress={() => onFilterClicked(r, i)}
               />
             )
@@ -201,6 +202,7 @@ const GamesScreen = () => {
             GAME_TYPE_CODE.GAMES,
             GAME_TYPE_CODE.FISHING,
             GAME_TYPE_CODE.LOTTERY,
+            GAME_TYPE_CODE.COCKFIGHTING,
           ]}
           gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}
         />

@@ -87,7 +87,7 @@ function GamesScreen({}: Props) {
                 height: '100%',
               }}
               source={{
-                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games.mp4`,
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/cockfighting_420.mp4`,
               }}
               useNativeControls={false}
               resizeMode={ResizeMode.COVER}
@@ -100,6 +100,7 @@ function GamesScreen({}: Props) {
           GAME_TYPE_CODE.GAMES,
           GAME_TYPE_CODE.FISHING,
           GAME_TYPE_CODE.LOTTERY,
+          GAME_TYPE_CODE.COCKFIGHTING,
         ]}
         gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}
       />
