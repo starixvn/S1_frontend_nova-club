@@ -233,9 +233,9 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
           }
         />
 
-        <Row sx={{ mb: '$2' }}>
+        <Row sx={{ mb: '$3' }}>
           <Label sx={{ mr: '$2' }}>{t('common.username')}:</Label>
-          <Text>{idUsername}</Text>
+          <Text>{idUsername?.length > 0 ? idUsername : '-'}</Text>
         </Row>
 
         <MoneyInput

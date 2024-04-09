@@ -57,7 +57,8 @@ export enum RewardGameKeyMap {
 
 const STATIC_IMAGE_URL = `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/title`
 
-export const getRewardTitleImage = (gameKey, lang) => {
+export const getRewardTitleImage = (gameKey, lang = 'en') => {
+  // Use all EN until they have each image for each language
   const rewardTitleImageMap = {
     [RewardGameKeyMap.ANGPAO_HUNT]: `${STATIC_IMAGE_URL}/angpao-hunt-${lang}.png`,
     [RewardGameKeyMap.FORTUNE_CAT]: `${STATIC_IMAGE_URL}/fortune-cat-${lang}.png`,

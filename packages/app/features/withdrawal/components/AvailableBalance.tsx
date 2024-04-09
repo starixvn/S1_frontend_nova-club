@@ -64,16 +64,18 @@ const MobileBalance = ({ label, totalBalance, currency, isLoading }) => (
     }}
   >
     <Text>{`${label} :`}</Text>
-    {isLoading ? (
-      <ActivityIndicator color="$primary.100" />
-    ) : (
-      <Text>
-        {toCurrency(totalBalance, currency, {
-          symbol: false,
-          hideTruncatedThousand: false,
-        })}
-      </Text>
-    )}
+    <View sx={{ minHeight: 30, justifyContent: 'center' }}>
+      {isLoading ? (
+        <ActivityIndicator color="$primary.100" />
+      ) : (
+        <Text sx={{ fontWeight: 'bold' }}>
+          {toCurrency(totalBalance, currency, {
+            symbol: false,
+            hideTruncatedThousand: false,
+          })}
+        </Text>
+      )}
+    </View>
   </View>
 )
 

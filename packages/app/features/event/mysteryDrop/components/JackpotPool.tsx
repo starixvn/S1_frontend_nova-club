@@ -17,17 +17,16 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
   const { width } = useWindowResize()
   const isDesktop = useIsDesktop()
 
-  const bgWidth = useResponsiveValue([width, width, width])
+  const bgWidth = width
   const bgHeight = isDesktop ? bgWidth * 0.5625 : width * 0.802
-  const logoWidth = useResponsiveValue([width, 600, 600, 1000])
-  const logoHeight = isDesktop ? logoWidth * 0.3 : logoWidth * 0.5387
+  const containerWidth = useResponsiveValue([width, 600, 600, 1000])
+  const containerHeight = isDesktop
+    ? containerWidth * 0.3
+    : containerWidth * 0.5387
 
-  const locale = useAppSelector((s) => s.setting.locale)
-
+  const logoWidth = Math.min(width * 0.7, 500)
+  const logoHeight = logoWidth / (600 / 445)
   const background = isDesktop ? 'bg-jackpot-desktop.jpg' : 'bg-jackpot.png'
-  const logo = isDesktop
-    ? `logo-desktop-${locale}.png`
-    : `logo-mobile-${locale}.png`
   const logoElement = isDesktop ? `logo-desktop` : `logo-mobile`
 
   const animateElement01 = useMemo(
@@ -52,8 +51,8 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logoElement}-01.png`}
           alt=""
-          width={logoWidth}
-          height={logoHeight}
+          width={containerWidth}
+          height={containerHeight}
         />
       </MotiView>
     ),
@@ -81,8 +80,8 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logoElement}-02.png`}
           alt=""
-          width={logoWidth}
-          height={logoHeight}
+          width={containerWidth}
+          height={containerHeight}
         />
       </MotiView>
     ),
@@ -104,7 +103,7 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
         {animateElement02}
 
         <SolitoImage
-          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logo}`}
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/mystery-event-logo.png`}
           alt=""
           width={logoWidth}
           height={logoHeight}
