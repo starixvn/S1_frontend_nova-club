@@ -12,11 +12,11 @@ export const CONTACT_LIST = [
     icon: 'telegram',
     qr: Telegram,
   },
-  {
-    label: SocialMedia.ZALO,
-    icon: 'zalo',
-    qr: Zalo,
-  },
+  // {
+  //   label: SocialMedia.ZALO,
+  //   icon: 'zalo',
+  //   qr: Zalo,
+  // },
   {
     label: SocialMedia.LIVECHAT,
     icon: 'iconCS',
