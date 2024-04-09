@@ -1,4 +1,3 @@
-import FloatingOverlay from 'app/features/floatingContent/FloatingOverlay'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
@@ -7,8 +6,9 @@ import { AnimatePresence, MotiView } from 'moti'
 import React from 'react'
 import { Platform } from 'react-native'
 import { SolitoImage } from 'solito/image'
-import BouncePressable from '../pressable/BouncePressable'
 import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
+import BouncePressable from '../pressable/BouncePressable'
+import FloatingOverlay from 'app/features/floatingContent/FloatingOverlay'
 
 const ICON_SIZE = 32
 
@@ -22,12 +22,19 @@ const LanguageDropdown = () => {
     dispatch(SettingActions.setCurrency(currency))
     dispatch(SettingActions.setLocale(item.value))
 
-    dispatch(TempSettingActions.setIsOverlayVisible(false))
+    handleToggle()
+  }
+
+  const handleToggle = () => {
+    dispatch(TempSettingActions.setIsLanguageMenuVisible(false))
   }
 
   return (
     <>
-      {Platform.OS === 'web' && <FloatingOverlay />}
+      <FloatingOverlay
+        isVisible={isLanguageMenuVisible}
+        onToggle={handleToggle}
+      />
       <AnimatePresence>
         {isLanguageMenuVisible && (
           <MotiView
@@ -38,7 +45,7 @@ const LanguageDropdown = () => {
             style={sx({
               position: 'absolute',
               top: Platform.OS === 'web' ? 36 : 110,
-              right: -8,
+              right: Platform.OS === 'web' ? -8 : 0,
               width: 300,
               zIndex: 11,
             })}

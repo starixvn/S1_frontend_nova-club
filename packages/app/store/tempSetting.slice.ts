@@ -36,7 +36,7 @@ const tempSettingSlice = createSlice({
     setIsFloatingMysteryVisible: (state, action: PayloadAction<boolean>) => {
       state.isFloatingMysteryVisible = action.payload
     },
-    setIsOverlayVisible: (state, action: PayloadAction<boolean>) => {
+    setIsLanguageMenuVisible: (state, action: PayloadAction<boolean>) => {
       state.isLanguageMenuVisible = action.payload
     },
     setSyncShieldActionType: (state, action: PayloadAction<Shield_Action>) => {

@@ -1,8 +1,8 @@
 import SessionHandler from 'app/components/SessionHandler'
 import BottomTabBar from 'app/components/navigation/BottomTabBar'
+import LanguageDropdown from 'app/components/navigation/LanguageDropdown'
 import MainHeader from 'app/components/navigation/header/MainHeader'
 import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
-import FloatingOverlay from 'app/features/floatingContent/FloatingOverlay'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Tabs } from 'expo-router'
 import { View } from 'react-native'
@@ -20,7 +20,7 @@ export default function Root() {
           <MainHeader />
           {/** APP floating mystery */}
           <DraggableFloatingMystery />
-          <FloatingOverlay />
+          <LanguageDropdown />
         </>
       )}
       <Tabs

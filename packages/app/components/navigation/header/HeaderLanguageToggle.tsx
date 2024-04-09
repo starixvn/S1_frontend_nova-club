@@ -7,8 +7,8 @@ import { View, styled } from 'dripsy'
 import React from 'react'
 import { Platform } from 'react-native'
 import { LANGUAGE_CODE } from 'utils/constant'
-import LanguageDropdown from '../LanguageDropdown'
 import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
+import LanguageDropdown from '../LanguageDropdown'
 
 type Props = {}
 
@@ -38,7 +38,9 @@ export default function HeaderLanguageToggle({}: Props) {
 
       setLanguage(toLang as LANGUAGE_CODE)
     } else
-      dispatch(TempSettingActions.setIsOverlayVisible(!isLanguageMenuVisible))
+      dispatch(
+        TempSettingActions.setIsLanguageMenuVisible(!isLanguageMenuVisible)
+      )
   }
 
   return (
