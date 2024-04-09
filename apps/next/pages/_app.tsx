@@ -1,15 +1,8 @@
 import 'raf/polyfill'
 import 'setimmediate'
 
-import { AvertaStdUseFont } from 'app/assets/fonts/Averta'
-import { Provider } from 'app/provider'
-import AuthenticationProvider from 'components/AuthenticationProvider'
-import { useFonts } from 'expo-font'
-import Head from 'next/head'
-import AdaptiveLayout, {
-  AdaptiveAppProps,
-} from '../components/layouts/AdaptiveLayout'
-import '../global.css'
+import { FPS_SRC } from '@env'
+import { MontserratUseFont } from 'app/assets/fonts/Montserrat'
 import {
   SEO_DESCRIPTION,
   SEO_DOMAIN,
@@ -20,11 +13,18 @@ import {
   SEO_TYPE,
   SEO_URL,
 } from 'app/constants/seo'
+import { Provider } from 'app/provider'
+import AuthenticationProvider from 'components/AuthenticationProvider'
+import { useFonts } from 'expo-font'
+import Head from 'next/head'
 import Script from 'next/script'
-import { FPS_SRC } from '@env'
+import AdaptiveLayout, {
+  AdaptiveAppProps,
+} from '../components/layouts/AdaptiveLayout'
+import '../global.css'
 
 function MyApp({ ...rest }: AdaptiveAppProps) {
-  useFonts(AvertaStdUseFont)
+  useFonts(MontserratUseFont)
   return (
     <>
       <Head>
