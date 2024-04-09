@@ -62,7 +62,7 @@ const validation = {
   amountMinMax: ({
     min,
     max,
-    balance = 0,
+    balance,
   }: {
     min?: number
     max?: number
@@ -81,7 +81,8 @@ const validation = {
         )
 
         // skip if not valid number
-        if (isNaN(amountFloat) || amountFloat === 0) return true
+        if (isNaN(amountFloat) || amountFloat === 0 || balance == null)
+          return true
 
         return amountFloat <= balance
       })
