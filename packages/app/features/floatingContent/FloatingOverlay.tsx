@@ -1,27 +1,12 @@
-import LanguageDropdown from 'app/components/navigation/LanguageDropdown'
-import useIsDesktop from 'app/hooks/useIsDesktop'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { TempSettingActions } from 'app/store/tempSetting.slice'
-import { Pressable, View } from 'dripsy'
+import { Pressable } from 'dripsy'
 import React from 'react'
-import { Platform } from 'react-native'
 
-const FloatingOverlay = () => {
-  const isDesktop = useIsDesktop()
-  const dispatch = useAppDispatch()
-  const isLanguageMenuVisible = useAppSelector(
-    (s) => s.tempSetting.isLanguageMenuVisible
-  )
-
-  const handlePress = () => {
-    dispatch(TempSettingActions.setIsOverlayVisible(false))
-  }
-
+const FloatingOverlay = ({ isVisible, onToggle }) => {
   return (
-    isLanguageMenuVisible && (
+    isVisible && (
       <>
         <Pressable
-          onPress={handlePress}
+          onPress={onToggle}
           sx={{
             position: 'absolute',
             top: 0,
@@ -31,7 +16,6 @@ const FloatingOverlay = () => {
             zIndex: 3,
           }}
         />
-        <LanguageDropdown />
       </>
     )
   )
