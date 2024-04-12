@@ -9,11 +9,13 @@ import { SolitoImage } from 'solito/image'
 import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
 import BouncePressable from '../pressable/BouncePressable'
 import FloatingOverlay from 'app/features/floatingContent/FloatingOverlay'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 const ICON_SIZE = 32
 
 const LanguageDropdown = () => {
   const sx = useSx()
+  const { top } = useSafeArea()
   const dispatch = useAppDispatch()
   const isLanguageMenuVisible = useAppSelector(
     (s) => s.tempSetting.isLanguageMenuVisible
@@ -44,8 +46,8 @@ const LanguageDropdown = () => {
             transition={{ type: 'timing' }}
             style={sx({
               position: 'absolute',
-              top: Platform.OS === 'web' ? 36 : 110,
-              right: Platform.OS === 'web' ? -8 : 0,
+              top: Platform.OS === 'web' ? 36 : top + 50,
+              right: Platform.OS === 'web' ? -8 : 2,
               width: 300,
               zIndex: 11,
             })}

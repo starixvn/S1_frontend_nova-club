@@ -3,22 +3,6 @@ import { Currency, LANGUAGE_CODE } from 'utils/constant'
 
 export const CURRENCY_LANGUAGE_LIST = [
   {
-    title: 'Thailand',
-    currency: Currency.THB,
-    localeLang: LANGUAGE_CODE.THAILAND,
-    image: require('app/assets/images/common/th.jpg'),
-    language: [
-      {
-        label: 'English',
-        value: LANGUAGE_CODE.ENGLISH,
-      },
-      {
-        label: 'ไทย',
-        value: LANGUAGE_CODE.THAILAND,
-      },
-    ],
-  },
-  {
     title: 'Vietnam',
     currency: Currency.VND,
     localeLang: LANGUAGE_CODE.VIETNAM,
@@ -31,6 +15,22 @@ export const CURRENCY_LANGUAGE_LIST = [
       {
         label: 'Tiếng Việt',
         value: LANGUAGE_CODE.VIETNAM,
+      },
+    ],
+  },
+  {
+    title: 'Thailand',
+    currency: Currency.THB,
+    localeLang: LANGUAGE_CODE.THAILAND,
+    image: require('app/assets/images/common/th.jpg'),
+    language: [
+      {
+        label: 'English',
+        value: LANGUAGE_CODE.ENGLISH,
+      },
+      {
+        label: 'ไทย',
+        value: LANGUAGE_CODE.THAILAND,
       },
     ],
   },
