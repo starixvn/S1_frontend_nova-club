@@ -57,6 +57,7 @@ const MENU: MenuProps[] = [
   {
     route: '/games/cockfighting',
     label: 'game.category.cockfighting',
+    tag: 'game.new',
   },
   {
     route: '/livecasino',
@@ -87,7 +88,6 @@ const MENU: MenuProps[] = [
   {
     route: '/event/mystery-drop',
     label: 'event.mystery.title',
-    tag: 'game.new',
   },
   // {
   //   route: '/leaderboard',
