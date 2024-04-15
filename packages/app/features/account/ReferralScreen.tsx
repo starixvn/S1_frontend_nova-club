@@ -24,6 +24,7 @@ const ReferralScreen = () => {
 
   const { data: playerData } = usePlayerProfileQuery()
 
+  const currency = useAppSelector((s) => s.setting.currency)
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const { data, isFetching } = usePlayerOverviewSummaryQuery(undefined, {
     skip: !token,
@@ -33,7 +34,9 @@ const ReferralScreen = () => {
   const referralLink = `${DEV_DOMAIN}/download?ref=${referralCode}`
 
   const referralFriend = data?.data?.registered ?? 0
-  const referralComm = `VND ${toThousandSeparator(data?.data?.ref_comm || '')}`
+  const referralComm = `${currency} ${toThousandSeparator(
+    data?.data?.ref_comm || ''
+  )}`
 
   return (
     <PageWithBackHeader
