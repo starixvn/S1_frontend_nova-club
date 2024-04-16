@@ -3,11 +3,11 @@ stages:
   - deploy
 
 variables:
-  ENV: 'prod'
-  MAIN_IMAGE: 'hub.beacora.com/vui123/web-${ENV}:${CI_COMMIT_TAG}'
-  REWARDS_IMAGE: 'hub.beacora.com/vui123/web-rewards-${ENV}:${CI_COMMIT_TAG}'
-  MAIN_VERSION_FILE: 'apps/next/public/v.json'
-  REWARDS_VERSION_FILE: 'apps/rewards-next/public/v.json'
+  ENV: "prod"
+  MAIN_IMAGE: "hub.beacora.com/vui123/web-${ENV}:${CI_COMMIT_TAG}"
+  REWARDS_IMAGE: "hub.beacora.com/vui123/web-rewards-${ENV}:${CI_COMMIT_TAG}"
+  MAIN_VERSION_FILE: "apps/next/public/v.json"
+  REWARDS_VERSION_FILE: "apps/rewards-next/public/v.json"
 
 .build-template: &build_job
   stage: build
@@ -44,7 +44,7 @@ build:
   extends: .build-template
   variables:
     DOCKER_IMAGE_NAME: ${MAIN_IMAGE}
-    DOCKERFILE_NAME: 'Dockerfile'
+    DOCKERFILE_NAME: "Dockerfile"
     VERSION_FILE: ${MAIN_VERSION_FILE}
   <<: *build_job
 
@@ -52,7 +52,7 @@ build-rewards:
   extends: .build-template
   variables:
     DOCKER_IMAGE_NAME: ${REWARDS_IMAGE}
-    DOCKERFILE_NAME: 'Dockerfile.rewards'
+    DOCKERFILE_NAME: "Dockerfile.rewards"
     VERSION_FILE: ${REWARDS_VERSION_FILE}
   <<: *build_job
   rules:
@@ -62,27 +62,27 @@ build-rewards:
 deploy:
   variables:
     DOCKER_IMAGE_NAME: ${MAIN_IMAGE}
-    KUBE_PODNAME: 'prod-n88club-h5'
-    KUBE_REPLICA: '6'
-    KUBE_LOADBALANCER: '10.7.102.3'
-    KUBE_LIMIT_CPU: '1'
-    KUBE_LIMIT_MEMORY: '2000Mi'
+    KUBE_PODNAME: "prod-n88club-h5"
+    KUBE_REPLICA: "6"
+    KUBE_LOADBALANCER: "10.7.102.3"
+    KUBE_LIMIT_CPU: "1"
+    KUBE_LIMIT_MEMORY: "2000Mi"
   needs:
     - job: build
       optional: true
   <<: *deploy_job
   rules:
     - if: $CI_COMMIT_TAG =~ /^ProdV/
-      when: on_success
+      when: manual
 
 deploy-rewards:
   variables:
     DOCKER_IMAGE_NAME: ${REWARDS_IMAGE}
-    KUBE_PODNAME: 'prod-n88club-h5-rewards'
-    KUBE_REPLICA: '2'
-    KUBE_LOADBALANCER: '10.7.102.4'
-    KUBE_LIMIT_CPU: '0.5'
-    KUBE_LIMIT_MEMORY: '1000Mi'
+    KUBE_PODNAME: "prod-n88club-h5-rewards"
+    KUBE_REPLICA: "2"
+    KUBE_LOADBALANCER: "10.7.102.4"
+    KUBE_LIMIT_CPU: "0.5"
+    KUBE_LIMIT_MEMORY: "1000Mi"
   needs:
     - job: build-rewards
       optional: true
@@ -90,4 +90,3 @@ deploy-rewards:
   rules:
     - if: $CI_COMMIT_TAG =~ /^ProdV/
       when: manual
-
