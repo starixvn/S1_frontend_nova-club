@@ -73,7 +73,7 @@ export default function CodePushProvider({ children }: Props) {
 
       return downloaded;
     } catch (e) {
-      console.log('Code Push Download Interupted');
+      console.log('Code Push Download Interupted', e);
       setProgress(0);
       setStatus(codePush.SyncStatus.UNKNOWN_ERROR);
     }
@@ -91,6 +91,7 @@ export default function CodePushProvider({ children }: Props) {
   async function codePushChecking() {
     if (__DEV__) return setStatus(codePush.SyncStatus.UP_TO_DATE);
     try {
+      setStatus(codePush.SyncStatus.CHECKING_FOR_UPDATE);
       const latestPackage = await codePush.checkForUpdate();
       console.log('Latest Package : ', latestPackage);
       if (latestPackage) {
@@ -150,7 +151,7 @@ export default function CodePushProvider({ children }: Props) {
           clearTimeout(retry);
         };
       } else {
-        const retry = setTimeout(() => init(), 3000);
+        const retry = setTimeout(() => init(), 5000);
 
         return () => clearTimeout(retry);
       }
@@ -162,7 +163,9 @@ export default function CodePushProvider({ children }: Props) {
   // Prevent direct children to rerender whenver code push state updated
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const MemoizedChildren = useMemo(() => children, []);
-  const isCodePushSkipAble = !!(remotePackage && !remotePackage.isMandatory);
+  const isCodePushSkipAble =
+    !!(remotePackage && !remotePackage.isMandatory) ||
+    status === codePush.SyncStatus.UNKNOWN_ERROR;
   return (
     <CodePushContext.Provider
       value={{
