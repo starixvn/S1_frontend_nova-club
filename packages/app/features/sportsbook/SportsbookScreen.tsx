@@ -2,22 +2,20 @@ import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
 import GameCard from 'app/components/game/GameCard'
-import {
-  GetCommissionList,
-  GetGameRebateValue,
-} from 'app/components/game/GameUtilityAction'
+import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
 import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import useLocalization from 'app/provider/localization'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
+import { useCommissionTableQuery } from 'services/contentApi'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
-import { GAME_TYPE_CODE } from 'utils/constant'
+import { GAME_TYPE_CODE, LANGUAGE_NAMESPACE } from 'utils/constant'
 import MatchSection from './MatchSection'
+import FocusedLocalizationProvider from 'app/provider/localization/FocusedLocalizationProvider'
 
 export default function SportsbookScreen() {
-  const { t } = useLocalization()
   const { locale, currency } = useDefaultParamSelector()
 
   const { data } = useGetGameListByCategoryQuery({
@@ -28,7 +26,10 @@ export default function SportsbookScreen() {
       GAME_TYPE_CODE.VIRTUAL_SPORTS,
     ],
   })
-  const commissionList = GetCommissionList()
+
+  const { data: commissionList } = useCommissionTableQuery({
+    currency,
+  })
 
   const numColumns = useResponsiveValue([2, 3, 3, 4])
 
@@ -38,8 +39,6 @@ export default function SportsbookScreen() {
   }, [data])
 
   function renderItem({ item, index }: { item: Game; index: number }) {
-    const { name } = item
-
     const isMostLeft = index % numColumns === 0
     const isMostRight = index % numColumns === numColumns - 1
     const isMiddle = !isMostLeft && !isMostRight
@@ -76,28 +75,30 @@ export default function SportsbookScreen() {
   }
 
   return (
-    <ScrollToTopWrapper>
-      <FlashList
-        key={numColumns}
-        estimatedItemSize={160}
-        showsVerticalScrollIndicator={false}
-        data={providers}
-        renderItem={renderItem}
-        numColumns={numColumns}
-        contentContainerStyle={{
-          paddingBottom: 40,
-        }}
-        extraData={commissionList}
-        ListHeaderComponent={
-          <View sx={{ gap: '$3', my: '$3' }}>
-            <GamePageHeader
-              title={t('game.category.sportsbook')}
-              icon="sportbook"
-            />
-            <MatchSection />
-          </View>
-        }
-      />
-    </ScrollToTopWrapper>
+    <FocusedLocalizationProvider namespace={LANGUAGE_NAMESPACE.MEMBER}>
+      <ScrollToTopWrapper>
+        <FlashList
+          key={numColumns}
+          estimatedItemSize={160}
+          showsVerticalScrollIndicator={false}
+          data={providers}
+          renderItem={renderItem}
+          numColumns={numColumns}
+          contentContainerStyle={{
+            paddingBottom: 40,
+          }}
+          extraData={commissionList}
+          ListHeaderComponent={
+            <View sx={{ gap: '$3', my: '$3' }}>
+              <GamePageHeader
+                title={'game.category.sportsbook'}
+                icon="sportbook"
+              />
+              <MatchSection />
+            </View>
+          }
+        />
+      </ScrollToTopWrapper>
+    </FocusedLocalizationProvider>
   )
 }

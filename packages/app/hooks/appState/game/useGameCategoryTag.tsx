@@ -1,10 +1,9 @@
-import { View, Text } from 'react-native'
-import React, { useCallback, useMemo } from 'react'
-import { useGameCategoryTagTypesQuery } from 'services/gameApi'
-import { GAME_TYPE_CODE } from 'utils/constant'
-import { GameCategoryTagTypes } from 'services/gameApi.type'
-import { useAppSelector } from 'app/provider/redux/store'
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
 import useLocalization from 'app/provider/localization'
+import { useCallback, useMemo } from 'react'
+import { useGameCategoryTagTypesQuery } from 'services/gameApi'
+import { GameCategoryTagTypes } from 'services/gameApi.type'
+import { GAME_TYPE_CODE } from 'utils/constant'
 
 export type GameCategoryTagTranslation = Record<
   string,
@@ -17,18 +16,18 @@ const useGameCategoryTag = (
   gameTypes: GAME_TYPE_CODE[],
   options?: UseQueryOption
 ) => {
-  const currency = useAppSelector((s) => s.setting.currency)
-  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery(
+  const currency = useFocusedSelector((s) => s.setting.currency)
+  const { data } = useGameCategoryTagTypesQuery(
     currency,
     options as any // Without `any` type casting, the `data` will become `any` type
   )
 
   const gameCategoryTagTranslation = useMemo(() => {
-    if (!gameCategoryTagTypes) {
+    if (!data) {
       return
     }
 
-    const tagTranslation = gameCategoryTagTypes.filter((tag) =>
+    const tagTranslation = data.filter((tag) =>
       gameTypes.includes(tag.gtc as GAME_TYPE_CODE)
     )
 
@@ -41,15 +40,15 @@ const useGameCategoryTag = (
     )
 
     return result
-  }, [gameCategoryTagTypes, gameTypes])
+  }, [data, gameTypes])
 
-  return { gameCategoryTagTranslation }
+  return gameCategoryTagTranslation
 }
 
 export default useGameCategoryTag
 
 export const useGetTagName = () => {
-  const locale = useAppSelector((s) => s.setting.locale)
+  const locale = useFocusedSelector((s) => s.setting.locale)
   const { t } = useLocalization()
 
   const getTagName = useCallback(

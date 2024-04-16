@@ -1,13 +1,13 @@
-import { GAME_TYPE_CODE } from 'utils/constant'
+import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
 import React, { startTransition, useEffect, useState } from 'react'
+import { useCommissionTableQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
-import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
-import { useAppSelector } from 'app/provider/redux/store'
 
 type Props = {}
 
@@ -20,16 +20,16 @@ const { useParam } = createParam<Params>()
 const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
 
 export default function SlotByProviderScreen({}: Props) {
-  const currency = useAppSelector((s) => s.setting.currency)
+  const currency = useFocusedSelector((s) => s.setting.currency)
   const { data: games } = useGameListMultipleQuery({
     currency,
     game_category: GameCategory,
   })
-  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
+  const gameCategoryTagTranslation = useGameCategoryTag(GameCategory)
 
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
   const [provider, setProvider] = useParam('provider')
-  const commissionList = GetCommissionList()
+  const { data: commissionList } = useCommissionTableQuery({ currency })
 
   const { back } = useRouter()
 

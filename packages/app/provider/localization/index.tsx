@@ -1,30 +1,19 @@
-import { I18n, Scope, TranslateOptions } from 'i18n-js'
-import React from 'react'
+import { I18n } from 'i18n-js'
+import React, { useCallback } from 'react'
 
 import {
-  CombinedOptions,
-  DefaultParamType,
   TolgeeProvider,
   TolgeeStaticData,
-  TranslationKey,
   TreeTranslationsData,
   useTranslate,
 } from '@tolgee/react'
 import vi from 'app/assets/locales/vi.json'
-import { tolgee } from 'app/integrations/tolgee'
+import { Translate, tolgee, useTolgeeTranslate } from 'app/integrations/tolgee'
 import { localizationApi } from 'services/localizationApi'
 import { sleep } from 'utils/common'
 import { LANGUAGE_CODE, LANGUAGE_NAMESPACE } from 'utils/constant'
 import { store, useAppSelector } from '../redux/store'
-
-export type Translate = (scope: Scope, options?: TranslateOptions) => string
-
-interface LocalizationProviderProps {
-  children: React.ReactNode
-  locale: LANGUAGE_CODE
-  module?: string
-  i18n: I18n
-}
+import useFocusedLocalization from './useFocusedLocalization'
 
 export function getLanguageFetcher(
   locale: LANGUAGE_CODE,
@@ -73,25 +62,8 @@ tolgee.addStaticData(
   prepareTolgeeStaticDataByNamespace(LANGUAGE_NAMESPACE.MEMBER, vi)
 )
 
-function useTolgeeTranslate(ns: LANGUAGE_NAMESPACE) {
-  const { t: tolgeeT, isLoading } = useTranslate(ns)
-
-  const t = (
-    key: TranslationKey,
-    placeholders?: CombinedOptions<DefaultParamType>
-  ) => {
-    return tolgeeT(
-      key,
-      isLoading ? ' ' : key, // render empty string if no translation available / while being downloaded
-      placeholders
-    )
-  }
-
-  return { t }
-}
-
 export default function useLocalization() {
-  return useTolgeeTranslate(LANGUAGE_NAMESPACE.MEMBER)
+  return useFocusedLocalization()
 }
 
 export function useAgentLocalization() {

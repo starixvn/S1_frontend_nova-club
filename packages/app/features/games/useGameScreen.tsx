@@ -45,7 +45,7 @@ export default function useGameScreen(defaultType?: string) {
   const route = type ? SUB_ROUTES[type] : undefined
   if (!route && defaultType) setType(defaultType)
 
-  const { gameCategoryTagTranslation } = useGameCategoryTag(
+  const gameCategoryTagTranslation = useGameCategoryTag(
     Route_GameCategory[type ?? defaultType ?? GAME_TYPE_CODE.GAMES]
   )
 

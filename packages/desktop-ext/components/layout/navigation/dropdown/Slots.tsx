@@ -1,29 +1,29 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import GameCard from 'app/components/game/GameCard'
 import {
-  GetCommissionList,
-  GetGameRebateValue,
+  GetGameRebateValue
 } from 'app/components/game/GameUtilityAction'
+import { useAppSelector } from 'app/provider/redux/store'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
+import { useCommissionTableQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { useRouter } from 'solito/router'
 import { GAME_TYPE_CODE } from 'utils/constant'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
-import { useAppSelector } from 'app/provider/redux/store'
 
 type Props = {}
 
 export default function Slots({}: Props) {
   const { push } = useRouter()
-  const commissionList = GetCommissionList()
   // const { data } = useGetGameListByCategoryQuery([
   //   GAME_TYPE_CODE.SLOTS,
   //   GAME_TYPE_CODE.FISHING,
   // ])
 
   const currency = useAppSelector((s) => s.setting.currency)
+  const { data: commissionList } = useCommissionTableQuery({ currency })
 
   const { data } = useGameListMultipleQuery({
     currency,

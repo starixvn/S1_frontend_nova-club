@@ -6,8 +6,8 @@ import DataTableHeader from 'app/components/dataTable/DataTableHeader'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import { getRankStatusImage } from 'app/config/leaderboard'
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import { Row, Text } from 'dripsy'
 import React from 'react'
 import { useGetLeaderboardQuery } from 'services/contentApi'
@@ -15,7 +15,7 @@ import { SolitoImage } from 'solito/image'
 
 const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
   const { t } = useLocalization()
-  const currency = useAppSelector((s) => s.setting.currency)
+  const currency = useFocusedSelector((s) => s.setting.currency)
   const { data } = useGetLeaderboardQuery(currency)
 
   const leaderboardData = maxRow ? data?.slice(0, maxRow) : data

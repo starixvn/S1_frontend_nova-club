@@ -1,14 +1,14 @@
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
+import { useAppSelector } from 'app/provider/redux/store'
 import React, { startTransition, useEffect, useState } from 'react'
+import { useCommissionTableQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import GamesSingleProviderListing from './GamesSingleProviderListing'
 import { SUB_ROUTES } from './subroutes'
-import { useAppSelector } from 'app/provider/redux/store'
 
 type Props = {}
 
@@ -32,8 +32,8 @@ export default function GamesByProviderScreen({}: Props) {
     game_category: GameCategory,
     gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
   })
-  const commissionList = GetCommissionList()
-  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
+  const { data: commissionList } = useCommissionTableQuery({ currency })
+  const gameCategoryTagTranslation = useGameCategoryTag(GameCategory)
 
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
   const [type, setType] = useState<string>()

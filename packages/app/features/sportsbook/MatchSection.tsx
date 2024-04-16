@@ -1,17 +1,16 @@
 import MatchCarousel from 'app/components/match/MatchCarousel'
-import useIsDesktop from 'app/hooks/useIsDesktop'
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
 import { View } from 'dripsy'
 import React, { useState } from 'react'
+import { Platform } from 'react-native'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import MatchLeagueSelector from './MatchLeagueSelector'
-import { useAppSelector } from 'app/provider/redux/store'
 
 export default function MatchSection() {
-  const desktop = useIsDesktop()
   const [selectedLeague, setSelectedLeague] = useState<string>()
-  const currency = useAppSelector((s) => s.setting.currency)
-  const { leagues, data } = useGetRecoMatchQuery(
-    { isApp: !desktop, currency },
+  const currency = useFocusedSelector((s) => s.setting.currency)
+  const { leagues } = useGetRecoMatchQuery(
+    { isApp: Platform.OS !== 'web', currency },
     {
       selectFromResult: (resp) => ({
         ...resp,

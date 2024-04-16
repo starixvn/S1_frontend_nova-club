@@ -26,7 +26,10 @@ export default function Root() {
       <Tabs
         // tabBar={() => <BottomTabBar />}
         tabBar={() => (splashScreenLoaded ? <BottomTabBar /> : null)}
-        screenOptions={{ header: (props) => null }}
+        screenOptions={{
+          header: (props) => null,
+          lazy: true,
+        }}
         sceneContainerStyle={{ backgroundColor: '#1E2238' }} // need to find ways to use dripsy, or move to packages/app
       />
     </View>

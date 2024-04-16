@@ -172,8 +172,6 @@ export default function GameGridSection() {
         )
       })}
 
-      <CnyFlower />
-      <CnyRedPacket />
     </Row>
   )
 }

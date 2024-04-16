@@ -7,6 +7,7 @@ import LeaderboardSection from './LeaderboardSection'
 import MatchSection from './Match/MatchSection'
 import ReferralSection from './Referral/ReferralSection'
 import { CnyFlower2, CnyLantern } from './CnyTheme'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 
 type Props = {}
 
@@ -16,6 +17,7 @@ export default function DeferredSection({}: Props) {
   return (
     <View sx={{ gap: ['$3', '$4'] }}>
       <GameListSectionAsyncByTag
+        key={currency + locale + 0}
         tag={SlotType.NEW}
         title={t('game.new').toUpperCase()}
         icon="star"
@@ -23,12 +25,14 @@ export default function DeferredSection({}: Props) {
       />
 
       <GameListSectionAsyncByTag
+        key={currency + locale + 1}
         tag={SlotType.JACKPOT}
         title={t('game.jackpot').toUpperCase()}
         icon="jackpot"
         seeMoreUrl="/tag/jackpot"
       />
       <GameListSectionAsyncByTag
+        key={currency + locale + 2}
         tag={SlotType.MEGAWAY}
         title={t('game.megaway').toUpperCase()}
         icon="megaway"
@@ -36,11 +40,7 @@ export default function DeferredSection({}: Props) {
       />
       <MatchSection />
       <LeaderboardSection />
-
-      <View>
-        <ReferralSection />
-        <CnyFlower2 />
-      </View>
+      <ReferralSection />
     </View>
   )
 }

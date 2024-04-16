@@ -4,6 +4,7 @@ import GameListSection, { GameListSectionProps } from './GameListSection'
 import { SlotType } from 'utils/constant'
 import { useAppSelector } from 'app/provider/redux/store'
 
+import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 interface GameListSectionAsyncByTagProps
   extends Omit<GameListSectionProps, 'data'> {
   tag: SlotType
@@ -23,7 +24,7 @@ const GameListSectionAsyncByTag = ({
   useEffect(() => {
     setTimeout(() => {
       setDelayed(true)
-    }, delay ?? 10)
+    }, delay ?? Math.random() * 1000)
   }, [])
 
   const { data } = useGetGameListByTagsQuery(

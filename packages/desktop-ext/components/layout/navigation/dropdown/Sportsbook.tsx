@@ -1,16 +1,15 @@
 import GameCard from 'app/components/game/GameCard'
 import {
-  GetCommissionList,
-  GetGameRebateValue,
+  GetGameRebateValue
 } from 'app/components/game/GameUtilityAction'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
+import { useCommissionTableQuery } from 'services/contentApi'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { GAME_TYPE_CODE } from 'utils/constant'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
-import { useAppSelector } from 'app/provider/redux/store'
-import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 
 type Props = {}
 
@@ -25,7 +24,7 @@ export default function Sportsbook({}: Props) {
     ],
   })
 
-  const commissionList = GetCommissionList()
+  const { data: commissionList } = useCommissionTableQuery({ currency })
 
   const providers = useMemo(() => {
     if (data) return uniqBy(data, (d) => [d.gpc, d.gtc].join())

@@ -1,5 +1,6 @@
-import { RootState, useAppSelector } from 'app/provider/redux/store'
+import { RootState } from 'app/provider/redux/store'
 import { createSelector } from 'reselect'
+import useFocusedSelector from './useFocusedSelector'
 
 export const languageCurrencySelector = createSelector(
   (s: RootState) => s.setting.currency,
@@ -13,5 +14,5 @@ export const languageCurrencySelector = createSelector(
 )
 
 export default function useDefaultParamSelector() {
-  return useAppSelector(languageCurrencySelector)
+  return useFocusedSelector(languageCurrencySelector)
 }

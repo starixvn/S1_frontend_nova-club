@@ -4,7 +4,6 @@ import TopGameCard, { height } from 'app/components/game/TopGameCard'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import { View, styled } from 'dripsy'
 import maxBy from 'lodash/maxBy'
 import uniqBy from 'lodash/uniqBy'
@@ -16,9 +15,11 @@ import {
   useFeaturedGameListQuery,
 } from 'services/gameApi'
 
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
+
 export default function TopGameSection(props) {
   const { t } = useLocalization()
-  const currency = useAppSelector((state) => state.setting.currency)
+  const currency = useFocusedSelector((state) => state.setting.currency)
 
   const { data: commissionList } = useCommissionTableQuery({
     currency,

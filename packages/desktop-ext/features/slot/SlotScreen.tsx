@@ -63,7 +63,7 @@ function SlotScreen({}: Props) {
     game_category: GameCategory,
   })
 
-  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
+  const gameCategoryTagTranslation = useGameCategoryTag(GameCategory)
 
   const providers = useMemo(() => {
     if (games)

@@ -31,10 +31,10 @@ interface SlotSingleProviderListingProps {
   provider?: string
   icon?: string
   title?: string
-  onBack: () => void
+  onBack?: () => void
   sx?: SxProp
   gameCategoryTagTranslation?: GameCategoryTagTranslation
-  commissionList: CommissionTableResult[]
+  commissionList?: CommissionTableResult[]
   gtc: string
   hideTag?: boolean
 }

@@ -1,24 +1,22 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import GameCard from 'app/components/game/GameCard'
-import { GAME_TYPE_CODE } from 'utils/constant'
+import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
+import { useCommissionTableQuery } from 'services/contentApi'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { useRouter } from 'solito/router'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
-import {
-  GetCommissionList,
-  GetGameRebateValue,
-} from 'app/components/game/GameUtilityAction'
 import { useAppSelector } from 'app/provider/redux/store'
 
 type Props = {}
 
 export default function LiveCasino({}: Props) {
   const { push } = useRouter()
-  const commissionList = GetCommissionList()
   const currency = useAppSelector((s) => s.setting.currency)
+  const { data: commissionList } = useCommissionTableQuery({ currency })
 
   const { data } = useGetGameListByCategoryQuery({
     currency,

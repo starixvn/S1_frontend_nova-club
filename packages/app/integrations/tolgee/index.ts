@@ -1,13 +1,41 @@
-import { LOCALIZATION_DOMAIN, LOCALIZATION_KEY } from '@env'
-import { DevTools, FormatSimple, Tolgee } from '@tolgee/react'
-import { Platform } from 'react-native'
-import { LANGUAGE_CODE, LANGUAGE_NAMESPACE } from 'utils/constant'
+import {
+  CombinedOptions,
+  DefaultParamType,
+  FormatSimple,
+  Tolgee,
+  TranslationKey,
+  useTranslate
+} from '@tolgee/react'
+import { useCallback } from 'react'
+import { LANGUAGE_NAMESPACE } from 'utils/constant'
+
+export type Translate = (
+  key: TranslationKey,
+  placeholders?: CombinedOptions<DefaultParamType>
+) => string
 
 export const tolgee = Tolgee().use(FormatSimple()).init({
   //   language: LANGUAGE_CODE.VIETNAM,
   //   defaultNs: LANGUAGE_NAMESPACE.MEMBER,
   //   fallbackLanguage: LANGUAGE_CODE.VIETNAM,
 })
+
+export function useTolgeeTranslate(ns: LANGUAGE_NAMESPACE) {
+  const { t: tolgeeT, isLoading } = useTranslate(ns)
+
+  const t = useCallback<Translate>(
+    (key, placeholders) => {
+      return tolgeeT(
+        key,
+        isLoading ? ' ' : key, // render empty string if no translation available / while being downloaded
+        placeholders
+      )
+    },
+    [tolgeeT, isLoading]
+  )
+
+  return { t }
+}
 
 // To enable on Staging / Prelaunch
 // if (Platform.OS === 'web') {

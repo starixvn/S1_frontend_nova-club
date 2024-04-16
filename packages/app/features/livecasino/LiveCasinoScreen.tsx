@@ -5,31 +5,32 @@ import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
 import SectionHeader from 'app/components/SectionHeader'
 import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameCard from 'app/components/game/GameCard'
-import {
-  GetCommissionList,
-  GetGameRebateValue,
-} from 'app/components/game/GameUtilityAction'
+import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
+import FocusedLocalizationProvider from 'app/provider/localization/FocusedLocalizationProvider'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, { useMemo } from 'react'
-import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
+import {
+  selectBannerByPage,
+  useBannerQuery,
+  useCommissionTableQuery,
+} from 'services/contentApi'
+import { BannerPage } from 'services/contentApi.type'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
-import { GAME_TYPE_CODE } from 'utils/constant'
+import { GAME_TYPE_CODE, LANGUAGE_NAMESPACE } from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
-import { BannerPage } from 'services/contentApi.type'
 
 export default function LiveCasinoScreen() {
-  const currency = useAppSelector((s) => s.setting.currency)
+  const currency = useFocusedSelector((s) => s.setting.currency)
   const { data } = useGetGameListByCategoryQuery({
     categories: [GAME_TYPE_CODE.LIVE_DEALER],
     currency,
   })
 
-  const { t } = useLocalization()
-  const commissionList = GetCommissionList()
+  const { data: commissionList } = useCommissionTableQuery({ currency })
   const { banners } = useBannerQuery(currency, {
     selectFromResult: (s) => {
       return {
@@ -94,38 +95,38 @@ export default function LiveCasinoScreen() {
   }
 
   return (
-    <ScrollToTopWrapper>
-      <FlashList
-        key={numColumns}
-        estimatedItemSize={160}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: 30,
-        }}
-        data={firstGameOfEachProvider}
-        renderItem={renderItem}
-        numColumns={numColumns}
-        extraData={commissionList}
-        ListHeaderComponent={
-          <View sx={{ gap: '$3', my: '$3' }}>
-            <GamePageHeader
-              title={t('game.category.liveCasino')}
-              icon="casino"
-            />
+    <FocusedLocalizationProvider namespace={LANGUAGE_NAMESPACE.MEMBER}>
+      <ScrollToTopWrapper>
+        <FlashList
+          key={numColumns}
+          estimatedItemSize={160}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: 30,
+          }}
+          data={firstGameOfEachProvider}
+          renderItem={renderItem}
+          numColumns={numColumns}
+          extraData={commissionList}
+          ListHeaderComponent={<LiveCasinoHeader banners={banners} />}
+        />
+      </ScrollToTopWrapper>
+    </FocusedLocalizationProvider>
+  )
+}
 
-            <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
-              {/* <SolitoImage
-              fill
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/pp-live-casino.jpg`}
-              alt="dailywins"
-            /> */}
-              <BannerCarousel data={banners} />
-            </View>
-            <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
-            <SectionHeader title={t('common.provider')} icon="all" />
-          </View>
-        }
-      />
-    </ScrollToTopWrapper>
+function LiveCasinoHeader({ banners }) {
+  const { t } = useLocalization()
+
+  return (
+    <View sx={{ gap: '$3', my: '$3' }}>
+      <GamePageHeader title={'game.category.liveCasino'} icon="casino" />
+
+      <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
+        <BannerCarousel data={banners} />
+      </View>
+      <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
+      <SectionHeader title={t('common.provider')} icon="all" />
+    </View>
   )
 }

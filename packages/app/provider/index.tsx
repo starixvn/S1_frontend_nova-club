@@ -14,6 +14,8 @@ import ModalProvider from './modal'
 import ReduxProvider from './redux'
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
+import FocusedLocalizationProvider from './localization/FocusedLocalizationProvider'
+import { LANGUAGE_NAMESPACE } from 'utils/constant'
 
 dayjs.extend(isBetween)
 
@@ -26,20 +28,25 @@ export function Provider({ children }: { children: React.ReactNode }) {
     <Dripsy>
       <ReduxProvider>
         <LocalizationProviderRedux>
-          <DrawerProvider>
-            <ModalProvider>
-              {children}
-              <GameLauncher />
-              <Branch />
-              <Shield />
-              <Notification />
-              <ReferralTrigger />
-              {isCNY && <SakuraFall />}
-              <RegisterUniqueId />
-              <OnlineTracking />
-            </ModalProvider>
-          </DrawerProvider>
-          <RootToast />
+          <FocusedLocalizationProvider
+            namespace={LANGUAGE_NAMESPACE.MEMBER}
+            disabled
+          >
+            <DrawerProvider>
+              <ModalProvider>
+                {children}
+                <GameLauncher />
+                <Branch />
+                <Shield />
+                <Notification />
+                <ReferralTrigger />
+                {isCNY && <SakuraFall />}
+                <RegisterUniqueId />
+                <OnlineTracking />
+              </ModalProvider>
+            </DrawerProvider>
+            <RootToast />
+          </FocusedLocalizationProvider>
         </LocalizationProviderRedux>
       </ReduxProvider>
     </Dripsy>
