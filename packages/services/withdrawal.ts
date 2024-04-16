@@ -1,7 +1,6 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
-  Avail,
   AvailableWithdrawalAmountResult,
   CryptoExchangeRateArgs,
   CryptoExchangeRateResult,
@@ -21,17 +20,7 @@ const withdrawalApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['Balance', 'Report'],
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-          // `onSuccess` side-effect
-          // dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
-          // dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
-        } catch (err) {
-          // `onError` side-effect
-        }
-      },
+      invalidatesTags: ['Balance', 'Report', 'AvailableAmount'],
     }),
     cryptoExchangeRate: builder.query<
       IResponse<CryptoExchangeRateResult>,
@@ -52,14 +41,13 @@ const withdrawalApi = baseApiWithTag.injectEndpoints({
       query: () => ({
         url: `/player_api/v1/getAvailWithdrawAmount`,
         method: 'POST',
-        data: {},
       }),
       transformResponse: ({
         data,
       }: {
         data: AvailableWithdrawalAmountResult
       }) => {
-        return { balance: data?.balance }
+        return data
       },
       providesTags: ['AvailableAmount'],
     }),

@@ -1,6 +1,7 @@
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useCallback } from 'react'
+import { IResponse } from 'services/common/types'
 
 export enum FailedMessageModule {
   topUpCard = 'topUpCard',
@@ -11,15 +12,12 @@ const useDepositFailedMessage = () => {
   const { t } = useLocalization()
 
   const dispatchDepositFailedMessage = useCallback(
-    (error: unknown, options?: { module: FailedMessageModule }) => {
+    (error: IResponse, options?: { module: FailedMessageModule }) => {
       let errorMessage = t('deposit.commonError')
 
       if (error && typeof error === 'object') {
-        if (
-          options?.module === FailedMessageModule.topUpCard &&
-          'message' in error
-        ) {
-          errorMessage = `${error.message}`
+        if (error.code === 24005 && 'message' in error) {
+          errorMessage = `${error.message} [${error.code}]`
         } else if ('code' in error) {
           errorMessage += ` [${error.code}]`
         }

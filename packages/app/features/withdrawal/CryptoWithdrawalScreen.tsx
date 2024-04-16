@@ -4,11 +4,13 @@ import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
 import useLocalization from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
-import { ReportCommonStatus, WITHDRAWAL_NOTES } from 'utils/constant'
 import { Text, View, styled } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { WITHDRAWAL_TYPE } from 'services/playerApi.type'
+import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
+import { ReportCommonStatus, WITHDRAWAL_NOTES } from 'utils/constant'
+import DailyMax from '../deposit/component/DailyMax'
 import AvailableBalance from './components/AvailableBalance'
 import WithdrawalForm from './components/WithdrawalForm'
 import WithdrawalTransactions from './components/WithdrawalTransactions'
@@ -28,6 +30,7 @@ const CryptoWithdrawalScreen = () => {
     onPressRadioButton,
   } = useCryptoSelection()
 
+  const { data: availAmount } = useGetAvailableWithdrawalAmountQuery()
   const { currency, convertedAmount, ratesLoading } = useCryptoRates(
     selectedChannel?.value
   )
@@ -47,6 +50,13 @@ const CryptoWithdrawalScreen = () => {
     >
       <StyledView>
         <AvailableBalance />
+        <DailyMax
+          type="withdrawal"
+          amount={availAmount?.current}
+          dailyMax={availAmount?.max}
+          sx={{ mb: '$3' }}
+        />
+
         {radioButtons.length ? (
           <View sx={{ mb: 12 }}>
             <RadioGroup

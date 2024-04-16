@@ -1,5 +1,5 @@
+import MoneyInput from 'app/components/MoneyInput'
 import Button from 'app/components/common/Button'
-import Input from 'app/components/form/Input'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { getBankLogo } from 'app/config/bank'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
@@ -25,6 +25,7 @@ import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useDepositPaymentListQuery,
+  useGetAvailableDepositAmountQuery,
   useSubmitManualDepositMutation,
 } from 'services/deposit'
 import { ManualBankItem } from 'services/deposit.type'
@@ -32,9 +33,9 @@ import * as Yup from 'yup'
 import BankSlipUpload, {
   BankSlipUploadMethod,
 } from '../component/BankSlipUpload'
+import DailyMax from '../component/DailyMax'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import AccountDetail from './AccountDetail'
-import MoneyInput from 'app/components/MoneyInput'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -59,6 +60,10 @@ const BankTransferForm = () => {
   const depositPayment = data?.data?.result?.manual?.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
+
+  const { data: dailyData } = useGetAvailableDepositAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
   const horizontalMode = useIsDesktop()
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
@@ -194,6 +199,11 @@ const BankTransferForm = () => {
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
+        <DailyMax
+          type="deposit"
+          amount={dailyData?.current}
+          dailyMax={dailyData?.max}
+        />
         {horizontalMode ? (
           <BankSelection
             label={t('bank.bank')}

@@ -57,7 +57,7 @@ const AvailableBalance = ({
 const MobileBalance = ({ label, totalBalance, currency, isLoading }) => (
   <View
     sx={{
-      pb: '$4',
+      pb: '$2',
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',

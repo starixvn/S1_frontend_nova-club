@@ -19,4 +19,6 @@ export type CryptoExchangeRateResult = {
 
 export type AvailableWithdrawalAmountResult = {
   balance: string
+  current: string
+  max: string
 }

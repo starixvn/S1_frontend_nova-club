@@ -15,11 +15,13 @@ import { Pressable } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useDepositPaymentListQuery,
+  useGetAvailableDepositAmountQuery,
   useSubmitDepositMutation,
 } from 'services/deposit'
 import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
 import { MaxLength, TopUpCard } from 'utils/constant'
 import * as Yup from 'yup'
+import DailyMax from '../component/DailyMax'
 import useDepositFailedMessage, {
   FailedMessageModule,
 } from '../tools/useDepositFailedMessage'
@@ -47,6 +49,9 @@ const TopupCardForm = () => {
   })
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 
+  const { data: dailyData } = useGetAvailableDepositAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
   const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.TOP_UP
   )
@@ -191,6 +196,11 @@ const TopupCardForm = () => {
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
+        <DailyMax
+          type="deposit"
+          amount={dailyData?.current}
+          dailyMax={dailyData?.max}
+        />
         {horizontalMode ? (
           <BankSelection
             label={t('deposit.paymentMode')}
