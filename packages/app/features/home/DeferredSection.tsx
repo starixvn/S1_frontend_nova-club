@@ -1,4 +1,5 @@
 import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
@@ -6,13 +7,12 @@ import { SlotType } from 'utils/constant'
 import LeaderboardSection from './LeaderboardSection'
 import MatchSection from './Match/MatchSection'
 import ReferralSection from './Referral/ReferralSection'
-import { CnyFlower2, CnyLantern } from './CnyTheme'
-import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 
 type Props = {}
 
 export default function DeferredSection({}: Props) {
   const { t } = useLocalization()
+  const { currency, locale } = useDefaultParamSelector()
 
   return (
     <View sx={{ gap: ['$3', '$4'] }}>
