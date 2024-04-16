@@ -1,11 +1,11 @@
 import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import React, { startTransition, useEffect, useState } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import GamesSingleProviderListing from './GamesSingleProviderListing'
 import { SUB_ROUTES } from './subroutes'
 
@@ -22,6 +22,7 @@ const GameCategory = [
   GAME_TYPE_CODE.GAMES,
   GAME_TYPE_CODE.FISHING,
   GAME_TYPE_CODE.LOTTERY,
+  GAME_TYPE_CODE.COCKFIGHTING,
 ]
 
 export default function GamesByProviderScreen({}: Props) {

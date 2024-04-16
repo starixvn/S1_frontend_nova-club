@@ -1,16 +1,16 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { SabaGamePayload } from 'app/constants/game'
-import { store } from 'app/provider/redux/store'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { Row, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import { getOs } from 'utils/platform'
-import GameGridSectionItem from './GameGridSectionItem'
 import { CnyFlower, CnyRedPacket } from './CnyTheme'
+import GameGridSectionItem from './GameGridSectionItem'
 
 export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/agent-recruitment_220.mp4`
+export const COCKFIGHTING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/cockfighting_220.mp4`
 export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing_350.mp4`
 export const LOTTERY_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/keno_350.mp4`
 export const GAME_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games_350.mp4`
@@ -35,15 +35,28 @@ const config = [
       },
     },
   },
+  // {
+  //   col: 2,
+  //   src: SHAREHOLDER_IMG,
+  //   type: 'video',
+  //   action: {
+  //     type: ActionType.INTERNAL_REDIRECT,
+  //     payload: {
+  //       uri: store.getState().auth.info?.token ? '/agent' : '/auth/register',
+  //       params: store.getState().auth.info?.token ? {} : { t: 'agent' },
+  //     },
+  //   },
+  // },
   {
     col: 2,
-    src: SHAREHOLDER_IMG,
+    src: COCKFIGHTING_IMG,
     type: 'video',
+    title: 'game.category.cockfighting',
+    // fallback: `${MEDIA_DOMAIN}${CONTENT_URI}/home/cockfighting.jpg`,
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        uri: store.getState().auth.info?.token ? '/agent' : '/auth/register',
-        params: store.getState().auth.info?.token ? {} : { t: 'agent' },
+        uri: '/games/cockfighting',
       },
     },
   },

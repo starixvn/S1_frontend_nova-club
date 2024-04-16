@@ -117,7 +117,12 @@ function requestSlotGameList() {
 
 function requestGamesGameList() {
   return requestGameList(
-    [GAME_TYPE_CODE.GAMES, GAME_TYPE_CODE.FISHING, GAME_TYPE_CODE.LOTTERY],
+    [
+      GAME_TYPE_CODE.GAMES,
+      GAME_TYPE_CODE.FISHING,
+      GAME_TYPE_CODE.LOTTERY,
+      GAME_TYPE_CODE.COCKFIGHTING,
+    ],
     [GDC_GAME_CATEGORY.CARDGAME]
   )
 }
