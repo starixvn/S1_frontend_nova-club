@@ -13,7 +13,6 @@ import {
   ElementRef,
   ReactNode,
   RefObject,
-  useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -21,8 +20,8 @@ import {
 } from 'react'
 import { Platform, Pressable } from 'react-native'
 import { useModal } from 'react-native-modalfy'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { NavMenuItem } from './TabNavMenu'
-import isEmpty from 'lodash/isEmpty'
 
 export default function RewardLayout({
   children,
@@ -72,6 +71,9 @@ const LeftPanel = () => {
   const { t } = useLocalization()
   const { openModal } = useModal()
   const pathname = usePathname()
+
+  const { data: profileData } = usePlayerProfileQuery()
+  const enableCheckIn = !profileData?.disabled_event ?? false
 
   function handleDailyCheckInModal() {
     openModal('DailyCheckInModal')
@@ -131,13 +133,10 @@ const LeftPanel = () => {
             )
           })}
         <View sx={{ mt: '$3' }}>
-          <Pressable onPress={handleDailyCheckInModal}>
-            {/* <Image
-              source={require('app/assets/images/rewards/check_in.png')}
-              alt="check-in"
-              resizeMode="cover"
-              sx={{ height: 133, mt: '$3' }}
-            /> */}
+          <Pressable
+            onPress={handleDailyCheckInModal}
+            disabled={!enableCheckIn}
+          >
             <Video
               isMuted
               isLooping
@@ -155,6 +154,17 @@ const LeftPanel = () => {
               }}
               resizeMode={ResizeMode.COVER}
             />
+            {!enableCheckIn && (
+              <View
+                sx={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  bg: 'black',
+                  opacity: 0.7,
+                }}
+              />
+            )}
           </Pressable>
         </View>
       </View>
