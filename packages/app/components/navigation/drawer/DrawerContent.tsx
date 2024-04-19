@@ -119,6 +119,13 @@ export default function DrawerContent() {
       },
       visible: Platform.OS === 'web',
     },
+    {
+      iconName: 'app-download',
+      text: 'event.euro.prediction',
+      onPress: () => {
+        push('/euro-cup/prediction')
+      },
+    },
   ]
 
   const handleDismiss = () => {

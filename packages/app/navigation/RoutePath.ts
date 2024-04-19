@@ -119,3 +119,28 @@ export const Profile_Quick_Navigation_Path: Route[] = [
     icon: 'logout',
   },
 ]
+
+export const EURO_BOTTOM_ROUTE: Required<
+  Pick<Route, 'icon' | 'path' | 'label'>
+>[] = [
+  {
+    label: 'event.euro.prediction',
+    path: '/euro-cup/prediction',
+    icon: 'prediction',
+  },
+  {
+    label: 'event.euro.rules',
+    path: '/euro-cup/rules',
+    icon: 'rules',
+  },
+  {
+    label: 'event.euro.tnc',
+    path: '/euro-cup/tnc',
+    icon: 'tnc',
+  },
+  {
+    label: 'common.history',
+    path: '/euro-cup/history',
+    icon: 'history',
+  },
+]
