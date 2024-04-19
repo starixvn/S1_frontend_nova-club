@@ -1,5 +1,5 @@
-import { DEV_DOMAIN } from '@env'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
@@ -9,7 +9,7 @@ import WebView from 'react-native-webview'
 const MidAutumnTnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
-  const TNC_URL = `${DEV_DOMAIN}/event/mid-autumn-tnc?locale=${lang}`
+  const TNC_URL = `${ROOT_DOMAIN}/event/mid-autumn-tnc?locale=${lang}`
 
   // Used to hide the header inside webview
   const INJECTED_JAVASCRIPT = `

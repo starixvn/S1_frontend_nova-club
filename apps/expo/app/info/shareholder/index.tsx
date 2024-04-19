@@ -1,5 +1,5 @@
-import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
@@ -10,7 +10,7 @@ const Shareholder = () => {
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
 
-  const TNC_URL = `${DEV_DOMAIN}/info/shareholder?locale=${lang}`
+  const TNC_URL = `${ROOT_DOMAIN}/info/shareholder?locale=${lang}`
 
   return (
     <PageWithBackHeader

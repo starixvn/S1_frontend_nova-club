@@ -5,6 +5,7 @@ import CheckBox from 'app/components/common/CheckBox'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import { MOBILE_PREFIX } from 'app/constants/country'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
@@ -18,7 +19,6 @@ import { ModalComponentProp } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
-import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
 import { RegisterFormValues } from './RegisterScreen'
 
@@ -56,7 +56,7 @@ const AccountVerificationForm = ({
   const { showAlert } = useAlert()
   const locale = useAppSelector((s) => s.setting.locale)
 
-  const tncUrl = `${DEV_DOMAIN}/info/tnc?locale=${locale}`
+  const tncUrl = `${ROOT_DOMAIN}/info/tnc?locale=${locale}`
 
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)

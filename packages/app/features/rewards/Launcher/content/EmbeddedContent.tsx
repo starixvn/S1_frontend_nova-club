@@ -1,5 +1,5 @@
-import { DEV_DOMAIN } from '@env'
 import WebView from 'app/components/WebView'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useDripsyTheme } from 'dripsy'
 import React, { ElementRef, useRef } from 'react'
@@ -22,7 +22,7 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
   const authInfo = useAppSelector((state) => state.auth.info)
   const locale = useAppSelector((state) => state.setting.locale)
 
-  const url = `${DEV_DOMAIN}${domainUrl}` // on APP, we need default domain to launch game at h5
+  const url = `${ROOT_DOMAIN}${domainUrl}` // on APP, we need default domain to launch game at h5
 
   const stringifyPayload = () => {
     const payload: RewardPostMessagePayload = {

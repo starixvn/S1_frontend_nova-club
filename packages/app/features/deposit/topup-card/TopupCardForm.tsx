@@ -1,8 +1,9 @@
-import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
@@ -104,12 +105,12 @@ const TopupCardForm = () => {
         card_seri: parseInt(cardSerialNo.replace(/\s+/g, '')),
         card_type: cardType,
         deposit_from: paymentGateway?.deposit_from ?? 0,
-        fail_url: DEV_DOMAIN,
-        home_url: DEV_DOMAIN,
-        process_url: DEV_DOMAIN,
+        fail_url: ROOT_DOMAIN,
+        home_url: ROOT_DOMAIN,
+        process_url: ROOT_DOMAIN,
         payment_account_id: paymentGateway?.pay_acc_id ?? 0,
         name: '',
-        success_url: DEV_DOMAIN,
+        success_url: ROOT_DOMAIN,
       })
         .unwrap()
         .catch((error) => {

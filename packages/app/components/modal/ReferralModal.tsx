@@ -1,8 +1,9 @@
+import { ROOT_DOMAIN } from 'app/constants/domain'
+import withShare from 'app/hoc/withShare'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
-import { Pressable, ScrollView, Text, View } from 'dripsy'
+import { Pressable, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
-import withShare from 'app/hoc/withShare'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
@@ -11,7 +12,6 @@ import QRCodeGenerator from '../QRCodeGenerator'
 import ViewScreenShot, { ViewScreenShotMethods } from '../ViewScreenShot'
 import BouncePressable from '../pressable/BouncePressable'
 import ModalWrapper from './ModalWrapper'
-import { DEV_DOMAIN } from '../../../../apps/next/config/env'
 
 const ReferralModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
@@ -19,7 +19,7 @@ const ReferralModal = ({ modal: { closeModal, getParam } }) => {
 
   const ref = useRef<ViewScreenShotMethods>(null)
   const referralCode = data?.referral_code
-  const referralLink = `${DEV_DOMAIN}/download?ref=${referralCode}`
+  const referralLink = `${ROOT_DOMAIN}/download?ref=${referralCode}`
 
   const handleDownload = () => {
     ref?.current?.download()

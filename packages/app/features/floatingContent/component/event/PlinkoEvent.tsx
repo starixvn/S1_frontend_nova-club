@@ -1,4 +1,5 @@
 import Image from 'app/components/common/Image'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -8,7 +9,6 @@ import React from 'react'
 import { Linking } from 'react-native'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
 import { useRouter } from 'solito/router'
-import { DEV_DOMAIN } from '../../../../../../apps/next/config/env'
 
 const PlinkoEvent = ({ size }: { size: number }) => {
   const { push } = useRouter()
@@ -25,7 +25,7 @@ const PlinkoEvent = ({ size }: { size: number }) => {
 
   const handlePress = () => {
     if (isDesktop) {
-      Linking.openURL(`${DEV_DOMAIN}/event/plinko`)
+      Linking.openURL(`${ROOT_DOMAIN}/event/plinko`)
     } else push('/event/plinko')
   }
 

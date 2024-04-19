@@ -1,4 +1,5 @@
-import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
@@ -103,7 +104,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
       query: () => ({
         url: `/api/getJackpotValue`,
         method: 'GET',
-        baseURL: DEV_DOMAIN,
+        baseURL: ROOT_DOMAIN,
       }),
     }),
     getMaintenance: builder.query<IResponse<JackpotAmountResult>, void>({

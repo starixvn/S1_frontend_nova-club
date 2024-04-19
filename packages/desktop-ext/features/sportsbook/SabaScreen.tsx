@@ -1,14 +1,10 @@
-import { DEV_DOMAIN } from '@env'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { SettingActions } from 'app/store/setting.slice'
-import { HEADER_HEIGHT } from 'utils/constant'
 import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/navigation/NavigationHeader'
-import { ActivityIndicator, Container, View } from 'dripsy'
+import { ActivityIndicator, Container } from 'dripsy'
 import React, { useEffect, useState } from 'react'
-import { IResponse } from 'services/common/types'
 import { gameApi, useGoToGameMutation } from 'services/gameApi'
-import { GetGameUrlResult } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
+import { HEADER_HEIGHT } from 'utils/constant'
 
 type Props = {}
 
@@ -40,7 +36,7 @@ export default function SabaScreen({}: Props) {
       })
     )
       .unwrap()
-      .catch((e: IResponse<GetGameUrlResult>) => {
+      .catch((e) => {
         setError(e.message)
         return e
       })

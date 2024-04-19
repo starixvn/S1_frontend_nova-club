@@ -1,5 +1,5 @@
-import { DEV_DOMAIN } from '../../../../next/config/env'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useLocalization from 'app/provider/localization'
 
 import { useAppSelector } from 'app/provider/redux/store'
@@ -11,7 +11,7 @@ const Agent = () => {
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
 
-  const TNC_URL = `${DEV_DOMAIN}/info/info-agent?locale=${lang}`
+  const TNC_URL = `${ROOT_DOMAIN}/info/info-agent?locale=${lang}`
 
   return (
     <PageWithBackHeader header={{ title: t('common.agent') }} disableScrollView>

@@ -1,4 +1,5 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -8,7 +9,6 @@ import { Linking } from 'react-native'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
-import { DEV_DOMAIN } from '../../../../../../apps/next/config/env'
 
 const HalloweenFloat = ({ size }: { size: number }) => {
   const { push } = useRouter()
@@ -25,7 +25,7 @@ const HalloweenFloat = ({ size }: { size: number }) => {
 
   const handlePress = () => {
     if (isDesktop) {
-      Linking.openURL(`${DEV_DOMAIN}/event/halloween`)
+      Linking.openURL(`${ROOT_DOMAIN}/event/halloween`)
     } else push('/event/halloween')
   }
 

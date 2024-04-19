@@ -1,4 +1,5 @@
-import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import { LoginResult } from 'services/authApi.type'
 
 export enum RewardPostMessageType {
@@ -31,7 +32,7 @@ export type RewardPostMessagePayload =
 
 const LOCAL_HOST_ORIGIN = 'http://localhost:3000'
 export const iFrameRewardOrigin =
-  process.env.NODE_ENV === 'development' ? LOCAL_HOST_ORIGIN : DEV_DOMAIN
+  process.env.NODE_ENV === 'development' ? LOCAL_HOST_ORIGIN : ROOT_DOMAIN
 
 export const getRewardLauncherURL = () => {
   const path = '/rewards/games/launcher'

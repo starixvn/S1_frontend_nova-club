@@ -1,12 +1,12 @@
 import WebView from 'app/components/WebView'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
-import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
-const plinkoUrl = `${DEV_DOMAIN}/event/mid-autumn?`
+const plinkoUrl = `${ROOT_DOMAIN}/event/mid-autumn?`
 
 const MidAutumn = () => {
   const { back } = useRouter()

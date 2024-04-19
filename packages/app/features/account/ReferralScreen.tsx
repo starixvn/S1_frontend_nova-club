@@ -1,11 +1,10 @@
-import { DEV_DOMAIN } from '@env'
 import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { toCurrency, toThousandSeparator } from 'app/utils'
-import { Currency } from 'utils/constant'
+import { toThousandSeparator } from 'app/utils'
 import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import {
@@ -24,15 +23,14 @@ const ReferralScreen = () => {
   const desktop = useIsDesktop()
 
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
 
   const { token } = useAppSelector((state) => state.auth.info) || {}
-  const { data, isFetching } = usePlayerOverviewSummaryQuery(undefined, {
+  const { data } = usePlayerOverviewSummaryQuery(undefined, {
     skip: !token,
   })
 
   const referralCode = playerData?.referral_code
-  const referralLink = `${DEV_DOMAIN}/download?ref=${referralCode}`
+  const referralLink = `${ROOT_DOMAIN}/download?ref=${referralCode}`
 
   const referralFriend = data?.data?.registered ?? 0
   const referralComm = `VND ${toThousandSeparator(data?.data?.ref_comm || '')}`
