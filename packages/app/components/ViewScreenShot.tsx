@@ -77,11 +77,11 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
       }
     }, [hasAndroidPermission, hasPermission])
 
-    useEffect(() => {
-      if (Platform.OS === 'android' && hasPermission) {
-        download()
-      }
-    }, [download, hasPermission])
+    // useEffect(() => {
+    //   if (Platform.OS === 'android' && hasPermission) {
+    //     download()
+    //   }
+    // }, [download, hasPermission])
 
     useImperativeHandle(
       ref,
