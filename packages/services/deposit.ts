@@ -77,7 +77,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
       void
     >({
       query: () => ({
-        url: `/player_api/getAvailDepositAmount`,
+        url: `/player_api/v1/getAvailDepositAmount`,
         method: 'POST',
         keepUnusedDataFor: 5,
       }),
