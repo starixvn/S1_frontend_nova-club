@@ -4,7 +4,7 @@
   "main": "index.ts",
   "dependencies": {
     "@tolgee/react": "^5.16.0",
-    "dayjs": "^1.11.7",
+    "dayjs": "^1.11.10",
     "dripsy": "4.3.3",
     "expo-image-picker": "^14.1.1",
     "expo-local-authentication": "13.3.0",

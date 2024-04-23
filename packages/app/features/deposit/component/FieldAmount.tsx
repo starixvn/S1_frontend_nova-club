@@ -15,7 +15,7 @@ import { DepositValues } from './DepositForm'
 import MoneyInput from 'app/components/MoneyInput'
 
 type FieldAmountProps = {
-  field: PlayerInputFieldsAmount
+  field?: PlayerInputFieldsAmount
   minAmount: string
   maxAmount: string
   formik: FormikProps<DepositValues>

@@ -38,6 +38,7 @@ export async function copyToClipboard(
         locale: store.getState().setting.locale,
         ns: LANGUAGE_NAMESPACE.MEMBER,
       }),
+      text2: message,
     })
   } catch (error) {
     Toast.show({
@@ -164,6 +165,13 @@ export function appendWithThousandUnit(
   const formattedQuotient = toThousandSeparator(quotient, language)
   const formattedDecimal = toDecimalSeparator(formattedRemainder, language)
   return `${formattedQuotient ? formattedQuotient : '0'}${formattedDecimal}K`
+}
+
+export function depositCurrencyDisplay(realAmount: number, currency: Currency) {
+  return toCurrency(realAmount, currency, {
+    forceDecimal: false,
+    symbol: false,
+  })
 }
 
 export function clearThousandSeparator(amount: string) {

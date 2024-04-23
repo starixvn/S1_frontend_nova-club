@@ -13,7 +13,7 @@ import { useRouter } from 'solito/router'
 import {
   DEPOSIT_NOTES,
   ReportDepositStatus,
-  ReportTransactionType
+  ReportTransactionType,
 } from 'utils/constant'
 import DailyMax from './component/DailyMax'
 import DepositCard from './component/DepositCard'
@@ -70,6 +70,9 @@ const Deposit = () => {
       case DepositMethodId.CRYPTO:
         push(`/deposit/crypto`)
         break
+      case DepositMethodId.E_WALLET:
+        push(`/deposit/e-wallet`)
+        break
       default:
         break
     }
@@ -87,9 +90,9 @@ const Deposit = () => {
       }}
       disableScrollView
     >
-      {isLoading ? (
+      {paymentMethodList == null || isLoading ? (
         <ActivityIndicator sx={{ my: '$6' }} color={'$primary.100'} />
-      ) : paymentMethodList.length > 0 ? (
+      ) : (
         <>
           <DailyMax
             type="deposit"
@@ -107,25 +110,18 @@ const Deposit = () => {
               justifyContent: 'space-between',
             }}
           >
-            {paymentMethodList &&
-              paymentMethodList.map((item, index) => (
-                <DepositCard
-                  key={item.id}
-                  item={item}
-                  sx={{
-                    mb:
-                      paymentMethodList.length - index <= 1 &&
-                      (index + 1) % 2 === 1
-                        ? 0
-                        : '$1',
-                  }}
-                  onPress={() => handlePress(item.id)}
-                />
-              ))}
+            {paymentMethodList.map((item, index) => (
+              <DepositCard
+                key={index}
+                item={item}
+                sx={{}}
+                onPress={() => handlePress(item.id)}
+              />
+            ))}
             {/* <Seperator /> */}
           </View>
         </>
-      ) : null}
+      )}
       <View
         sx={{
           flexDirection: 'row',
@@ -149,7 +145,7 @@ const Deposit = () => {
         ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
           transactionData?.data?.rows.map((item, index) => (
             <RecentTransactionRow
-              key={item.tx_code}
+              key={item.secure_id}
               item={item}
               index={index}
             />

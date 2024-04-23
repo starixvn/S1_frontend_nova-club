@@ -8,6 +8,7 @@ export enum DepositPaymentMethodCategoryId {
   TOP_UP = 25,
   CRYPTO = 9,
   INSTANT_TRANFER = 28,
+  E_WALLET = 29,
 }
 
 export enum DepositPaymentMethodCategoryType {
@@ -18,6 +19,7 @@ export enum DepositPaymentMethodCategoryType {
   TOP_UP = 'auto',
   CRYPTO = 'auto',
   INSTANT_TRANFER = 'auto',
+  E_WALLET = 'auto',
 }
 
 const enum PAYMENT_METHOD_CATEGORY {
@@ -28,6 +30,7 @@ const enum PAYMENT_METHOD_CATEGORY {
   TOP_UP,
   CRYPTO,
   INSTANT_TRANFER,
+  E_WALLET,
 }
 
 export enum DepositMethodId {
@@ -38,6 +41,7 @@ export enum DepositMethodId {
   QR_CODE = 5,
   TOP_UP = 6,
   CRYPTO = 7,
+  E_WALLET = 8,
 }
 
 export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
@@ -105,6 +109,15 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
       color: '#1E2238',
       active: true,
     },
+    E_WALLET: {
+      id: DepositMethodId.E_WALLET,
+      type: DepositPaymentMethodCategoryType.E_WALLET,
+      categoryId: DepositPaymentMethodCategoryId.E_WALLET,
+      name: 'deposit.depositMethod.eWallet',
+      icon: 'mobile',
+      color: '#1E2238',
+      active: true,
+    },
   }
 
 export type PaymentMethodProps = {
@@ -125,6 +138,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
   PAYMENT_METHOD.QR_CODE,
   PAYMENT_METHOD.TOP_UP,
   PAYMENT_METHOD.CRYPTO,
+  PAYMENT_METHOD.E_WALLET,
 ]
 
 export const getPaymentMethodLogo = (bankCode: string) => {

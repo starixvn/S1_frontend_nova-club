@@ -15,10 +15,9 @@ import React, { useMemo } from 'react'
 
 const DepositScreen = () => {
   const { paymentMethodList } = useDepositList()
-  const horizontalMode = useIsDesktop()
 
   const availableRoutes = DepositRoutes.filter((route) =>
-    paymentMethodList.find((el) => route.categoryId === el.categoryId)
+    paymentMethodList?.find((el) => route.categoryId === el.categoryId)
   )
 
   const memoContent = useMemo(() => {
@@ -36,6 +35,8 @@ const DepositScreen = () => {
       case DepositPaymentMethodCategoryId.TOP_UP:
         return <TopUpCardContent />
       case DepositPaymentMethodCategoryId.CRYPTO:
+        return <CryptoPayContent />
+      case DepositPaymentMethodCategoryId.E_WALLET:
         return <CryptoPayContent />
 
       default:

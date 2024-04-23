@@ -54,6 +54,13 @@ const _Routes: Readonly<DesktopRoute[]> = [
     icon: 'cp',
     route: '/deposit/crypto',
   },
+  {
+    key: 'E-Wallet',
+    categoryId: DepositPaymentMethodCategoryId.E_WALLET,
+    title: 'deposit.depositMethod.eWallet',
+    icon: 'mobile',
+    route: '/deposit/e-wallet',
+  },
 ] as const
 
 export type DepositRoutesParamList = Record<

@@ -68,7 +68,6 @@ const AgentPinModal = ({ modal: { closeModal, getParam } }) => {
             return error
           }
         )
-      console.log('result', result)
       if (success) {
         onWithdrawalConfirmed()
       }

@@ -1,0 +1,42 @@
+{
+  "client_id": "785800932.1682577240",
+  "user_id": "techtestwthb02",
+  "non_personalized_ads": false,
+  "events": [
+    {
+      "name": "purchase",
+      "params": {
+        "items": [
+          {
+            "item_id": "deposit_method_id",
+            "item_name": "Localbank Deposit",
+            "affiliation": "",
+            "coupon": "",
+            "currency": "",
+            "discount": 0,
+            "index": 0,
+            "item_brand": "",
+            "item_category": "",
+            "item_category2": "",
+            "item_category3": "",
+            "item_category4": "",
+            "item_category5": "",
+            "item_list_id": "",
+            "item_list_name": "",
+            "item_variant": "",
+            "location_id": "",
+            "price": 15,
+            "quantity": 0,
+            "creative_name": "",
+            "creative_slot": "",
+            "promotion_id": "",
+            "promotion_name": ""
+          }
+        ],
+        "transaction_id": "524545221",
+        "currency": "USD",
+        "value": 16
+      }
+    }
+  ]
+}

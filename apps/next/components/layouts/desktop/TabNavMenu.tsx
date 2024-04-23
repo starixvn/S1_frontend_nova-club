@@ -12,7 +12,7 @@ import { Row, Text, View } from 'dripsy'
 import { ComponentProps, useEffect, useState } from 'react'
 
 interface TabNavMenuProps extends ComponentProps<typeof View> {
-  routes: Readonly<DesktopRoute[]>
+  routes: DesktopRoute[]
   notice?: string[]
 }
 

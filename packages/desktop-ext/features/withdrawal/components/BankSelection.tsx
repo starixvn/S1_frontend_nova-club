@@ -17,7 +17,7 @@ type Prettier<T> = {
 
 type BankSelectionProps = {
   label: string
-  subtitle: string
+  subtitle?: string
   subtitleNote?: string
   list: SelectOptions[]
   selected?: string
@@ -48,9 +48,11 @@ const BankSelection = ({
     <View sx={{ mb: '$3' }}>
       <Text sx={{ mb: '$2' }}>{label}</Text>
       <SelectContainer>
-        <Text sx={{ fontSize: 18, fontWeight: 'bold', mb: '$1' }}>
-          {subtitle}
-        </Text>
+        {subtitle && (
+          <Text sx={{ fontSize: 18, fontWeight: 'bold', mb: '$1' }}>
+            {subtitle}
+          </Text>
+        )}
         {subtitleNote ? (
           <Text
             sx={{ color: '$secondary.500', fontSize: 18, fontWeight: 'bold' }}
@@ -63,6 +65,7 @@ const BankSelection = ({
             py: '$3',
             gap: '$1',
             flexWrap: 'wrap',
+            alignItems: 'center',
           }}
         >
           {list &&

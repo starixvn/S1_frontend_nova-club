@@ -25,7 +25,6 @@ const DatePickerIOS: FC<DatePickerModalIOSProps> = ({
   onClose,
   ...rest
 }) => {
-  console.log('🚀 ~ file: DatePickerIOS.tsx:28 ~ isOpen:', isOpen)
   const { t } = useAgentLocalization()
 
   const [localValue, setLocalValue] = useState<{ event?: Event; date: Date }>({

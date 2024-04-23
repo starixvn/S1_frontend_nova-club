@@ -13,7 +13,11 @@ import {
   ModalProvider as RNMModalProvider,
   createModalStack,
 } from 'react-native-modalfy'
-import { SubmitDepositCryptoItem } from 'services/deposit.type'
+import {
+  DepositEWalletQRInfo,
+  SubmitDepositCryptoItem,
+} from 'services/deposit.type'
+import { Currency } from 'utils/constant'
 
 export const MODAL_ANIMATION_DELAY = 350
 
@@ -74,6 +78,13 @@ type DefaultModalStackParams = {
     t: LoginType
   }
   DepositQrModal: { qrCode: string }
+  DepositEWalletModal: {
+    eWalletInfo: DepositEWalletQRInfo & {
+      channel: string
+      method: string
+      currency: Currency
+    }
+  }
   DailyCheckInModal: undefined
   RewardGameModal: {
     key: string
@@ -144,6 +155,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   ForgotPasswordModal: () =>
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
   DepositQrModal: () => import('app/components/modal/DepositQrModal'),
+  DepositEWalletModal: () => import('app/components/modal/DepositEWalletModal'),
   DailyCheckInModal: () => import('app/components/modal/DailyCheckInModal'),
   RewardGameModal: () => import('app/components/modal/RewardGameModal'),
   RewardTncModal: () => import('app/components/modal/RewardTncModal'),
@@ -226,6 +238,10 @@ const modalConfig: ModalConfigType = {
   },
   DepositQrModal: {
     modal: getDynamicComponent('DepositQrModal'),
+  },
+  DepositEWalletModal: {
+    modal: getDynamicComponent('DepositEWalletModal'),
+    backBehavior: 'none',
   },
   DailyCheckInModal: {
     modal: getDynamicComponent('DailyCheckInModal'),

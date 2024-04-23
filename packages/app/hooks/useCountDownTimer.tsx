@@ -19,6 +19,7 @@ const useCountDownTimer = (props?: IUseCountDownTimer) => {
   } = props ?? {}
 
   const intervalIdRef = useRef<ReturnType<typeof setInterval> | undefined>()
+  const callbackRef = useRef<() => void>()
   const [countDownValue, setCountDownValue] = useState('')
   const [isCountDownRunning, setIsCountDownRunning] = useState(false)
 
@@ -34,12 +35,15 @@ const useCountDownTimer = (props?: IUseCountDownTimer) => {
         dateFormat === 'ss' ? `${timeRemaining}s` : timeRemaining
       )
     } else {
+      callbackRef.current && callbackRef.current()
+
       clearTimer()
     }
   }
 
   const startTimer = (dayjsTime: dayjs.Dayjs, callBack?: () => void) => {
     setIsCountDownRunning(true)
+    callbackRef.current = callBack
     const dayjsTimeAfter = dayjsTime.add(
       dayjs.duration({ [timeUnit]: duration })
     )
@@ -47,13 +51,13 @@ const useCountDownTimer = (props?: IUseCountDownTimer) => {
     countDown(dayjs(), dayjsTimeAfter)
     intervalIdRef.current = setInterval(() => {
       countDown(dayjs(), dayjsTimeAfter)
-      callBack && callBack()
     }, 1000)
   }
 
   const clearTimer = () => {
     if (intervalIdRef.current) {
       console.log('ClearTimer')
+      callbackRef.current = undefined
       setCountDownValue('')
       setIsCountDownRunning(false)
       clearInterval(intervalIdRef.current)
