@@ -132,7 +132,6 @@ export default function HireBanner() {
 const Label = styled(Text)({
   mt: FONT_TOP_OFFSET,
   fontSize: [11, 12, 12, 11, 12],
-  lineHeight: [13, 15, 15, 13, 15],
   fontWeight: 'bold',
 })
 

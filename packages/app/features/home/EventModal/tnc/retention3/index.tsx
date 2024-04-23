@@ -1,4 +1,4 @@
-import AvertaStd from 'app/assets/fonts/Averta'
+import Montserrat from 'app/assets/fonts/Montserrat'
 import FormContainer from 'app/components/form/FormContainer'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
@@ -28,7 +28,7 @@ const Tnc = () => {
       <main
         style={{
           padding: 12,
-          fontFamily: AvertaStd.Regular.name,
+          fontFamily: Montserrat.Regular.name,
           fontSize: FONT_SIZE,
           color: FONT_COLOR,
         }}

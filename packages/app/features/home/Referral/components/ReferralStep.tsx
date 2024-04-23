@@ -4,6 +4,8 @@ import { Text, View, useResponsiveValue } from 'dripsy'
 import { useWindowDimensions } from 'react-native'
 import { SolitoImage } from 'solito/image'
 
+const imageRatio = 384 / 256
+
 const ReferralStep = () => {
   const { t } = useLocalization()
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
@@ -25,15 +27,6 @@ const ReferralStep = () => {
       image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/referral/step3.png`,
     },
   ]
-
-  const { height, width } = useWindowDimensions()
-  const xRatio = 480
-  const yRatio = 320
-  const scale = horizontalMode
-    ? Math.min(width / 5 / xRatio, height / 5 / yRatio)
-    : Math.min(width / 2.5 / xRatio, height / 2.5 / yRatio)
-  const enlargedWidth = Math.floor(scale * xRatio)
-  const enlargedHeight = Math.floor(scale * yRatio)
 
   return (
     <View>
@@ -57,51 +50,50 @@ const ReferralStep = () => {
           return (
             <>
               {horizontalMode ? (
-                <View
-                  key={i}
-                  sx={{
-                    flexDirection: 'row',
-                  }}
-                >
+                <>
                   <View
+                    key={i}
                     sx={{
-                      borderWidth: 1,
-                      borderColor: '$primary.100',
-                      borderRadius: 10,
-                      justifyContent: 'space-between',
+                      flex: 1,
+                      flexDirection: 'row',
                     }}
                   >
                     <View
                       sx={{
+                        flex: 1,
+                        borderWidth: 1,
+                        borderColor: '$primary.100',
+                        borderRadius: 10,
+                        overflow: 'hidden',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        mb: 10,
                       }}
                     >
                       <Text sx={{ paddingVertical: 10 }}>{e.title}</Text>
                       <Text
                         sx={{
-                          width: enlargedWidth,
                           textAlign: 'center',
                           paddingHorizontal: 10,
+                          mb: 10,
                         }}
                       >
                         {e.body}
                       </Text>
-                    </View>
-                    <View>
-                      <SolitoImage
-                        src={e.image}
-                        width={enlargedWidth}
-                        height={enlargedHeight}
-                        resizeMode="contain"
-                        alt={e.title}
-                        style={{
-                          borderBottomLeftRadius: 10,
-                          borderBottomRightRadius: 10,
+                      <View
+                        sx={{
+                          mt: 'auto',
+                          width: '100%',
+                          paddingTop: `${(1 / imageRatio) * 100}%`,
                         }}
-                        //   sx={{ position: 'absolute', left: '-10%' }}
-                      />
+                      >
+                        <SolitoImage
+                          fill
+                          src={e.image}
+                          contentFit="cover"
+                          alt={e.title}
+
+                          //   sx={{ position: 'absolute', left: '-10%' }}
+                        />
+                      </View>
                     </View>
                   </View>
                   {i < 2 && (
@@ -115,7 +107,7 @@ const ReferralStep = () => {
                       <Text sx={{ fontWeight: 'bold' }}>{'>'}</Text>
                     </View>
                   )}
-                </View>
+                </>
               ) : (
                 <View key={i}>
                   <View
@@ -126,18 +118,23 @@ const ReferralStep = () => {
                       borderRadius: 10,
                     }}
                   >
-                    <SolitoImage
-                      src={e.image}
-                      width={enlargedWidth}
-                      height={enlargedHeight}
-                      resizeMode="contain"
-                      alt={e.title}
-                      style={{
+                    <View
+                      sx={{
                         borderTopLeftRadius: 10,
                         borderBottomLeftRadius: 10,
+                        overflow: 'hidden',
+                        width: 120 * imageRatio,
+                        height: 120,
+
                       }}
-                      //   sx={{ position: 'absolute', left: '-10%' }}
-                    />
+                    >
+                      <SolitoImage
+                        fill
+                        src={e.image}
+                        contentFit="cover"
+                        alt={e.title}
+                      />
+                    </View>
                     <View
                       sx={{
                         padding: 10,

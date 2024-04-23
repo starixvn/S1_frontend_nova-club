@@ -20,7 +20,7 @@ import validation from 'app/utils/validation'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
-import { Pressable, Text, View } from 'dripsy'
+import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { Dictionary } from 'lodash'
 import groupBy from 'lodash/groupBy'
@@ -237,13 +237,6 @@ const EWalletForm = () => {
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
-        <Pressable
-          onPress={(e) => {
-            formik.resetForm()
-          }}
-        >
-          <Text>asdff</Text>
-        </Pressable>
         <DailyMax
           type="deposit"
           amount={dailyData?.current}

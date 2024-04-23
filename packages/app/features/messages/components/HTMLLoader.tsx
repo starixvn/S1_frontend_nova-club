@@ -1,4 +1,4 @@
-import AvertaStd from 'app/assets/fonts/Averta'
+import Montserrat from 'app/assets/fonts/Montserrat'
 import React, { useMemo } from 'react'
 import { useWindowDimensions } from 'react-native'
 import RenderHtml from 'react-native-render-html'
@@ -8,7 +8,7 @@ type Props = {
 
 export default function HTMLLoader({ content }: Props) {
   const systemFonts = useMemo(
-    () => Object.keys(AvertaStd).map((d) => AvertaStd[d].name),
+    () => Object.keys(Montserrat).map((d) => Montserrat[d].name),
     []
   )
 
@@ -24,7 +24,7 @@ export default function HTMLLoader({ content }: Props) {
       baseStyle={{
         color: 'white',
         fontSize: 16,
-        fontFamily: AvertaStd.Regular.name,
+        fontFamily: Montserrat.Regular.name,
       }}
     />
   )

@@ -217,6 +217,7 @@ const HiddenItemContainer = styled(View)({
 const ProfileSummaryText = styled(Text)(
   ({ color = 'white', fontSize = 16, px = 0 }: ProfileSummaryTextProps) => ({
     fontSize,
+    lineHeight: fontSize * 1.2,
     px,
     color,
     fontWeight: '500',

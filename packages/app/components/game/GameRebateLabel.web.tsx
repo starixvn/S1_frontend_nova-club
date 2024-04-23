@@ -1,4 +1,4 @@
-import AvertaStd from 'app/assets/fonts/Averta'
+import Montserrat from 'app/assets/fonts/Montserrat'
 import { useResponsiveValue } from 'dripsy'
 import React from 'react'
 
@@ -15,7 +15,7 @@ const GameRebateLabel = ({ rebateText, background = 'rgba(0,0,0,1)' }) => {
         paddingBlock: 2,
         fontSize: labelSize,
         fontWeight: 'bold',
-        fontFamily: AvertaStd.Bold.name,
+        fontFamily: Montserrat.Bold.name,
         alignItems: 'center',
         justifyContent: 'center',
       }}

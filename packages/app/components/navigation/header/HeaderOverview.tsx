@@ -72,14 +72,13 @@ const HeaderButton = ({
             </Pressable>
           )}
 
-          <View sx={{ marginLeft: 'auto' }}>
+          <View sx={{ marginLeft: 'auto', flex: 1 }}>
             {isLoading ? (
               <ActivityIndicator color={'$secondary.100'} />
             ) : (
               <Text
                 numberOfLines={1}
                 sx={{
-                  flex: 1,
                   mt: FONT_TOP_OFFSET,
                   fontSize: [12, 14],
                   color: '$secondary.100',
