@@ -6,6 +6,7 @@ const Route = {
   fishing: 'fishing',
   card: 'card',
   local: 'local',
+  cockfighting: 'cockfighting',
 } as const
 
 export const Route_GameCategory: Record<keyof typeof Route, GAME_TYPE_CODE> = {
@@ -13,6 +14,7 @@ export const Route_GameCategory: Record<keyof typeof Route, GAME_TYPE_CODE> = {
   fishing: GAME_TYPE_CODE.FISHING,
   card: GAME_TYPE_CODE.GAMES,
   local: GAME_TYPE_CODE.GAMES,
+  cockfighting: GAME_TYPE_CODE.COCKFIGHTING,
 }
 
 export const SUB_ROUTES = {
@@ -67,6 +69,20 @@ export const SUB_ROUTES = {
       )
     },
   },
+  cockfighting: {
+    key: 'cockfighting',
+    label: 'game.category.cockfighting',
+    icon: 'cockfighting',
+    route: Route['cockfighting'],
+    filter: (games: Game[]) => {
+      return games.filter(
+        (g) =>
+          // any game thats a "Card Game" will not be listed under game type
+          g.gdc_cat !== GDC_GAME_CATEGORY.CARDGAME &&
+          g.gtc === GAME_TYPE_CODE.COCKFIGHTING
+      )
+    },
+  },
 }
 
 export const DefaultFilter = [
@@ -84,6 +100,7 @@ export const DesktopGamesFilter = [
     icon: 'sl',
     route: '/slots',
   },
+  SUB_ROUTES.cockfighting,
 ]
 
 export const MobileGamesFilter = [
@@ -92,5 +109,6 @@ export const MobileGamesFilter = [
     icon: 'all',
     route: '/games',
   },
+  SUB_ROUTES.cockfighting,
   ...DefaultFilter,
 ]

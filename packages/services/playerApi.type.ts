@@ -38,6 +38,7 @@ export interface ProfileResult {
   verified_phone: number
   member_type: MEMBER_TYPE
   telegram_id: string
+  disabled_event: number //1 = disabled
 }
 
 export interface ProfileQueryArgs {

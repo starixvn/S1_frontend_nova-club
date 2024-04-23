@@ -1,3 +1,5 @@
+import { createSelector } from '@reduxjs/toolkit'
+import uniqWith from 'lodash/uniqWith'
 import { Currency, DEFAULT_CURRENCY } from 'utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
@@ -15,16 +17,11 @@ import {
   GetGameListQueryArgs,
   GetGameListResult,
   GetGameUrlQueryArgs,
-  GetGameUrlResult,
   GotoGameResult,
   LatestWinner,
   LatestWinnerType,
-  LaunchGameWithHTML,
-  LaunchGameWithUrl,
   ProviderStatus,
 } from './gameApi.type'
-import uniqWith from 'lodash/uniqWith'
-import { createSelector } from '@reduxjs/toolkit'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -42,10 +39,7 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       }),
     }),
-    demoGame: builder.mutation<
-      IResponse<GetGameUrlResult>,
-      GetGameUrlQueryArgs
-    >({
+    demoGame: builder.mutation<IResponse<GotoGameResult>, GetGameUrlQueryArgs>({
       query: (params) => ({
         url: `/static_api/v1/gotodemogame`,
         data: params,

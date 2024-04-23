@@ -9,11 +9,12 @@ import {
   Text,
   View,
   styled,
-  useResponsiveValue
+  useResponsiveValue,
 } from 'dripsy'
 import React, { ComponentProps, useState } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { useModal } from 'react-native-modalfy'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   useCheckInDailyCoinMutation,
   useGetDailyCoinQuery,
@@ -35,6 +36,10 @@ interface CheckInBoxProps {
 const CheckInBox = ({ children }: CheckInBoxProps) => {
   const { data } = useGetDailyCoinQuery()
   const [CheckIn] = useCheckInDailyCoinMutation()
+
+  const { data: profileData } = usePlayerProfileQuery()
+  const enableCheckIn = !profileData?.disabled_event ?? false
+
   const [isCheckingIn, setCheckingIn] = useState(false)
   const { push } = useRouter()
   const { openModal, closeModal, closeAllModals } = useModal()
@@ -91,32 +96,34 @@ const CheckInBox = ({ children }: CheckInBoxProps) => {
         >
           {t('rewards.checkInModal.topDesc')}
         </CheckInText>
-        <Row sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
-          {coinData.length > 0 ? (
-            coinData.map((e, i) => {
-              const day = i + 1
-              const lastItem = i == coinData.length - 1
-              return (
-                <View
-                  key={i}
-                  sx={{
-                    flexBasis: lastItem ? '46%' : '23%',
-                    flexGrow: lastItem ? 2 : 1,
-                    p: GAP_VALUE,
-                  }}
-                >
-                  {lastItem ? (
-                    <BigBox day={day} reward={e} active={i < dayClaimed} />
-                  ) : (
-                    <SmallBox day={day} reward={e} active={i < dayClaimed} />
-                  )}
-                </View>
-              )
-            })
-          ) : (
-            <ActivityIndicator color={'$primary.100'} />
-          )}
-        </Row>
+        {enableCheckIn ? (
+          <Row sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+            {coinData.length > 0 ? (
+              coinData.map((e, i) => {
+                const day = i + 1
+                const lastItem = i == coinData.length - 1
+                return (
+                  <View
+                    key={i}
+                    sx={{
+                      flexBasis: lastItem ? '46%' : '23%',
+                      flexGrow: lastItem ? 2 : 1,
+                      p: GAP_VALUE,
+                    }}
+                  >
+                    {lastItem ? (
+                      <BigBox day={day} reward={e} active={i < dayClaimed} />
+                    ) : (
+                      <SmallBox day={day} reward={e} active={i < dayClaimed} />
+                    )}
+                  </View>
+                )
+              })
+            ) : (
+              <ActivityIndicator color={'$primary.100'} />
+            )}
+          </Row>
+        ) : null}
       </View>
       <Text
         sx={{
@@ -132,12 +139,13 @@ const CheckInBox = ({ children }: CheckInBoxProps) => {
         {t('rewards.checkInModal.resetIfFail')}
       </Text>
 
-      <CheckInButton
-        loading={isCheckingIn}
-        disabled={!!data?.checked_in}
-        onPress={() => handleCheckIn()}
-      />
-
+      {enableCheckIn ? (
+        <CheckInButton
+          loading={isCheckingIn}
+          disabled={!!data?.checked_in}
+          onPress={() => handleCheckIn()}
+        />
+      ) : null}
       {children}
     </View>
   )

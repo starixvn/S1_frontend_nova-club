@@ -1,5 +1,6 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
@@ -7,7 +8,6 @@ import { Image, Pressable, Text, View } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ProfileResult } from 'services/playerApi.type'
-import { DEV_DOMAIN } from '../../../../apps/next/config/env'
 
 interface ProfileHeaderCardProps {
   data?: ProfileResult
@@ -19,7 +19,7 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
   const desktop = useIsDesktop()
   const AVATAR_SIZE = desktop ? 45 : 40
   const fontSize = desktop ? 15 : 14
-  const referralLink = `${DEV_DOMAIN}/download?ref=${data?.referral_code}`
+  const referralLink = `${ROOT_DOMAIN}/download?ref=${data?.referral_code}`
 
   return (
     <View

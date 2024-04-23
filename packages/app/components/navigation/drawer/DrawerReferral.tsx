@@ -1,16 +1,14 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/components/pressable/BouncePressable'
-import useContainerDimension from 'app/hooks/useContainerDimension'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
 import { Text, View } from 'dripsy'
 import React from 'react'
 import { ImageBackground, useWindowDimensions } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const DrawerReferral = () => {
   const { t } = useLocalization()
@@ -21,7 +19,7 @@ const DrawerReferral = () => {
     skip: !isLoggedIn,
   })
 
-  const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
+  const referralLink = `${ROOT_DOMAIN}/download?ref=${playerData?.referral_code}`
 
   const referralHeight = height > 750 ? 300 : 200
 

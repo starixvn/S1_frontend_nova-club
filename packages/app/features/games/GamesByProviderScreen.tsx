@@ -23,6 +23,7 @@ const GameCategory = [
   GAME_TYPE_CODE.GAMES,
   GAME_TYPE_CODE.FISHING,
   GAME_TYPE_CODE.LOTTERY,
+  GAME_TYPE_CODE.COCKFIGHTING,
 ]
 
 export default function GamesByProviderScreen({}: Props) {

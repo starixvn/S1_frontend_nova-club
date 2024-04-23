@@ -1,13 +1,10 @@
-import { Image, Row, Text, View } from 'dripsy'
-import { ReactNode } from 'react'
-import RewardsTabBar from 'app/features/rewards/components/RewardsTabBar'
-import RewardsHeader from 'app/features/rewards/components/RewardsHeader'
-import dynamic from 'next/dynamic'
 import LazyIndicator from 'app/components/LazyIndicator'
-import Header from 'app/components/common/Header'
+import RewardsHeader from 'app/features/rewards/components/RewardsHeader'
+import RewardsTabBar from 'app/features/rewards/components/RewardsTabBar'
+import { View } from 'dripsy'
+import dynamic from 'next/dynamic'
+import { ReactNode } from 'react'
 import { HEADER_HEIGHT } from 'utils/constant'
-import { useGetCoinQuery } from 'services/rewardApi'
-import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 export const DynamicRewardList = dynamic(
   () => import('app/features/rewards/List/RewardGameList'),

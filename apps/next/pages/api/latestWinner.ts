@@ -122,7 +122,12 @@ function requestSlotGameList(currency: Currency) {
 function requestGamesGameList(currency: Currency) {
   return requestGameList(
     currency,
-    [GAME_TYPE_CODE.GAMES, GAME_TYPE_CODE.FISHING, GAME_TYPE_CODE.LOTTERY],
+    [
+      GAME_TYPE_CODE.GAMES,
+      GAME_TYPE_CODE.FISHING,
+      GAME_TYPE_CODE.LOTTERY,
+      GAME_TYPE_CODE.COCKFIGHTING,
+    ],
     [GDC_GAME_CATEGORY.CARDGAME]
   )
 }

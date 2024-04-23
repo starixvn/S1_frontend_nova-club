@@ -1,5 +1,6 @@
-import { DEV_DOMAIN } from '@env'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLoading from 'app/hooks/useLoading'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -8,22 +9,16 @@ import {
   LaunchGamePayload,
 } from 'app/store/gameLauncher.slice'
 import { SettingActions } from 'app/store/setting.slice'
-import { useResponsiveValue } from 'dripsy'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { IResponse } from 'services/common/types'
 import { useGoToGameMutation } from 'services/gameApi'
-import {
-  GetGameUrlResult,
-  GotoGameResult,
-  LaunchGameType,
-} from 'services/gameApi.type'
+import { GotoGameResult, LaunchGameType } from 'services/gameApi.type'
 import { useRouter } from 'solito/router'
 import useGameWindow from './useGameWindow'
 import { useMaintenanceStatus } from './useMaintenanceStatus'
-import useIsDesktop from 'app/hooks/useIsDesktop'
 
 // const ProviderRunningWithoutIframe = ['PRGP']
 const ProviderRunningWithoutIframe: string[] = []
@@ -90,7 +85,7 @@ const GameLauncher = () => {
   }, [dispatch, isLoggedIn, push, replace, isDesktop, openModal, showAlert])
 
   async function launchGamePT(providerCode: string) {
-    const domain = Platform.OS === 'web' ? '' : DEV_DOMAIN
+    const domain = Platform.OS === 'web' ? '' : ROOT_DOMAIN
     const ptLaunchUrl = `${domain}/launcher_pt?code=${gc}&t=${authState.info?.token}&username=${authState.info?.playerName}`
 
     openGame(ptLaunchUrl, providerCode, { external: true })
@@ -105,8 +100,8 @@ const GameLauncher = () => {
         is_demo: 0,
         is_mobile: desktopMode ? 0 : 1,
         platform_code: providerCode,
-        home_url: DEV_DOMAIN,
-        cashier_url: `${DEV_DOMAIN}/deposit`,
+        home_url: ROOT_DOMAIN,
+        cashier_url: `${ROOT_DOMAIN}/deposit`,
       })
         .unwrap()
         .catch((e: IResponse<GotoGameResult>) => {

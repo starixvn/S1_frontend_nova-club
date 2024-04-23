@@ -1,8 +1,9 @@
-import { CMS_CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Button from 'app/components/common/Button'
 import SelectList from 'app/components/select/SelectList'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { MAP_CRYPTO_PROTOCOL } from 'app/constants/crypto'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useAlert from 'app/hooks/useAlert'
 import useCheckMobile from 'app/hooks/useCheckMobile'
 import useIsDesktop from 'app/hooks/useIsDesktop'
@@ -114,12 +115,12 @@ const DepositForm = ({ DepositCategoryId }) => {
         card_seri: 0,
         card_type: '',
         deposit_from: selectedChannel?.deposit_from ?? 0,
-        fail_url: DEV_DOMAIN,
-        home_url: DEV_DOMAIN,
-        process_url: DEV_DOMAIN,
+        fail_url: ROOT_DOMAIN,
+        home_url: ROOT_DOMAIN,
+        process_url: ROOT_DOMAIN,
         name: '',
         payment_account_id: selectedChannel?.pay_acc_id ?? 0,
-        success_url: DEV_DOMAIN,
+        success_url: ROOT_DOMAIN,
       })
         .unwrap()
         .catch((error) => {

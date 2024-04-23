@@ -1,15 +1,15 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
 import React from 'react'
 import WebView from 'react-native-webview'
-import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
 const HalloweenTnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
-  const TNC_URL = `${DEV_DOMAIN}/event/halloween-tnc?locale=${lang}`
+  const TNC_URL = `${ROOT_DOMAIN}/event/halloween-tnc?locale=${lang}`
 
   // Used to hide the header inside webview
   const INJECTED_JAVASCRIPT = `
