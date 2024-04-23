@@ -1,11 +1,10 @@
 import useLocalization from 'app/provider/localization'
-import * as MediaLibrary from 'expo-media-library'
 import * as FileSystem from 'expo-file-system'
+import * as MediaLibrary from 'expo-media-library'
 import React, {
   ReactNode,
   forwardRef,
   useCallback,
-  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -51,43 +50,16 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
 
     const download = useCallback(async () => {
       try {
-        if (!hasPermission) {
-          setHasPermission(await hasAndroidPermission())
-        }
+        // if (!hasPermission) {
+        //   setHasPermission(await hasAndroidPermission())
+        // }
 
-        if (permissionResponse.status !== 'granted') {
+        if (permissionResponse?.status !== 'granted') {
           await requestPermission()
         } else {
           if (Platform.OS === 'android') {
             captureRef(viewShotRef).then(async (uri) => {
-              const newUri = await saveImage(uri, fileName)
-
-              await FileSystem.copyAsync({
-                from: uri,
-                to: newUri,
-              })
-
-              await MediaLibrary.saveToLibraryAsync(newUri)
-
-              // const permissions =
-              //   await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
-              // if (permissions.granted) {
-              //   const base64 = await FileSystem.readAsStringAsync(uri, {
-              //     encoding: FileSystem.EncodingType.Base64,
-              //   })
-              //   await FileSystem.StorageAccessFramework.createFileAsync(
-              //     permissions.directoryUri,
-              //     fileName,
-              //     'image/png'
-              //   )
-              //     .then(async (uri) => {
-              //       console.log('🚀 ~ .then ~ uri:', uri)
-              //       await FileSystem.writeAsStringAsync(uri, base64, {
-              //         encoding: FileSystem.EncodingType.Base64,
-              //       })
-              //     })
-              //     .catch((e) => console.log(e))
-              // }
+              await saveImage(uri, fileName)
 
               Toast.show({
                 type: 'success',
@@ -117,14 +89,22 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
 
     const saveImage = async (sourceUri, customFilename) => {
       try {
+        // Get the asset's URI from the ID
+        const assetUri = await FileSystem.getInfoAsync(sourceUri)
+
         // Construct new filename
         const extension = sourceUri.split('.').pop() // Get file extension
         const newFilename = customFilename + '.' + extension
         const newPath = FileSystem.documentDirectory + newFilename
 
+        await FileSystem.copyAsync({
+          from: assetUri.uri,
+          to: newPath,
+        })
+
         // Save the copied image to the MediaLibrary
         if (Platform.OS === 'ios') await MediaLibrary.createAssetAsync(newPath)
-
+        else await MediaLibrary.saveToLibraryAsync(newPath)
         // Return the new file path
         return newPath
       } catch (error) {
@@ -132,12 +112,6 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
         return null
       }
     }
-
-    // useEffect(() => {
-    //   if (Platform.OS === 'android' && hasPermission) {
-    //     download()
-    //   }
-    // }, [download, hasPermission])
 
     useImperativeHandle(
       ref,
