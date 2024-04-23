@@ -1,10 +1,10 @@
-import { DEV_DOMAIN } from '@env'
 import { createSelector } from '@reduxjs/toolkit'
 import MoneyInput from 'app/components/MoneyInput'
 import Button from 'app/components/common/Button'
 import { Options } from 'app/components/select/Select'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+import { ROOT_DOMAIN } from 'app/constants/domain'
 import EmptyAccount from 'app/features/withdrawal/components/EmptyAccount'
 import useWithdrawalBankSelection from 'app/features/withdrawal/hooks/useWithdrawalBankSelection'
 import useAlert from 'app/hooks/useAlert'
@@ -109,12 +109,12 @@ const EWalletForm = () => {
           card_seri: 0,
           card_type: '',
           deposit_from: selectedPaymentGateway.deposit_from ?? 0,
-          fail_url: DEV_DOMAIN,
-          home_url: DEV_DOMAIN,
-          process_url: DEV_DOMAIN,
+          fail_url: ROOT_DOMAIN,
+          home_url: ROOT_DOMAIN,
+          process_url: ROOT_DOMAIN,
           name: '',
           payment_account_id: selectedPaymentGateway.pay_acc_id ?? 0,
-          success_url: DEV_DOMAIN,
+          success_url: ROOT_DOMAIN,
         })
           .unwrap()
           .catch((error) => {
