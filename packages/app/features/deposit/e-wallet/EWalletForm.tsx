@@ -40,6 +40,7 @@ import DailyMax from '../component/DailyMax'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import { onAmountChanged } from '../utils'
 import useEWalletSelections from './useEWalletSelections'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 
 dayjs.extend(duration)
 
@@ -61,10 +62,12 @@ const EWalletForm = () => {
   const currency = useAppSelector((state) => state.setting.currency)
   const horizontalMode = useIsDesktop()
 
+  const { isMobile } = useCheckMobile()
+
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
   const { eWalletMethods } = useDepositPaymentListQuery(
     {
-      is_mobile: horizontalMode ? 1 : 0,
+      is_mobile: isMobile ? 1 : 0,
     },
     {
       selectFromResult: (s) => {
@@ -75,6 +78,8 @@ const EWalletForm = () => {
       },
     }
   )
+
+  console.log('eWalletMethods', eWalletMethods)
 
   const { paymentMethodsSelections, paymentGatewaySelections } =
     useEWalletSelections(eWalletMethods, paymentMethodKey)
@@ -125,19 +130,9 @@ const EWalletForm = () => {
         if (result?.success) {
           openModal('DepositEWalletModal', {
             eWalletInfo: {
-              bankAccount: '9110947841',
-              bankAccountName: 'Donloh Shrimp Sales Co. Ltd.',
-              bank: 'KTB',
-              referenceId: 'TK240418922352A7B6',
-              transactionId: 'D529891545024',
-              amount: '1000.00',
-              deposit_amount: '1000.00',
-              depositAmount: '1000.00',
-              type: 'qr',
-              qrString:
-                '00020101021253037645802TH29370016A0000006770101110213090556600758154071000.00630404AC',
-              channel: 'Hardcoded Speed Pay',
-              method: 'Hardcoded PROMPT PAY',
+              ...result.data,
+              channel: selectedPaymentGateway.bank_name_local,
+              method: t(`deposit.${paymentMethodKey}`),
               currency,
             },
           })
@@ -282,7 +277,7 @@ const EWalletForm = () => {
               placeholder={t('deposit.selectChannel')}
               options={paymentGatewaySelections as Options<string>[]}
               value={paymentGatewayIndex.toString()}
-              onSelected={handleChange('pgIndex')}
+              onSelected={(v) => setPaymentGatewayIndex(Number(v))}
             />
             <SelectWithCardGrid
               label={t('bank.bankAccount')}

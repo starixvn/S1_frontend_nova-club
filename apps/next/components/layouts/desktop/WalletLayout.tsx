@@ -10,7 +10,6 @@ import LeftPanelContainer from 'desktop-ext/components/layout/LeftPanelContainer
 import PageContainer from 'desktop-ext/components/layout/PageContainer'
 import WalletMenu from 'desktop-ext/components/layout/WalletMenu'
 import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/navigation/NavigationHeader'
-import DepositRoutes from 'desktop-ext/routes/depositRoutes'
 import HistoryRoutes from 'desktop-ext/routes/historyRoutes'
 import TransferRoutes from 'desktop-ext/routes/transferRoutes'
 import { WALLET_PATH } from 'desktop-ext/routes/walletRoutes'
@@ -27,7 +26,9 @@ export default function WalletLayout({
   children: React.ReactNode
 }) {
   const currentPath = usePathname()
-  const { paymentMethodList, isLoading } = useDepositList()
+  const { paymentMethodList, isLoading } = useDepositList(
+    !currentPath.includes(WALLET_PATH.DEPOSIT)
+  )
   const { data: cryptoBankList } = useCryptoBankQuery()
 
   const [menuRoutes, setMenuRoutes] = useState<DesktopRoute[]>()
@@ -40,19 +41,22 @@ export default function WalletLayout({
       setMenuRoutes(TransferRoutes as DesktopRoute[])
       setNoticeNotes(TRANSFER_NOTES)
       return
-    } else if (
-      currentPath.includes(WALLET_PATH.DEPOSIT) &&
-      paymentMethodList &&
-      paymentMethodList.length > 0
-    ) {
-      const availableRoutes = DepositRoutes.filter((route) =>
-        paymentMethodList.find((el) => route.categoryId === el.categoryId)
-      )
+    } else if (currentPath.includes(WALLET_PATH.DEPOSIT)) {
+      if (paymentMethodList && paymentMethodList.length > 0) {
+        setMenuRoutes(
+          paymentMethodList.map((m) => {
+            return {
+              key: m.name,
+              categoryId: m.categoryId,
+              title: m.name,
+              icon: m.icon,
+              route: m.path,
+            }
+          })
+        )
+      } else setMenuRoutes(undefined)
 
-      setMenuRoutes(availableRoutes)
-      setNoticeNotes(
-        currentPath.includes('topup-card') ? TOPUP_NOTES : DEPOSIT_NOTES
-      )
+      setNoticeNotes(DEPOSIT_NOTES)
       return
     } else if (currentPath.includes(WALLET_PATH.WITHDRAWAL)) {
       let routes = WithdrawalRoutes
@@ -76,13 +80,13 @@ export default function WalletLayout({
         <LeftPanelContainer>
           {menuRoutes ? (
             <TabNavMenu routes={menuRoutes} notice={noticeNotes} />
-          ) : (
+          ) : isLoading ? (
             <ActivityIndicator
               color={'$primary.200'}
               size={'large'}
               sx={{ mt: '$4' }}
             />
-          )}
+          ) : null}
         </LeftPanelContainer>
         <PageContainer>{children}</PageContainer>
       </Row>

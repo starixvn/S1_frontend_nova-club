@@ -18,7 +18,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
      * *Deposit Payment List
      */
     depositPaymentList: builder.query<
-      IResponse<DepositPaymentListResult>,
+      DepositPaymentListResult,
       DepositPaymentListArgs
     >({
       query: (queryArgs) => ({
@@ -26,6 +26,9 @@ const depositApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
         data: { ...queryArgs },
       }),
+      transformResponse: (res: IResponse<DepositPaymentListResult>) => {
+        return res.data ?? ({ result: {} } as DepositPaymentListResult)
+      },
       providesTags: ['DepositPaymentList'],
     }),
 

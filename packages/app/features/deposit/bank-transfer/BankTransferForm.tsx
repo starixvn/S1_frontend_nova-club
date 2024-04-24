@@ -36,6 +36,7 @@ import BankSlipUpload, {
 import DailyMax from '../component/DailyMax'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import AccountDetail from './AccountDetail'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -51,8 +52,9 @@ const BankTransferForm = () => {
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
   const bankSlipUploadRef = useRef<BankSlipUploadMethod>(null)
   const amountFieldRef = useRef<TextInput>(null)
+  const { isMobile } = useCheckMobile()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery({
-    is_mobile: 1,
+    is_mobile: isMobile ? 1 : 0,
   })
   const [submitDeposit] = useSubmitManualDepositMutation()
 

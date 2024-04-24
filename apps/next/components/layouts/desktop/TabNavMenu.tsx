@@ -28,7 +28,7 @@ const TabNavMenu = ({ routes, notice, ...rest }: TabNavMenuProps) => {
   const currentPath =
     routes?.find((el) => el.route === pathname)?.route ??
     routes?.find((el) => el?.base && pathname.includes(el?.base))?.route ??
-    routes[0].route
+    routes[0]?.route
 
   const { t } = useLocalization()
   const [currentMenu, setCurrentMenu] = useState(currentPath)

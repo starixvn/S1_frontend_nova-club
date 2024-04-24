@@ -2,7 +2,6 @@ import RefreshButton from 'app/components/RefreshButton'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
-import { DepositMethodId } from 'app/config/deposit'
 import useLocalization from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
@@ -47,37 +46,6 @@ const Deposit = () => {
     { refetchOnMountOrArgChange: true }
   )
 
-  const handlePress = (id) => {
-    switch (id) {
-      case DepositMethodId.INSTANT_TRANFER:
-        push(`/deposit/instant-transfer`)
-        break
-      case DepositMethodId.LOCAL_BANK:
-        push(`/deposit/bank-transfer`)
-        break
-      case DepositMethodId.ONLINE_BANK:
-        push(`/deposit/online-banking`)
-        break
-      case DepositMethodId.MOMO:
-        push(`/deposit/momo`)
-        break
-      case DepositMethodId.QR_CODE:
-        push(`/deposit/qr-pay`)
-        break
-      case DepositMethodId.TOP_UP:
-        push(`/deposit/topup-card`)
-        break
-      case DepositMethodId.CRYPTO:
-        push(`/deposit/crypto`)
-        break
-      case DepositMethodId.E_WALLET:
-        push(`/deposit/e-wallet`)
-        break
-      default:
-        break
-    }
-  }
-
   return (
     <PageWithBackHeader
       header={{
@@ -92,6 +60,10 @@ const Deposit = () => {
     >
       {paymentMethodList == null || isLoading ? (
         <ActivityIndicator sx={{ my: '$6' }} color={'$primary.100'} />
+      ) : paymentMethodList.length === 0 ? (
+        <Text sx={{ textAlign: 'center', pt: '$4' }}>
+          {t('deposit.noMethod')}
+        </Text>
       ) : (
         <>
           <DailyMax
@@ -100,7 +72,6 @@ const Deposit = () => {
             dailyMax={data?.max}
             sx={{ px: '$4', pt: '$4' }}
           />
-
           <Text sx={{ my: '$3', mx: '$4' }}>{t('deposit.choose')}</Text>
           <View
             sx={{
@@ -115,10 +86,9 @@ const Deposit = () => {
                 key={index}
                 item={item}
                 sx={{}}
-                onPress={() => handlePress(item.id)}
+                onPress={() => push(item.path)}
               />
             ))}
-            {/* <Seperator /> */}
           </View>
         </>
       )}

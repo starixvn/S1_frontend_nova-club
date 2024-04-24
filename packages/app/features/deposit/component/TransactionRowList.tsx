@@ -25,8 +25,10 @@ const TransactionRowList = ({ item }: TransactionRowListProps) => {
 
   const currency = useAppSelector((state) => state.setting.currency)
 
-  const category = PaymentMethod.find(
-    (el) => el.categoryId === item.second_category_flag
+  const category = PaymentMethod.find((el) =>
+    typeof el.categoryId === 'number'
+      ? el.categoryId === item.second_category_flag
+      : el.categoryId.includes(item.second_category_flag)
   ) as PaymentMethodProps
 
   const amount = toCurrency(item.amount, currency, {

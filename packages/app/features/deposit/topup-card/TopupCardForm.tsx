@@ -28,6 +28,7 @@ import useDepositFailedMessage, {
   FailedMessageModule,
 } from '../tools/useDepositFailedMessage'
 import ValueCard from './ValueCard'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 
 type TopupValues = {
   realAmount: number
@@ -46,8 +47,10 @@ const TopupCardForm = () => {
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const currency = useAppSelector((state) => state.setting.currency)
   const horizontalMode = useIsDesktop()
+  const { isMobile } = useCheckMobile()
+
   const { data } = useDepositPaymentListQuery({
-    is_mobile: horizontalMode ? 1 : 0,
+    is_mobile: isMobile ? 1 : 0,
   })
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 
