@@ -43,7 +43,15 @@ const DepositEWalletModal = ({
         <View sx={{ alignItems: 'center', justifyContent: 'center', pb: '$3' }}>
           {eWalletInfo && (
             <>
-              <Text sx={{ fontWeight: 'bold', fontSize: '$4', lineHeight: 35 }}>
+              <Text
+                numberOfLines={1}
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '$4',
+                  lineHeight: 35,
+                  flex: 1,
+                }}
+              >
                 {eWalletInfo.channel}
               </Text>
               <Text sx={{ mb: '$3' }}>{eWalletInfo.method}</Text>

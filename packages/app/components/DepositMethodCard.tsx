@@ -2,18 +2,18 @@ import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import ShadowButton from 'app/components/ShadowButton'
 import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
-import { PaymentMethodProps } from 'app/config/deposit'
 import useLocalization from 'app/provider/localization'
 import { Text, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { Shadow } from 'react-native-shadow-2'
 
-type DepositMethodCardProps = {
-  item: PaymentMethodProps
+type WithdrawalCardProps = {
+  name: string
+  icon: string
   onPress: () => void
 }
 
-const DepositMethodCard = ({ item, onPress }: DepositMethodCardProps) => {
+const WithdrawalCard = ({ name, icon, onPress }: WithdrawalCardProps) => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
 
@@ -24,7 +24,7 @@ const DepositMethodCard = ({ item, onPress }: DepositMethodCardProps) => {
     >
       <Shadow
         offset={[0, -1]}
-        startColor={theme.colors.$primary[100]}
+        startColor={theme.colors?.$primary?.[100]}
         distance={1}
         style={{
           borderRadius: 12,
@@ -44,10 +44,10 @@ const DepositMethodCard = ({ item, onPress }: DepositMethodCardProps) => {
           <ShadowButton
             containerStyle={{ aspectRatio: 1 / 1, mr: 12, borderRadius: 24 }}
           >
-            <Icon name={item.icon} />
+            <Icon name={icon} />
           </ShadowButton>
           <Text numberOfLines={2} sx={{ flex: 1, fontWeight: 'bold' }}>
-            {t(item.name)}
+            {t(name)}
           </Text>
         </DripsyGradient>
       </Shadow>
@@ -55,4 +55,4 @@ const DepositMethodCard = ({ item, onPress }: DepositMethodCardProps) => {
   )
 }
 
-export default DepositMethodCard
+export default WithdrawalCard

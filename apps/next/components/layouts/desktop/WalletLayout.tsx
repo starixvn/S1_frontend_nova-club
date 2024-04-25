@@ -13,12 +13,12 @@ import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/navigation/Navi
 import HistoryRoutes from 'desktop-ext/routes/historyRoutes'
 import TransferRoutes from 'desktop-ext/routes/transferRoutes'
 import { WALLET_PATH } from 'desktop-ext/routes/walletRoutes'
-import WithdrawalRoutes from 'desktop-ext/routes/withdrawalRoutes'
 import { ActivityIndicator, Container, Row, View, styled } from 'dripsy'
 import { useEffect, useState } from 'react'
 import TabNavMenu from './TabNavMenu'
 import { useCryptoBankQuery } from 'services/bank'
 import { DesktopRoute } from 'desktop-ext/routes/NavigationType'
+import withdrawalRoutes from 'app/routes/withdrawalRoutes'
 
 export default function WalletLayout({
   children,
@@ -29,7 +29,12 @@ export default function WalletLayout({
   const { paymentMethodList, isLoading } = useDepositList(
     !currentPath.includes(WALLET_PATH.DEPOSIT)
   )
-  const { data: cryptoBankList } = useCryptoBankQuery()
+  const { isCryptoAvailable, isUninitialized } = useCryptoBankQuery(undefined, {
+    skip: !currentPath.includes(WALLET_PATH.WITHDRAWAL),
+    selectFromResult: (s) => {
+      return { ...s, isCryptoAvailable: s.data && s.data.length > 0 }
+    },
+  })
 
   const [menuRoutes, setMenuRoutes] = useState<DesktopRoute[]>()
   const [noticeNotes, setNoticeNotes] = useState<string[] | undefined>(
@@ -59,11 +64,14 @@ export default function WalletLayout({
       setNoticeNotes(DEPOSIT_NOTES)
       return
     } else if (currentPath.includes(WALLET_PATH.WITHDRAWAL)) {
-      let routes = WithdrawalRoutes
-      if (cryptoBankList && cryptoBankList.length === 0)
-        routes = routes.filter((el) => el.key !== 'Crypto')
+      let routes: DesktopRoute[] | undefined = undefined
+      if (!isUninitialized) {
+        if (!isCryptoAvailable)
+          routes = withdrawalRoutes.filter((el) => el.key !== 'Crypto')
+        else routes = [...withdrawalRoutes] as DesktopRoute[]
+      }
 
-      setMenuRoutes(routes as DesktopRoute[])
+      setMenuRoutes(routes)
       setNoticeNotes(WITHDRAWAL_NOTES)
       return
     } else if (currentPath.includes(WALLET_PATH.HISTORY)) {
@@ -71,7 +79,7 @@ export default function WalletLayout({
       setNoticeNotes(undefined)
       return
     }
-  }, [cryptoBankList, currentPath, paymentMethodList])
+  }, [currentPath, isCryptoAvailable, isUninitialized, paymentMethodList])
 
   return (
     <Container sx={{ minHeight: `calc(100vh - ${NAVIGATION_HEIGHT}px)` }}>

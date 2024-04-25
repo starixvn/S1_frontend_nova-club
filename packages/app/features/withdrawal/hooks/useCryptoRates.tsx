@@ -27,6 +27,7 @@ const useCryptoRates = (selectedChannel) => {
           selectedCrypto = 'BTC'
           break
         default:
+          selectedCrypto = selectedChannel
           break
       }
 

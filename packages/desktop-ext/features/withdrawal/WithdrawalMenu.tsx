@@ -1,10 +1,9 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
-import LinkPressable from 'app/components/pressable/LinkPressable'
 import NavMenuPressable from 'app/components/pressable/NavMenuPressable'
 import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
-import WithdrawalRoutes from 'desktop-ext/routes/withdrawalRoutes'
+import withdrawalRoutes from 'app/routes/withdrawalRoutes'
 import { Row, Text, View } from 'dripsy'
 import React from 'react'
 
@@ -16,7 +15,7 @@ const WithdrawalMenu = () => {
   return (
     <View sx={{ mb: '$3' }}>
       <DripsyGradient gradient="surface">
-        {WithdrawalRoutes.map((item) => {
+        {withdrawalRoutes.map((item) => {
           const isActive = item.route === pathname
 
           return (

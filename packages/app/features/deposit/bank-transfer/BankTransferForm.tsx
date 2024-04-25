@@ -59,7 +59,7 @@ const BankTransferForm = () => {
   const [submitDeposit] = useSubmitManualDepositMutation()
 
   const currency = useAppSelector((state) => state.setting.currency)
-  const depositPayment = data?.data?.result?.manual?.find(
+  const depositPayment = data?.result?.manual?.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
 

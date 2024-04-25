@@ -15,6 +15,7 @@ const useDepositList = (skip = false) => {
     }
   )
 
+  /* Retrieve active payment list */
   const paymentMethodList = useMemo(() => {
     if (data) {
       return PaymentMethod.filter((item) => {

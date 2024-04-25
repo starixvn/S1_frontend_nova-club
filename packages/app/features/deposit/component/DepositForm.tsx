@@ -60,7 +60,7 @@ const DepositForm = ({ DepositCategoryId }) => {
     refetchOnMountOrArgChange: true,
   })
 
-  const depositPayment = data?.data?.result.auto.find(
+  const depositPayment = data?.result.auto.find(
     (el) => el.category_id === DepositCategoryId
   )
 

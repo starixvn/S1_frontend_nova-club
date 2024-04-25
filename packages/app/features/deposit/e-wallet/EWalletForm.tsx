@@ -3,11 +3,12 @@ import MoneyInput from 'app/components/MoneyInput'
 import Button from 'app/components/common/Button'
 import { Options } from 'app/components/select/Select'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
-import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+import { DepositMethodId, PaymentMethodDict } from 'app/config/deposit'
 import { ROOT_DOMAIN } from 'app/constants/domain'
 import EmptyAccount from 'app/features/withdrawal/components/EmptyAccount'
 import useWithdrawalBankSelection from 'app/features/withdrawal/hooks/useWithdrawalBankSelection'
 import useAlert from 'app/hooks/useAlert'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -22,12 +23,10 @@ import duration from 'dayjs/plugin/duration'
 import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import { Dictionary } from 'lodash'
-import groupBy from 'lodash/groupBy'
+import { isArray } from 'lodash'
 import { useEffect, useMemo, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { PlayerBankResult } from 'services/bank.type'
-import { IResponse } from 'services/common/types'
 import {
   useDepositPaymentListQuery,
   useGetAvailableDepositAmountQuery,
@@ -40,7 +39,7 @@ import DailyMax from '../component/DailyMax'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import { onAmountChanged } from '../utils'
 import useEWalletSelections from './useEWalletSelections'
-import useCheckMobile from 'app/hooks/useCheckMobile'
+import { Linking, Platform } from 'react-native'
 
 dayjs.extend(duration)
 
@@ -53,17 +52,17 @@ type EWalletFormValues = {
 const EWalletForm = () => {
   const { push } = useRouter()
   const { t } = useLocalization()
-  const [paymentMethodKey, setPaymentMethodKey] = useState<string>()
+  const [categoryId, setCategoryId] = useState<string>()
   const [paymentGatewayIndex, setPaymentGatewayIndex] = useState<number>(0)
 
   const { showAlert } = useAlert()
   const { openModal } = useModal()
-  const [postSubmitDeposit] = useSubmitDepositMutation()
-  const currency = useAppSelector((state) => state.setting.currency)
   const horizontalMode = useIsDesktop()
-
   const { isMobile } = useCheckMobile()
 
+  const currency = useAppSelector((state) => state.setting.currency)
+
+  const [postSubmitDeposit] = useSubmitDepositMutation()
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
   const { eWalletMethods } = useDepositPaymentListQuery(
     {
@@ -79,10 +78,8 @@ const EWalletForm = () => {
     }
   )
 
-  console.log('eWalletMethods', eWalletMethods)
-
   const { paymentMethodsSelections, paymentGatewaySelections } =
-    useEWalletSelections(eWalletMethods, paymentMethodKey)
+    useEWalletSelections(eWalletMethods, categoryId)
   const { playerBankList, bankSelections } = useWithdrawalBankSelection()
 
   const { data: dailyData } = useGetAvailableDepositAmountQuery(undefined, {
@@ -91,9 +88,13 @@ const EWalletForm = () => {
 
   useEffect(() => {
     /* auto select first method */
-    if (!paymentMethodKey) {
-      const keys = Object.keys(eWalletMethods)
-      if (keys.length > 0) setPaymentMethodKey(keys[0])
+    if (
+      !categoryId &&
+      eWalletMethods &&
+      eWalletMethods.length > 0 &&
+      eWalletMethods[0]
+    ) {
+      setCategoryId(eWalletMethods[0].category_id.toString())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eWalletMethods])
@@ -103,12 +104,14 @@ const EWalletForm = () => {
     actions: FormikHelpers<EWalletFormValues>
   ) => {
     try {
-      if (bank && selectedPaymentGateway) {
+      if (selectedPaymentGateway) {
         actions.setSubmitting(true)
         const result = await postSubmitDeposit({
           amount: realAmount,
           bank: '',
-          player_bank_details_id: bank.PlayerBankDetailsId,
+          player_bank_details_id: isBankSelectionRequired
+            ? bank?.PlayerBankDetailsId
+            : 0,
           bank_type_id: selectedPaymentGateway.bankTypeId ?? 0,
           card_code: 0,
           card_seri: 0,
@@ -128,21 +131,58 @@ const EWalletForm = () => {
           })
 
         if (result?.success) {
-          openModal('DepositEWalletModal', {
-            eWalletInfo: {
-              ...result.data,
-              channel: selectedPaymentGateway.bank_name_local,
-              method: t(`deposit.${paymentMethodKey}`),
-              currency,
-            },
-          })
+          const type = result?.data?.type
+
+          /* Pre shared value */
+          let methodName = ''
+          if (eWalletMethods) {
+            const category = eWalletMethods.find(
+              (pg) => pg.category_id.toString() === categoryId
+            )
+            if (category) methodName = category.category_text
+          }
+
+          switch (type) {
+            case 1: {
+              if (Platform.OS === 'web') {
+                Linking.openURL(result?.data?.url ?? '')
+              } else {
+                const params = {
+                  title: methodName,
+                  depositUrl: encodeURIComponent(result?.data?.url ?? ''),
+                }
+
+                push('/deposit/deposit-loader', {
+                  pathname: '/deposit/deposit-loader',
+                  query: params,
+                })
+              }
+              break
+            }
+            case 2: {
+              openModal('DepositEWalletModal', {
+                eWalletInfo: {
+                  ...result.data,
+                  channel: selectedPaymentGateway.bank_name_local,
+                  method: methodName,
+                  currency,
+                },
+              })
+
+              break
+            }
+          }
 
           formik.resetForm()
 
-          let keys = Object.keys(eWalletMethods)
-          if (keys.length > 0) {
-            setPaymentMethodKey(keys[0])
+          if (
+            isArray(eWalletMethods) &&
+            eWalletMethods.length > 0 &&
+            eWalletMethods[0]
+          ) {
+            setCategoryId(eWalletMethods[0].category_id.toString())
           }
+
           setPaymentGatewayIndex(0)
         }
       }
@@ -154,18 +194,30 @@ const EWalletForm = () => {
   }
 
   const selectedPaymentGateway = useMemo(() => {
-    if (eWalletMethods && paymentMethodKey) {
-      const selectedMethod = eWalletMethods[paymentMethodKey] as AutoBankItem[]
+    if (eWalletMethods && categoryId) {
+      const selectedMethod = eWalletMethods.find(
+        (c) => c.category_id.toString() === categoryId
+      )
+
       if (selectedMethod != null) {
-        return selectedMethod[paymentGatewayIndex] as AutoBankItem
+        return selectedMethod.list[paymentGatewayIndex] as AutoBankItem
       }
     }
-  }, [eWalletMethods, paymentMethodKey, paymentGatewayIndex])
+  }, [eWalletMethods, categoryId, paymentGatewayIndex])
 
   const isShowingK = useMemo(() => isThousandCurrency(currency), [currency])
 
   const minAmount = Number(selectedPaymentGateway?.minDeposit) ?? 0
   const maxAmount = Number(selectedPaymentGateway?.maxDeposit) ?? 0
+
+  const isBankSelectionRequired = useMemo(() => {
+    return (
+      selectedPaymentGateway &&
+      Object.values(selectedPaymentGateway.player_input_fields).some(
+        (f) => f.field_name === 'display_player_withdrawal_bank_input'
+      )
+    )
+  }, [selectedPaymentGateway])
 
   const formik = useFormik<EWalletFormValues>({
     enableReinitialize: true,
@@ -175,7 +227,7 @@ const EWalletForm = () => {
     },
     validationSchema: Yup.object({
       realAmount: validation.amount,
-      bank: validation.bank,
+      bank: isBankSelectionRequired ? validation.bank : Yup.object(),
       amount: validation.amountMinMax({
         min: toDisplayAmount(minAmount, currency),
         max: toDisplayAmount(maxAmount, currency),
@@ -209,9 +261,14 @@ const EWalletForm = () => {
     })
   }
 
-  function onPaymentMethodChanged(method: string) {
-    setPaymentMethodKey(method)
+  function onPaymentMethodChanged(categoryId: string) {
+    setCategoryId(categoryId)
     setPaymentGatewayIndex(0)
+  }
+
+  function onPaymentGatewayIndexChanged(v: string) {
+    formik.resetForm()
+    setPaymentGatewayIndex(Number(v))
   }
 
   const renderEmpty = useMemo(
@@ -242,26 +299,30 @@ const EWalletForm = () => {
             <BankSelection
               label={t('deposit.paymentMethod')}
               list={paymentMethodsSelections}
-              selected={paymentMethodKey}
+              selected={categoryId}
               onPress={onPaymentMethodChanged}
               imageMode="cover"
             />
-            <BankSelection
-              label={t('deposit.selectChannel')}
-              list={paymentGatewaySelections}
-              selected={paymentGatewayIndex?.toString()}
-              onPress={(e) => setPaymentGatewayIndex(Number(e))}
-              imageMode="cover"
-            />
-            <BankSelection
-              label={t('bank.bank')}
-              subtitle={t('bank.selectBank')}
-              list={bankSelections}
-              selected={values.bank?.BankAccountNumber ?? ''}
-              onPress={(e) => onBankSelected(e)}
-              onAddNewAccount={() => push('/account/bank/add-bank-account')}
-              imageMode="cover"
-            />
+            {!!categoryId && (
+              <BankSelection
+                label={t('deposit.selectChannel')}
+                list={paymentGatewaySelections}
+                selected={paymentGatewayIndex?.toString()}
+                onPress={onPaymentGatewayIndexChanged}
+                imageMode="cover"
+              />
+            )}
+            {isBankSelectionRequired && (
+              <BankSelection
+                label={t('bank.bank')}
+                subtitle={t('bank.selectBank')}
+                list={bankSelections}
+                selected={values.bank?.BankAccountNumber ?? ''}
+                onPress={(e) => onBankSelected(e)}
+                onAddNewAccount={() => push('/account/bank/add-bank-account')}
+                imageMode="cover"
+              />
+            )}
           </>
         ) : (
           <>
@@ -269,26 +330,30 @@ const EWalletForm = () => {
               label={t('deposit.paymentMethod')}
               placeholder={t('deposit.paymentMethod')}
               options={paymentMethodsSelections}
-              value={paymentMethodKey}
+              value={categoryId}
               onSelected={onPaymentMethodChanged}
             />
-            <SelectWithCardGrid<string>
-              label={t('deposit.selectChannel')}
-              placeholder={t('deposit.selectChannel')}
-              options={paymentGatewaySelections as Options<string>[]}
-              value={paymentGatewayIndex.toString()}
-              onSelected={(v) => setPaymentGatewayIndex(Number(v))}
-            />
-            <SelectWithCardGrid
-              label={t('bank.bankAccount')}
-              subtitle={values.bank?.BankName}
-              placeholder={t('placeholder.plsSelectBank')}
-              options={bankSelections}
-              value={values.bank?.BankAccountNumber ?? ''}
-              sx={{ width: '100%', mb: '$3' }}
-              onSelected={(e) => onBankSelected(e)}
-              renderEmpty={renderEmpty}
-            />
+            {!!categoryId && (
+              <SelectWithCardGrid<string>
+                label={t('deposit.selectChannel')}
+                placeholder={t('deposit.selectChannel')}
+                options={paymentGatewaySelections as Options<string>[]}
+                value={paymentGatewayIndex.toString()}
+                onSelected={onPaymentGatewayIndexChanged}
+              />
+            )}
+            {isBankSelectionRequired && (
+              <SelectWithCardGrid
+                label={t('bank.bankAccount')}
+                subtitle={values.bank?.BankName}
+                placeholder={t('placeholder.plsSelectBank')}
+                options={bankSelections}
+                value={values.bank?.BankAccountNumber ?? ''}
+                sx={{ width: '100%', mb: '$3' }}
+                onSelected={(e) => onBankSelected(e)}
+                renderEmpty={renderEmpty}
+              />
+            )}
           </>
         )}
 
@@ -333,27 +398,17 @@ export default EWalletForm
 - LNWPAY_EWALLET_PROMPTPAY_PAYMENT_API -> PROMPTPAY_PAYMENT_API
 - LNWPAY_EWALLET_TRUEMONEY_PAYMENT_API -> TRUEMONEY_PAYMENT_API
 */
-const EmptyDict = {} as Dictionary<AutoBankItem[]>
 const selectPaymentMethodsEwallet = createSelector(
-  (res: IResponse<DepositPaymentListResult> | undefined) =>
-    res?.data?.result.auto,
+  (res: DepositPaymentListResult | undefined) => res?.result.auto,
   (data) => {
     if (data) {
-      const eWalletPaymentMethod = data.find(
-        (pg) => pg.category_id === DepositPaymentMethodCategoryId.E_WALLET
+      const setting = PaymentMethodDict[DepositMethodId.E_WALLET]
+
+      return data.filter((pg) =>
+        typeof setting.categoryId === 'number'
+          ? pg.category_id === setting.categoryId
+          : setting.categoryId.includes(pg.category_id)
       )
-
-      if (eWalletPaymentMethod) {
-        return groupBy<AutoBankItem>(
-          eWalletPaymentMethod.list as AutoBankItem[],
-          (item: AutoBankItem) => {
-            const match = item.bank_name_local.match(/(?<=EWALLET_)\w+/g)
-            return match ? match[0] : null
-          }
-        )
-      }
     }
-
-    return EmptyDict
   }
 )

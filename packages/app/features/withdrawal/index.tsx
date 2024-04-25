@@ -1,8 +1,10 @@
-import DepositMethodCard from 'app/components/DepositMethodCard'
+import WithdrawalCard from 'app/components/DepositMethodCard'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
-import { DepositMethodId, PAYMENT_METHOD } from 'app/config/deposit'
+import { DepositMethodId } from 'app/config/deposit'
+import { Route } from 'app/navigation/type'
 import useLocalization from 'app/provider/localization'
+import withdrawalRoutes from 'app/routes/withdrawalRoutes'
 import { Text, View, styled } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
@@ -18,31 +20,21 @@ const WithdrawalScreen = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { openModal } = useModal()
+
   const [withdrawalOptions, setWithdrawalOptions] = useState([
-    PAYMENT_METHOD.LOCAL_BANK,
+    withdrawalRoutes[0] as Route,
   ])
 
-  const { data: cryptoBankList } = useCryptoBankQuery()
+  const { isCryptoAvailable } = useCryptoBankQuery(undefined, {
+    selectFromResult: (s) => {
+      return { ...s, isCryptoAvailable: s.data && s.data.length > 0 }
+    },
+  })
   const { data: availAmount } = useGetAvailableWithdrawalAmountQuery()
 
   useEffect(() => {
-    cryptoBankList &&
-      cryptoBankList.length !== 0 &&
-      setWithdrawalOptions([PAYMENT_METHOD.LOCAL_BANK, PAYMENT_METHOD.CRYPTO])
-  }, [cryptoBankList])
-
-  const handlePress = (id) => {
-    switch (id) {
-      case DepositMethodId.LOCAL_BANK:
-        push(`/withdrawal/bank-withdrawal`)
-        break
-      case DepositMethodId.CRYPTO:
-        push(`/withdrawal/crypto-withdrawal`)
-        break
-      default:
-        break
-    }
-  }
+    if (isCryptoAvailable) setWithdrawalOptions([...withdrawalRoutes])
+  }, [isCryptoAvailable])
 
   return (
     <PageWithBackHeader
@@ -78,10 +70,11 @@ const WithdrawalScreen = () => {
           >
             {withdrawalOptions &&
               withdrawalOptions?.map((item, index) => (
-                <DepositMethodCard
-                  key={item.id}
-                  item={item}
-                  onPress={() => handlePress(item.id)}
+                <WithdrawalCard
+                  key={item.key}
+                  name={item.title}
+                  icon={item.icon ?? 'bank'}
+                  onPress={() => push(item.route)}
                 />
               ))}
           </View>

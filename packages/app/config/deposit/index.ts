@@ -38,8 +38,8 @@ export type PaymentMethodProps = {
   path: string
 }
 
-export const PaymentMethod: PaymentMethodProps[] = [
-  {
+export const PaymentMethodDict: Record<DepositMethodId, PaymentMethodProps> = {
+  [`${DepositMethodId.INSTANT_TRANFER}`]: {
     id: DepositMethodId.INSTANT_TRANFER,
     type: DepositPaymentMethodCategoryType.AUTO,
     categoryId: DepositPaymentMethodCategoryId.INSTANT_TRANFER,
@@ -49,7 +49,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
     color: '#1E2238',
     active: true,
   },
-  {
+  [`${DepositMethodId.LOCAL_BANK}`]: {
     id: DepositMethodId.LOCAL_BANK,
     type: DepositPaymentMethodCategoryType.MANUAL,
     categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
@@ -59,7 +59,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
     color: '#1E2238',
     active: true,
   },
-  {
+  [`${DepositMethodId.ONLINE_BANK}`]: {
     id: DepositMethodId.ONLINE_BANK,
     type: DepositPaymentMethodCategoryType.AUTO,
     categoryId: DepositPaymentMethodCategoryId.ONLINE_BANK,
@@ -69,7 +69,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
     color: '#1E2238',
     active: true,
   },
-  {
+  [`${DepositMethodId.MOMO}`]: {
     id: DepositMethodId.MOMO,
     type: DepositPaymentMethodCategoryType.AUTO,
     categoryId: DepositPaymentMethodCategoryId.MOMO,
@@ -79,7 +79,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
     color: '#1E2238',
     active: true,
   },
-  {
+  [`${DepositMethodId.QR_CODE}`]: {
     id: DepositMethodId.QR_CODE,
     type: DepositPaymentMethodCategoryType.AUTO,
     categoryId: DepositPaymentMethodCategoryId.QR_CODE,
@@ -89,7 +89,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
     color: '#1E2238',
     active: true,
   },
-  {
+  [`${DepositMethodId.TOP_UP}`]: {
     id: DepositMethodId.TOP_UP,
     type: DepositPaymentMethodCategoryType.AUTO,
     categoryId: DepositPaymentMethodCategoryId.TOP_UP,
@@ -99,7 +99,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
     color: '#1E2238',
     active: true,
   },
-  {
+  [`${DepositMethodId.CRYPTO}`]: {
     id: DepositMethodId.CRYPTO,
     type: DepositPaymentMethodCategoryType.AUTO,
     categoryId: DepositPaymentMethodCategoryId.CRYPTO,
@@ -109,7 +109,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
     color: '#1E2238',
     active: true,
   },
-  {
+  [`${DepositMethodId.E_WALLET}`]: {
     id: DepositMethodId.E_WALLET,
     type: DepositPaymentMethodCategoryType.AUTO,
     categoryId: [
@@ -122,6 +122,9 @@ export const PaymentMethod: PaymentMethodProps[] = [
     color: '#1E2238',
     active: true,
   },
-]
+}
+
+export const PaymentMethod: PaymentMethodProps[] =
+  Object.values(PaymentMethodDict)
 
 export default PaymentMethod

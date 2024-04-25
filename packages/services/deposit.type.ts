@@ -96,7 +96,10 @@ export type AutoBankItem = {
   order: number
   pay_acc_id: number
   payment_account_name: string
-  player_input_fields: PlayerInputFieldsAmount | PlayerInputFieldsBank
+  player_input_fields: Record<
+    string,
+    PlayerInputFieldsAmount | PlayerInputFieldsBank
+  >
   vendor_percentage?: string
 }
 

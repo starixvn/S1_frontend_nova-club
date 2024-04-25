@@ -1,41 +1,51 @@
 import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { Dictionary } from 'lodash'
 import { useMemo } from 'react'
 import { SelectOptions } from 'services/common/types'
-import { AutoBankItem } from 'services/deposit.type'
+import { CategoryItem } from 'services/deposit.type'
+
+const EmptySelection = [] as SelectOptions[]
 
 export default function useEWalletSelections(
-  eWalletMethods: Dictionary<AutoBankItem[]>,
-  paymentMethodKey?: string
+  depositCategories?: CategoryItem[],
+  categoryId?: string
 ) {
   const paymentMethodsSelections: SelectOptions[] = useMemo(() => {
-    const keys = Object.keys(eWalletMethods)
+    if (depositCategories) {
+      return depositCategories
+        .filter((c) => c.list.length > 0)
+        .map((c) => {
+          return {
+            label: c.category_text,
+            value: c.category_id.toString(),
+            icon: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/payment-provider/${c.category_text.toLowerCase()}.jpg`,
+          }
+        })
+    }
 
-    return keys.map((key) => {
-      return {
-        label: `deposit.${key}`,
-        value: key,
-        icon: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/payment-provider/${key.toLowerCase()}.jpg`,
-      }
-    })
+    return EmptySelection
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [eWalletMethods])
+  }, [depositCategories])
 
   const paymentGatewaySelections: SelectOptions[] = useMemo(() => {
-    if (paymentMethodKey && eWalletMethods[paymentMethodKey]) {
-      const method = eWalletMethods[paymentMethodKey]
-      if (method)
-        return method.map((pg: AutoBankItem, index) => {
+    if (categoryId && depositCategories) {
+      const selectedCategory = depositCategories.find(
+        (c) => c.category_id.toString() === categoryId
+      )
+
+      if (selectedCategory) {
+        return selectedCategory.list.map((pg, index) => {
           return {
             label: pg.payment_account_name,
             value: index.toString(),
             icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${pg.account_icon}`,
           }
         })
+      }
     }
 
     return [] as SelectOptions[]
-  }, [eWalletMethods, paymentMethodKey])
+  }, [categoryId, depositCategories])
 
   return {
     paymentMethodsSelections,
