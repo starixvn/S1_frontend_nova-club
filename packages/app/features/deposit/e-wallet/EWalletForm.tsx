@@ -159,7 +159,7 @@ const EWalletForm = () => {
               }
               break
             }
-            case 2: {
+            case 3: {
               openModal('DepositEWalletModal', {
                 eWalletInfo: {
                   ...result.data,
