@@ -22,10 +22,18 @@ const LazyVi = dynamic(
   }
 )
 
+const LazyTh = dynamic(
+  () => import('app/features/info/shareholder/ShareholderTh'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
+
 const infoLocalizationMapping = {
   [LANGUAGE_CODE.ENGLISH]: LazyEn,
   [LANGUAGE_CODE.VIETNAM]: LazyVi,
-  [LANGUAGE_CODE.THAILAND]: LazyEn,
+  [LANGUAGE_CODE.THAILAND]: LazyTh,
 }
 
 const Shareholder: AdaptiveLayoutPage = () => (
