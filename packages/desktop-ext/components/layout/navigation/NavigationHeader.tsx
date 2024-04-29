@@ -178,7 +178,7 @@ const MenuButton = ({
         position: 'relative',
         justifyContent: 'center',
         flex: 1,
-        px: icon ? '$3' : ['$2', '$2', '$2', 6, 11, 22],
+        px: icon ? '$3' : ['$2', '$2', '$2', 6, 9, 18],
         alignItems: 'center',
       }}
       containerStyle={{ position: 'relative', ...style }}
@@ -191,7 +191,7 @@ const MenuButton = ({
         <Icon name={icon} size={22} />
       ) : (
         <View>
-          <Text sx={{ fontSize: [10, 10, 10, 12, 14] }}>
+          <Text sx={{ fontSize: [10, 10, 10, 12, 13, 14] }}>
             {t(label).toUpperCase()}
           </Text>
           <Text
