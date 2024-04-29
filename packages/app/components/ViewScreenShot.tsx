@@ -50,10 +50,10 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
 
     const download = useCallback(async () => {
       try {
-        if (Platform.OS === 'android')
-          if (!hasPermission) {
-            setHasPermission(await hasAndroidPermission())
-          } else {
+        if (Platform.OS === 'android') {
+          const hasPermission = await hasAndroidPermission()
+
+          if (hasPermission) {
             captureRef(viewShotRef).then(async (uri) => {
               await saveImage(uri, fileName)
 
@@ -63,6 +63,7 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
               })
             })
           }
+        }
 
         if (Platform.OS === 'ios') {
           if (permissionResponse?.status !== 'granted') {

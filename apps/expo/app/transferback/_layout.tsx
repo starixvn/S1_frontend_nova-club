@@ -27,7 +27,10 @@ export default function Transfer({}) {
       }}
       disableScrollView
     >
-      <MaterialTopTab tabBar={(props) => <CustomTabBar {...props} />}>
+      <MaterialTopTab
+        backBehavior="none"
+        tabBar={(props) => <CustomTabBar {...props} />}
+      >
         <MaterialTopTab.Screen
           name="receive" // This is the name of the page and must match the url from root
         />
