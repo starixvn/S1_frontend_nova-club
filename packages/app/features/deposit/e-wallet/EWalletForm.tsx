@@ -163,7 +163,7 @@ const EWalletForm = () => {
               openModal('DepositEWalletModal', {
                 eWalletInfo: {
                   ...result.data,
-                  channel: selectedPaymentGateway.bank_name_local,
+                  channel: selectedPaymentGateway.payment_account_name,
                   method: methodName,
                   currency,
                 },
