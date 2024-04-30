@@ -1,10 +1,10 @@
 import useLocalization from 'app/provider/localization'
+import * as FileSystem from 'expo-file-system'
 import * as MediaLibrary from 'expo-media-library'
 import React, {
   ReactNode,
   forwardRef,
   useCallback,
-  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -27,6 +27,8 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
     const viewShotRef = useRef<ViewShot>(null)
     const { t } = useLocalization()
     const [hasPermission, setHasPermission] = useState(false)
+    const [permissionResponse, requestPermission] =
+      MediaLibrary.usePermissions()
 
     const hasAndroidPermission = async () => {
       const hasPermission = await checkDevicePermission()
@@ -48,26 +50,35 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
 
     const download = useCallback(async () => {
       try {
-        if (Platform.OS === 'android' && !hasPermission) {
-          setHasPermission(await hasAndroidPermission())
-        }
-        if (Platform.OS === 'android' && hasPermission) {
-          captureRef(viewShotRef).then(async (uri) => {
-            await MediaLibrary.saveToLibraryAsync(uri)
-            Toast.show({
-              type: 'success',
-              text1: t('status.qrDownloadSuccess'),
+        if (Platform.OS === 'android') {
+          const hasPermission = await hasAndroidPermission()
+
+          if (hasPermission) {
+            captureRef(viewShotRef).then(async (uri) => {
+              await saveImage(uri, fileName)
+
+              Toast.show({
+                type: 'success',
+                text1: t('status.qrDownloadSuccess'),
+              })
             })
-          })
+          }
         }
+
         if (Platform.OS === 'ios') {
-          captureRef(viewShotRef).then(async (uri) => {
-            await MediaLibrary.saveToLibraryAsync(uri)
-            Toast.show({
-              type: 'success',
-              text1: t('status.qrDownloadSuccess'),
+          if (permissionResponse?.status !== 'granted') {
+            await requestPermission()
+          } else {
+            captureRef(viewShotRef).then(async (uri) => {
+              await saveImage(uri, fileName)
+
+              // await MediaLibrary.saveToLibraryAsync(newUri)
+              Toast.show({
+                type: 'success',
+                text1: t('status.qrDownloadSuccess'),
+              })
             })
-          })
+          }
         }
       } catch (error) {
         Toast.show({
@@ -75,13 +86,33 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
           text1: error,
         })
       }
-    }, [hasAndroidPermission, hasPermission])
+    }, [permissionResponse, hasPermission])
 
-    useEffect(() => {
-      if (Platform.OS === 'android' && hasPermission) {
-        download()
+    const saveImage = async (sourceUri, customFilename) => {
+      try {
+        // Get the asset's URI from the ID
+        const assetUri = await FileSystem.getInfoAsync(sourceUri)
+
+        // Construct new filename
+        const extension = sourceUri.split('.').pop() // Get file extension
+        const newFilename = customFilename + '.' + extension
+        const newPath = FileSystem.documentDirectory + newFilename
+
+        await FileSystem.copyAsync({
+          from: assetUri.uri,
+          to: newPath,
+        })
+
+        // Save the copied image to the MediaLibrary
+        if (Platform.OS === 'ios') await MediaLibrary.createAssetAsync(newPath)
+        else await MediaLibrary.saveToLibraryAsync(newPath)
+        // Return the new file path
+        return newPath
+      } catch (error) {
+        console.error('Failed to save image: ', error)
+        return null
       }
-    }, [download, hasPermission])
+    }
 
     useImperativeHandle(
       ref,

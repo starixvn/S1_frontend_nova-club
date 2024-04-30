@@ -17,7 +17,7 @@ const PNG = require('pngjs/browser').PNG
 
 const useImagePicker = () => {
   const { t } = useLocalization()
-  const { push } = useRouter()
+  const { push, replace } = useRouter()
   const { openModal } = useModal()
   const { showAlert } = useAlert()
   const dispatch = useDispatch()
@@ -111,7 +111,7 @@ const useImagePicker = () => {
         referralCode: cleanText,
       }
 
-      push({ pathname: '/transfer/id', query: params })
+      replace({ pathname: '/transfer/id', query: params })
     }
   }
 
