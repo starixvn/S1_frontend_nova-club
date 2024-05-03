@@ -1,4 +1,5 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import DisabledOverlay from 'app/components/DisabledOverlay'
 import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -154,17 +155,7 @@ const LeftPanel = () => {
               }}
               resizeMode={ResizeMode.COVER}
             />
-            {!enableCheckIn && (
-              <View
-                sx={{
-                  position: 'absolute',
-                  width: '100%',
-                  height: '100%',
-                  bg: 'black',
-                  opacity: 0.7,
-                }}
-              />
-            )}
+            {!enableCheckIn && <DisabledOverlay />}
           </Pressable>
         </View>
       </View>

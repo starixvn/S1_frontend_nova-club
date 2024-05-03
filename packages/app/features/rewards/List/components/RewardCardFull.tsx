@@ -1,11 +1,9 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import Button, { ButtonProps } from 'app/components/common/Button'
-import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { Row } from 'dripsy'
-import { Pressable, Text, View, styled } from 'dripsy'
+import DisabledOverlay from 'app/components/DisabledOverlay'
+import { ButtonProps } from 'app/components/common/Button'
+import { Pressable, Row, Text, View, styled } from 'dripsy'
 import React, { ComponentProps } from 'react'
 import { SolitoImage } from 'solito/image'
-import { RewardGameKeyMap } from 'utils/rewards'
 
 const StyledContainer = styled(View)({
   width: '100%',
@@ -19,13 +17,14 @@ interface RewardCardFullProps extends ComponentProps<typeof Pressable> {
   cost: number
   gameName: string
   buttonProps?: ButtonProps
+  disabled?: boolean
 }
 
 const RewardCardFull = (props: RewardCardFullProps) => {
-  const { src, cost, gameName, buttonProps, ...rest } = props
+  const { src, cost, gameName, buttonProps, disabled = false, ...rest } = props
 
   return (
-    <Pressable {...rest}>
+    <Pressable disabled={disabled} {...rest}>
       <StyledContainer>
         <SolitoImage
           src={src}
@@ -75,6 +74,8 @@ const RewardCardFull = (props: RewardCardFullProps) => {
             </Text>
           </Row>
         </View>
+
+        {disabled && <DisabledOverlay />}
       </StyledContainer>
 
       <Text
