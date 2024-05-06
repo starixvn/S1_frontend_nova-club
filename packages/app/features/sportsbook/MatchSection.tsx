@@ -21,6 +21,8 @@ export default function MatchSection() {
 
   const leagueId = selectedLeague ?? leagues.ids[0] ?? ''
 
+  if (leagues.ids?.length === 0) return null
+
   return (
     <View>
       <MatchLeagueSelector

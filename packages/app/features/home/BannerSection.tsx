@@ -15,5 +15,7 @@ export default function BannerSection() {
     },
   })
 
+  if (!banners || banners.length <= 0) return null
+
   return <BannerCarousel data={banners} />
 }
