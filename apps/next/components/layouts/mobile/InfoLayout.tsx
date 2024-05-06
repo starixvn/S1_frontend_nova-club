@@ -30,6 +30,7 @@ const MapInfoRouteTitle = (currentPath: string) => {
     case '/event/christmas-special/tnc':
     case '/event/retention3/tnc':
     case '/event/retargeting/tnc':
+    case '/event/referral/tnc':
       return 'common.tnc'
     case 'about-us':
       return 'footer.aboutUs'
