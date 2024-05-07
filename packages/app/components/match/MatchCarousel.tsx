@@ -13,6 +13,8 @@ import { MatchResult } from 'services/matchApi.type'
 import { mergeRefs } from 'utils/mergeRefs'
 import Icon from '../Icon'
 import MatchItem, { SCORE_HEIGHT } from './MatchItem'
+import { logEvent } from 'app/integrations/analytic'
+import { GAEvents } from 'app/integrations/analytic/events'
 const ASPECT_RATIO = 3
 
 export type MatchCarouselProps = Omit<
@@ -53,6 +55,10 @@ const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
 
     const onPress = useCallback(
       (match: MatchResult) => {
+        logEvent(GAEvents.CTA_Match, {
+          ref: match.EventId.toString(),
+          display_name: `${match.HomeName} vs ${match.AwayName}`,
+        })
         getAction({
           type: ActionType.GAME,
           payload: {

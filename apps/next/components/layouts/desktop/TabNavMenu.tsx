@@ -6,6 +6,8 @@ import NavMenuPressable, {
   NavMenuPressableProps,
 } from 'app/components/pressable/NavMenuPressable'
 import usePathname from 'app/hooks/usePathname'
+import { logEvent } from 'app/integrations/analytic'
+import { GAEvents } from 'app/integrations/analytic/events'
 import useLocalization from 'app/provider/localization'
 import { DesktopRoute } from 'desktop-ext/routes/NavigationType'
 import { Row, Text, View } from 'dripsy'
@@ -53,7 +55,16 @@ const TabNavMenu = ({ routes, notice, ...rest }: TabNavMenuProps) => {
               label={t(item.title)}
               href={item.route}
               isActive={isActive}
-              onPress={() => setCurrentMenu(item.route)}
+              onPress={() => {
+                /* for now track deposit category only */
+                if (pathname.startsWith('/deposit'))
+                  logEvent(GAEvents.CTA_DepositCategory, {
+                    ref: item.route,
+                    display_name: item.key,
+                  })
+
+                setCurrentMenu(item.route)
+              }}
             />
           )
         })}
