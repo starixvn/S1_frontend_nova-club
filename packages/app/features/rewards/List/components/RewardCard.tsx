@@ -1,11 +1,11 @@
-import Shadow from 'app/components/Shadow'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import DisabledOverlay from 'app/components/DisabledOverlay'
+import GameTagsLabel, { GAME_TAG_SIZE } from 'app/components/game/GameTagsLabel'
+import useLocalization from 'app/provider/localization'
 import { Pressable, Row, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { ComponentProps, memo } from 'react'
-import { RewardGameKeyMap } from 'utils/rewards'
 import { SolitoImage } from 'solito/image'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import useLocalization from 'app/provider/localization'
-import GameTagsLabel, { GAME_TAG_SIZE } from 'app/components/game/GameTagsLabel'
+import { RewardGameKeyMap } from 'utils/rewards'
 
 const StyledContainer = styled(View)({
   flexGrow: 0,
@@ -31,6 +31,7 @@ interface GameCardProps extends ComponentProps<typeof Pressable> {
   tag?: string
   containerProps?: ComponentProps<typeof View>
   onOpeningGame: (key: RewardGameKeyMap) => void
+  disabled?: boolean
 }
 
 const RewardCard = (props: GameCardProps) => {
@@ -43,6 +44,7 @@ const RewardCard = (props: GameCardProps) => {
     containerProps,
     onOpeningGame,
     gameKey,
+    disabled = false,
     ...pressableProps
   } = props
 
@@ -73,6 +75,7 @@ const RewardCard = (props: GameCardProps) => {
         onPress={() => {
           onOpeningGame(gameKey)
         }}
+        disabled={disabled}
         {...pressableProps}
       >
         <SolitoImage src={src} fill contentFit="cover" alt="" />
@@ -97,6 +100,8 @@ const RewardCard = (props: GameCardProps) => {
 
           <Text sx={{ fontWeight: 'bold' }}>{cost}</Text>
         </Row>
+
+        {disabled && <DisabledOverlay />}
       </StyledPressable>
 
       <Text
