@@ -28,11 +28,11 @@ export default function Retention3Trigger({}: Props) {
       if (isEligible) {
         if (isEligible.some((e) => e.event_code === 'retention3'))
           handleTriggerEvent('retention3')
-        if (isEligible.some((e) => e.event_code === 'retention4'))
+        else if (isEligible.some((e) => e.event_code === 'retention4'))
           handleTriggerEvent('retention4')
-        if (isEligible.some((e) => e.event_code === 'retention5'))
+        else if (isEligible.some((e) => e.event_code === 'retention5'))
           handleTriggerEvent('retention5')
-        if (isEligible.some((e) => e.event_code === 'retention6'))
+        else if (isEligible.some((e) => e.event_code === 'retention6'))
           handleTriggerEvent('retention6')
       }
     } catch (e) {
