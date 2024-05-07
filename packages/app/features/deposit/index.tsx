@@ -19,6 +19,8 @@ import DailyMax from './component/DailyMax'
 import DepositCard from './component/DepositCard'
 import RecentTransactionRow from './component/RecentTransactionRow'
 import useDepositList from './tools/useDepositList'
+import { logEvent } from 'app/integrations/analytic'
+import { GAEvents } from 'app/integrations/analytic/events'
 
 const Deposit = () => {
   const { t } = useLocalization()
@@ -48,31 +50,40 @@ const Deposit = () => {
   )
 
   const handlePress = (id) => {
+    let to = '/deposit'
+
     switch (id) {
       case DepositMethodId.INSTANT_TRANFER:
-        push(`/deposit/instant-transfer`)
+        to = `/deposit/instant-transfer`
         break
       case DepositMethodId.LOCAL_BANK:
-        push(`/deposit/bank-transfer`)
+        to = `/deposit/bank-transfer`
         break
       case DepositMethodId.ONLINE_BANK:
-        push(`/deposit/online-banking`)
+        to = `/deposit/online-banking`
         break
       case DepositMethodId.MOMO:
-        push(`/deposit/momo`)
+        to = `/deposit/momo`
         break
       case DepositMethodId.QR_CODE:
-        push(`/deposit/qr-pay`)
+        to = `/deposit/qr-pay`
         break
       case DepositMethodId.TOP_UP:
-        push(`/deposit/topup-card`)
+        to = `/deposit/topup-card`
         break
       case DepositMethodId.CRYPTO:
-        push(`/deposit/crypto`)
+        to = `/deposit/crypto`
         break
       default:
         break
     }
+
+    logEvent(GAEvents.CTA_DepositCategory, {
+      ref: to,
+      display_name: to,
+    })
+
+    push(to)
   }
 
   return (
@@ -119,7 +130,9 @@ const Deposit = () => {
                         ? 0
                         : '$1',
                   }}
-                  onPress={() => handlePress(item.id)}
+                  onPress={() => {
+                    handlePress(item.id)
+                  }}
                 />
               ))}
             {/* <Seperator /> */}

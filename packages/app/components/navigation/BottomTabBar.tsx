@@ -8,6 +8,8 @@ import { useRouter } from 'solito/router'
 import { DripsyGradient } from '../Gradient'
 import IconButtonGradientGroup from '../IconButtonGradientGroup'
 import IconButtonGradientToggle from '../IconButtonGradientToggle'
+import { logEvent } from 'app/integrations/analytic'
+import { GAEvents } from 'app/integrations/analytic/events'
 
 export const BOTTOM_TAB_BAR_HEIGHT = 60
 
@@ -69,7 +71,14 @@ function BottomTabBar() {
                 labelProps={{
                   numberOfLines: 1,
                 }}
-                onPress={() => push(r.path ?? '/')}
+                onPress={() => {
+                  const to = r.path ?? '/'
+                  logEvent(GAEvents.CTA_MainCategory, {
+                    ref: to,
+                    display_name: r.label,
+                  })
+                  push(to)
+                }}
               />
             )
           })}

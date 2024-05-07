@@ -41,7 +41,6 @@ export default function WalletLayout({
       return
     }
     if (currentPath.includes(WALLET_PATH.DEPOSIT)) {
-      console.log(currentPath)
       const availableRoutes = DepositRoutes.filter((route) =>
         paymentMethodList.find((el) => route.categoryId === el.categoryId)
       )
