@@ -3,13 +3,19 @@ import useLocalization from 'app/provider/localization'
 import { Text, View, styled, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { useWindowDimensions } from 'react-native'
+import {
+  useGetEligibleEuroCupTicketQuery,
+  useGetEuroCupEventQuery,
+} from 'services/euroApi'
 import { SolitoImage } from 'solito/image'
 import EuroBackground from './components/EuroBackground'
 import JackpotPool from './components/JackpotPool'
 import PredictionStage from './components/PredictionStage'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const Prediction = () => {
   const { width } = useWindowDimensions()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const contentWidth = useResponsiveValue([
     width < 400 ? 350 : 400,
     500,
@@ -17,6 +23,14 @@ const Prediction = () => {
     700,
     900,
   ])
+
+  const { data } = useGetEuroCupEventQuery()
+  const { data: ticketData } = useGetEligibleEuroCupTicketQuery(
+    {
+      event_code: data?.event_name ?? '',
+    },
+    { skip: !data?.event_name || !isLoggedIn }
+  )
 
   return (
     <EuroBackground>
@@ -28,19 +42,25 @@ const Prediction = () => {
           }}
         >
           <View sx={{ zIndex: 2, width: '100%', alignItems: 'center' }}>
-            <JackpotPool amount={100000} />
-            <Trophy amount={10} />
-            <Ticket amount={16} />
+            <JackpotPool />
+            <Trophy amount={ticketData?.data?.winning_ticket} />
+            <Ticket amount={ticketData?.data?.eligible_ticket} />
           </View>
 
-          <PredictionStage contentWidth={contentWidth} />
+          <PredictionStage
+            contentWidth={contentWidth}
+            eventCode={data?.event_name}
+            eligibleTicket={ticketData?.data?.eligible_ticket}
+            winningTicket={ticketData?.data?.winning_ticket}
+            teams={data?.event_team}
+          />
         </View>
       </View>
     </EuroBackground>
   )
 }
 
-const Trophy = ({ amount }) => {
+const Trophy = ({ amount = '-' }: { amount?: number | string }) => {
   const { t } = useLocalization()
   const imageWidth = useResponsiveValue([110, 120, 120, 140, 160])
 
@@ -69,14 +89,14 @@ const Trophy = ({ amount }) => {
           top: [40, 42, 42, 48, 56],
         }}
       >
-        <SubText>{t('event.euro.winTicket')}</SubText>
+        <SubText>{t('event.euro.prediction.winTicket')}</SubText>
         <CountText>{`${amount}`}</CountText>
       </View>
     </View>
   )
 }
 
-const Ticket = ({ amount }) => {
+const Ticket = ({ amount = '-' }: { amount?: number | string }) => {
   const { t } = useLocalization()
   const imageWidth = useResponsiveValue([120, 130, 130, 160, 180])
 
@@ -105,7 +125,7 @@ const Ticket = ({ amount }) => {
           ml: 10,
         }}
       >
-        <SubText>{t('event.euro.predictionTicket')}</SubText>
+        <SubText>{t('event.euro.prediction.predictionTicket')}</SubText>
         <CountText sx={{ color: 'red', mr: [4, , 8] }}>{`${amount}`}</CountText>
       </View>
     </View>

@@ -10,6 +10,13 @@ const TNC = [
   'event.euro.tnc.n5',
   'event.euro.tnc.n6',
   'event.euro.tnc.n7',
+  'event.euro.tnc.n8',
+  'event.euro.tnc.n9',
+  'event.euro.tnc.n10',
+  'event.euro.tnc.n11',
+  'event.euro.tnc.n12',
+  'event.euro.tnc.n13',
+  'event.euro.tnc.n14',
 ]
 
 const TermsConditions = () => {

@@ -124,17 +124,17 @@ export const EURO_BOTTOM_ROUTE: Required<
   Pick<Route, 'icon' | 'path' | 'label'>
 >[] = [
   {
-    label: 'event.euro.prediction',
+    label: 'event.euro.prediction.tab',
     path: '/euro-cup/prediction',
     icon: 'prediction',
   },
   {
-    label: 'event.euro.rules',
+    label: 'event.euro.rules.tab',
     path: '/euro-cup/rules',
     icon: 'rules',
   },
   {
-    label: 'event.euro.tnc',
+    label: 'event.euro.tnc.tab',
     path: '/euro-cup/tnc',
     icon: 'tnc',
   },

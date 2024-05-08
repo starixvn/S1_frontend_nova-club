@@ -28,6 +28,7 @@ const guestRoutes = [
   '/tag/new',
   '/tag/jackpot',
   '/tag/megaway',
+  '/euro-cup',
 ]
 
 /* 

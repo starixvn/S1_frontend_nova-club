@@ -35,11 +35,11 @@ const EuroBottomTab = () => {
     >
       <View sx={{ position: 'absolute', bottom: 0 }} pointerEvents="none">
         <SolitoImage
-          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/background.png`}
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/bottom-bar-bg.png`}
           alt=""
           width={width}
           // height={width * (330 / 1080)}
-          height={400}
+          height={200}
           contentFit="cover"
           contentPosition="bottom center"
           // style={{ backgroundColor: 'white' }}

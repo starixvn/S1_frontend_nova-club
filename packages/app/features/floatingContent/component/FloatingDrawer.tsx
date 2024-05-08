@@ -3,6 +3,7 @@ import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
 import HalloweenFloat from './event/HalloweenFloat'
 import LiveChatButton from './LiveChatButton'
+import FloatingEuroCup from '../FloatingEuroCup'
 
 interface FloatingContentSwitchProps {
   visible: boolean
@@ -39,7 +40,10 @@ const FloatingDrawer = ({
             exit={{ transform: [{ translateX: -100 }], opacity: 0 }}
             transition={{ type: 'timing', duration: 500 }}
           >
-            <ContentOffset>{!isDesktop && <LiveChatButton />}</ContentOffset>
+            <ContentOffset>
+              <FloatingEuroCup />
+              {!isDesktop && <LiveChatButton />}
+            </ContentOffset>
           </ContentOverlay>
         )}
       </AnimatePresence>
@@ -68,5 +72,6 @@ const ContentOffset = styled(View)({
   height: '100%',
   alignItems: 'center',
   justifyContent: 'center',
+  gap: '$4',
 })
 export default memo(FloatingDrawer)

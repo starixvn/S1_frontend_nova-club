@@ -64,6 +64,7 @@ export default function EuroTabIcon({
           sx={{
             fontWeight: active ? '900' : 'normal',
             textTransform: 'capitalize',
+            textAlign: 'center',
           }}
         >
           {t(label)}

@@ -10,7 +10,7 @@ import { SolitoImage } from 'solito/image'
 
 const EuroBackground = ({ children }) => {
   const { t } = useLocalization()
-  const { width } = useWindowDimensions()
+  const { width, height } = useWindowDimensions()
   const isDesktop = useIsDesktop()
   const pathname = usePathname()
 
@@ -21,10 +21,19 @@ const EuroBackground = ({ children }) => {
       disableScrollView={Platform.OS === 'web'}
       hideHeader={isDesktop}
     >
+      <SolitoImage
+        src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/background.png`}
+        width={width}
+        height={600}
+        contentFit="cover"
+        contentPosition="bottom center"
+        alt=""
+        style={{ position: 'absolute', bottom: 0, zIndex: 0 }}
+      />
       <ScrollView
-        sx={{ flex: 1 }}
         contentContainerSx={{
-          pb: 150,
+          pb: 180,
+          minHeight: height - 100,
         }}
       >
         <SolitoImage

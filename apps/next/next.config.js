@@ -144,6 +144,11 @@ const nextConfig = {
         destination: '/rewards/redeem/list',
         permanent: true,
       },
+      {
+        source: '/euro-cup',
+        destination: '/euro-cup/prediction',
+        permanent: true,
+      },
     ]
   },
   async rewrites() {

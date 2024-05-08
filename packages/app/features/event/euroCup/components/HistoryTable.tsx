@@ -1,35 +1,26 @@
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import dayjs from 'dayjs'
 import { Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import React from 'react'
+import { useGetEventEuroCupLogServiceQuery } from 'services/euroApi'
+import {
+  EventEuroCupLogServiceResult,
+  LogPrediction,
+  LogWinning,
+} from 'services/euroApi.type'
 
 type ItemRowProps = {
-  isHeader?: boolean
-  item: ItemProps
+  index: number
+  item: EventEuroCupLogServiceResult
 }
-
-type ItemProps = {
-  no: number | string
-  date: string
-  status: string
-}
-
-const HistoryItem = [
-  {
-    no: 1,
-    date: '26-06-2024',
-    status:
-      'Congratulations! You have collected X tickets to the Euro 2024 Prediction - Final Match.',
-  },
-  {
-    no: 2,
-    date: '13-06-2024',
-    status: '“You have selected: Team 1, Team 2 … and Team 16”',
-  },
-]
 
 const HistoryTable = () => {
-  const { t } = useLocalization()
   const contentWidth = useResponsiveValue(['100%', 550, 700, 700, 800])
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const { data } = useGetEventEuroCupLogServiceQuery(undefined, {
+    skip: !isLoggedIn,
+  })
 
   return (
     <View
@@ -40,70 +31,80 @@ const HistoryTable = () => {
         my: '$3',
       }}
     >
-      <HeaderRow
-        item={{
-          no: t('common.no'),
-          date: t('common.date'),
-          status: t('deposit.status'),
-        }}
-      />
-      {HistoryItem.map((item) => (
-        <ItemRow key={item.no} item={item} />
+      <HeaderRow />
+      {data?.data?.map((item, index) => (
+        <ItemRow key={index} index={index} item={item} />
       ))}
     </View>
   )
 }
 
-const HeaderRow = ({ isHeader = false, item }: ItemRowProps) => {
+const HeaderRow = () => {
+  const { t } = useLocalization()
+
   return (
     <View>
       <Row sx={{ bg: '#00E600' }}>
         <HeaderText sx={{ flexBasis: 48, textAlign: 'center' }}>
-          {item.no}
+          {t('common.no')}
         </HeaderText>
-        <HeaderText
+        <View
           sx={{
-            flex: 0.3,
+            flex: [0.5, 0.4, 0.3],
             borderLeftWidth: 1,
             borderRightWidth: 1,
             borderColor: 'white',
-            textAlign: 'center',
           }}
         >
-          {item.date}
+          <HeaderText sx={{ textAlign: 'center' }}>
+            {t('common.date')}
+          </HeaderText>
+        </View>
+        <HeaderText sx={{ flex: 1, px: ['$3', '$4'] }}>
+          {t('event.euro.status')}
         </HeaderText>
-        <HeaderText sx={{ flex: 1, px: '$4' }}>{item.status}</HeaderText>
       </Row>
     </View>
   )
 }
 
-const ItemRow = ({ item }: ItemRowProps) => {
+const ItemRow = ({ index, item }: ItemRowProps) => {
+  const { t } = useLocalization()
+  const j = JSON.parse(item.detail) as LogWinning & LogPrediction
+
+  const text =
+    item.type === 'winning'
+      ? t('event.euro.history.win', { ticket: j.ticket, stage: j.event_name })
+      : j.teams.length === 1
+      ? t('event.euro.history.selectChampion', { team: j.teams.join('') })
+      : t('event.euro.history.selectTeam') + ' ' + j.teams.join(', ')
+
   return (
     <View>
       <View sx={{ width: '100%', height: 1, bg: 'white' }} />
       <Row sx={{ bg: '#00000080' }}>
         <TableText sx={{ flexBasis: 48, textAlign: 'center' }}>
-          {item.no}
+          {index + 1}
         </TableText>
-        <TableText
+        <View
           sx={{
-            flex: 0.3,
+            flex: [0.5, 0.4, 0.3],
             borderLeftWidth: 1,
             borderRightWidth: 1,
             borderColor: 'white',
-            textAlign: 'center',
           }}
         >
-          {item.date}
-        </TableText>
-        <TableText sx={{ flex: 1, px: '$4' }}>{item.status}</TableText>
+          <TableText sx={{ textAlign: 'center' }}>
+            {dayjs(item.created_at).format('DD-MM-YYYY')}
+          </TableText>
+        </View>
+        <TableText sx={{ flex: 1, px: ['$3', '$4'] }}>{text}</TableText>
       </Row>
     </View>
   )
 }
 
-const TableText = styled(Text)({ py: '$2', px: '$1', fontSize: 14 })
+const TableText = styled(Text)({ py: '$2', px: '$0', fontSize: 14 })
 const HeaderText = styled(TableText)({ color: 'black', fontWeight: 'bold' })
 
 export default HistoryTable

@@ -1,6 +1,7 @@
 import LazyIndicator from 'app/components/LazyIndicator'
 import MainHeader from 'app/components/navigation/header/MainHeader'
 import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
+import FloatingEuroCup from 'app/features/floatingContent/FloatingEuroCup'
 import withLazyLoad from 'app/hoc/withLazyLoad'
 import LiveChat from 'components/LiveChat'
 import NavigationHeader, {
@@ -21,11 +22,17 @@ const Footer = dynamic(() => import('desktop-ext/components/layout/Footer'), {
 
 const LazyFooter = withLazyLoad(Footer)
 
+const HIDE_FLOATING_ROUTE = ['/euro-cup']
+
 export default function BaseLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
   const [url, setUrl] = useState()
+
+  const isVisible = !HIDE_FLOATING_ROUTE.some((el) =>
+    router.asPath.startsWith(el)
+  )
 
   useEffect(() => {
     const handleStart = (url) => url !== router.asPath && setLoading(true)
@@ -50,6 +57,7 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
       <View
         sx={{
           minHeight: `calc(100vh - ${NAVIGATION_HEIGHT + HEADER_HEIGHT}px)`,
+          zIndex: 1,
         }}
       >
         {children}
@@ -85,7 +93,14 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
         )}
       </AnimatePresence>
       {/** Desktop floating mystery */}
-      <DraggableFloatingMystery />
+      {isVisible && (
+        <>
+          <DraggableFloatingMystery />
+          <View sx={{ position: 'fixed', bottom: 150, left: 36, zIndex: 2 }}>
+            <FloatingEuroCup />
+          </View>
+        </>
+      )}
       <LiveChat />
       <LazyFooter />
     </div>
@@ -98,7 +113,7 @@ const FloatedHeader = () => {
       style={{
         top: 0,
         position: 'fixed',
-        zIndex: 1,
+        zIndex: 2,
         width: '100%',
         height: NAVIGATION_HEIGHT,
         color: 'white',

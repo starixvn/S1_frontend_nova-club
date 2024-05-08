@@ -5,40 +5,33 @@ import { Row, Text, View, styled } from 'dripsy'
 import React, { ReactNode } from 'react'
 import { SolitoImage } from 'solito/image'
 
-const HOW_TO_JOIN = [
-  'event.euro.join.n1',
-  'event.euro.join.n2',
-  'event.euro.join.n3',
-  'event.euro.join.n4',
-  'event.euro.join.n5',
-  'event.euro.join.n6',
-  'event.euro.join.n7',
-  'event.euro.join.n8',
-  'event.euro.join.n9',
+const PRIZE = [
+  `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/car.png`,
+  `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/yamaha.png`,
+  `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/iphone.png`,
 ]
 
-const PRIZE = [
-  {
-    image: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/car.png`,
-    label: '1 x VinFast VF 6',
-  },
-  {
-    image: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/yamaha.png`,
-    label: '2 x Yamaha Grande 125 Hybrid Scooter',
-  },
-  {
-    image: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/iphone.png`,
-    label: '5 x iPhone 15 Pro Max (256GB)',
-  },
-  { label: '• 10 x 100 VUI COIN' },
-  { label: '• 10 x 2 million VND' },
-  { label: '• 10 x Nintendo Switch OLED Model' },
-  { label: '• 10 x Got It Credit 500k VND' },
-]
+type PrizeProps = {
+  mainPrize: { image: string; label: string }[]
+  subPrize: string[]
+}
 
 const Prizes = () => {
   const { t } = useLocalization()
   const isDesktop = useIsDesktop()
+
+  const mainPrize = t('event.euro.tnc.lucky1')
+    .split('| ')
+    .map((el, index) => {
+      return {
+        image: PRIZE[index] as string,
+        label: el,
+      }
+    })
+
+  const subPrize = t('event.euro.tnc.lucky2')
+    .split('| ')
+    .map((el) => el)
 
   return (
     <View
@@ -56,12 +49,16 @@ const Prizes = () => {
           title={t('event.euro.tnc.predict1')}
           subtitle={t('event.euro.tnc.luckyDraw')}
         >
-          {isDesktop ? <DesktopPrize /> : <MobilePrize />}
+          {isDesktop ? (
+            <DesktopPrize mainPrize={mainPrize} subPrize={subPrize} />
+          ) : (
+            <MobilePrize mainPrize={mainPrize} subPrize={subPrize} />
+          )}
         </PredictPrizeCard>
 
         <PredictPrizeCard
           title={t('event.euro.tnc.predict2')}
-          subtitle={t('event.euro.jackpot')}
+          subtitle={t('event.euro.prediction.jackpot')}
         >
           <NoteText>{t('event.euro.tnc.jackpot')}</NoteText>
         </PredictPrizeCard>
@@ -70,10 +67,10 @@ const Prizes = () => {
   )
 }
 
-const DesktopPrize = () => (
+const DesktopPrize = ({ mainPrize = [], subPrize = [] }: PrizeProps) => (
   <View>
     <Row sx={{ mb: '$3' }}>
-      {PRIZE.slice(0, 3).map((item, index) => (
+      {mainPrize.map((item, index) => (
         <>
           {index !== 0 && <View sx={{ width: 1, bg: 'white' }} />}
           <View
@@ -94,19 +91,19 @@ const DesktopPrize = () => (
         p: '$2',
       }}
     >
-      {PRIZE.slice(3).map((item, index) => (
+      {subPrize.map((item, index) => (
         <NoteText key={index} sx={{ width: '25%', color: '#103B00' }}>
-          {item.label}
+          • {item}
         </NoteText>
       ))}
     </Row>
   </View>
 )
 
-const MobilePrize = () => (
+const MobilePrize = ({ mainPrize = [], subPrize = [] }: PrizeProps) => (
   <View>
     <View sx={{ mb: '$3' }}>
-      {PRIZE.slice(0, 3).map((item, index) => (
+      {mainPrize.map((item, index) => (
         <>
           <Row
             key={index}
@@ -136,9 +133,9 @@ const MobilePrize = () => (
         p: '$2',
       }}
     >
-      {PRIZE.slice(3).map((item, index) => (
+      {subPrize.map((item, index) => (
         <NoteText key={index} sx={{ color: '#103B00' }}>
-          {item.label}
+          • {item}
         </NoteText>
       ))}
     </View>

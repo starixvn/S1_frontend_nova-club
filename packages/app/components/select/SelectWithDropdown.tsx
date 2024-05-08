@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useLocalization from 'app/provider/localization'
 import {
   Image,
@@ -16,7 +17,6 @@ import Icon from '../Icon'
 import Label from '../Label'
 import { DropdownMenuContent } from './DropMenu'
 import { SelectProps } from './Select'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 export const DropdownMenuRoot = DropdownMenu.Root
 export const DropdownMenuTrigger = DropdownMenu.Trigger
@@ -29,6 +29,7 @@ type SelectWithDropdownProps<T> = {
   autoTranslate?: boolean
   renderEmpty?: () => JSX.Element
   containerStyle?: SxProp
+  dropdownMenuContentStyle?: typeof DropdownMenuContent
 } & Pick<
   SelectProps<T>,
   'label' | 'placeholder' | 'options' | 'value' | 'onSelected'
@@ -45,6 +46,7 @@ const SelectWithDropdown = <T,>({
   renderEmpty,
   onSelected,
   containerStyle,
+  dropdownMenuContentStyle,
   ...rest
 }: SelectWithDropdownProps<T>) => {
   const { t } = useLocalization()
@@ -62,34 +64,37 @@ const SelectWithDropdown = <T,>({
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Pressable>
-            <View sx={{}}>
-              <Row
-                sx={{
-                  py: '$2',
-                  px: 24,
-                  borderWidth: 1,
-                  borderColor: '$primary.200',
-                  borderRadius: 10,
-                  minHeight: 48,
-                  minWidth: 40,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Text sx={{ opacity: value || finalizeLabel ? 1 : 0.5 }}>
-                  {typeof value === 'string' || typeof value === 'number'
-                    ? finalizeLabel
-                    : placeholder}
-                </Text>
-                <Icon name="down" color="white" />
-              </Row>
-            </View>
+            <Row
+              sx={{
+                py: '$2',
+                px: 24,
+                borderWidth: 1,
+                borderColor: '$primary.200',
+                borderRadius: 10,
+                minHeight: 48,
+                minWidth: 40,
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                ...containerStyle,
+              }}
+            >
+              <Text sx={{ opacity: value || finalizeLabel ? 1 : 0.5 }}>
+                {typeof value === 'string' || typeof value === 'number'
+                  ? finalizeLabel
+                  : placeholder}
+              </Text>
+              <Icon name="down" color="white" />
+            </Row>
           </Pressable>
         </DropdownMenu.Trigger>
-        <DropdownMenuContent side="bottom" align="end">
+        <DropdownMenuContent
+          side="bottom"
+          align="end"
+          {...dropdownMenuContentStyle}
+        >
           <ScrollView
-            contentContainerStyle={{ maxHeight: 350 }}
-            indicatorSx={{ bg: 'transparent' }}
+            contentContainerStyle={{ maxHeight: 300 }}
+            showsVerticalScrollIndicator
           >
             <View>
               {options && options.length > 0 ? (

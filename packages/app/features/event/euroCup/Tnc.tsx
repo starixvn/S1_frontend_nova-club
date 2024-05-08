@@ -24,7 +24,7 @@ const Tnc = () => {
           alt=""
         />
         <TitleText>{t('common.tnc')}</TitleText>
-        <Title2Text>{t('event.euro.tnc.who')}</Title2Text>
+        <Title2Text>{t('event.euro.tnc.subtitle')}</Title2Text>
         <SubtitleText>{t('event.euro.tnc.date1')}</SubtitleText>
         <SubtitleText>{t('event.euro.tnc.date2')}</SubtitleText>
 

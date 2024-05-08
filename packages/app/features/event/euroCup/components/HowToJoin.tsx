@@ -18,7 +18,7 @@ const HowToJoin = ({ contentWidth }) => {
 
   return (
     <View sx={{ alignItems: 'center' }}>
-      <TitleText>{t('event.euro.tnc.howToJoin')}</TitleText>
+      <TitleText>{t('event.euro.join.how')}</TitleText>
       <View
         sx={{
           borderRadius: 12,

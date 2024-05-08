@@ -11,34 +11,34 @@ import RulesCard from './components/RulesCard'
 
 const TICKET_RULES = [
   {
-    label: 'event.euro.round.title1',
+    label: 'event.euro.rules.round1',
     period: '01/06 (12am) - 19/06 (7pm)',
-    note: 'event.euro.round.n1',
+    note: 'event.euro.rules.n1',
     bgColor: '#AD1A2B',
   },
   {
-    label: 'event.euro.round.title2',
+    label: 'event.euro.rules.round2',
     period: '27/06 (5am) - 29/06 (10pm)',
-    note: 'event.euro.round.n2',
+    note: 'event.euro.rules.n2',
     bgColor: '#84004D',
   },
   {
-    label: 'event.euro.round.title3',
+    label: 'event.euro.rules.round3',
     period: '03/07 (5am) - 05/07 (10pm)',
-    note: 'event.euro.round.n3',
+    note: 'event.euro.rules.n3',
     bgColor: '#0F5317',
   },
   {
-    label: 'event.euro.round.title4',
+    label: 'event.euro.rules.round4',
     period: '07/07 (5am) - 10/07 (1am)',
-    note: 'event.euro.round.n4',
+    note: 'event.euro.rules.n4',
     bgColor: '#0B0E5C',
   },
   {
-    label: 'event.euro.round.title5',
+    label: 'event.euro.rules.round5',
     period: '11/07 (5am) - 15/07 (1am)',
-    note: 'event.euro.round.n5',
-    note2: 'event.euro.round.n5a',
+    note: 'event.euro.rules.n5',
+    note2: 'event.euro.rules.n5a',
     bgColor: '#000000',
   },
 ]
@@ -70,7 +70,7 @@ const Rules = () => {
             alignItems: 'center',
           }}
         >
-          <TitleText sx={{ mb: '$3' }}>{t('event.euro.rulesTitle')}</TitleText>
+          <TitleText sx={{ mb: '$3' }}>{t('event.euro.rules.title')}</TitleText>
 
           <Row
             sx={{

@@ -21,9 +21,9 @@ const JackpotPool = () => {
       (5 * INITIAL_JACKPOT - INITIAL_JACKPOT) / (30 * 24 * 60 * 60)
 
     async function initTotal() {
-      await sleep(3000)
+      await sleep(2000)
 
-      const startDate = dayjs('2024-04-01')
+      const startDate = dayjs('2024-05-01')
       const currentDate = dayjs()
 
       // Calculate the how much days passed in seconds
@@ -69,7 +69,7 @@ const JackpotPool = () => {
         }}
       >
         <MainText sx={{ fontSize: 12 }}>
-          {t('event.euro.jackpot').toUpperCase()}
+          {t('event.euro.prediction.jackpot').toUpperCase()}
         </MainText>
         {total && (
           <Row>

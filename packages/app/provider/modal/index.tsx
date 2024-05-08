@@ -89,6 +89,9 @@ type DefaultModalStackParams = {
   HomeEventModal: {
     data: HomeEventModalData[]
   }
+  EuroModal: {
+    message: string
+  }
 }
 
 /**
@@ -149,6 +152,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   RewardTncModal: () => import('app/components/modal/RewardTncModal'),
   ActionableModal: () => import('app/components/modal/ActionableModal'),
   HomeEventModal: () => import('app/features/home/EventModal/HomeEventModal'),
+  EuroModal: () => import('app/components/modal/EuroModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -242,6 +246,9 @@ const modalConfig: ModalConfigType = {
   HomeEventModal: {
     modal: getDynamicComponent('HomeEventModal'),
     transitionOptions: (animatedValue) => ({}),
+  },
+  EuroModal: {
+    modal: getDynamicComponent('EuroModal'),
   },
   ...agentModalConfig,
 }

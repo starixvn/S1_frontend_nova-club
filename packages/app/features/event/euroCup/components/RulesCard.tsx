@@ -39,7 +39,7 @@ const RulesCard = ({
         <View sx={{ flex: 1 }}>
           <TitleText>{title}</TitleText>
           <PeriodText>
-            {t('event.euro.round.period', { period: period })}
+            {t('event.euro.rules.period', { period: period })}
           </PeriodText>
         </View>
         <View

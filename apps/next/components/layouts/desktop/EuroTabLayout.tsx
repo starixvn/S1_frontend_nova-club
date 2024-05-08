@@ -8,7 +8,7 @@ import { ReactNode } from 'react'
 import { useRouter } from 'solito/router'
 import { HEADER_HEIGHT } from 'utils/constant'
 
-export default function InfoLayout({ children }: { children: ReactNode }) {
+export default function EuroTabLayout({ children }: { children: ReactNode }) {
   return (
     <Row sx={{ minHeight: `calc(100vh - ${NAVIGATION_HEIGHT}px)` }}>
       <PageContainer>{children}</PageContainer>
