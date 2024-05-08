@@ -20,8 +20,16 @@ export default function HireBannerSecond() {
   const isDesktop = useIsDesktop()
 
   const handlePress = () => {
-    if (token) push('/rewards/redeem/list')
-    else {
+    if (token) {
+      if (isDesktop) {
+        push('/rewards/redeem/list')
+        setTimeout(() => {
+          openModal('DailyCheckInModal')
+        }, 500)
+      } else {
+        push('/rewards/daily')
+      }
+    } else {
       isDesktop ? openModal('RegisterModal') : push('/auth/register/?t=member')
     }
   }
@@ -95,7 +103,7 @@ export default function HireBannerSecond() {
             <Label sx={{ flex: 1, alignItems: 'center' }}>{animatedText}</Label>
           </View>
 
-          <AnimatedButton>{t('home.earnNow')}</AnimatedButton>
+          <AnimatedButton>{t('home.banner2.button')}</AnimatedButton>
         </Row>
       </Row>
     </Pressable>

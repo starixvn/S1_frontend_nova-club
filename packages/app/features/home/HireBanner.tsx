@@ -54,27 +54,7 @@ export default function HireBanner() {
   )
 
   const handlePress = () => {
-    // token
-    //   ? !playerData?.firstName
-    //     ? isDesktop
-    //       ? handleDesktopAccountVerification()
-    //       : push('/account/account-verification')
-    //     : push('/deposit/bank-transfer')
-    //   : isDesktop
-    //   ? openModal('RegisterModal')
-    //   : push('/auth/register/?t=member')
-    if (token) {
-      if (isDesktop) {
-        push('/rewards/redeem/list')
-        setTimeout(() => {
-          openModal('DailyCheckInModal')
-        }, 500)
-      } else {
-        push('/rewards/daily')
-      }
-    } else {
-      isDesktop ? openModal('RegisterModal') : push('/auth/register/?t=member')
-    }
+    push('/euro-cup/prediction')
   }
 
   return (
@@ -126,7 +106,7 @@ export default function HireBanner() {
             <Row sx={{ flex: 1, alignItems: 'center' }}>{animatedText}</Row>
           </View>
 
-          <AnimatedButton>{t('home.checkIn')}</AnimatedButton>
+          <AnimatedButton>{t('home.banner.button')}</AnimatedButton>
         </Row>
       </Row>
     </Pressable>
@@ -147,7 +127,7 @@ export const AnimatedButton = ({ children }) => {
   const animatedText = useMemo(
     () => (
       <MotiView
-        key={t('home.checkIn')}
+        key={t('home.banner.button')}
         from={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -169,7 +149,7 @@ export const AnimatedButton = ({ children }) => {
         </Label>
       </MotiView>
     ),
-    [t('home.checkIn')]
+    [t('home.banner.button')]
   )
 
   return (
