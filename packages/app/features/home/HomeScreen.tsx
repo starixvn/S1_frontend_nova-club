@@ -70,9 +70,6 @@ export default function HomeScreen() {
         <GameGridSection />
         <Deferrable />
         <ModalTriggers />
-
-        <CnyFireCracker />
-        <CnyDragon />
       </ScrollView>
     </ScrollToTopWrapper>
   )

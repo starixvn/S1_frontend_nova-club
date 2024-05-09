@@ -6,6 +6,8 @@ import { useRouter } from 'solito/router'
 import SectionLabel from './SectionLabel'
 import Shadow from './Shadow'
 import TouchableOpacity from './pressable/TouchableOpacity'
+import { logEvent } from 'app/integrations/analytic'
+import { GAEvents } from 'app/integrations/analytic/events'
 
 interface SectionHeaderProps extends ViewProps {
   sx?: SxProp
@@ -31,6 +33,11 @@ export default function SectionHeader({
   const { t } = useLocalization()
 
   function handleSeeMoreRedirect(url: string) {
+    logEvent(GAEvents.CTA_GameListMore, {
+      ref: title,
+      display_name: title,
+    })
+
     if (Platform.OS === 'web') push(url)
     else
       push({

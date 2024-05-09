@@ -8,6 +8,8 @@ import { FeaturedGame } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import { Video, ResizeMode } from 'expo-av'
 import { Platform } from 'react-native'
+import { logEvent } from 'app/integrations/analytic'
+import { GAEvents } from 'app/integrations/analytic/events'
 
 interface TopGameCardProps {
   game: FeaturedGame
@@ -37,6 +39,11 @@ export default function TopGameCard({
   const videoRef = useRef<Video>(null)
 
   function onPress() {
+    logEvent(GAEvents.CTA_RecommendGame, {
+      ref: game.gc,
+      display_name: game.gpc,
+    })
+
     LaunchGame({
       ...game,
       desktopMode,

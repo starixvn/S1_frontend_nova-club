@@ -16,21 +16,21 @@ export default function DeferredSection({}: Props) {
   return (
     <View sx={{ gap: ['$3', '$4'] }}>
       <GameListSectionAsyncByTag
+        nativeID="gamelist-new"
         tag={SlotType.NEW}
         title={t('game.new').toUpperCase()}
         icon="star"
         seeMoreUrl="/tag/new"
       />
-
-      <CnyLantern />
-
       <GameListSectionAsyncByTag
+        nativeID="gamelist-jackpot"
         tag={SlotType.JACKPOT}
         title={t('game.jackpot').toUpperCase()}
         icon="jackpot"
         seeMoreUrl="/tag/jackpot"
       />
       <GameListSectionAsyncByTag
+        nativeID="gamelist-megaway"
         tag={SlotType.MEGAWAY}
         title={t('game.megaway').toUpperCase()}
         icon="megaway"
@@ -38,11 +38,7 @@ export default function DeferredSection({}: Props) {
       />
       <MatchSection />
       <LeaderboardSection />
-
-      <View>
-        <ReferralSection />
-        <CnyFlower2 />
-      </View>
+      <ReferralSection />
     </View>
   )
 }

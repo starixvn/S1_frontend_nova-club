@@ -4,6 +4,7 @@ import { View } from 'dripsy'
 import React, { useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import MatchLeagueSelector from './MatchLeagueSelector'
+import { GAEvents } from 'app/integrations/analytic/events'
 
 export default function MatchSection() {
   const desktop = useIsDesktop()
@@ -32,7 +33,10 @@ export default function MatchSection() {
 
       <View sx={{ mb: '$4' }} />
 
-      <MatchCarousel data={leagues.entities[leagueId]} />
+      <MatchCarousel
+        data={leagues.entities[leagueId]}
+        gaEvent={GAEvents.CTA_MatchSportsbook}
+      />
     </View>
   )
 }

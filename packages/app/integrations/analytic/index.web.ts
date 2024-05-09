@@ -9,3 +9,10 @@ export const logEvent: LogGAEvent = (event, params) => {
     ...params,
   })
 }
+
+export const setGAUser = (username?: string) => {
+  sendGTMEvent({
+    event: 'set_user_id',
+    user_id: username ?? null,
+  })
+}

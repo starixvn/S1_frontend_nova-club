@@ -29,10 +29,11 @@ export type MatchCarouselProps = Omit<
   | 'data'
 > & {
   data?: MatchResult[]
+  gaEvent?: GAEvents
 }
 
 const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
-  ({ data, animationKey, ...rest }: MatchCarouselProps, ref) => {
+  ({ data, gaEvent, ...rest }: MatchCarouselProps, ref) => {
     const width = useWindowDimensions().width
     const resWidth = useResponsiveValue([500, 500, 500, 400, 400, 500])
     const itemWidth = Math.min(resWidth, width * 0.8)
@@ -55,10 +56,11 @@ const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
 
     const onPress = useCallback(
       (match: MatchResult) => {
-        logEvent(GAEvents.CTA_Match, {
-          ref: match.EventId.toString(),
-          display_name: `${match.HomeName} vs ${match.AwayName}`,
-        })
+        if (gaEvent)
+          logEvent(gaEvent, {
+            ref: match.EventId.toString(),
+            display_name: `${match.HomeName} vs ${match.AwayName}`,
+          })
         getAction({
           type: ActionType.GAME,
           payload: {
@@ -95,7 +97,7 @@ const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
     // }, [])
 
     return (
-      <Root>
+      <Root nativeID="match-section">
         {isMultiple && (
           <PaginationIconButton
             sx={{
