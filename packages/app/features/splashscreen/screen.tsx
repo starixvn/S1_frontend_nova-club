@@ -114,11 +114,7 @@ export default function SplashScreen() {
           //   height
           // ),
         }}
-        source={
-          isCNY
-            ? require('app/assets/videos/cny-splash.mp4')
-            : require('app/assets/videos/ms-splash.mp4')
-        }
+        source={require('app/assets/videos/euro-splash.mp4')}
         resizeMode={ResizeMode.COVER}
         useNativeControls={false}
       />
