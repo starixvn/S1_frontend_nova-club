@@ -29,7 +29,7 @@ const Prediction = () => {
     {
       event_code: data?.event_code ?? '',
     },
-    { skip: !data?.event_code || !isLoggedIn }
+    { skip: !data?.event_code || !isLoggedIn, refetchOnMountOrArgChange: true }
   )
 
   return (
