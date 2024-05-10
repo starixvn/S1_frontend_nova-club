@@ -9,7 +9,7 @@ import { NAVIGATION_HEIGHT } from './NavigationHeader'
 
 const FloatingEuroCupNavigation = () => {
   const pathname = usePathname()
-  const { push, replace } = useRouter()
+  const { replace } = useRouter()
 
   const isActiveState = (path: string) => {
     const isSamePath = pathname.includes(path)
@@ -25,7 +25,7 @@ const FloatingEuroCupNavigation = () => {
         left: 0,
         top: NAVIGATION_HEIGHT + HEADER_HEIGHT,
         width: 150,
-        height: 700,
+        height: 650,
         borderBottomRightRadius: 48,
         py: '$4',
       }}

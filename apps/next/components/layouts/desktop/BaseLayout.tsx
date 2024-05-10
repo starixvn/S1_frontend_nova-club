@@ -57,7 +57,6 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
       <View
         sx={{
           minHeight: `calc(100vh - ${NAVIGATION_HEIGHT + HEADER_HEIGHT}px)`,
-          zIndex: 1,
         }}
       >
         {children}

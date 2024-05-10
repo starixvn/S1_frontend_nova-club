@@ -15,6 +15,7 @@ import {
   NAVIGATION_DROPDOWN_MENU,
   useNavigationHeader,
 } from './NavigationHeaderProvider'
+import FloatingEuroCupNavigation from './FloatingEuroCupNavigation'
 
 interface MenuProps {
   icon?: string
@@ -102,6 +103,7 @@ export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()
   const token = useAppSelector((s) => s.auth.info?.token)
+  const pathname = usePathname()
 
   const renderMenu = (menu: MenuProps[]) => {
     return menu.map((m, j) => {
@@ -152,6 +154,7 @@ export default function NavigationHeader({}) {
         </Pressable>
       </View>
       <FloatingLiveChatDesktop />
+      {pathname.includes('/euro-cup') && <FloatingEuroCupNavigation />}
 
       {/* <FloatingContent BottomTabBarHeight={BOTTOM_TAB_BAR_HEIGHT} /> */}
     </>

@@ -65,12 +65,12 @@ const PredictionStage = ({
 
   const handlePress = async () => {
     const selectedTeam = sortBy(
-      selected.map((el) => teams[el]?.team_name ?? '')
+      selected.map((el) => teams[el]?.team_code ?? '')
     )
 
     const teamScore = {
-      [teams[0].team_name]: Number(score[0]),
-      [teams[1].team_name]: Number(score[1]),
+      [teams[0]?.team_code]: Number(score[0]),
+      [teams[1]?.team_code]: Number(score[1]),
     }
 
     const isSubmitted = await submitTicket({
