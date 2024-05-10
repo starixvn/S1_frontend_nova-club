@@ -27,9 +27,9 @@ const Prediction = () => {
   const { data } = useGetEuroCupEventQuery()
   const { data: ticketData } = useGetEligibleEuroCupTicketQuery(
     {
-      event_code: data?.event_name ?? '',
+      event_code: data?.event_code ?? '',
     },
-    { skip: !data?.event_name || !isLoggedIn }
+    { skip: !data?.event_code || !isLoggedIn }
   )
 
   return (

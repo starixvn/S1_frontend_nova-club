@@ -1,5 +1,5 @@
 export type EuroCupEvent = {
-  event_group: string
+  event_code: string
   event_name: string
   event_team: EventTeam[]
   prediction_end: string
