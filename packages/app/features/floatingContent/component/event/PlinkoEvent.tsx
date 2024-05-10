@@ -1,5 +1,5 @@
 import Image from 'app/components/common/Image'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'

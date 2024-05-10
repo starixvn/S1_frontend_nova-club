@@ -1,5 +1,5 @@
 import WebView from 'app/components/WebView'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useDripsyTheme } from 'dripsy'
 import React, { ElementRef, useRef } from 'react'

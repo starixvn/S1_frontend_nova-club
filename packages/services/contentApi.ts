@@ -1,5 +1,5 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import { baseApiWithTag } from './baseApi'
 import { DefaultParams, EndpointBuilderType, IResponse } from './common/types'
 import {

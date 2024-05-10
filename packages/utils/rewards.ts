@@ -1,5 +1,5 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import { LoginResult } from 'services/authApi.type'
 
 export enum RewardPostMessageType {

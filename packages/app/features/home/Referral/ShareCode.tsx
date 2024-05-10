@@ -1,6 +1,6 @@
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/components/pressable/BouncePressable'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { copyToClipboard } from 'app/utils'

@@ -1,4 +1,4 @@
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import withShare from 'app/hoc/withShare'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
