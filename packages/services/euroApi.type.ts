@@ -46,3 +46,11 @@ export type LogWinning = {
   event_name: string
   ticket: number
 }
+
+export type GetSubmittedTeamResult = {
+  submitted_team_code: string[]
+}
+
+export type GetSubmittedTeamArgs = {
+  event_code: string
+}

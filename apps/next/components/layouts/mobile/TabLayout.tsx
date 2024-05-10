@@ -4,6 +4,8 @@ import BottomTabBar, {
 } from 'app/components/navigation/BottomTabBar'
 import MainHeader from 'app/components/navigation/header/MainHeader'
 import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
+import FloatingEuroCup from 'app/features/floatingContent/FloatingEuroCup'
+import { View } from 'dripsy'
 import { ReactNode } from 'react'
 import { HEADER_HEIGHT } from 'utils/constant'
 
@@ -51,6 +53,9 @@ const FloatedBottomBar = () => {
         height: BOTTOM_TAB_BAR_HEIGHT + 15,
       }}
     >
+      <View sx={{ position: 'fixed', bottom: 250, right: 23, zIndex: 2 }}>
+        <FloatingEuroCup />
+      </View>
       <DraggableFloatingMystery />
       <BottomTabBar />
     </div>

@@ -1,18 +1,21 @@
 import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import BouncePressable from 'app/components/pressable/BouncePressable'
-import SelectList from 'app/components/select/SelectList'
+import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppDispatch } from 'app/provider/redux/store'
 import { Pressable, Row, Text, View } from 'dripsy'
 import sortBy from 'lodash/sortBy'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground } from 'react-native'
 import { useModal } from 'react-native-modalfy'
-import { useSubmitEuroCupTicketMutation } from 'services/euroApi'
+import {
+  useGetSubmittedTeamQuery,
+  useSubmitEuroCupTicketMutation,
+} from 'services/euroApi'
 import { EventTeam } from 'services/euroApi.type'
 import { SolitoImage } from 'solito/image'
 import { TitleText } from './EuroText'
-import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
 
 type PredictionStageProps = {
   contentWidth: number
@@ -24,6 +27,7 @@ type PredictionStageProps = {
 
 type TeamFlagProps = {
   active: boolean
+  disable: boolean
   image: string
   label: string
   onPress: () => void
@@ -37,9 +41,10 @@ const PredictionStage = ({
   teams = [],
 }: PredictionStageProps) => {
   const { t } = useLocalization()
+  const dispatch = useAppDispatch()
   const { openModal } = useModal()
   const isDesktop = useIsDesktop()
-  const [selected, setSelected] = useState<number[]>([])
+  const [selected, setSelected] = useState<string[]>([])
   const [imageUrl, setImageUrl] = useState('')
   const [roundTitle, setroundTitle] = useState('')
   const [score, setScore] = useState<string[]>(['0', '0'])
@@ -49,9 +54,21 @@ const PredictionStage = ({
   })
 
   const eligibleScore = winningTicket > 14
-  const disabled = selected.length !== eligibleTicket || selected.length === 0
+  const disabled =
+    eligibleTicket === 0 ||
+    selected.length !== eligibleTicket ||
+    selected.length === 0
+
+  const { data } = useGetSubmittedTeamQuery(
+    { event_code: eventCode },
+    { skip: !eventCode }
+  )
 
   const [submitTicket] = useSubmitEuroCupTicketMutation()
+
+  useEffect(() => {
+    if (data) setSelected(data)
+  }, [data])
 
   const handleSelected = (index) => {
     if (selected.includes(index)) {
@@ -64,9 +81,7 @@ const PredictionStage = ({
   }
 
   const handlePress = async () => {
-    const selectedTeam = sortBy(
-      selected.map((el) => teams[el]?.team_code ?? '')
-    )
+    const selectedTeam = sortBy(selected)
 
     const teamScore = {
       [teams[0]?.team_code]: Number(score[0]),
@@ -179,7 +194,7 @@ const PredictionStage = ({
               </View>
             )}
             {teams?.map((item, index) => {
-              const active = selected.includes(index)
+              const active = selected.includes(item.team_code)
 
               return (
                 <View
@@ -201,9 +216,10 @@ const PredictionStage = ({
                 >
                   <TeamFlag
                     active={active}
+                    disable={eligibleTicket === 0}
                     image={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.team_image}`}
                     label={item.team_name}
-                    onPress={() => handleSelected(index)}
+                    onPress={() => handleSelected(item.team_code)}
                   />
 
                   {eligibleScore && (
@@ -215,8 +231,8 @@ const PredictionStage = ({
                       sx={{ width: 100, mx: 12 }}
                       options={ScoreOptions}
                       onSelected={(value) => {
-                        const newArray = [...score] // Create a copy of the array
-                        newArray[index] = value // Update the value at index 6
+                        const newArray = [...score]
+                        newArray[index] = value as string
                         setScore(newArray)
                       }}
                       dropdownMenuContentStyle={{
@@ -261,9 +277,15 @@ const PredictionStage = ({
   )
 }
 
-const TeamFlag = ({ active, image, label, onPress }: TeamFlagProps) => (
+const TeamFlag = ({
+  active,
+  disable,
+  image,
+  label,
+  onPress,
+}: TeamFlagProps) => (
   <View sx={{ mb: '$3', alignItems: 'center' }}>
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} disabled={disable}>
       <View
         sx={{
           borderWidth: 4,

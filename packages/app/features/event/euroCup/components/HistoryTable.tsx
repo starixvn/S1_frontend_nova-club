@@ -77,7 +77,10 @@ const ItemRow = ({ index, item }: ItemRowProps) => {
       ? t('event.euro.history.win', { ticket: j.ticket, stage: j.event_name })
       : j.teams.length === 1
       ? t('event.euro.history.selectChampion', { team: j.teams.join('') })
-      : t('event.euro.history.selectTeam') + ' ' + j.teams.join(', ')
+      : `${t('event.euro.history.selectTeam', {
+          team: j.teams.join(', '),
+          stage: j.event_name,
+        })}`
 
   return (
     <View>

@@ -1,9 +1,7 @@
 import { styled, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
-import HalloweenFloat from './event/HalloweenFloat'
 import LiveChatButton from './LiveChatButton'
-import FloatingEuroCup from '../FloatingEuroCup'
 
 interface FloatingContentSwitchProps {
   visible: boolean
@@ -40,10 +38,7 @@ const FloatingDrawer = ({
             exit={{ transform: [{ translateX: -100 }], opacity: 0 }}
             transition={{ type: 'timing', duration: 500 }}
           >
-            <ContentOffset>
-              <FloatingEuroCup />
-              {!isDesktop && <LiveChatButton />}
-            </ContentOffset>
+            <ContentOffset>{!isDesktop && <LiveChatButton />}</ContentOffset>
           </ContentOverlay>
         )}
       </AnimatePresence>

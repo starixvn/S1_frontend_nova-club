@@ -5,6 +5,8 @@ import {
   EligibleEuroCupTicketResult,
   EuroCupEvent,
   EventEuroCupLogServiceResult,
+  GetSubmittedTeamArgs,
+  GetSubmittedTeamResult,
   SubmitEuroCupTicketArgs,
   SubmitEuroCupTicketResult,
 } from './euroApi.type'
@@ -29,6 +31,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
         data: queryArgs,
       }),
+      providesTags: ['EuroCupTicket'],
     }),
     submitEuroCupTicket: builder.mutation<
       IResponse<SubmitEuroCupTicketResult>,
@@ -39,6 +42,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
         data: queryArgs,
       }),
+      invalidatesTags: ['EuroCupTicket'],
     }),
     getEventEuroCupLogService: builder.query<
       IResponse<EventEuroCupLogServiceResult>,
@@ -49,6 +53,16 @@ export const euroApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
       }),
     }),
+    getSubmittedTeam: builder.query<string[], GetSubmittedTeamArgs>({
+      query: (queryArgs) => ({
+        url: `/player_api/getSubmittedTeam`,
+        method: 'POST',
+        data: queryArgs,
+      }),
+      transformResponse: ({ data }: { data: GetSubmittedTeamResult }) => {
+        return data.submitted_team_code
+      },
+    }),
   }),
 })
 
@@ -58,4 +72,5 @@ export const {
   useLazyGetEligibleEuroCupTicketQuery,
   useSubmitEuroCupTicketMutation,
   useGetEventEuroCupLogServiceQuery,
+  useGetSubmittedTeamQuery,
 } = euroApi

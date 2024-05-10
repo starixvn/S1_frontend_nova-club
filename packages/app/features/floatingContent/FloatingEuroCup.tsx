@@ -16,8 +16,8 @@ const FloatingEuroCup = () => {
     <TouchableWithoutFeedback onPress={handleOpen} nativeID="pressable">
       <SolitoImage
         src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/floating-icon-shadow.png`}
-        height={175}
-        width={110}
+        height={127}
+        width={80}
         contentPosition="bottom center"
         alt=""
         style={{ position: 'absolute', bottom: 0 }}
@@ -25,8 +25,8 @@ const FloatingEuroCup = () => {
       />
       <SolitoImage
         src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/floating-icon.gif`}
-        height={175}
-        width={110}
+        height={127}
+        width={80}
         contentPosition="bottom center"
         alt=""
         draggable={false}
