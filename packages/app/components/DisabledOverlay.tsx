@@ -1,7 +1,7 @@
 import { View } from 'dripsy'
 import React from 'react'
 
-const DisabledOverlay = () => (
+const DisabledOverlay = ({ contentStyle }) => (
   <View
     sx={{
       position: 'absolute',
@@ -9,6 +9,7 @@ const DisabledOverlay = () => (
       height: '100%',
       bg: 'black',
       opacity: 0.7,
+      ...contentStyle,
     }}
   />
 )

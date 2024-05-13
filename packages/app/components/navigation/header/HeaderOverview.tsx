@@ -149,12 +149,7 @@ const HeaderOverview = ({}: HeaderOverviewProps) => {
           isLoading={isMainWalletLoading}
         />
 
-        <View
-          ref={coinRef}
-          onLayout={(event) => {
-            console.log('onLayout', event.nativeEvent.layout)
-          }}
-        >
+        <View ref={coinRef} onLayout={(event) => {}}>
           <HeaderButton
             label="Reward"
             value={

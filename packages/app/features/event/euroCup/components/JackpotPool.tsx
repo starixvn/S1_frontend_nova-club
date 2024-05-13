@@ -8,6 +8,7 @@ import { CountUp } from 'use-count-up'
 import { sleep } from 'utils/common'
 
 const INITIAL_JACKPOT = 100000000
+const MAX_JACKPOT = 500000000
 const JackpotPool = () => {
   const { t } = useLocalization()
   const imageWidth = useResponsiveValue([420, 500, 500, 500, 600])
@@ -15,13 +16,11 @@ const JackpotPool = () => {
   const [total, setTotal] = useState<number>(INITIAL_JACKPOT)
   const [prevPrize, setPrevPrize] = useState<number>(INITIAL_JACKPOT)
 
-  useEffect(() => {
-    let interval
-    const increment =
-      (5 * INITIAL_JACKPOT - INITIAL_JACKPOT) / (30 * 24 * 60 * 60)
+  const increment = (MAX_JACKPOT - INITIAL_JACKPOT) / (45 * 24 * 60 * 60)
 
+  useEffect(() => {
     async function initTotal() {
-      await sleep(2000)
+      await sleep(1000)
 
       const startDate = dayjs('2024-05-01')
       const currentDate = dayjs()
@@ -30,23 +29,35 @@ const JackpotPool = () => {
       const secondsPassed = currentDate.diff(startDate, 'second')
 
       const totalPoolPassed = total + increment * secondsPassed
-      setTotal(Math.round(totalPoolPassed))
+      const initTotal =
+        totalPoolPassed >= MAX_JACKPOT - INITIAL_JACKPOT
+          ? MAX_JACKPOT
+          : totalPoolPassed
 
-      interval = setInterval(() => {
-        setTotal((prevNumber) => {
-          const newNumber = prevNumber + increment
-          const total =
-            newNumber >= 5 * INITIAL_JACKPOT ? 5 * INITIAL_JACKPOT : newNumber
-
-          return Math.round(total)
-        })
-      }, 1000)
+      setTotal(Math.round(initTotal))
     }
 
     initTotal()
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (total < MAX_JACKPOT) {
+        setTotal((prevNumber) => {
+          const newNumber = prevNumber + increment
+
+          const total =
+            newNumber >= MAX_JACKPOT - INITIAL_JACKPOT ? MAX_JACKPOT : newNumber
+
+          return Math.round(total)
+        })
+      } else {
+        clearInterval(interval)
+      }
+    }, 1000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [total])
 
   return (
     <View

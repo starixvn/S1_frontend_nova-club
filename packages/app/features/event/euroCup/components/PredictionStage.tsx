@@ -16,6 +16,7 @@ import {
 import { EventTeam } from 'services/euroApi.type'
 import { SolitoImage } from 'solito/image'
 import { TitleText } from './EuroText'
+import DisabledOverlay from 'app/components/DisabledOverlay'
 
 type PredictionStageProps = {
   contentWidth: number
@@ -156,7 +157,13 @@ const PredictionStage = ({
   }, [teams, t])
 
   return (
-    <View sx={{ flex: 1, width: contentWidth, mt: -36 }}>
+    <View
+      sx={{
+        flex: 1,
+        width: contentWidth,
+        mt: -36,
+      }}
+    >
       <ImageBackground
         source={{
           uri: imageUrl,
@@ -164,7 +171,13 @@ const PredictionStage = ({
         resizeMode="stretch"
         alt=""
       >
-        <View sx={{ m: '$4', mt: 48, alignItems: 'center' }}>
+        <View
+          sx={{
+            m: '$4',
+            mt: 48,
+            alignItems: 'center',
+          }}
+        >
           <TitleText>{roundTitle.toUpperCase()}</TitleText>
           <Row
             sx={{
@@ -246,6 +259,11 @@ const PredictionStage = ({
             })}
           </Row>
         </View>
+
+        {data && (
+          <DisabledOverlay contentStyle={{ borderRadius: 24, opacity: 0.4 }} />
+        )}
+
         <BouncePressable
           onPress={handlePress}
           sx={{

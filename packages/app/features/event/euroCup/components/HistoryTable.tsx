@@ -72,14 +72,35 @@ const ItemRow = ({ index, item }: ItemRowProps) => {
   const { t } = useLocalization()
   const j = JSON.parse(item.detail) as LogWinning & LogPrediction
 
+  const getStage = (round) => {
+    switch (round) {
+      case 'Group Stage':
+        return 'event.euro.rules.round1'
+      case 'Round 16':
+        return 'event.euro.rules.round2'
+      case 'Quater Final':
+        return 'event.euro.rules.round3'
+      case 'Semi Final':
+        return 'event.euro.rules.round4'
+      case 'Final':
+        return 'event.euro.rules.round5'
+
+      default:
+        return 'event.euro.rules.round1'
+    }
+  }
+
   const text =
     item.type === 'winning'
-      ? t('event.euro.history.win', { ticket: j.ticket, stage: j.event_name })
+      ? t('event.euro.history.win', {
+          ticket: j.ticket,
+          stage: t(getStage(j.event_name)),
+        })
       : j.teams.length === 1
       ? t('event.euro.history.selectChampion', { team: j.teams.join('') })
       : `${t('event.euro.history.selectTeam', {
           team: j.teams.join(', '),
-          stage: j.event_name,
+          stage: t(getStage(j.event_name)),
         })}`
 
   return (
