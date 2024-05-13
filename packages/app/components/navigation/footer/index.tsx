@@ -7,7 +7,7 @@ import Powered from './Powered'
 
 const Footer = () => {
   return (
-    <View>
+    <View nativeID="footer-section">
       <FooterNav />
       <Powered />
       <FooterAction />

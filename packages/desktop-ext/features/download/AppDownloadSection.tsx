@@ -21,7 +21,10 @@ const AppDownloadSection = () => {
   const isDesktop = useIsDesktop()
 
   return (
-    <View sx={{ flexDirection: isDesktop ? 'row' : 'column' }}>
+    <View
+      nativeID="app-dl-section"
+      sx={{ flexDirection: isDesktop ? 'row' : 'column' }}
+    >
       <ImageBackground
         source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/download/BG_DL.jpg` }}
         style={{

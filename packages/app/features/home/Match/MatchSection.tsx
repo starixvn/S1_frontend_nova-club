@@ -1,5 +1,6 @@
 import MatchCarousel from 'app/components/match/MatchCarousel'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import { GAEvents } from 'app/integrations/analytic/events'
 import React from 'react'
 import { useGetRecoMatchQuery } from 'services/matchApi'
 
@@ -9,5 +10,5 @@ export default function MatchSection({}: Props) {
   const desktop = useIsDesktop()
   const { data } = useGetRecoMatchQuery({ isApp: !desktop })
 
-  return <MatchCarousel data={data} />
+  return <MatchCarousel data={data} gaEvent={GAEvents.CTA_MatchHome} />
 }

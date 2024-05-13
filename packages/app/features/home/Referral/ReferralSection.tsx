@@ -8,7 +8,7 @@ import ShareCode from './ShareCode'
 const IMAGE_SIZE = 150
 const ReferralSection = () => {
   return (
-    <View sx={{ width: '100%' }}>
+    <View sx={{ width: '100%' }} nativeID="referral-section">
       <ImageBackground
         source={{
           uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/referral/referral-bg.jpg?v=1`,
