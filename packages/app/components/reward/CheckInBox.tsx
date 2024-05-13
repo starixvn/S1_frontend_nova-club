@@ -11,8 +11,8 @@ import {
   styled,
   useResponsiveValue,
 } from 'dripsy'
-import React, { ComponentProps, useState } from 'react'
-import { Platform, StyleSheet } from 'react-native'
+import React, { ComponentProps, useEffect, useState } from 'react'
+import { StyleSheet } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
@@ -40,125 +40,120 @@ const CheckInBox = ({ children }: CheckInBoxProps) => {
   const { data: profileData } = usePlayerProfileQuery()
   const enableCheckIn = !profileData?.disabled_event ?? false
 
-  const [isCheckingIn, setCheckingIn] = useState(false)
+  const [message, setMessage] = useState('')
   const { push } = useRouter()
-  const { openModal, closeModal, closeAllModals } = useModal()
+  const { closeModal } = useModal()
   const { t } = useLocalization()
   const GAP_VALUE = useResponsiveValue([6, 10])
 
   const coinData = data ? data.daily_setting.map((e) => e.coin) : []
   const dayClaimed = data?.checked_in ? data.day : (data?.day ?? 0) - 1
-  // const PT1 = coinData.slice(0, 4)
-  // const PT2 = coinData.slice(5)
 
-  async function handleCheckIn() {
-    try {
-      setCheckingIn(true)
-      await CheckIn().unwrap()
-    } catch (e) {
-      const error = getErrorMessage(e)
-
-      openModal('ActionableModal', {
-        actions: [
-          {
-            disableAutoClose: true,
-            label: t('rewards.checkInModal.depositNow'),
-            onPress: () => {
-              if (Platform.OS !== 'web') push('/deposit')
-              closeAllModals(() => {
-                push('/deposit')
-              })
-            },
-          },
-        ],
-        message: error,
-        isShowHeader: false,
-      })
-      // showAlert(error)
-    } finally {
-      setCheckingIn(false)
+  useEffect(() => {
+    async function autoCheckIn() {
+      const res = await CheckIn()
+        .unwrap()
+        .catch((error) => {
+          setMessage(error.message.replace('\n', ''))
+        })
     }
+
+    autoCheckIn()
+  }, [])
+
+  const handleGoToDeposit = () => {
+    closeModal()
+    push('/deposit')
   }
 
   return (
-    <View sx={{ width: ['90%', '80%'], maxWidth: 500 }}>
-      <View
-        sx={{
-          backgroundColor: '$primary.300',
-          p: 20,
-          borderRadius: 15,
-        }}
-      >
-        <CheckInText
+    <>
+      <View sx={{ width: ['90%', '80%'], maxWidth: 500 }}>
+        <View
           sx={{
-            mb: 20,
+            backgroundColor: '$primary.300',
+            p: 20,
+            borderRadius: 15,
           }}
         >
-          {t('rewards.checkInModal.topDesc')}
-        </CheckInText>
+          <CheckInText sx={{ mb: 20 }}>
+            {t('rewards.checkInModal.topDesc')}
+          </CheckInText>
+          {enableCheckIn ? (
+            <Row sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+              {coinData.length > 0 ? (
+                coinData.map((e, i) => {
+                  const day = i + 1
+                  const lastItem = i == coinData.length - 1
+                  const isToday = i === dayClaimed - 1
+
+                  return (
+                    <View
+                      key={i}
+                      sx={{
+                        flexBasis: lastItem ? '46%' : '23%',
+                        flexGrow: lastItem ? 2 : 1,
+                        p: GAP_VALUE,
+                      }}
+                    >
+                      {isToday && (
+                        <Text
+                          sx={{
+                            fontSize: 12,
+                            textAlign: 'center',
+                            position: 'absolute',
+                            top: -6,
+                            left: 24,
+                          }}
+                        >
+                          {t('filter.date.today')}
+                        </Text>
+                      )}
+                      {lastItem ? (
+                        <BigBox day={day} reward={e} active={i < dayClaimed} />
+                      ) : (
+                        <SmallBox
+                          day={day}
+                          reward={e}
+                          active={i < dayClaimed}
+                        />
+                      )}
+                    </View>
+                  )
+                })
+              ) : (
+                <ActivityIndicator color={'$primary.100'} />
+              )}
+            </Row>
+          ) : null}
+        </View>
+
+        {children}
+      </View>
+
+      <View sx={{ width: '100%', bg: '#0007', py: '$2' }}>
+        <MessageText>{t('rewards.checkInModal.resetIfFail')}</MessageText>
+        <MessageText sx={{ textAlign: 'center' }}>{message}</MessageText>
+      </View>
+
+      <View sx={{ width: ['90%', '80%'], maxWidth: 500 }}>
         {enableCheckIn ? (
-          <Row sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
-            {coinData.length > 0 ? (
-              coinData.map((e, i) => {
-                const day = i + 1
-                const lastItem = i == coinData.length - 1
-                return (
-                  <View
-                    key={i}
-                    sx={{
-                      flexBasis: lastItem ? '46%' : '23%',
-                      flexGrow: lastItem ? 2 : 1,
-                      p: GAP_VALUE,
-                    }}
-                  >
-                    {lastItem ? (
-                      <BigBox day={day} reward={e} active={i < dayClaimed} />
-                    ) : (
-                      <SmallBox day={day} reward={e} active={i < dayClaimed} />
-                    )}
-                  </View>
-                )
-              })
-            ) : (
-              <ActivityIndicator color={'$primary.100'} />
-            )}
-          </Row>
+          <CheckInButton
+            loading={false}
+            disabled={!!data?.checked_in}
+            onPress={() => handleGoToDeposit()}
+          />
         ) : null}
       </View>
-      <Text
-        sx={{
-          my: GAP_VALUE,
-          alignSelf: 'center',
-          textAlign: 'center',
-          fontSize: 18,
-          lineHeight: 22,
-          fontWeight: 'bold',
-          width: '80%',
-        }}
-      >
-        {t('rewards.checkInModal.resetIfFail')}
-      </Text>
-
-      {enableCheckIn ? (
-        <CheckInButton
-          loading={isCheckingIn}
-          disabled={!!data?.checked_in}
-          onPress={() => handleCheckIn()}
-        />
-      ) : null}
-      {children}
-    </View>
+    </>
   )
 }
 
 const SmallBox = ({ day, reward, active }: BoxProps) => {
+  const { t } = useLocalization()
   return (
     <BoxContainer
-      sx={{
-        // flex: 0.25,
-        p: 10,
-        justifyContent: 'space-evenly',
-      }}
+      sx={{ p: 10, justifyContent: 'space-evenly' }}
       active={active}
     >
       <CoinImage />
@@ -180,20 +175,11 @@ const BigBox = ({ day, reward, active }: BoxProps) => {
   const { t } = useLocalization()
   return (
     <BoxContainer
-      sx={{
-        justifyContent: 'space-between',
-        flex: 1,
-        // height: '100%',
-      }}
+      sx={{ justifyContent: 'space-between', flex: 1 }}
       active={active}
     >
       <View sx={styles.boxLabel}>
-        <Text
-          sx={{
-            fontSize: 12,
-            fontWeight: 'bold',
-          }}
-        >
+        <Text sx={{ fontSize: 12, fontWeight: 'bold' }}>
           {t('rewards.checkInModal.surprise')}
         </Text>
       </View>
@@ -218,11 +204,7 @@ const BigBox = ({ day, reward, active }: BoxProps) => {
 const BoxTextGroup = ({ reward, day }: BoxProps) => {
   const { t } = useLocalization()
   return (
-    <View
-      sx={{
-        alignItems: 'center',
-      }}
-    >
+    <View sx={{ alignItems: 'center' }}>
       <Text
         sx={{
           color: '$secondary.100',
@@ -275,7 +257,7 @@ const CheckInButton = ({ loading, disabled, ...rest }: CheckInButtonProps) => {
         >
           {disabled
             ? t('rewards.checkInModal.seeYouTmrBtn')
-            : t('rewards.checkInModal.checkinBtn')}
+            : t('rewards.checkInModal.depositNow')}
         </Text>
       )}
     </Pressable>
@@ -313,6 +295,11 @@ const CheckInText = styled(Text)({
   fontWeight: 'bold',
   fontSize: 20,
   lineHeight: 24,
+})
+
+const MessageText = styled(Text)({
+  textAlign: 'center',
+  fontWeight: 'bold',
 })
 
 const styles = StyleSheet.create({
