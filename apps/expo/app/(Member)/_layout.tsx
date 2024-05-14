@@ -1,11 +1,11 @@
 import SessionHandler from 'app/components/SessionHandler'
 import BottomTabBar from 'app/components/navigation/BottomTabBar'
 import MainHeader from 'app/components/navigation/header/MainHeader'
+import DraggableFloatingEuroCup from 'app/features/floatingContent/DraggableFloatingEuroCup'
+import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Tabs } from 'expo-router'
 import { View } from 'react-native'
-import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
-import FloatingEuroCup from 'app/features/floatingContent/FloatingEuroCup'
 
 export default function Root() {
   const splashScreenLoaded = useAppSelector(
@@ -19,11 +19,7 @@ export default function Root() {
           <SessionHandler />
           <MainHeader />
           {/** APP floating mystery */}
-          <View
-            style={{ position: 'absolute', bottom: 270, right: 24, zIndex: 2 }}
-          >
-            <FloatingEuroCup />
-          </View>
+          <DraggableFloatingEuroCup />
           <DraggableFloatingMystery />
         </>
       )}

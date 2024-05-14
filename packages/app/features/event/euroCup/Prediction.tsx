@@ -52,7 +52,7 @@ const Prediction = () => {
             eventCode={data?.event_code}
             eligibleTicket={ticketData?.data?.eligible_ticket}
             winningTicket={ticketData?.data?.winning_ticket}
-            teams={data?.event_team}
+            teams={data?.event_team ?? []}
           />
         </View>
       </View>

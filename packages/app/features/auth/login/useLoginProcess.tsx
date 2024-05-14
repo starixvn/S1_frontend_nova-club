@@ -46,6 +46,7 @@ export default function useLoginProcess() {
     dispatch(SettingActions.setCurrentSessionCredential({ username, password }))
     dispatch(TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN))
     dispatch(TempSettingActions.setIsFloatingMysteryVisible(true))
+    dispatch(TempSettingActions.setIsFloatingEuroCupVisible(true))
 
     await biometricProcess(username).catch((e) => {
       console.warn('Biometric Process Error', e)

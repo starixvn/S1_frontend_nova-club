@@ -1,7 +1,7 @@
 import LazyIndicator from 'app/components/LazyIndicator'
 import MainHeader from 'app/components/navigation/header/MainHeader'
+import DraggableFloatingEuroCup from 'app/features/floatingContent/DraggableFloatingEuroCup'
 import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
-import FloatingEuroCup from 'app/features/floatingContent/FloatingEuroCup'
 import withLazyLoad from 'app/hoc/withLazyLoad'
 import LiveChat from 'components/LiveChat'
 import NavigationHeader, {
@@ -95,9 +95,7 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
       {isVisible && (
         <>
           <DraggableFloatingMystery />
-          <View sx={{ position: 'fixed', bottom: 150, left: 36, zIndex: 2 }}>
-            <FloatingEuroCup />
-          </View>
+          <DraggableFloatingEuroCup />
         </>
       )}
       <LiveChat />

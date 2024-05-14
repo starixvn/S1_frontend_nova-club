@@ -11,6 +11,7 @@ export default function useLoginProcess() {
   async function handleSuccessLogin(username, password, data: LoginResult) {
     dispatch(AuthActions.setAuthInfo(data))
     dispatch(TempSettingActions.setIsFloatingMysteryVisible(true))
+    dispatch(TempSettingActions.setIsFloatingEuroCupVisible(true))
 
     push('/')
 

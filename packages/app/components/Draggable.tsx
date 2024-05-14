@@ -1,25 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { Animated, PanResponder } from 'react-native'
 
 const Draggable = ({ children }) => {
   const pan = useRef(new Animated.ValueXY()).current
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }]),
-      onPanResponderRelease: () => {
-        pan.extractOffset()
-      },
-    })
-  ).current
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
+      useNativeDriver: false,
+    }),
+    onPanResponderRelease: () => {
+      pan.extractOffset()
+    },
+  })
+
   return (
-    <Animated.View
-      style={{
-        transform: [{ translateX: pan.x }, { translateY: pan.y }],
-      }}
-      {...panResponder.panHandlers}
-    >
+    <Animated.View style={[pan.getLayout(), {}]} {...panResponder.panHandlers}>
       {children}
     </Animated.View>
   )

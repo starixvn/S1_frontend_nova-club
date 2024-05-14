@@ -260,7 +260,7 @@ const PredictionStage = ({
           </Row>
         </View>
 
-        {data && (
+        {(data || eligibleTicket === 0) && (
           <DisabledOverlay contentStyle={{ borderRadius: 24, opacity: 0.4 }} />
         )}
 
