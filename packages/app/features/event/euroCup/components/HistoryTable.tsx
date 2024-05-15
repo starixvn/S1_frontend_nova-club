@@ -78,7 +78,7 @@ const ItemRow = ({ index, item }: ItemRowProps) => {
         return 'event.euro.rules.round1'
       case 'Round 16':
         return 'event.euro.rules.round2'
-      case 'Quater Final':
+      case 'Quarter Final':
         return 'event.euro.rules.round3'
       case 'Semi Final':
         return 'event.euro.rules.round4'

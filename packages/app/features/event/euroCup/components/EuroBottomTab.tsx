@@ -40,7 +40,7 @@ const EuroBottomTab = () => {
           width={width}
           // height={width * (330 / 1080)}
           height={200}
-          contentFit="cover"
+          contentFit="fill"
           contentPosition="bottom center"
           // style={{ backgroundColor: 'white' }}
         />

@@ -63,11 +63,12 @@ const PredictionStage = ({
   const { submittedTeam, teamScore } = useGetSubmittedTeamQuery(
     { event_code: eventCode },
     {
-      skip: !eventCode,
       selectFromResult: ({ data }) => ({
         submittedTeam: data?.data?.submitted_team_code,
         teamScore: data?.data?.teams,
       }),
+      refetchOnMountOrArgChange: true,
+      skip: !eventCode,
     }
   )
 
@@ -89,7 +90,7 @@ const PredictionStage = ({
         }
       }
     }
-  }, [submittedTeam])
+  }, [isEligibleScore, submittedTeam])
 
   const handleSelected = (index) => {
     if (isFinal) {

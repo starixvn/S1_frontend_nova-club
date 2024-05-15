@@ -42,7 +42,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
         data: queryArgs,
       }),
-      invalidatesTags: ['EuroCupTicket'],
+      invalidatesTags: ['EuroCupTicket', 'EuroCupSubmittedTeam'],
     }),
     getEventEuroCupLogService: builder.query<
       IResponse<EventEuroCupLogServiceResult>,
@@ -62,6 +62,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
         data: queryArgs,
       }),
+      providesTags: ['EuroCupSubmittedTeam'],
     }),
   }),
 })
