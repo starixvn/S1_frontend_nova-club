@@ -51,7 +51,7 @@ const Prediction = () => {
             contentWidth={contentWidth}
             eventCode={data?.event_code}
             eligibleTicket={ticketData?.data?.eligible_ticket}
-            winningTicket={ticketData?.data?.winning_ticket}
+            isEligibleScore={!!ticketData?.data?.eligible_for_score}
             teams={data?.event_team ?? []}
           />
         </View>

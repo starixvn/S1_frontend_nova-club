@@ -21,6 +21,7 @@ export type EligibleEuroCupTicketArgs = {
 export type EligibleEuroCupTicketResult = {
   winning_ticket: number
   eligible_ticket: number
+  eligible_for_score: number
 }
 
 export type SubmitEuroCupTicketArgs = {
@@ -49,6 +50,9 @@ export type LogWinning = {
 
 export type GetSubmittedTeamResult = {
   submitted_team_code: string[]
+  teams: {
+    [key: string]: number
+  }
 }
 
 export type GetSubmittedTeamArgs = {

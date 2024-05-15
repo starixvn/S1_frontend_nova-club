@@ -21,9 +21,9 @@ import DisabledOverlay from 'app/components/DisabledOverlay'
 type PredictionStageProps = {
   contentWidth: number
   eventCode?: string
-  winningTicket?: number
   eligibleTicket?: number
   teams?: EventTeam[]
+  isEligibleScore: boolean
 }
 
 type TeamFlagProps = {
@@ -37,15 +37,15 @@ type TeamFlagProps = {
 const PredictionStage = ({
   contentWidth,
   eventCode = '',
-  winningTicket = 0,
   eligibleTicket = 0,
+  isEligibleScore = false,
   teams = [],
 }: PredictionStageProps) => {
   const { t } = useLocalization()
-  const dispatch = useAppDispatch()
   const { openModal } = useModal()
   const isDesktop = useIsDesktop()
   const [selected, setSelected] = useState<string[]>([])
+
   const [imageUrl, setImageUrl] = useState('')
   const [roundTitle, setroundTitle] = useState('')
   const [score, setScore] = useState<string[]>(['0', '0'])
@@ -54,24 +54,49 @@ const PredictionStage = ({
     return { label: index.toString(), value: index.toString() }
   })
 
-  const eligibleScore = winningTicket > 14
+  const isFinal = teams.length === 2
   const disabled =
     eligibleTicket === 0 ||
     selected.length !== eligibleTicket ||
     selected.length === 0
 
-  const { data } = useGetSubmittedTeamQuery(
+  const { submittedTeam, teamScore } = useGetSubmittedTeamQuery(
     { event_code: eventCode },
-    { skip: !eventCode }
+    {
+      skip: !eventCode,
+      selectFromResult: ({ data }) => ({
+        submittedTeam: data?.data?.submitted_team_code,
+        teamScore: data?.data?.teams,
+      }),
+    }
   )
 
   const [submitTicket] = useSubmitEuroCupTicketMutation()
 
   useEffect(() => {
-    if (data) setSelected(data)
-  }, [data])
+    if (submittedTeam) {
+      setSelected(submittedTeam)
+
+      if (isEligibleScore && teamScore) {
+        try {
+          const newScore = teams.map((team) =>
+            teamScore[team.team_code].toString()
+          )
+
+          setScore(newScore)
+        } catch (error) {
+          console.log('🚀 ~ useEffect ~ error:', error)
+        }
+      }
+    }
+  }, [submittedTeam])
 
   const handleSelected = (index) => {
+    if (isFinal) {
+      setSelected([index])
+      return
+    }
+
     if (selected.includes(index)) {
       setSelected(selected.filter((el) => el !== index))
     } else if (selected.length >= eligibleTicket) {
@@ -92,7 +117,7 @@ const PredictionStage = ({
     const isSubmitted = await submitTicket({
       event_code: eventCode,
       teams: selectedTeam,
-      scores: eligibleScore ? teamScore : undefined,
+      scores: isEligibleScore ? teamScore : undefined,
     })
       .unwrap()
       .catch((error) => {
@@ -235,7 +260,7 @@ const PredictionStage = ({
                     onPress={() => handleSelected(item.team_code)}
                   />
 
-                  {eligibleScore && (
+                  {isEligibleScore && (
                     <SelectWithDropdown
                       label={t('event.prediction.score')}
                       value={score[index]}
@@ -260,7 +285,7 @@ const PredictionStage = ({
           </Row>
         </View>
 
-        {(data || eligibleTicket === 0) && (
+        {(submittedTeam || eligibleTicket === 0) && (
           <DisabledOverlay contentStyle={{ borderRadius: 24, opacity: 0.4 }} />
         )}
 

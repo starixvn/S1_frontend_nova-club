@@ -1,5 +1,5 @@
 import useLocalization from 'app/provider/localization'
-import { Pressable, Text, View } from 'dripsy'
+import { Pressable, Text, View, useResponsiveValue } from 'dripsy'
 import React, { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import ModalContent from './ModalContent'
@@ -10,6 +10,7 @@ import BouncePressable from '../pressable/BouncePressable'
 
 const EuroModal = ({ modal: { closeModal, getParam } }) => {
   const message = getParam('message', '')
+  const top = useResponsiveValue(['25%', 130])
 
   const { width } = useWindowDimensions()
   const { t } = useLocalization()
@@ -21,7 +22,7 @@ const EuroModal = ({ modal: { closeModal, getParam } }) => {
     <ModalWrapper sx={{ width: modalWidth }}>
       <View sx={{ alignItems: 'center', justifyContent: 'center' }}>
         <BouncePressable
-          containerStyle={{ position: 'absolute', top: 95, right: -15 }}
+          containerStyle={{ position: 'absolute', top: top, right: -15 }}
           onPress={handleClose}
         >
           <SolitoImage

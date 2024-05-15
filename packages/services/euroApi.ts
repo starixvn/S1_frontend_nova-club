@@ -53,15 +53,15 @@ export const euroApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
       }),
     }),
-    getSubmittedTeam: builder.query<string[], GetSubmittedTeamArgs>({
+    getSubmittedTeam: builder.query<
+      IResponse<GetSubmittedTeamResult>,
+      GetSubmittedTeamArgs
+    >({
       query: (queryArgs) => ({
         url: `/player_api/getSubmittedTeam`,
         method: 'POST',
         data: queryArgs,
       }),
-      transformResponse: ({ data }: { data: GetSubmittedTeamResult }) => {
-        return data.submitted_team_code
-      },
     }),
   }),
 })
