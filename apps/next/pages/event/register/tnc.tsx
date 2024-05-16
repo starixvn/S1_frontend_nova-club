@@ -1,37 +1,28 @@
-import InfoScreen from 'app/features/info/InfoScreen'
-import { LANGUAGE_CODE } from 'utils/constant'
-import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import { DesktopBaseLayout } from 'components/layouts/desktop'
 import { MobileInfoLayout } from 'components/layouts/mobile'
+import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
 
-const LazyEn = dynamic(
-  () => import('app/features/home/EventModal/tnc/register/tncEn'),
+const LazyMobileScreen = dynamic(
+  () => import('app/features/home/EventModal/tnc/register'),
   {
     loading: () => <ActivityIndicator />,
     ssr: false,
   }
 )
 
-const LazyVi = dynamic(
-  () => import('app/features/home/EventModal/tnc/register/tncVi'),
+const LazyDesktopScreen = dynamic(
+  () => import('app/features/home/EventModal/tnc/register'),
   {
     loading: () => <ActivityIndicator />,
     ssr: false,
   }
 )
 
-const infoLocalizationMapping = {
-  [LANGUAGE_CODE.ENGLISH]: LazyEn,
-  [LANGUAGE_CODE.VIETNAM]: LazyVi,
-}
+const RegisterEventTnc = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
 
-const LuckySpinTnc: AdaptiveLayoutPage = () => (
-  <InfoScreen map={infoLocalizationMapping} />
-)
+RegisterEventTnc.DesktopLayout = DesktopBaseLayout
+RegisterEventTnc.MobileLayout = MobileInfoLayout
 
-LuckySpinTnc.DesktopLayout = DesktopBaseLayout
-LuckySpinTnc.MobileLayout = MobileInfoLayout
-
-export default LuckySpinTnc
+export default RegisterEventTnc
