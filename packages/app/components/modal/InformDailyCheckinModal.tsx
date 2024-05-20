@@ -1,6 +1,6 @@
 import useLocalization from 'app/provider/localization'
 import { Pressable, Text } from 'dripsy'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { ModalComponentProp, useModal } from 'react-native-modalfy'
 import CheckBox from '../common/CheckBox'
@@ -30,12 +30,13 @@ export default function InformDailyCheckinModal({
   const width = useWindowDimensions().width
   const dispatch = useAppDispatch()
   const username = useAppSelector((s) => s.auth.info?.playerName)
-
   const [isDontShow, setDontShow] = useState(false)
+  const isDontShowRef = useRef(false)
 
   useEffect(() => {
-    if (isDontShow) {
-      return () => {
+    return () => {
+      // do not use state
+      if (isDontShowRef.current) {
         dispatch(
           SettingActions.setStopShowingDailyCheckin(
             generateStopShowingCacheKey(username ?? '')
@@ -44,7 +45,7 @@ export default function InformDailyCheckinModal({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDontShow])
+  }, [])
 
   return (
     <ModalWrapper sx={{ width: Math.min(500, width * 0.9) }}>
@@ -56,7 +57,11 @@ export default function InformDailyCheckinModal({
         </Text>
 
         <Pressable
-          onPress={() => setDontShow(!isDontShow)}
+          onPress={() => {
+            const reversedValue = !isDontShowRef.current
+            isDontShowRef.current = reversedValue
+            setDontShow(reversedValue)
+          }}
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
