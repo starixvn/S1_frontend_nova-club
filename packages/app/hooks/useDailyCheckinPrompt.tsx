@@ -32,9 +32,10 @@ export default function useDailyCheckinPrompt() {
           : 0)
     }, 0)
 
-    if (total < DepositThresholdByCurrency[Currency.VND]) {
+    const thresholdValue = DepositThresholdByCurrency[Currency.VND]
+    if (total < thresholdValue) {
       openModal('InformDailyCheckinModal', {
-        amountDisplay: toCurrency(total, Currency.VND),
+        amountDisplay: toCurrency(thresholdValue, Currency.VND),
       })
     }
   }
