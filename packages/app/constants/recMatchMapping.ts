@@ -37,6 +37,8 @@ export enum MatchLeagueId {
   GERMANY_BUNDESLIGA_I = 5,
   SPAIN_PRIMERA_LALIGA = 43,
   UEFA_CHAMPIONS_LEAGUE = 1837,
+  EURO_CUP = 141197,
+  EURO_SELECTOR = 1,
 }
 
 export const MatchLeagueColorMapping = {
@@ -53,6 +55,7 @@ export const MatchLeagueLogoMapping = {
   [MatchLeagueId.GERMANY_BUNDESLIGA_I]: 'bdl.png',
   [MatchLeagueId.SPAIN_PRIMERA_LALIGA]: 'sl.png',
   [MatchLeagueId.UEFA_CHAMPIONS_LEAGUE]: 'ucl.png',
+  [MatchLeagueId.EURO_CUP]: 'ucl.png',
 }
 
 export const MatchLeagueTabIconMapping = {
@@ -61,6 +64,8 @@ export const MatchLeagueTabIconMapping = {
   [MatchLeagueId.GERMANY_BUNDESLIGA_I]: 'sport-gb',
   [MatchLeagueId.SPAIN_PRIMERA_LALIGA]: 'sport-sl',
   [MatchLeagueId.UEFA_CHAMPIONS_LEAGUE]: 'sport-uefa',
+  [MatchLeagueId.EURO_CUP]: 'sport-euro-cup',
+  [MatchLeagueId.EURO_SELECTOR]: 'sport-euro-cup',
 }
 
 export enum MatchHandicapType {
@@ -71,4 +76,11 @@ export enum MatchHandicapType {
   HALF_TIME = 7,
   HALF_TIME_OVER = 8,
   HALF_TIME_DOUBLE = 15,
+}
+
+export enum LEAGUE_SECTION {
+  EURO_MATCH = 'euro-match',
+  EURO_STANDINGS = 'euro-standings',
+  EURO_ODDS = 'euro-odds',
+  LEAGUE_ODDS = 'league-odds',
 }

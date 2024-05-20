@@ -4,8 +4,10 @@ import Button from 'app/components/common/Button'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import { SabaGamePayload } from 'app/constants/game'
-import { MatchHandicapType } from 'app/constants/recMatchMapping'
+import { MatchHandicapType, MatchLeagueId } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import { logEvent } from 'app/integrations/analytic'
+import { GAEvents } from 'app/integrations/analytic/events'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
@@ -28,8 +30,6 @@ import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
 import MatchListHeader from './MatchListHeader'
-import { logEvent } from 'app/integrations/analytic'
-import { GAEvents } from 'app/integrations/analytic/events'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -154,9 +154,15 @@ const MatchListTable = forwardRef<MatchListMethod, MatchListTableProps>(
               // const sample = data.find(
               //   (m) => typeof m === 'object' && m.LeagueId.toString() === item
               // )
-              const sample = leagueTabs[item]
+              const sample = leagueTabs[item] as MatchResult
 
-              return <MatchListHeader data={sample} height={50} />
+              return (
+                <MatchListHeader
+                  icon={sample?.LeagueId}
+                  label={sample.LeagueName}
+                  height={50}
+                />
+              )
             } else {
               // Render item
               const homeFlag = `${MEDIA_DOMAIN}/nvclub${item.HomeImagePath}`
@@ -198,16 +204,28 @@ const MatchListCellRow = ({
     threshold: 0,
   })
 
+  const defaultVariant = {
+    bg: index % 2 ? '$primary.300' : '$primary.500',
+    borderWidth: 2,
+    borderColor: 'transparent',
+  }
+  const EuroVariant = {
+    bg: index % 2 ? '#223BD4' : 'transparent',
+    borderWidth: 2,
+    borderColor: '#223BD4',
+  }
+
+  const variant =
+    item.LeagueId === MatchLeagueId.EURO_CUP ? EuroVariant : defaultVariant
+
   return (
     <View
       ref={ref}
       key={index + time + date}
       sx={{
-        bg: index % 2 ? '$primary.300' : '$primary.500',
-        // borderBottomWidth: 8,
         mb: '$2',
-        // borderBottomColor: '$primary.700',
         height: 135,
+        ...variant,
       }}
     >
       {!inView ? null : (
@@ -248,8 +266,13 @@ const MatchListCellData = ({
   const { t } = useLocalization()
   const isLoggedIn = useAppSelector((state) => state.auth.info?.token)
 
+  const borderColorVariant =
+    item.LeagueId === MatchLeagueId.EURO_CUP
+      ? 'transparent'
+      : 'rgba(255,255,255,0.6)'
+
   return (
-    <DataTableRow key={dateTime} sx={{ height: 45 }}>
+    <DataTableRow key={dateTime} sx={{ height: 44 }}>
       <DataTableCell
         sx={{
           py: '$0',
@@ -291,7 +314,7 @@ const MatchListCellData = ({
           ml: '$1',
           flex: 0.16,
           py: '$0',
-          borderColor: 'rgba(255,255,255,0.6)',
+          borderColor: borderColorVariant,
         }}
       >
         {name ?? 'Draw'}
@@ -348,7 +371,7 @@ const MatchListCellData = ({
                 justifyContent: 'center',
                 py: 0,
                 borderLeftWidth: 0.5,
-                borderColor: 'rgba(255,255,255,0.6)',
+                borderColor: borderColorVariant,
                 cursor: 'default',
               }}
             >
@@ -414,7 +437,7 @@ const MatchListCellData = ({
           flex: 0.15,
           py: '$0',
           borderLeftWidth: 0.25,
-          borderColor: 'rgba(255,255,255,0.6)',
+          borderColor: borderColorVariant,
         }}
       >
         {selectionType === 'away' && onPress && isLoggedIn ? (
@@ -456,7 +479,7 @@ const getGALogName = (d: MatchHandicapType) => {
   }
 }
 
-const getMatchTime = (globalshowtime: string) => {
+export const getMatchTime = (globalshowtime: string) => {
   let time = '-'
   let date = '-'
   let matchUnixDate = 0

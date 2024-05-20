@@ -1,16 +1,20 @@
 import { EntityId } from '@reduxjs/toolkit'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
-import { MatchLeagueTabIconMapping } from 'app/constants/recMatchMapping'
+import {
+  LEAGUE_SECTION,
+  MatchLeagueId,
+  MatchLeagueTabIconMapping,
+} from 'app/constants/recMatchMapping'
 import { Pressable, Row, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
 import React, { Dispatch, SetStateAction, memo, useEffect } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
+import MatchSelectorEuro from './MatchSelectorEuro'
 
 interface MatchLeagueSelectorProps {
   ids: EntityId[]
-  onChange: Dispatch<SetStateAction<EntityId | undefined>>
-  gradient?: string
+  onChange: (args1: EntityId, args2: LEAGUE_SECTION) => void
   value: EntityId
 }
 
@@ -24,50 +28,42 @@ export default function MatchLeagueSelector({
   ids,
   onChange,
   value,
-  gradient,
 }: MatchLeagueSelectorProps) {
   const width = useWindowDimensions().width
   const maxWidth = Math.min(700, width * 0.8)
 
-  // console.log('League ID: ', ids)
+  const handleEuroPress = (leagueSection) => {
+    onChange(MatchLeagueId.EURO_CUP, leagueSection)
+  }
+
   return (
-    <DripsyGradient
-      gradient={gradient}
+    <Row
       sx={{
+        alignItems: 'center',
+        width: '100%',
+        maxWidth: maxWidth,
+        gap: ['$1', '$2', '$3'],
+        py: '$1',
+        px: '$4',
         my: '$1',
+        zIndex: 1,
       }}
     >
-      {gradient && (
-        <View
-          sx={{
-            bg: '$primary.50',
-            height: 1,
-            width: '100%',
-          }}
-        />
-      )}
-      <Row
-        sx={{
-          alignItems: 'center',
-          width: '100%',
-          maxWidth: maxWidth,
-          gap: ['$1', '$2', '$3'],
-          py: '$1',
-          px: '$4',
-        }}
-      >
-        {ids.map((id) => {
-          return (
-            <MatchLeagueSelectorTab
-              key={id}
-              id={id}
-              active={value === id}
-              onPress={onChange}
-            />
-          )
-        })}
-      </Row>
-    </DripsyGradient>
+      <MatchSelectorEuro
+        active={value === MatchLeagueId.EURO_CUP.toString()}
+        onPress={handleEuroPress}
+      />
+      {ids.map((id) => {
+        return (
+          <MatchLeagueSelectorTab
+            key={id}
+            id={id}
+            active={value === id}
+            onPress={() => onChange(id, LEAGUE_SECTION.LEAGUE_ODDS)}
+          />
+        )
+      })}
+    </Row>
   )
 }
 

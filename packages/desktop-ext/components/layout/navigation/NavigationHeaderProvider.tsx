@@ -10,12 +10,14 @@ import React, {
 import LiveCasino from './dropdown/LiveCasino'
 import Slots from './dropdown/Slots'
 import Sportsbook from './dropdown/Sportsbook'
+import EuroCup from './dropdown/EuroCup'
 
 const NavigationHeaderContext = createContext<
   (menu: NAVIGATION_DROPDOWN_MENU | undefined) => void
 >((v) => {})
 
 export enum NAVIGATION_DROPDOWN_MENU {
+  Euro = 'euro',
   Sportsbook = 'sportsbook',
   LiveCasino = 'livecasino',
   Slots = 'slots',
@@ -35,6 +37,9 @@ const NavigationHeaderProvider = ({ children }) => {
       if (pathname.includes(menu)) return null
 
       switch (menu) {
+        case NAVIGATION_DROPDOWN_MENU.Euro: {
+          return <EuroCup />
+        }
         case NAVIGATION_DROPDOWN_MENU.Sportsbook: {
           return <Sportsbook />
         }

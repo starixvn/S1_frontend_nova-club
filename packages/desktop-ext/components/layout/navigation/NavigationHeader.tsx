@@ -16,9 +16,13 @@ import {
   useNavigationHeader,
 } from './NavigationHeaderProvider'
 import FloatingEuroCupNavigation from './FloatingEuroCupNavigation'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { SolitoImage } from 'solito/image'
+import { LEAGUE_SECTION } from 'app/constants/recMatchMapping'
 
 interface MenuProps {
   icon?: string
+  image?: string
   label?: string
   route: string
   style?: ViewStyle
@@ -36,6 +40,11 @@ const LEFT_MENU: MenuProps[] = [
   {
     route: '/',
     icon: 'home',
+  },
+  {
+    route: `/sportsbook?section=${LEAGUE_SECTION.EURO_MATCH}`,
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/euro-cup-icon.png`,
+    menu: NAVIGATION_DROPDOWN_MENU.Euro,
   },
 ]
 
@@ -116,6 +125,7 @@ export default function NavigationHeader({}) {
           key={j}
           label={m.label}
           icon={m.icon}
+          image={m.image}
           route={m.route}
           style={m.style}
           menu={m.menu}
@@ -165,6 +175,7 @@ const DripsyMotiPressable = styled(MotiPressable)()
 
 const MenuButton = ({
   icon,
+  image,
   label,
   route,
   style,
@@ -192,6 +203,18 @@ const MenuButton = ({
     >
       {icon ? (
         <Icon name={icon} size={22} />
+      ) : image ? (
+        <View
+          sx={{
+            bg: 'blue',
+            height: '100%',
+            aspectRatio: 1 / 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <SolitoImage src={image} width={36} height={36} alt="euro-cup" />
+        </View>
       ) : (
         <View>
           <Text sx={{ fontSize: [10, 10, 10, 12, 14] }}>

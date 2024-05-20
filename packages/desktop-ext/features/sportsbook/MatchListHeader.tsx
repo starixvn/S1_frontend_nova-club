@@ -4,16 +4,38 @@ import DataTableHeader from 'app/components/dataTable/DataTableHeader'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import { MatchLeagueTabIconMapping } from 'app/constants/recMatchMapping'
 import { Row, Text, View } from 'dripsy'
-import { MotiText, MotiView } from 'moti'
-import React from 'react'
-import { MatchResult } from 'services/matchApi.type'
+import { MotiView } from 'moti'
+import React, { ReactNode } from 'react'
 
 interface MatchListHeaderProps {
-  data?: MatchResult
+  icon: number
+  label: string
   height: number
+  children?: ReactNode
 }
 
-const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
+const MatchListHeader = ({ ...rest }: MatchListHeaderProps) => {
+  return (
+    <MatchHeader {...rest}>
+      <>
+        <Row sx={{ flex: 1 }}>
+          <DataTableTitle sx={{ flex: 0.6, px: 0 }}>FT. HDP</DataTableTitle>
+          <DataTableTitle sx={{ flex: 0.6, px: 0 }}>FT. O/U</DataTableTitle>
+          <DataTableTitle sx={{ flex: 0.35, px: 0 }}>FT. 1X2</DataTableTitle>
+          <DataTableTitle sx={{ flex: 0.3, px: 0 }}>FT. O/E</DataTableTitle>
+          <DataTableTitle sx={{ flex: 0.6, px: 0 }}>1H. HDP</DataTableTitle>
+          <DataTableTitle sx={{ flex: 0.65, px: 0 }}>1H. O/U</DataTableTitle>
+          <DataTableTitle sx={{ flex: 0.3, px: 0 }}>1H. 1X2</DataTableTitle>
+        </Row>
+        <DataTableTitle sx={{ flex: 0.15 }}>{}</DataTableTitle>
+      </>
+    </MatchHeader>
+  )
+}
+
+export const MatchHeader = (props: MatchListHeaderProps) => {
+  const { icon, label, height, children } = props
+
   return (
     <View
       sx={{
@@ -46,10 +68,10 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
             <MotiView
               from={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              key={MatchLeagueTabIconMapping[data?.LeagueId ?? 0]}
+              key={MatchLeagueTabIconMapping[icon ?? 0]}
             >
               <Icon
-                name={MatchLeagueTabIconMapping[data?.LeagueId ?? 0]}
+                name={MatchLeagueTabIconMapping[icon ?? 0]}
                 sx={{ fontSize: [24, 30] }}
               />
             </MotiView>
@@ -60,19 +82,10 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
                 fontWeight: 'bold',
               }}
             >
-              {data?.LeagueName}
+              {label}
             </Text>
           </DataTableTitle>
-          <Row sx={{ flex: 1 }}>
-            <DataTableTitle sx={{ flex: 0.6, px: 0 }}>FT. HDP</DataTableTitle>
-            <DataTableTitle sx={{ flex: 0.6, px: 0 }}>FT. O/U</DataTableTitle>
-            <DataTableTitle sx={{ flex: 0.35, px: 0 }}>FT. 1X2</DataTableTitle>
-            <DataTableTitle sx={{ flex: 0.3, px: 0 }}>FT. O/E</DataTableTitle>
-            <DataTableTitle sx={{ flex: 0.6, px: 0 }}>1H. HDP</DataTableTitle>
-            <DataTableTitle sx={{ flex: 0.65, px: 0 }}>1H. O/U</DataTableTitle>
-            <DataTableTitle sx={{ flex: 0.3, px: 0 }}>1H. 1X2</DataTableTitle>
-          </Row>
-          <DataTableTitle sx={{ flex: 0.15 }}>{}</DataTableTitle>
+          {children}
         </DataTableHeader>
       </DataTable>
     </View>
