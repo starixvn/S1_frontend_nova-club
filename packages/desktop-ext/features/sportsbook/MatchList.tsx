@@ -107,11 +107,13 @@ export default function MatchList({}: Props) {
   const filteredEuroData = useMemo(() => {
     const filterTime = fullData[selectedTime]
 
-    const euroLeagueIndex = filterTime?.findIndex(
-      (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
-    )
+    const euroLeagueIndex =
+      filterTime?.findIndex(
+        (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
+      ) ?? 0
 
-    const finalData = filterTime?.slice(euroLeagueIndex)
+    const finalData =
+      euroLeagueIndex > 0 ? filterTime?.slice(euroLeagueIndex) : []
 
     return finalData ?? []
   }, [selectedTime, fullData]) as MatchResult[]

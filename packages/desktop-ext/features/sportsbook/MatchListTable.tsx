@@ -210,9 +210,9 @@ const MatchListCellRow = ({
     borderColor: 'transparent',
   }
   const EuroVariant = {
-    bg: index % 2 ? '#223BD4' : 'transparent',
+    bg: index % 2 ? '$primaryEuro.500' : 'transparent',
     borderWidth: 2,
-    borderColor: '#223BD4',
+    borderColor: '$primaryEuro.500',
   }
 
   const variant =

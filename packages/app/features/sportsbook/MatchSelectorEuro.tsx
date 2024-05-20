@@ -22,6 +22,7 @@ const MatchSelectorEuro = ({ active, onPress }) => {
     <>
       <Pressable
         sx={{ p: '$2', position: 'relative' }}
+        onPress={() => onPress(LEAGUE_SECTION.EURO_MATCH)}
         onHoverIn={() => startTransition(() => setIsMenuOpen(true))}
       >
         <Icon

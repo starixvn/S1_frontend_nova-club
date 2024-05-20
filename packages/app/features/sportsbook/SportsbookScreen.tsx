@@ -15,10 +15,22 @@ import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { GAME_TYPE_CODE } from 'utils/constant'
 import MatchSection from './MatchSection'
+import { createParam } from 'solito'
+import { LEAGUE_SECTION } from 'app/constants/recMatchMapping'
+import EuroSection from './euro/EuroSection'
+import EuroSectionHeader from './euro/EuroSectionHeader'
+
+type Params = {
+  section?: string
+}
+
+const { useParam } = createParam<Params>()
 
 export default function SportsbookScreen() {
   const { t } = useLocalization()
-  const locale = useAppSelector((s) => s.setting.locale)
+  const [leagueSection, setLeagueSection] = useParam('section', {
+    initial: LEAGUE_SECTION.LEAGUE_ODDS,
+  })
 
   const { data } = useGetGameListByCategoryQuery([
     GAME_TYPE_CODE.SPORTS,
@@ -70,29 +82,73 @@ export default function SportsbookScreen() {
     )
   }
 
+  const SportsbookSection = useMemo(() => {
+    switch (leagueSection) {
+      case LEAGUE_SECTION.EURO_MATCH:
+        return (
+          <EuroSection
+            leagueSection={leagueSection}
+            onPress={setLeagueSection}
+          />
+        )
+      case LEAGUE_SECTION.EURO_STANDINGS:
+        return (
+          <EuroSection
+            leagueSection={leagueSection}
+            onPress={setLeagueSection}
+          />
+        )
+      case LEAGUE_SECTION.LEAGUE_ODDS:
+        return (
+          <FlashList
+            key={numColumns}
+            estimatedItemSize={160}
+            showsVerticalScrollIndicator={false}
+            data={providers}
+            renderItem={renderItem}
+            numColumns={numColumns}
+            contentContainerStyle={{
+              paddingBottom: 40,
+            }}
+            extraData={commissionList}
+          />
+        )
+
+      default:
+        return (
+          <FlashList
+            key={numColumns}
+            estimatedItemSize={160}
+            showsVerticalScrollIndicator={false}
+            data={providers}
+            renderItem={renderItem}
+            numColumns={numColumns}
+            contentContainerStyle={{
+              paddingBottom: 40,
+            }}
+            extraData={commissionList}
+          />
+        )
+    }
+  }, [commissionList, leagueSection, providers])
+
   return (
     <ScrollToTopWrapper>
-      <FlashList
-        key={numColumns}
-        estimatedItemSize={160}
-        showsVerticalScrollIndicator={false}
-        data={providers}
-        renderItem={renderItem}
-        numColumns={numColumns}
-        contentContainerStyle={{
-          paddingBottom: 40,
-        }}
-        extraData={commissionList}
-        ListHeaderComponent={
-          <View sx={{ gap: '$3', my: '$3' }}>
+      <>
+        <View sx={{ gap: '$3', my: '$3' }}>
+          {leagueSection === LEAGUE_SECTION.LEAGUE_ODDS ? (
             <GamePageHeader
               title={t('game.category.sportsbook')}
               icon="sportbook"
             />
-            <MatchSection />
-          </View>
-        }
-      />
+          ) : (
+            <EuroSectionHeader />
+          )}
+          <MatchSection />
+        </View>
+
+        {SportsbookSection}
+      </>
     </ScrollToTopWrapper>
   )
 }

@@ -116,6 +116,10 @@ const theme = makeTheme({
     $otp: '#E69B0D',
     $info: '#F9B32A',
     $accent: '#F15D12',
+    $primaryEuro: {
+      500: '#223BD4',
+      700: '#3441D7',
+    },
 
     $black: '#000',
     $white: '#fff',

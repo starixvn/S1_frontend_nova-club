@@ -4,7 +4,7 @@ import { View } from 'dripsy'
 import React, { useMemo, useState } from 'react'
 import { MatchResult } from 'services/matchApi.type'
 import { MatchHeader } from '../MatchListHeader'
-import PageSwitcher from './PageSwitcher'
+import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 import Knockout from './Knockout'
 import GroupStage from './GroupStage'
 

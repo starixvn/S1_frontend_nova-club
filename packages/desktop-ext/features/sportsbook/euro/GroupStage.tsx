@@ -39,9 +39,9 @@ const GroupRow = ({ item, index }: { item: MatchResult; index: number }) => {
   return (
     <Row
       sx={{
-        bg: index % 2 ? 'transparent' : '#223BD4',
+        bg: index % 2 ? 'transparent' : '$primaryEuro.500',
         borderWidth: 2,
-        borderColor: '#223BD4',
+        borderColor: '$primaryEuro.500',
         borderRadius: 12,
         alignItems: 'center',
         py: '$1',

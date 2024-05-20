@@ -8,7 +8,7 @@ import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MatchHeader } from '../MatchListHeader'
 import { getMatchTime } from '../MatchListTable'
-import PageSwitcher from './PageSwitcher'
+import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 
 const ITEM_PER_PAGE = 6
 
@@ -61,9 +61,9 @@ const MatchCard = ({ item, index }: { index: number; item: MatchResult }) => {
       sx={{
         p: '$3',
         px: '$4',
-        bg: index % 6 < 3 ? '#223BD4' : 'transparent',
+        bg: index % 6 < 3 ? '$primaryEuro.500' : 'transparent',
         borderWidth: 2,
-        borderColor: '#223BD4',
+        borderColor: '$primaryEuro.500',
         borderRadius: 12,
         justifyContent: 'space-between',
         alignItems: 'center',
