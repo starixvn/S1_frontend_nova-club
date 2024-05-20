@@ -1,6 +1,6 @@
 import MomoPayScreen from 'app/features/deposit/momo'
 import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
-import { DesktopWalletLayout } from 'components/layouts/desktop'
+import { DesktopDepositLayout, DesktopWalletLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
 import DepositGuard from './deposit-guard'
@@ -26,6 +26,6 @@ const GuardOnlineBankingScreen: AdaptiveLayoutPage = DepositGuard(
   OnlineBankingScreen,
   'deposit'
 )
-GuardOnlineBankingScreen.DesktopLayout = DesktopWalletLayout
+GuardOnlineBankingScreen.DesktopLayout = DesktopDepositLayout
 
 export default GuardOnlineBankingScreen

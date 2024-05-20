@@ -35,7 +35,6 @@ const BonusHistoryItem = ({ item }) => {
           <Text
             sx={{
               textAlign: 'center',
-              color: getStatusColor(item.status, theme),
             }}
           >
             {t('filter.transactionType.bonus')}

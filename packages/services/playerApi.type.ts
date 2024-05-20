@@ -1,8 +1,8 @@
 import {
   CoinRedemptionType,
+  ReportCommonStatus,
   ReportDepositStatus,
-  ReportTransactionType,
-  ReportWithdrawalStatus,
+  ReportTransactionType
 } from 'utils/constant'
 import { WheelInfo } from './authApi.type'
 
@@ -83,7 +83,7 @@ export type ReportArgs = {
   is_reward_group_by?: boolean
   limit: number
   offset: number
-  status: ReportDepositStatus | ReportWithdrawalStatus
+  status: ReportCommonStatus
   coin_redemption_type?: CoinRedemptionType
   game_provider_code?: string
   time_from: string
@@ -115,7 +115,7 @@ export interface ReportDepositItem {
   player_notes: string
   second_category_flag: number
   secure_id: string
-  status: string
+  status: ReportDepositStatus
   system_id: number
 }
 

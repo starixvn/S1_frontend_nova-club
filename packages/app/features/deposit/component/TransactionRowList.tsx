@@ -4,14 +4,13 @@ import PaymentMethod, {
   DepositPaymentMethodCategoryId,
   PaymentMethodProps,
 } from 'app/config/deposit'
-import { getStatusColor } from 'app/config/status'
+import { getDepositStatusColor } from 'app/config/status'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toCurrency } from 'app/utils'
-import { Currency } from 'utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { Pressable, Text, View, useDripsyTheme } from 'dripsy'
 import { useModal } from 'react-native-modalfy'
-import { ReportResult } from 'services/playerApi.type'
+import { Currency } from 'utils/constant'
 
 type TransactionRowListProps = {
   item
@@ -98,11 +97,11 @@ const TransactionRowList = ({ item }: TransactionRowListProps) => {
           <Text
             numberOfLines={2}
             sx={{
-              color: getStatusColor(item.status, theme),
+              color: getDepositStatusColor(item.status),
               textAlign: 'right',
             }}
           >
-            {item.status}
+            {t(`depositStatus.${item.status}`)}
           </Text>
           {!item.bank_slip_attachment &&
             item.second_category_flag ===

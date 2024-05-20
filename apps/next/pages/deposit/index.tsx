@@ -1,5 +1,7 @@
 import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
-import { DesktopWalletLayout } from 'components/layouts/desktop'
+import {
+  DesktopDepositLayout
+} from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
 import DepositGuard from './deposit-guard'
@@ -19,7 +21,7 @@ const Deposit: AdaptiveLayoutPage = withAdaptiveScreen(
 )
 
 const GuardedDeposit: AdaptiveLayoutPage = DepositGuard(Deposit, 'deposit')
-GuardedDeposit.DesktopLayout = DesktopWalletLayout
+GuardedDeposit.DesktopLayout = DesktopDepositLayout
 
 export default GuardedDeposit
 

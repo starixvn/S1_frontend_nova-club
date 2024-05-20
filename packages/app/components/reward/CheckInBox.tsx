@@ -34,10 +34,15 @@ interface CheckInBoxProps {
 }
 
 const CheckInBox = ({ children }: CheckInBoxProps) => {
-  const { data } = useGetDailyCoinQuery()
-  const [CheckIn] = useCheckInDailyCoinMutation()
+  const [CheckIn, { isUninitialized, isError, isSuccess }] =
+    useCheckInDailyCoinMutation()
 
-  const { data: profileData } = usePlayerProfileQuery()
+  const { data } = useGetDailyCoinQuery(undefined, {
+    skip: !isError && !isSuccess,
+  })
+
+  const { data: profileData } = usePlayerProfileQuery(undefined, {})
+
   const enableCheckIn = !profileData?.disabled_event ?? false
 
   const [message, setMessage] = useState('')
