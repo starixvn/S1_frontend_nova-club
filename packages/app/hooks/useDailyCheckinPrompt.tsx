@@ -5,6 +5,7 @@ import { useModal } from 'react-native-modalfy'
 import { ReportDepositItem } from 'services/playerApi.type'
 import { Currency, ReportDepositStatus } from 'utils/constant'
 import * as isToday from 'dayjs/plugin/isToday'
+import { generateStopShowingCacheKey } from 'app/components/modal/InformDailyCheckinModal'
 
 dayjs.extend(isToday.default)
 
@@ -16,7 +17,8 @@ export default function useDailyCheckinPrompt() {
   const skipCheckPrompting = useAppSelector((s) => {
     return (
       s.setting.stopShowingDailyCheckin != undefined &&
-      s.setting.stopShowingDailyCheckin === s.auth.info?.playerName
+      s.setting.stopShowingDailyCheckin ===
+        generateStopShowingCacheKey(s.auth.info?.playerName ?? '')
     )
   })
 

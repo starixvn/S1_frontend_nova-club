@@ -9,12 +9,17 @@ import ModalWrapper from './ModalWrapper'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { ModalStackParams } from 'app/provider/modal'
+import dayjs from 'dayjs'
 
 type InformDailyCheckinModalProps = ModalComponentProp<
   ModalStackParams,
   void,
   'InformDailyCheckinModal'
 >
+
+export function generateStopShowingCacheKey(username: string) {
+  return `${username}|${dayjs().startOf('date').toISOString()}`
+}
 
 export default function InformDailyCheckinModal({
   modal: { getParam },
@@ -29,9 +34,13 @@ export default function InformDailyCheckinModal({
   const [isDontShow, setDontShow] = useState(false)
 
   useEffect(() => {
-    return () => {
-      if (isDontShow) {
-        dispatch(SettingActions.setStopShowingDailyCheckin(username ?? ''))
+    if (isDontShow) {
+      return () => {
+        dispatch(
+          SettingActions.setStopShowingDailyCheckin(
+            generateStopShowingCacheKey(username ?? '')
+          )
+        )
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

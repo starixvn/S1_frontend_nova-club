@@ -18,7 +18,7 @@ import { useRouter } from 'solito/router'
 import {
   DEPOSIT_NOTES,
   ReportCommonStatus,
-  ReportTransactionType
+  ReportTransactionType,
 } from 'utils/constant'
 import DailyMax from './component/DailyMax'
 import DepositCard from './component/DepositCard'
@@ -42,6 +42,7 @@ const Deposit = () => {
 
   const {
     depositHistory,
+    isUninitialized,
     isFetching,
     isLoading: transactionIsLoading,
     refetch,
@@ -58,7 +59,8 @@ const Deposit = () => {
       refetchOnMountOrArgChange: true,
       selectFromResult: (s) => {
         return {
-          depositHistory: s.data?.data?.rows as ReportDepositItem[],
+          depositHistory: (s.data?.data?.rows ??
+            EmptyRecord) as ReportDepositItem[],
           ...s,
         }
       },
@@ -66,11 +68,11 @@ const Deposit = () => {
   )
 
   useEffect(() => {
-    if (!transactionIsLoading && !skipCheckPrompting && depositHistory) {
+    if (!isUninitialized && !transactionIsLoading && !skipCheckPrompting) {
       triggerDailyCheckinPromptWithCondition(depositHistory)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transactionIsLoading])
+  }, [depositHistory, isUninitialized, transactionIsLoading])
 
   const handlePress = (id) => {
     let to = '/deposit'
