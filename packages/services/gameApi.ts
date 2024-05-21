@@ -142,8 +142,8 @@ export const gameApi = baseApiWithTag.injectEndpoints({
                 isStaticApi: true,
               },
             })
-
-            results = results.concat(gcFilterResp.data?.data?.rows)
+            if (gcFilterResp.data?.data)
+              results = results.concat(gcFilterResp.data?.data?.rows)
           }
           if (_arg.gdc_game_category) {
             const gdcFilterResp = await fetch({
@@ -161,7 +161,8 @@ export const gameApi = baseApiWithTag.injectEndpoints({
               },
             })
 
-            results = results.concat(gdcFilterResp.data?.data?.rows)
+            if (gdcFilterResp.data?.data)
+              results = results.concat(gdcFilterResp.data?.data?.rows)
           }
 
           return {
