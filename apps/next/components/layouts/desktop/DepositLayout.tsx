@@ -39,7 +39,12 @@ export default function DepositLayout({ children }: { children: ReactNode }) {
       triggerDailyCheckinPromptWithCondition(depositHistory)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [depositHistory, isUninitialized, transactionIsLoading])
+  }, [
+    depositHistory,
+    isUninitialized,
+    transactionIsLoading,
+    skipCheckPrompting,
+  ])
 
   return children
 }

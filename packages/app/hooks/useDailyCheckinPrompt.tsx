@@ -7,6 +7,9 @@ import { Currency, ReportDepositStatus } from 'utils/constant'
 import * as isToday from 'dayjs/plugin/isToday'
 import { generateStopShowingCacheKey } from 'app/components/modal/InformDailyCheckinModal'
 
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { useRef } from 'react'
+
 dayjs.extend(isToday.default)
 
 const DepositThresholdByCurrency = {
@@ -14,11 +17,16 @@ const DepositThresholdByCurrency = {
 }
 export default function useDailyCheckinPrompt() {
   const { openModal } = useModal()
+  const promptedRef = useRef(false)
+  const { data: profile } = usePlayerProfileQuery()
   const skipCheckPrompting = useAppSelector((s) => {
     return (
-      s.setting.stopShowingDailyCheckin != undefined &&
-      s.setting.stopShowingDailyCheckin ===
-        generateStopShowingCacheKey(s.auth.info?.playerName ?? '')
+      promptedRef.current ||
+      !profile ||
+      profile.disabled_event ||
+      (s.setting.stopShowingDailyCheckin != undefined &&
+        s.setting.stopShowingDailyCheckin ===
+          generateStopShowingCacheKey(s.auth.info?.playerName ?? ''))
     )
   })
 
@@ -36,6 +44,7 @@ export default function useDailyCheckinPrompt() {
 
     const thresholdValue = DepositThresholdByCurrency[Currency.VND]
     if (total < thresholdValue) {
+      promptedRef.current = true
       openModal('InformDailyCheckinModal', {
         amountDisplay: toCurrency(thresholdValue, Currency.VND),
       })

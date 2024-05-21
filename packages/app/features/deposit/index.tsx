@@ -72,7 +72,12 @@ const Deposit = () => {
       triggerDailyCheckinPromptWithCondition(depositHistory)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [depositHistory, isUninitialized, transactionIsLoading])
+  }, [
+    depositHistory,
+    isUninitialized,
+    transactionIsLoading,
+    skipCheckPrompting,
+  ])
 
   const handlePress = (id) => {
     let to = '/deposit'
