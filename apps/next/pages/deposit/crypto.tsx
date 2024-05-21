@@ -1,4 +1,4 @@
-import { DesktopWalletLayout } from 'components/layouts/desktop'
+import { DesktopDepositLayout, DesktopWalletLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
 import DepositGuard from './deposit-guard'
@@ -25,6 +25,6 @@ const GuardCryptoPay: AdaptiveLayoutPage = DepositGuard(
   CryptoPayScreen,
   'deposit'
 )
-GuardCryptoPay.DesktopLayout = DesktopWalletLayout
+GuardCryptoPay.DesktopLayout = DesktopDepositLayout
 
 export default GuardCryptoPay

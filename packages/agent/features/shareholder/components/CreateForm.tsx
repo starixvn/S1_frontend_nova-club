@@ -90,13 +90,7 @@ const CreateForm = <T,>({
         <Input
           editable={false}
           label={isShareholder ? t('report.type') : '\u00A0'}
-          leftInnerElement={
-            <CheckBox
-              isCheck={isCheck}
-              tickColor="#D1D1D1"
-              sx={{ bg: '#818384' }}
-            />
-          }
+          leftInnerElement={<CheckBox isCheck={isCheck} />}
           value={t('common.cash')}
           containerProps={{
             sx: { width: inputWidth, mb: 12 },

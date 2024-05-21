@@ -7,7 +7,10 @@ import { ActivityIndicator, Text, View, styled } from 'dripsy'
 import React, { useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportRewardItem } from 'services/playerApi.type'
-import { ReportDepositStatus, ReportTransactionType } from 'utils/constant'
+import {
+  ReportCommonStatus,
+  ReportTransactionType
+} from 'utils/constant'
 import DateTimeCell from '../DateTimeCell'
 import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 
@@ -33,7 +36,7 @@ const DesktopRebateHistoryItem = ({ item, index }) => {
     const { data, success } = await fetchData({
       limit: 10,
       offset: 0,
-      status: ReportDepositStatus.ALL,
+      status: ReportCommonStatus.ALL,
       time_from: dayjs(date).startOf('date').toISOString(),
       time_to: dayjs(date).endOf('date').toISOString(),
       trans_type: ReportTransactionType.REBATE,

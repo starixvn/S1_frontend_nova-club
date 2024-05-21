@@ -9,7 +9,7 @@ import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
 import {
   DateFilterOptions,
-  ReportDepositStatusOptions,
+  ReportCommonStatusOptions,
   ReportTransactionType,
   ReportTransactionTypeOptions,
 } from 'utils/constant'
@@ -57,7 +57,7 @@ const TransactionHistory = () => {
   const updatedSlipId = useAppSelector((state) => state.deposit.updatedSlipId)
 
   const [selected, setSelected] = useState({
-    selectedStatus: ReportDepositStatusOptions[0]?.value,
+    selectedStatus: ReportCommonStatusOptions[0]?.value,
     selectedDate: DateFilterOptions[0]?.value,
     selectedTransType: ReportTransactionTypeOptions[0]?.value,
     startDate: dayjs().startOf('date').toDate(),

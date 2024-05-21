@@ -1,4 +1,4 @@
-import { DesktopWalletLayout } from 'components/layouts/desktop'
+import { DesktopDepositLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
 
@@ -19,6 +19,6 @@ const DepositLoaderScreen = withAdaptiveScreen(
   LazyDesktopDepositScreen
 )
 
-DepositLoaderScreen.DesktopLayout = DesktopWalletLayout
+DepositLoaderScreen.DesktopLayout = DesktopDepositLayout
 
 export default DepositLoaderScreen

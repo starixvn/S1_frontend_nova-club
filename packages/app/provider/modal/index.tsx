@@ -75,6 +75,7 @@ type DefaultModalStackParams = {
   }
   DepositQrModal: { qrCode: string }
   DailyCheckInModal: undefined
+  InformDailyCheckinModal: { amountDisplay: string }
   RewardGameModal: {
     key: string
   }
@@ -149,6 +150,8 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
   DepositQrModal: () => import('app/components/modal/DepositQrModal'),
   DailyCheckInModal: () => import('app/components/modal/DailyCheckInModal'),
+  InformDailyCheckinModal: () =>
+    import('app/components/modal/InformDailyCheckinModal'),
   RewardGameModal: () => import('app/components/modal/RewardGameModal'),
   RewardTncModal: () => import('app/components/modal/RewardTncModal'),
   ActionableModal: () => import('app/components/modal/ActionableModal'),
@@ -234,6 +237,9 @@ const modalConfig: ModalConfigType = {
   },
   DailyCheckInModal: {
     modal: getDynamicComponent('DailyCheckInModal'),
+  },
+  InformDailyCheckinModal: {
+    modal: getDynamicComponent('InformDailyCheckinModal'),
   },
   RewardGameModal: {
     modal: getDynamicComponent('RewardGameModal'),

@@ -33,7 +33,6 @@ const TransferHistoryItem = ({ item }) => {
           <Text
             sx={{
               textAlign: 'center',
-              color: getStatusColor(item.status, theme),
             }}
           >
             {item.is_positive_amount
@@ -46,7 +45,6 @@ const TransferHistoryItem = ({ item }) => {
           <Text
             sx={{
               textAlign: 'center',
-              color: getStatusColor(item.status, theme),
             }}
           >
             {item.is_positive_amount ? item.from : item.to}

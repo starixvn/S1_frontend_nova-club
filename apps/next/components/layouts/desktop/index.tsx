@@ -13,6 +13,11 @@ const DynamicWalletLayout = dynamic(() => import('./WalletLayout'), {
   ssr: false,
 })
 
+const DynamicDepositLayout = dynamic(() => import('./DepositLayout'), {
+  loading: () => <AdaptiveLayoutLoader />,
+  ssr: false,
+})
+
 const DynamicAccountLayout = dynamic(() => import('./AccountLayout'), {
   loading: () => <AdaptiveLayoutLoader />,
   ssr: false,
@@ -41,6 +46,13 @@ export const DesktopBaseLayout: Layout = (component) => (
 
 export const DesktopWalletLayout: Layout = (component) =>
   DesktopBaseLayout(<DynamicWalletLayout>{component}</DynamicWalletLayout>)
+
+export const DesktopDepositLayout: Layout = (component) =>
+  DesktopBaseLayout(
+    <DynamicWalletLayout>
+      <DynamicDepositLayout>{component}</DynamicDepositLayout>
+    </DynamicWalletLayout>
+  )
 
 export const DesktopAccountLayout: Layout = (component) =>
   DesktopBaseLayout(<DynamicAccountLayout>{component}</DynamicAccountLayout>)

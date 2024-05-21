@@ -3,7 +3,7 @@ import PaymentMethod, {
   DepositPaymentMethodCategoryId,
   PaymentMethodProps,
 } from 'app/config/deposit'
-import { getStatusColor } from 'app/config/status'
+import { getDepositStatusColor } from 'app/config/status'
 
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toCurrency, toThousandSeparator } from 'app/utils'
@@ -12,8 +12,8 @@ import { Row, Text, View, styled, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ReportDepositItem } from 'services/playerApi.type'
-import DateTimeCell from '../DateTimeCell'
 import { Currency } from 'utils/constant'
+import DateTimeCell from '../DateTimeCell'
 
 const FONT_SIZE = 16
 const ICON_SIZE = 34
@@ -121,11 +121,11 @@ const DesktopDepositHistoryItem = ({
         <Text
           sx={{
             textAlign: 'right',
-            color: getStatusColor(item.status, theme),
+            color: getDepositStatusColor(item.status),
             fontSize: FONT_SIZE,
           }}
         >
-          {item.status}
+          {t(`depositStatus.${item.status}`)}
         </Text>
         {!item.bank_slip_attachment &&
           item.second_category_flag ===

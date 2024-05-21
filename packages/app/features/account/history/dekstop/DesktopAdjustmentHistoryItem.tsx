@@ -1,4 +1,8 @@
-import { getStatusColor } from 'app/config/status'
+import {
+  getAdjustmentAmountColor,
+  getAdjustmentAmountPrefix,
+  getStatusColor,
+} from 'app/config/status'
 import { toThousandSeparator } from 'app/utils'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
@@ -9,7 +13,6 @@ export const AdjustmentTableHeader = [
   TAB_NO,
   { label: 'common.date', textStyle: { flex: 1, textAlign: 'left' } },
   { label: 'common.amount', textStyle: { flex: 1, textAlign: 'center' } },
-  { label: 'deposit.status', textStyle: { flex: 1, textAlign: 'center' } },
 ]
 
 const DesktopAdjustmentHistoryItem = ({ item, index }) => {
@@ -25,16 +28,15 @@ const DesktopAdjustmentHistoryItem = ({ item, index }) => {
       </CellView>
 
       <CellView index={2}>
-        <Text>{toThousandSeparator(item.amount)}</Text>
-      </CellView>
-
-      <CellView index={3}>
         <Text
           sx={{
-            color: getStatusColor(item.status, theme),
+            textAlign: 'center',
+            color: getAdjustmentAmountColor(item.transaction_type),
           }}
         >
-          {item.status}
+          {`${getAdjustmentAmountPrefix(
+            item.transaction_type
+          )} ${toThousandSeparator(item.amount)}`}
         </Text>
       </CellView>
     </CellViewContainer>

@@ -4,7 +4,7 @@ import PaymentMethod, {
   DepositPaymentMethodCategoryId,
   PaymentMethodProps,
 } from 'app/config/deposit'
-import { getStatusColor } from 'app/config/status'
+import { getDepositStatusColor } from 'app/config/status'
 import TransactionHistoryItemBox from 'app/features/account/history/TransactionHistoryItemBox'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toCurrency, toThousandSeparator } from 'app/utils'
@@ -14,8 +14,8 @@ import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { Shadow } from 'react-native-shadow-2'
 import { ReportDepositItem } from 'services/playerApi.type'
-import DateTimeCell from './DateTimeCell'
 import { Currency } from 'utils/constant'
+import DateTimeCell from './DateTimeCell'
 
 export const CELL_PAYMENT_WIDTH = 0.5
 export const CELL_DATE_WIDTH = 0.2
@@ -149,11 +149,11 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           <Text
             sx={{
               textAlign: 'right',
-              color: getStatusColor(item.status, theme),
+              color: getDepositStatusColor(item.status),
               fontSize: FONT_SIZE,
             }}
           >
-            {item.status}
+            {t(`depositStatus.${item.status}`)}
           </Text>
         </View>
 

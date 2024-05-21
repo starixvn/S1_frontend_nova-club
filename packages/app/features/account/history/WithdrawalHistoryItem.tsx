@@ -1,4 +1,4 @@
-import { getStatusColor } from 'app/config/status'
+import { getStatusColor, getWithdrawalStatusColor } from 'app/config/status'
 import { copyToClipboard, toThousandSeparator } from 'app/utils'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
@@ -7,6 +7,7 @@ import DateTimeCell from './DateTimeCell'
 import IconButton from 'app/components/IconButton'
 import { ReportWithdrawalItem } from 'services/playerApi.type'
 import { useModal } from 'react-native-modalfy'
+import useLocalization from 'app/provider/localization'
 
 export const WithdrawalTableHeader = [
   { label: 'deposit.id', textStyle: { flex: 1.5, textAlign: 'left' } },
@@ -24,7 +25,7 @@ const WithdrawalHistoryItem = ({ item }: { item: ReportWithdrawalItem }) => {
 }
 
 export const WithdrawalHistoryItemContent = ({ item }) => {
-  const { theme } = useDripsyTheme()
+  const { t } = useLocalization()
   const { openModal } = useModal()
 
   return (
@@ -71,10 +72,10 @@ export const WithdrawalHistoryItemContent = ({ item }) => {
           <Text
             sx={{
               textAlign: 'center',
-              color: getStatusColor(item.status, theme),
+              color: getWithdrawalStatusColor(item.status),
             }}
           >
-            {item.status}
+            {t(`withdrawalStatus.${item.status}`)}
           </Text>
         </CellView>
       </View>

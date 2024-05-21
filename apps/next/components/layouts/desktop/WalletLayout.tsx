@@ -39,8 +39,7 @@ export default function WalletLayout({
       setMenuRoutes(TransferRoutes)
       setNoticeNotes(TRANSFER_NOTES)
       return
-    }
-    if (currentPath.includes(WALLET_PATH.DEPOSIT)) {
+    } else if (currentPath.includes(WALLET_PATH.DEPOSIT)) {
       const availableRoutes = DepositRoutes.filter((route) =>
         paymentMethodList.find((el) => route.categoryId === el.categoryId)
       )
@@ -50,8 +49,7 @@ export default function WalletLayout({
         currentPath.includes('topup-card') ? TOPUP_NOTES : DEPOSIT_NOTES
       )
       return
-    }
-    if (currentPath.includes(WALLET_PATH.WITHDRAWAL)) {
+    } else if (currentPath.includes(WALLET_PATH.WITHDRAWAL)) {
       let routes = WithdrawalRoutes
       if (cryptoBankList && cryptoBankList.length === 0)
         routes = routes.filter((el) => el.key !== 'Crypto')
@@ -59,8 +57,7 @@ export default function WalletLayout({
       setMenuRoutes(routes)
       setNoticeNotes(WITHDRAWAL_NOTES)
       return
-    }
-    if (currentPath.includes(WALLET_PATH.HISTORY)) {
+    } else if (currentPath.includes(WALLET_PATH.HISTORY)) {
       setMenuRoutes(HistoryRoutes)
       setNoticeNotes(undefined)
       return
@@ -79,9 +76,3 @@ export default function WalletLayout({
     </Container>
   )
 }
-
-const RightContainer = styled(View)({
-  borderWidth: 1,
-  flex: 1,
-  borderColor: '$primary.300',
-})
