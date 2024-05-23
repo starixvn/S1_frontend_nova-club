@@ -88,6 +88,7 @@ export type AutoBankItem = {
   account_icon_file_path: string
   account_icon: string
   bankTypeId: number
+  bank_icon: string
   bank_name_local: string
   deposit_fee_percentage?: string
   deposit_from: number

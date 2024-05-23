@@ -73,7 +73,7 @@ const BankTransferForm = () => {
       return {
         label: item.bank_branch,
         value: item.bankTypeId.toString(),
-        icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.account_icon_file_path}`,
+        icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
         limit: { min: item.minDeposit, max: item.maxDeposit },
       }
     }) ?? []
