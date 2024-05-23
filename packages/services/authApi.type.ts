@@ -53,6 +53,9 @@ export interface RegisterQueryArgs {
   platform_uuid: string
   agent_currency?: string
   agent_token?: string
+  promo_code?: string
+  shield_id?: string
+  shield_platform?: Shield_Platform
 }
 
 export type LogoutQueryArgs = Pick<LoginQueryArgs, 'username'>

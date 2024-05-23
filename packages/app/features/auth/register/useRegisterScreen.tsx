@@ -1,12 +1,12 @@
 import { useAgentRegisterMutation } from 'agent/services/authApi'
 import { useLazyUserInfoQuery, useUserInfoQuery } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import { MOBILE_PREFIX } from 'utils/constant'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
+import { SettingActions } from 'app/store/setting.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import validation from 'app/utils/validation'
@@ -23,16 +23,20 @@ import {
 import { Linking, Platform, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
-import { LoginResult, Shield_Action } from 'services/authApi.type'
+import {
+  LoginResult,
+  Shield_Action,
+  Shield_Platform,
+} from 'services/authApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'utils/constant'
+import { MOBILE_PREFIX_BY_CURRENCY } from 'utils/constant/currency'
 import * as Yup from 'yup'
 import { LoginType } from '../AuthLayout'
 import { agentRoute, memberRoute } from '../login/LoginScreen'
 import { RegisterFormValues } from './RegisterScreen'
-import { MOBILE_PREFIX_BY_CURRENCY } from 'utils/constant/currency'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
@@ -73,7 +77,11 @@ export default function useRegisterScreen(
     skip: !agentToken,
   })
 
+  const shieldSessionID = useAppSelector((s) => s.setting.shieldSessionID)
   const referral = useAppSelector((s) => s.setting.referral)
+  const landingPagePromoCode = useAppSelector(
+    (s) => s.setting.landingPagePromoCode
+  )
   const trackingCode = referral?.trackingCode
   const [register] = useRegisterMutation()
   const [agentRegister] = useAgentRegisterMutation()
@@ -132,6 +140,7 @@ export default function useRegisterScreen(
         : trackingCode && !isBannedTrackingCode(trackingCode)
         ? trackingCode
         : undefined,
+      promo_code: landingPagePromoCode,
       verify_code: verifyCode,
       platform_uuid: deviceId ?? '',
       device_os:
@@ -143,21 +152,27 @@ export default function useRegisterScreen(
       registered_by: Platform.OS !== 'web' ? 'APP' : '',
       agent_currency: !!agentToken ? agentCurrency : '',
       agent_token: !!agentToken ? agentToken : '',
+      shield_id: shieldSessionID,
+      shield_platform:
+        Platform.OS === 'web' ? Shield_Platform.WEB : Shield_Platform.APP,
     }).unwrap()
 
     if (success) {
       // This must be flagged true, before auth resuls it set.
       dispatch(TempSettingActions.setIsHomeEventModalTriggered(true))
+      dispatch(SettingActions.setLandingPagePromoCode())
       dispatch(AuthActions.setAuthInfo(data as LoginResult))
       dispatch(
         TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
       )
 
+      const note = (data as LoginResult).note
+
       if (currentModal) {
         closeModal()
-        unmountAction.current = handleSuccessRegisterOpenModal
+        unmountAction.current = () => handleSuccessRegisterOpenModal(note)
       } else {
-        handleSuccessRegisterOpenModal()
+        handleSuccessRegisterOpenModal(note)
       }
 
       // replace('/')
@@ -201,7 +216,7 @@ export default function useRegisterScreen(
 
       if (currentModal) {
         closeModal()
-        unmountAction.current = handleSuccessRegisterOpenModal
+        unmountAction.current = () => handleSuccessRegisterOpenModal()
       } else {
         handleSuccessRegisterOpenModal()
       }
@@ -216,33 +231,44 @@ export default function useRegisterScreen(
     setIsSubmitting(false)
   }
 
-  const handleSuccessRegisterOpenModal = () => {
-    return isAgentLogin
-      ? openModal('ActionableModal', {
-          title: t('authentication.registerSuccess.a1'),
-          message: t('authentication.registerSuccess.a2'),
-          onClose: () => replace('/agent/profile'),
-          actions: [
-            {
-              label: t('home.joinNow'),
-              onPress: () => Linking.openURL('https://t.me/vui123Daily'),
-            },
-          ],
-        })
-      : openModal('ActionableModal', {
-          title: t('authentication.registerSuccess.m1'),
-          message: t('authentication.registerSuccess.m2'),
-          onClose: () => {
-            dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
-            replace('/')
+  const handleSuccessRegisterOpenModal = (message?: string) => {
+    if (isAgentLogin) {
+      return openModal('ActionableModal', {
+        title: t('authentication.registerSuccess.a1'),
+        message: t('authentication.registerSuccess.a2'),
+        onClose: () => replace('/agent/profile'),
+        actions: [
+          {
+            label: t('home.joinNow'),
+            onPress: () => Linking.openURL('https://t.me/vui123Daily'),
           },
-          actions: [
-            {
-              label: t('home.joinNow'),
-              onPress: () => Linking.openURL('https://t.me/cungvui123'),
-            },
-          ],
-        })
+        ],
+      })
+    } else if (message) {
+      return showAlert({
+        title: t('authentication.registerSuccess.m1'),
+        message,
+        onClose: () => {
+          dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
+          replace('/')
+        },
+      })
+    } else {
+      return openModal('ActionableModal', {
+        title: t('authentication.registerSuccess.m1'),
+        message: t('authentication.registerSuccess.m2'),
+        onClose: () => {
+          dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
+          replace('/')
+        },
+        actions: [
+          {
+            label: t('home.joinNow'),
+            onPress: () => Linking.openURL('https://t.me/cungvui123'),
+          },
+        ],
+      })
+    }
   }
 
   useEffect(() => {

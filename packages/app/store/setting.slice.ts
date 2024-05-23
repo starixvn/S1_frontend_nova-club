@@ -56,6 +56,7 @@ export interface Setting {
   rewardPopup: number
   lastSubscribeUsername: string
   stopShowingDailyCheckin?: string
+  landingPagePromoCode?: string
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -133,6 +134,12 @@ const settingSlice = createSlice({
     setLog: (state, action: PayloadAction<string>) => {
       state.log = action.payload
     },
+    setLandingPagePromoCode: (
+      state,
+      action: PayloadAction<string | undefined>
+    ) => {
+      state.landingPagePromoCode = action.payload
+    },
     toggleScan: (state, action: PayloadAction<boolean>) => {
       state.transferScan = action.payload
     },
@@ -209,7 +216,7 @@ const settingSlice = createSlice({
     builder.addCase(AuthActions.setAuthInfo, (state, action) => {
       const currency = action.payload.currency
       tolgee.changeLanguage(CURRENCY_TO_LANGUAGE[currency])
-      
+
       return {
         ...state,
         currency: action.payload.currency,
