@@ -85,6 +85,7 @@ type CategoryItem = {
 }
 
 export type AutoBankItem = {
+  account_icon_file_path: string
   account_icon: string
   bankTypeId: number
   bank_name_local: string
