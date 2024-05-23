@@ -35,26 +35,12 @@ const RulesCard = ({
         my: '$2',
       }}
     >
-      <Row sx={{ alignItems: 'center' }}>
-        <View sx={{ flex: 1 }}>
-          <TitleText>{title}</TitleText>
-          <PeriodText>
-            {t('event.euro.rules.period', { period: period })}
-          </PeriodText>
-        </View>
-        <View
-          sx={{
-            width: 36,
-            height: 36,
-            alignItems: 'center',
-            justifyContent: 'center',
-            bg: 'green',
-            borderRadius: 50,
-          }}
-        >
-          <Icon name={active ? 'tick' : 'cross'} size={24} />
-        </View>
-      </Row>
+      <View>
+        <TitleText>{title}</TitleText>
+        <PeriodText>
+          {t('event.euro.rules.period', { period: period })}
+        </PeriodText>
+      </View>
 
       <View
         sx={{
