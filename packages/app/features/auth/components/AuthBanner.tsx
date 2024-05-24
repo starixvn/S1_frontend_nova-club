@@ -2,19 +2,25 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { View } from 'dripsy'
 import { useRef } from 'react'
 import { View as RNView } from 'react-native'
+import { useAppSelector } from 'app/provider/redux/store'
 import { SolitoImage } from 'solito/image'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 
 type AuthBannerProps = {
   isAgent?: boolean
 }
 
-const BannerImage = {
-  AGENT: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/agent-banner.jpg`,
-  PLAYER: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/member-banner.jpg`,
-} as const
-
 const AuthBanner = (props: AuthBannerProps) => {
   const { isAgent } = props
+  const currency = useAppSelector((s) => s.setting.currency)
+
+  useDefaultParamSelector()
+
+  const BannerImage = {
+    AGENT: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/agent-banner-${currency.toLowerCase()}.jpg`,
+    PLAYER: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/member-banner-${currency.toLowerCase()}.jpg`,
+  } as const
+
   const imageSrc = isAgent ? BannerImage.AGENT : BannerImage.PLAYER
 
   const rootRef = useRef<RNView>(null)

@@ -11,6 +11,7 @@ export interface UserInfo {
   has_pin: number
   has_verified_wd: number
   has_otp: 0 | 1
+  allWallet: { [key: string]: string }
 }
 
 export interface WalletBalance {

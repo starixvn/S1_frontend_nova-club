@@ -89,8 +89,6 @@ const validation = {
   referralCode: Yup.string().required('validation.required'),
   phoneNumber: Yup.string()
     .required('validation.required')
-    .min(1, 'validation.phoneNumber')
-    .max(MAX_PHONE_DIGIT, 'validation.phoneNumber')
     .test({
       name: 'is-number',
       test: (value) => {
@@ -100,6 +98,19 @@ const validation = {
       },
       message: 'validation.numberOnly',
     }),
+  // phoneNumber: Yup.string()
+  //   .required('validation.required')
+  //   .min(1, 'validation.phoneNumber')
+  //   .max(MAX_PHONE_DIGIT, 'validation.phoneNumber')
+  //   .test({
+  //     name: 'is-number',
+  //     test: (value) => {
+  //       if (!value) return false
+
+  //       return /^\d+$/.test(value)
+  //     },
+  //     message: 'validation.numberOnly',
+  //   }),
   // .test({
   //   name: 'phone-validation',
   //   test: (value) => {

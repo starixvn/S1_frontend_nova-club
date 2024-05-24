@@ -1,9 +1,11 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Button from 'agent/components/Button'
 import Input from 'agent/components/Input'
+import Select, { Options } from 'agent/components/Select/Select'
 import TimerButton, {
   ITimerButtonForwardRef,
 } from 'agent/components/TimerButton'
+import { MOBILE_PREFIX_BY_CURRENCY } from 'agent/constant/language'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
@@ -11,6 +13,7 @@ import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import {
   useResetPasswordMutation,
   useResetPasswordOTPMutation,
+  useUserInfoQuery,
 } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import validation, {
@@ -19,13 +22,12 @@ import validation, {
   getErrorMessage,
 } from 'agent/utils/validation'
 import KeyboardView from 'app/components/KeyboardView'
-import { MOBILE_PREFIX } from 'app/constants/country'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Flex, Image, Text, View, useDripsyTheme } from 'dripsy'
+import { Flex, Image, View, useDripsyTheme } from 'dripsy'
 import { useFormik } from 'formik'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
@@ -35,6 +37,7 @@ import * as Yup from 'yup'
 interface ResetPasswordValues {
   password: string
   confirmpassword: string
+  prefix: string
   mobile_no: string
   OTP: string
 }
@@ -53,12 +56,34 @@ const AgentResetPassword = () => {
   const dispatch = useDispatch()
   const { logout } = useOnAgentLogout()
 
+  const { data: userInfoData } = useUserInfoQuery()
   const [sendOtp, { isLoading: isOtpLoading }] = useResetPasswordOTPMutation()
   const [resetPassword] = useResetPasswordMutation()
+
+  const [mobileOptions, setMobileOptions] = useState<Options<string>[]>([])
+
+  useEffect(() => {
+    if (userInfoData) {
+      const newOptions: Options<string>[] = []
+
+      for (const currency in userInfoData.allWallet) {
+        if (userInfoData.allWallet.hasOwnProperty(currency)) {
+          newOptions.push({
+            label: MOBILE_PREFIX_BY_CURRENCY[currency],
+            value: MOBILE_PREFIX_BY_CURRENCY[currency],
+          })
+        }
+      }
+      setMobileOptions(newOptions)
+
+      newOptions.length > 0 && setFieldValue('prefix', newOptions[0]?.value)
+    }
+  }, [userInfoData])
 
   const onSubmit = async ({
     password,
     confirmpassword,
+    prefix,
     mobile_no,
     OTP,
   }: ResetPasswordValues) => {
@@ -68,7 +93,7 @@ const AgentResetPassword = () => {
       const { success, message, result } = await resetPassword({
         password,
         confirmpassword,
-        mobile_no: MOBILE_PREFIX.VND + mobile_no,
+        mobile_no: prefix + mobile_no,
         OTP,
       })
         .unwrap()
@@ -100,12 +125,14 @@ const AgentResetPassword = () => {
     initialValues: {
       password: '',
       confirmpassword: '',
+      prefix: '',
       mobile_no: '',
       OTP: '',
     },
     validationSchema: Yup.object({
       password: validation.password,
       confirmpassword: validation.confirmPassword,
+      prefix: validation.stringRequired,
       mobile_no: validation.phoneNumber,
       OTP: validation.verifyCode,
     }),
@@ -122,6 +149,7 @@ const AgentResetPassword = () => {
     dirty,
     submitForm,
     setTouched,
+    setFieldValue,
   } = formik
 
   async function handleSendOtp() {
@@ -131,6 +159,7 @@ const AgentResetPassword = () => {
           password: touched.password,
           confirmpassword: touched.confirmpassword,
           OTP: touched.OTP,
+          prefix: touched.prefix,
           mobile_no: true,
         },
         true
@@ -141,7 +170,7 @@ const AgentResetPassword = () => {
       }
 
       const { message, success } = await sendOtp({
-        mobile_no: MOBILE_PREFIX.VND + values.mobile_no,
+        mobile_no: values.prefix + values.mobile_no,
       })
         .unwrap()
         .catch((e) => {
@@ -262,7 +291,16 @@ const AgentResetPassword = () => {
                 sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
               }}
               leftOuterElement={
-                <Text sx={{ paddingX: '$4', color: 'black' }}>+84</Text>
+                // <Text sx={{ paddingX: '$4', color: 'black' }}>+84</Text>
+                <Select
+                  label={t('common.mobileNumber')}
+                  showLabel={false}
+                  options={mobileOptions}
+                  value={values.prefix}
+                  onSelected={handleChange('prefix')}
+                  isRequired
+                  sx={{ width: 100 }}
+                />
               }
               rightOuterElement={
                 <TimerButton
