@@ -174,13 +174,14 @@ export default function useRegisterScreen(
       password,
       confirmPassword,
       verifyCode,
+      currency,
       contactNumber,
     }: RegisterFormValues,
     { setStatus }: FormikHelpers<RegisterFormValues>
   ) => {
     const { result, success, message } = await agentRegister({
       currency: {
-        VND: {
+        [currency]: {
           CASH: '1',
         },
       },
@@ -188,7 +189,7 @@ export default function useRegisterScreen(
       password,
       confirmpassword: confirmPassword,
       // WIP: Prefix should not be hardcoded
-      mobile_no: MOBILE_PREFIX.VND + contactNumber,
+      mobile_no: MOBILE_PREFIX_BY_CURRENCY[currency] + contactNumber,
       // terms,
       referral_code: isLoggedIn ? referralCode : '',
       OTP: verifyCode,

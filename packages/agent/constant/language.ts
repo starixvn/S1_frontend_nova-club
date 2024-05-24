@@ -8,8 +8,8 @@ export enum Currency {
 }
 
 export enum MOBILE_PREFIX {
-  VND = '+84',
-  THB = '+66',
+  VND = '84',
+  THB = '66',
 }
 
 export const CURRENCY_SELECTION = [

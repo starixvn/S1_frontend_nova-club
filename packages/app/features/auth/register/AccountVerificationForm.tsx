@@ -4,8 +4,7 @@ import Button from 'app/components/common/Button'
 import CheckBox from 'app/components/common/CheckBox'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
-import { MOBILE_PREFIX } from 'app/constants/country'
-import { ROOT_DOMAIN } from 'utils/constant/domain'
+import SelectList from 'app/components/select/SelectList'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
@@ -19,13 +18,13 @@ import { ModalComponentProp } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
-import ReceiveOTPContact from '../components/ReceiveOTPContact'
-import { RegisterFormValues } from './RegisterScreen'
-import SelectList from 'app/components/select/SelectList'
 import {
   CURRENCY_SELECTION,
   MOBILE_PREFIX_BY_CURRENCY,
 } from 'utils/constant/currency'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
+import ReceiveOTPContact from '../components/ReceiveOTPContact'
+import { RegisterFormValues } from './RegisterScreen'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',
@@ -112,7 +111,8 @@ const AccountVerificationForm = ({
       const { data, message, success } = await sendAgentRegistrationOtp({
         username: values.username?.toLowerCase(),
         // WIP: Prefix should not be hardcoded
-        mobile_no: MOBILE_PREFIX.VND + values.contactNumber,
+        mobile_no:
+          MOBILE_PREFIX_BY_CURRENCY[values.currency] + values.contactNumber,
       }).unwrap()
 
       if (success) {
