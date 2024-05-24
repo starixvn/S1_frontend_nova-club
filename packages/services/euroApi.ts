@@ -4,6 +4,7 @@ import {
   EligibleEuroCupTicketArgs,
   EligibleEuroCupTicketResult,
   EuroCupEvent,
+  EuroCupKnockout,
   EventEuroCupLogServiceResult,
   GetSubmittedTeamArgs,
   GetSubmittedTeamResult,
@@ -19,6 +20,15 @@ export const euroApi = baseApiWithTag.injectEndpoints({
         method: 'GET',
       }),
       transformResponse: ({ data }: { data: EuroCupEvent }) => {
+        return data ?? []
+      },
+    }),
+    getEuroCupKnockout: builder.query<EuroCupKnockout[], void>({
+      query: () => ({
+        url: `/static_api/getEuroCupKnockout`,
+        method: 'GET',
+      }),
+      transformResponse: ({ data }: { data: EuroCupKnockout[] }) => {
         return data ?? []
       },
     }),
@@ -74,4 +84,5 @@ export const {
   useSubmitEuroCupTicketMutation,
   useGetEventEuroCupLogServiceQuery,
   useGetSubmittedTeamQuery,
+  useGetEuroCupKnockoutQuery,
 } = euroApi

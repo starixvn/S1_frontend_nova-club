@@ -58,3 +58,12 @@ export type GetSubmittedTeamResult = {
 export type GetSubmittedTeamArgs = {
   event_code: string
 }
+
+export type GetEuroCupKnockoutResult = {}
+
+export type EuroCupKnockout = {
+  event_group: string
+  event_name: string
+  position: string
+  team_code: string
+}

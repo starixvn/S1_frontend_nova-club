@@ -56,10 +56,11 @@ export default function MatchSection() {
         gradient={'surface'}
       />
 
-      <View sx={{ mb: '$4' }} />
-
       {leagueSection === LEAGUE_SECTION.LEAGUE_ODDS && (
-        <MatchCarousel data={leagues.entities[leagueId]} />
+        <>
+          <View sx={{ mb: '$4' }} />
+          <MatchCarousel data={leagues.entities[leagueId]} />
+        </>
       )}
     </View>
   )

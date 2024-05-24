@@ -6,7 +6,7 @@ import { MatchResult } from 'services/matchApi.type'
 import { MatchHeader } from '../MatchListHeader'
 import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 import Knockout from './Knockout'
-import GroupStage from './GroupStage'
+import GroupStage from 'app/features/sportsbook/euro/GroupStage'
 
 const EuroStandings = ({ data }: { data: MatchResult[] }) => {
   const { t } = useLocalization()

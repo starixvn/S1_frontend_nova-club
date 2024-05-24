@@ -1,14 +1,14 @@
 import { MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
 import { MatchLeagueId } from 'app/constants/recMatchMapping'
+import MatchFlag from 'app/features/sportsbook/euro/MatchFlag'
+import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 import useLocalization from 'app/provider/localization'
 import { Row, Text, View } from 'dripsy'
 import React, { useMemo, useState } from 'react'
 import { MatchResult } from 'services/matchApi.type'
-import { SolitoImage } from 'solito/image'
 import { MatchHeader } from '../MatchListHeader'
 import { getMatchTime } from '../MatchListTable'
-import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 
 const ITEM_PER_PAGE = 6
 
@@ -79,31 +79,6 @@ const MatchCard = ({ item, index }: { index: number; item: MatchResult }) => {
         <Text sx={{ textAlign: 'right', mb: '$2' }}>{time[0]}</Text>
         <Text sx={{ textAlign: 'right' }}>{time[1]}</Text>
       </View>
-    </Row>
-  )
-}
-
-export const MatchFlag = ({ flag, label }) => {
-  return (
-    <Row sx={{ p: '$2', alignItems: 'center' }}>
-      <View
-        sx={{
-          mr: '$3',
-          borderWidth: 2,
-          borderColor: 'white',
-          borderRadius: 4,
-          overflow: 'hidden',
-        }}
-      >
-        <SolitoImage
-          src={flag}
-          alt="away"
-          width={30}
-          height={30}
-          loading="lazy"
-        />
-      </View>
-      <Text>{label}</Text>
     </Row>
   )
 }

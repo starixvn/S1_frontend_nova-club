@@ -1,3 +1,4 @@
+import { EURO_CUP_STAGE } from 'app/constants/euroCup'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import dayjs from 'dayjs'
@@ -74,15 +75,15 @@ const ItemRow = ({ index, item }: ItemRowProps) => {
 
   const getStage = (round) => {
     switch (round) {
-      case 'Group Stage':
+      case EURO_CUP_STAGE.GROUP_STAGE:
         return 'event.euro.rules.round1'
-      case 'Round 16':
+      case EURO_CUP_STAGE.ROUND_OF_16:
         return 'event.euro.rules.round2'
-      case 'Quarter Final':
+      case EURO_CUP_STAGE.QUARTER_FINAL:
         return 'event.euro.rules.round3'
-      case 'Semi Final':
+      case EURO_CUP_STAGE.SEMI_FINAL:
         return 'event.euro.rules.round4'
-      case 'Final':
+      case EURO_CUP_STAGE.FINAL:
         return 'event.euro.rules.round5'
 
       default:

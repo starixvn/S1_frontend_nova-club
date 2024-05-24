@@ -1,12 +1,12 @@
+import { MEDIA_DOMAIN } from '@env'
 import { Row, Text, View, styled } from 'dripsy'
 import React from 'react'
 import { MatchResult } from 'services/matchApi.type'
-import { MatchFlag } from './EuroMatches'
-import { MEDIA_DOMAIN } from '@env'
+import MatchFlag from './MatchFlag'
 
 const GroupStage = ({ data }: { data: MatchResult[] }) => {
   return (
-    <View>
+    <View sx={{ p: '$2' }}>
       <GroupHeader />
       <View sx={{ gap: '$2' }}>
         {data.map((item, index) => (
@@ -19,7 +19,7 @@ const GroupStage = ({ data }: { data: MatchResult[] }) => {
 
 const GroupHeader = () => {
   return (
-    <Row sx={{ px: '$4' }}>
+    <Row sx={{ px: ['$1', '$4'] }}>
       <Text sx={{ px: '$2', flex: 1, fontWeight: 'bold' }}>Group A</Text>
       <ScoreText>MP</ScoreText>
       <ScoreText>W</ScoreText>
@@ -45,7 +45,7 @@ const GroupRow = ({ item, index }: { item: MatchResult; index: number }) => {
         borderRadius: 12,
         alignItems: 'center',
         py: '$1',
-        px: '$4',
+        px: ['$1', '$4'],
       }}
     >
       <View sx={{ flex: 1 }}>
@@ -65,7 +65,7 @@ const GroupRow = ({ item, index }: { item: MatchResult; index: number }) => {
 }
 
 const ScoreText = styled(Text)({
-  flexBasis: 48,
+  flexBasis: [32, 48],
   textAlign: 'center',
 })
 
