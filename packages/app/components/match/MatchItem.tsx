@@ -20,6 +20,8 @@ dayjs.extend(customParseFormat)
 export interface MatchLaunchParams {
   leaguekey: string
   matchid: string
+  homeName: string
+  awayName: string
 }
 interface Props extends MatchLaunchParams {
   width: number
