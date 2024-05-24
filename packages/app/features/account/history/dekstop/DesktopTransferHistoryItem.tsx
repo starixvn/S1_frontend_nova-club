@@ -32,7 +32,6 @@ const DesktopTransferHistoryItem = ({ item, index }) => {
         <Text
           sx={{
             textAlign: 'center',
-            color: getStatusColor(item.status, theme),
           }}
         >
           {item.is_positive_amount
@@ -45,7 +44,6 @@ const DesktopTransferHistoryItem = ({ item, index }) => {
         <Text
           sx={{
             textAlign: 'center',
-            color: getStatusColor(item.status, theme),
           }}
         >
           {item.is_positive_amount ? item.from : item.to}

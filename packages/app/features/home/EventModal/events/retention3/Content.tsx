@@ -23,9 +23,9 @@ import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
 import Montserrat from 'app/assets/fonts/Montserrat'
 
-type Props = {}
+type Props = { code: string }
 
-const Retention3Content = memo(({}: Props) => {
+const Retention3Content = memo(({ code }: Props) => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const [redeemCoin, { isLoading: isRequesting }] = useClaimEventCoinMutation()
@@ -45,7 +45,7 @@ const Retention3Content = memo(({}: Props) => {
 
   async function redeem() {
     setRedeemed(!redeemed)
-    const { data, success } = await redeemCoin('retention3')
+    const { data, success } = await redeemCoin(code)
       .unwrap()
       .catch((e: IResponse<ClaimEventCoinResult>) => {
         closeModal()

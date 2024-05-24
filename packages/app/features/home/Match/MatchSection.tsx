@@ -1,4 +1,5 @@
 import MatchCarousel from 'app/components/match/MatchCarousel'
+import { GAEvents } from 'app/integrations/analytic/events'
 import React from 'react'
 import { Platform } from 'react-native'
 import { useGetRecoMatchQuery } from 'services/matchApi'
@@ -14,5 +15,5 @@ export default function MatchSection({}: Props) {
     currency,
   })
 
-  return <MatchCarousel data={data} />
+  return <MatchCarousel data={data} gaEvent={GAEvents.CTA_MatchHome} />
 }

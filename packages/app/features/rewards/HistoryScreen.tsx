@@ -11,7 +11,7 @@ import { ReportGameItem, ReportResult } from 'services/playerApi.type'
 import {
   CoinRedemptionTypeOptions,
   DateFilterOptions,
-  ReportDepositStatusOptions,
+  ReportCommonStatusOptions,
   ReportTransactionType,
 } from 'utils/constant'
 import DateTimeCell from '../account/history/DateTimeCell'
@@ -31,7 +31,7 @@ const TransactionHistory = () => {
   const [fetchData, result] = useLazyPlayerReportQuery()
 
   const [selected, setSelected] = useState({
-    selectedStatus: ReportDepositStatusOptions[0]?.value,
+    selectedStatus: ReportCommonStatusOptions[0]?.value,
     selectedDate: DateFilterOptions[0]?.value,
     startDate: dayjs().startOf('date').toDate(),
     endDate: dayjs().endOf('date').toDate(),
@@ -121,7 +121,7 @@ const TransactionHistory = () => {
             return setSelected({
               ...selected,
               coin_redemption_type: value,
-              selectedStatus: ReportDepositStatusOptions[0]?.value,
+              selectedStatus: ReportCommonStatusOptions[0]?.value,
             })
           }}
           _actionSheet={{

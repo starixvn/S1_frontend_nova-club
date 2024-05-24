@@ -3,8 +3,9 @@ import React from 'react'
 import { Game } from 'services/gameApi.type'
 import SectionHeader from '../SectionHeader'
 import HorizontalGameList from './HorizontalGameList'
+import { ViewProps } from 'react-native'
 
-export interface GameListSectionProps {
+export interface GameListSectionProps extends ViewProps {
   data?: Game[]
   icon: string
   title: string
@@ -16,9 +17,10 @@ export default function GameListSection({
   icon,
   title,
   seeMoreUrl,
+  ...rest
 }: GameListSectionProps) {
   return (
-    <View>
+    <View {...rest}>
       <SectionHeader icon={icon} title={title} seeMoreUrl={seeMoreUrl} />
       <View
         sx={{

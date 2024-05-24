@@ -48,7 +48,8 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
       query: () => ({
         url: `/player_api/v1/checkInDailyCoin`,
       }),
-      invalidatesTags: ['CheckInProgress', 'Coin'],
+      invalidatesTags: (result, error, arg) =>
+        !error ? ['CheckInProgress', 'Coin'] : [],
     }),
     getDailyCoin: builder.query<DailyCoinSettingResult, void>({
       query: () => ({

@@ -6,7 +6,7 @@ import { LoginType } from 'app/features/auth/AuthLayout'
 import { HomeEventModalData } from 'app/features/home/EventModal/HomeEventModal'
 import { ActivityIndicator, useResponsiveValue } from 'dripsy'
 import dynamic from 'next/dynamic'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Easing } from 'react-native'
 import {
   ModalStackConfig,
@@ -86,6 +86,7 @@ type DefaultModalStackParams = {
     }
   }
   DailyCheckInModal: undefined
+  InformDailyCheckinModal: { amountDisplay: string }
   RewardGameModal: {
     key: string
   }
@@ -99,6 +100,10 @@ type DefaultModalStackParams = {
   }
   HomeEventModal: {
     data: HomeEventModalData[]
+  }
+  ConnectionModal: {
+    message: string
+    title: string
   }
 }
 
@@ -157,10 +162,13 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   DepositQrModal: () => import('app/components/modal/DepositQrModal'),
   DepositEWalletModal: () => import('app/components/modal/DepositEWalletModal'),
   DailyCheckInModal: () => import('app/components/modal/DailyCheckInModal'),
+  InformDailyCheckinModal: () =>
+    import('app/components/modal/InformDailyCheckinModal'),
   RewardGameModal: () => import('app/components/modal/RewardGameModal'),
   RewardTncModal: () => import('app/components/modal/RewardTncModal'),
   ActionableModal: () => import('app/components/modal/ActionableModal'),
   HomeEventModal: () => import('app/features/home/EventModal/HomeEventModal'),
+  ConnectionModal: () => import('app/components/modal/ConnectionModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -246,6 +254,9 @@ const modalConfig: ModalConfigType = {
   DailyCheckInModal: {
     modal: getDynamicComponent('DailyCheckInModal'),
   },
+  InformDailyCheckinModal: {
+    modal: getDynamicComponent('InformDailyCheckinModal'),
+  },
   RewardGameModal: {
     modal: getDynamicComponent('RewardGameModal'),
   },
@@ -259,46 +270,54 @@ const modalConfig: ModalConfigType = {
     modal: getDynamicComponent('HomeEventModal'),
     transitionOptions: (animatedValue) => ({}),
   },
+  ConnectionModal: {
+    modal: getDynamicComponent('ConnectionModal'),
+    backBehavior: 'none',
+    disableFlingGesture: true,
+  },
   ...agentModalConfig,
 }
 
 const ModalProvider = ({ children }) => {
-  const stack = createModalStack(modalConfig, {
-    containerStyle: {
-      maxWidth: useResponsiveValue([768, 768, '100%']),
-      zIndex: 2,
-    },
-    backdropOpacity: 0.6,
-    backBehavior: 'pop',
-    disableFlingGesture: true,
-    transitionOptions: (animatedValue) => ({
-      transform: [
-        {
-          perspective: 2000,
-        },
-        {
-          translateX: animatedValue.interpolate({
-            inputRange: [0, 1, 2],
-            outputRange: [0, 0, 30],
-          }),
-        },
-        {
-          scale: animatedValue.interpolate({
-            inputRange: [0, 1, 2],
-            outputRange: [1.2, 1, 0.8],
-          }),
-        },
-      ],
-    }),
-    animateInConfig: {
-      easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-      duration: 450,
-    },
-    animateOutConfig: {
-      easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-      duration: 450,
-    },
-  })
+  const maxWidth = useResponsiveValue([768, 768, '100%'])
+  const stack = useMemo(() => {
+    return createModalStack(modalConfig, {
+      containerStyle: {
+        maxWidth,
+        zIndex: 2,
+      },
+      backdropOpacity: 0.6,
+      backBehavior: 'pop',
+      disableFlingGesture: true,
+      transitionOptions: (animatedValue) => ({
+        transform: [
+          {
+            perspective: 2000,
+          },
+          {
+            translateX: animatedValue.interpolate({
+              inputRange: [0, 1, 2],
+              outputRange: [0, 0, 30],
+            }),
+          },
+          {
+            scale: animatedValue.interpolate({
+              inputRange: [0, 1, 2],
+              outputRange: [1.2, 1, 0.8],
+            }),
+          },
+        ],
+      }),
+      animateInConfig: {
+        easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+        duration: 450,
+      },
+      animateOutConfig: {
+        easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+        duration: 450,
+      },
+    })
+  }, [maxWidth])
 
   return <RNMModalProvider stack={stack}>{children}</RNMModalProvider>
 }

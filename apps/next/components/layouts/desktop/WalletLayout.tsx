@@ -101,9 +101,3 @@ export default function WalletLayout({
     </Container>
   )
 }
-
-const RightContainer = styled(View)({
-  borderWidth: 1,
-  flex: 1,
-  borderColor: '$primary.300',
-})

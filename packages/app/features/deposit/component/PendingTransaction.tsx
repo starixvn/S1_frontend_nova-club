@@ -10,7 +10,7 @@ import dayjs from 'dayjs'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useEffect } from 'react'
 import { usePlayerReportQuery } from 'services/playerApi'
-import { ReportDepositStatus, ReportTransactionType } from 'utils/constant'
+import { ReportCommonStatus, ReportTransactionType } from 'utils/constant'
 import RecentTransactionRow from './RecentTransactionRow'
 
 type PendingTransactionProps = {
@@ -31,7 +31,7 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
     {
       limit: 5,
       offset: 0,
-      status: ReportDepositStatus.PENDING,
+      status: ReportCommonStatus.PENDING,
       time_from: dayjs().subtract(2, 'month').startOf('date').toISOString(),
       time_to: dayjs().endOf('date').toISOString(),
       trans_type: ReportTransactionType.DEPOSIT,
@@ -79,11 +79,7 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
           />
         ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
           transactionData?.data?.rows.map((item, index) => (
-            <RecentTransactionRow
-              key={item.tx_code}
-              item={item}
-              index={index}
-            />
+            <RecentTransactionRow key={index} item={item} index={index} />
           ))
         ) : (
           <EmptyResult />

@@ -12,7 +12,7 @@ import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { View } from 'dripsy'
+import { Pressable, View } from 'dripsy'
 import keyBy from 'lodash/keyBy'
 import { MotiView } from 'moti'
 import React, {
@@ -20,7 +20,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useRef,
-  useState
+  useState,
 } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { Game } from 'services/gameApi.type'
@@ -28,6 +28,8 @@ import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
 import MatchListHeader from './MatchListHeader'
+import { logEvent } from 'app/integrations/analytic'
+import { GAEvents } from 'app/integrations/analytic/events'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -78,6 +80,11 @@ const MatchListTable = forwardRef<MatchListMethod, MatchListTableProps>(
     const flashListRef = useRef()
 
     const onPress = (match: MatchResult) => {
+      logEvent(GAEvents.CTA_OddsBetNow, {
+        ref: match.EventId.toString(),
+        display_name: `${match.HomeName} vs ${match.AwayName}`,
+      })
+
       getAction({
         type: ActionType.GAME,
         payload: {
@@ -321,17 +328,28 @@ const MatchListCellData = ({
             d === MatchHandicapType.HALF_TIME_DOUBLE ||
             d === MatchHandicapType.FULL_TIME_OVER_UNDER
 
+          const isHideInverted =
+            d === MatchHandicapType.FULL_TIME_OVER ||
+            d === MatchHandicapType.HALF_TIME_OVER
+
           return (
             // eslint-disable-next-line react/jsx-key
-            <View
+            <Pressable
+              onPress={() => {
+                logEvent(GAEvents.CTA_Odds, {
+                  ref: item.EventId.toString(),
+                  display_name: getGALogName(d),
+                })
+              }}
               key={`${i} + ${item.EventId}`}
               sx={{
                 flexDirection: 'row',
-                flex: isTimeDouble ? 0.6 : 1.1,
+                flex: isTimeDouble ? 0.6 : isHideInverted ? 0.8 : 1.1,
                 justifyContent: 'center',
                 py: 0,
                 borderLeftWidth: 0.5,
                 borderColor: 'rgba(255,255,255,0.6)',
+                cursor: 'default',
               }}
             >
               <DataTableCell
@@ -370,22 +388,24 @@ const MatchListCellData = ({
                 </DataTableCell>
               )}
 
-              <DataTableCell
-                sx={{
-                  flex: isTimeDouble ? 0.5 : 1,
-                  px: 0,
-                  py: '$0',
-                }}
-                textStyle={{
-                  color: getBetColor(invertedPoint),
-                  px: 0,
-                }}
-              >
-                {!isTimeDouble && !!!(selectionType === 'draw')
-                  ? invertedPoint
-                  : ''}
-              </DataTableCell>
-            </View>
+              {!isHideInverted && (
+                <DataTableCell
+                  sx={{
+                    flex: isTimeDouble ? 0.5 : 1,
+                    px: 0,
+                    py: '$0',
+                  }}
+                  textStyle={{
+                    color: getBetColor(invertedPoint),
+                    px: 0,
+                  }}
+                >
+                  {!isTimeDouble && !!!(selectionType === 'draw')
+                    ? invertedPoint
+                    : ''}
+                </DataTableCell>
+              )}
+            </Pressable>
           )
         })}
       </DataTableCell>
@@ -415,6 +435,25 @@ const MatchListCellData = ({
 
 const getBetColor = (val: number) => {
   return val === 0 ? 'white' : val < 0 ? '#ff8080' : '#99ff86'
+}
+
+const getGALogName = (d: MatchHandicapType) => {
+  switch (d) {
+    case MatchHandicapType.FULL_TIME:
+      return 'FT. HDP'
+    case MatchHandicapType.FULL_TIME_OVER:
+      return 'FT. O/U'
+    case MatchHandicapType.FULL_TIME_DOUBLE:
+      return 'FT. 1x2'
+    case MatchHandicapType.FULL_TIME_OVER_UNDER:
+      return 'FT. O/E'
+    case MatchHandicapType.HALF_TIME:
+      return '1H. HDP'
+    case MatchHandicapType.HALF_TIME_OVER:
+      return '1H. O/U'
+    case MatchHandicapType.HALF_TIME_DOUBLE:
+      return '1H. 1x2'
+  }
 }
 
 const getMatchTime = (globalshowtime: string) => {

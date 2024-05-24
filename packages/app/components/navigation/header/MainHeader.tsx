@@ -12,8 +12,6 @@ import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import dayjs from 'dayjs'
-import isBetween from 'dayjs/plugin/isBetween'
 import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import {
   Container,
@@ -38,69 +36,29 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
-dayjs.extend(isBetween)
-
-const LogoSize = [HEADER_HEIGHT * 0.6, HEADER_HEIGHT * 0.9]
-
-export const isCNY = dayjs().isBetween(
-  dayjs('2024-01-01T17:00:00.000Z'),
-  dayjs('2024-02-29T17:00:00.000Z')
-)
 
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
-  const showTheme = useResponsiveValue([false, false, false, true])
-  const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
+  const LogoSize = useResponsiveValue([
+    HEADER_HEIGHT * 0.6,
+    HEADER_HEIGHT * 0.9,
+  ])
 
-  const LOGO_PATH =
-    lang === 'en'
-      ? isCNY
-        ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-en.png`
-        : `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-en.png`
-      : isCNY
-      ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-vi.png`
-      : `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-vi.png`
+  const LOGO_PATH = `${MEDIA_DOMAIN}${CONTENT_URI}/logo-euro-cup-${lang}.gif`
 
   return (
     <Row sx={{ alignItems: 'center' }}>
       <Link href="/">
-        <Image
-          source={{
-            uri: LOGO_PATH,
-          }}
+        <SolitoImage
+          src={LOGO_PATH}
           alt="header-logo"
-          sx={{
-            height: LogoSize,
-            aspectRatio: isCNY ? 292 / 88 : 1000 / 350,
+          height={LogoSize}
+          width={LogoSize * (768 / 300)}
+          style={{
             marginLeft: -5,
           }}
         />
       </Link>
-
-      {isCNY && showTheme && (
-        <SolitoImage
-          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-theme-logo.gif`}
-          height={60}
-          width={213}
-          contentPosition="bottom center"
-          alt=""
-        />
-      )}
-      {/* <Video
-          source={{
-            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-theme-logo.gif`,
-          }}
-          videoStyle={{ position: 'relative', height: '100%' }}
-          isMuted
-          isLooping
-          shouldPlay
-          style={{
-            height: 60,
-            width: 213,
-          }}
-          resizeMode={ResizeMode.CONTAIN}
-          useNativeControls={false}
-        /> */}
     </Row>
   )
 }

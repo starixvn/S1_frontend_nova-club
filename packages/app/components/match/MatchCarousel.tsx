@@ -1,8 +1,9 @@
 import { SabaGamePayload } from 'app/constants/game'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import { GAEvents } from 'app/integrations/analytic/events'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { Pressable, View, styled, useResponsiveValue } from 'dripsy'
-import React, { forwardRef, memo, useCallback, useEffect, useRef } from 'react'
+import React, { forwardRef, memo, useCallback, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
 import Carousel, {
   ICarouselInstance,
@@ -17,6 +18,7 @@ import MatchItem, {
   SCORE_HEIGHT,
   matchItemToProps,
 } from './MatchItem'
+import { logEvent } from 'app/integrations/analytic'
 const ASPECT_RATIO = 3
 
 export type MatchCarouselProps = Omit<
@@ -31,11 +33,12 @@ export type MatchCarouselProps = Omit<
   | 'data'
 > & {
   data?: MatchResult[]
+  gaEvent?: GAEvents
 }
 
 const MatchCarousel = memo(
   forwardRef<ICarouselInstance, MatchCarouselProps>(
-    ({ data, animationKey, ...rest }: MatchCarouselProps, ref) => {
+    ({ data, gaEvent, ...rest }: MatchCarouselProps, ref) => {
       const width = useWindowDimensions().width
       const resWidth = useResponsiveValue([500, 500, 500, 400, 400, 500])
       const itemWidth = Math.min(resWidth, width * 0.8)
@@ -58,17 +61,25 @@ const MatchCarousel = memo(
 
       const onPress = useCallback(
         (params: MatchLaunchParams) => {
+          const { homeName, awayName, ...gameParams } = params
+          if (gaEvent)
+            logEvent(gaEvent, {
+              ref: params.matchid.toString(),
+              display_name: `${homeName} vs ${awayName}`,
+            })
+
           getAction({
             type: ActionType.GAME,
             payload: {
               desktopMode: isDesktop,
               game: {
                 ...SabaGamePayload,
-                ...params,
+                ...gameParams,
               } as Game,
             },
           })()
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [isDesktop]
       )
 
@@ -89,7 +100,7 @@ const MatchCarousel = memo(
       //     opacity,
       //   }
       // }, [])
-      
+
       return (
         <Root>
           {isMultiple && (

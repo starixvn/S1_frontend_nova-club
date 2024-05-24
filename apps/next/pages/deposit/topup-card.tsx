@@ -1,10 +1,8 @@
-import QRPayScreen from 'app/features/deposit/qr-pay'
 import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
-import { DesktopWalletLayout } from 'components/layouts/desktop'
+import { DesktopDepositLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
 import DepositGuard from './deposit-guard'
-
 const LazyMobileScreen = dynamic(
   () => import('app/features/deposit/topup-card/index'),
   {
@@ -26,6 +24,6 @@ const GuardTopUpCardScreen: AdaptiveLayoutPage = DepositGuard(
   TopUpCardScreen,
   'deposit'
 )
-GuardTopUpCardScreen.DesktopLayout = DesktopWalletLayout
+GuardTopUpCardScreen.DesktopLayout = DesktopDepositLayout
 
 export default GuardTopUpCardScreen

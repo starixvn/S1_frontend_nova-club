@@ -78,7 +78,7 @@ export default function TopGameSection(props) {
   )
 
   return (
-    <View {...props}>
+    <View nativeID="recommended-games" {...props}>
       <SectionHeader
         icon="crown"
         title={t('game.category.recommended').toUpperCase()}

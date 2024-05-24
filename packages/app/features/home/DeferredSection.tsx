@@ -17,6 +17,7 @@ export default function DeferredSection({}: Props) {
   return (
     <View sx={{ gap: ['$3', '$4'] }}>
       <GameListSectionAsyncByTag
+        nativeID="gamelist-new"
         key={currency + locale + 0}
         tag={SlotType.NEW}
         title={t('game.new').toUpperCase()}
@@ -25,6 +26,7 @@ export default function DeferredSection({}: Props) {
       />
 
       <GameListSectionAsyncByTag
+        nativeID="gamelist-jackpot"
         key={currency + locale + 1}
         tag={SlotType.JACKPOT}
         title={t('game.jackpot').toUpperCase()}
@@ -32,6 +34,7 @@ export default function DeferredSection({}: Props) {
         seeMoreUrl="/tag/jackpot"
       />
       <GameListSectionAsyncByTag
+        nativeID="gamelist-megaway"
         key={currency + locale + 2}
         tag={SlotType.MEGAWAY}
         title={t('game.megaway').toUpperCase()}

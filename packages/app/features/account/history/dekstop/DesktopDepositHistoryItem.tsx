@@ -3,7 +3,7 @@ import PaymentMethod, {
   DepositPaymentMethodCategoryId,
   PaymentMethodProps,
 } from 'app/config/deposit'
-import { getStatusColor } from 'app/config/status'
+import { getDepositStatusColor } from 'app/config/status'
 
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -124,11 +124,11 @@ const DesktopDepositHistoryItem = ({
         <Text
           sx={{
             textAlign: 'right',
-            color: getStatusColor(item.status, theme),
+            color: getDepositStatusColor(item.status),
             fontSize: FONT_SIZE,
           }}
         >
-          {item.status}
+          {t(`depositStatus.${item.status}`)}
         </Text>
         {!item.bank_slip_attachment &&
           item.second_category_flag ===

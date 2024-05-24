@@ -1,19 +1,20 @@
 import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
+import { CheckModuleExist as ConnectionCheck } from 'app/components/netInfo/CheckModuleExist'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useShield from 'app/hooks/useShield'
+import FocusedLocalizationProvider from 'app/provider/localization/FocusedLocalizationProvider'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { ScrollView, View } from 'dripsy'
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { Shield_Action } from 'services/authApi.type'
+import { LANGUAGE_NAMESPACE } from 'utils/constant'
 import AnnouncementSection from './Announcement/AnnouncementSection'
 import BannerSection from './BannerSection'
 import Deferrable from './Deferrable'
 import ModalTriggers from './EventModal'
 import GameGridSection from './GameGridSection'
 import HireBanner from './HireBanner'
-import FocusedLocalizationProvider from 'app/provider/localization/FocusedLocalizationProvider'
-import { LANGUAGE_NAMESPACE } from 'utils/constant'
 
 export default function HomeScreen() {
   const dispatch = useAppDispatch()
@@ -75,6 +76,7 @@ export default function HomeScreen() {
           <GameGridSection />
           {isFocused && <Deferrable />}
           <ModalTriggers />
+          <ConnectionCheck />
         </ScrollView>
       </ScrollToTopWrapper>
     </FocusedLocalizationProvider>

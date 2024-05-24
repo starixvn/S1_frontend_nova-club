@@ -6,10 +6,11 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { ModalStackParams } from 'app/provider/modal'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ActivityIndicator, Row, ScrollView, View, scales } from 'dripsy'
+import { ActivityIndicator, Row, ScrollView, View } from 'dripsy'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { useGetCoinRedemptionListQuery } from 'services/rewardApi'
 import { CoinRedemptionRow } from 'services/rewardApi.type'
 import { useRouter } from 'solito/router'
@@ -60,6 +61,9 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
   const isDesktop = useIsDesktop()
   const { t } = useLocalization()
   const defaultParams = useDefaultParamSelector()
+
+  const { data: profileData } = usePlayerProfileQuery()
+  const disableEvent = !!profileData?.disabled_event ?? false
 
   const matchRedemptionListData = useMemo(() => {
     return createSelector(
@@ -182,6 +186,7 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
                 src={_data.image}
                 tag={_data.tag}
                 onOpeningGame={onOpeningGame}
+                disabled={disableEvent}
               />
             )
           })}
@@ -204,6 +209,7 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
                 onPress={() => {
                   onOpeningGame(_data.key)
                 }}
+                disabled={disableEvent}
               />
             )
           })}

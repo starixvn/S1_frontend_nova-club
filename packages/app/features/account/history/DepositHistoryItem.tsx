@@ -4,7 +4,7 @@ import PaymentMethod, {
   DepositPaymentMethodCategoryId,
   PaymentMethodProps,
 } from 'app/config/deposit'
-import { getStatusColor } from 'app/config/status'
+import { getDepositStatusColor } from 'app/config/status'
 import TransactionHistoryItemBox from 'app/features/account/history/TransactionHistoryItemBox'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -152,11 +152,11 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           <Text
             sx={{
               textAlign: 'right',
-              color: getStatusColor(item.status, theme),
+              color: getDepositStatusColor(item.status),
               fontSize: FONT_SIZE,
             }}
           >
-            {item.status}
+            {t(`depositStatus.${item.status}`)}
           </Text>
         </View>
 

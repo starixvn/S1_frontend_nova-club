@@ -23,21 +23,33 @@ export default function Retention3Trigger({}: Props) {
         })
       )
         .unwrap()
-        .then((r) => r.data?.list?.some((e) => e.event_code === 'retention3'))
+        .then((r) => r.data?.list)
 
-      if (isEligible)
-        addResult({
-          tnc: () => {
-            push('/event/retention3/tnc')
-          },
-          content: () => <LazyContent />,
-          priority: EventPriority,
-        })
+      if (isEligible) {
+        if (isEligible.some((e) => e.event_code === 'retention3'))
+          handleTriggerEvent('retention3')
+        else if (isEligible.some((e) => e.event_code === 'retention4'))
+          handleTriggerEvent('retention4')
+        else if (isEligible.some((e) => e.event_code === 'retention5'))
+          handleTriggerEvent('retention5')
+        else if (isEligible.some((e) => e.event_code === 'retention6'))
+          handleTriggerEvent('retention6')
+      }
     } catch (e) {
       console.log('Check Retention 3  Error', e)
     }
 
     flagCompletedChecking(EventSource)
+  }
+
+  const handleTriggerEvent = (code) => {
+    addResult({
+      tnc: () => {
+        push('/event/retention3/tnc')
+      },
+      content: () => <LazyContent code={code} />,
+      priority: EventPriority,
+    })
   }
 
   useEffect(() => {
