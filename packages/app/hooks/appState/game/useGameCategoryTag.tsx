@@ -28,7 +28,7 @@ const useGameCategoryTag = (
       return
     }
 
-    const tagTranslation = data.filter((tag) =>
+    const tagTranslation = gameCategoryTagTypes.filter((tag) =>
       gameTypes.includes(tag.gtc as GAME_TYPE_CODE)
     )
 
