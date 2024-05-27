@@ -23,7 +23,7 @@ import validation, {
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
-import { MOBILE_PREFIX } from 'app/constants/country'
+import { MOBILE_PREFIX } from 'utils/constant'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'

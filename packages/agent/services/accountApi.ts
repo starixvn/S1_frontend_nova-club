@@ -10,7 +10,7 @@ import {
 } from './accountApi.type'
 import { agentBaseApiWithTag } from './agentBaseApi'
 import { IResponse } from './common/agentAxiosBaseQuery'
-import { Currency } from 'agent/constant/language'
+import { Currency } from 'utils/constant'
 
 export const accountApi = agentBaseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({

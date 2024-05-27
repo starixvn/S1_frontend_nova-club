@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Currency } from 'agent/constant/language'
+import { Currency } from 'utils/constant'
 
 // type PartialLoginResult = Pick<LoginResult, 'access_token' | 'token_type'>
 

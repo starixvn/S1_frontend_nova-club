@@ -30,7 +30,7 @@ import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
 import { useRouter } from 'solito/router'
 import { AGENT_STACK_CONTENT_PADDING } from 'agent/constant/sizes'
-import { MOBILE_PREFIX } from 'app/constants/country'
+import { MOBILE_PREFIX } from 'utils/constant'
 
 interface AddBankInfoValues {
   mobileNumber: string

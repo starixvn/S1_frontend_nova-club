@@ -2,7 +2,7 @@ import {
   useResetPwMutation,
   useResetPwSendOtpMutation,
 } from 'agent/services/authApi'
-import { MOBILE_PREFIX } from 'app/constants/country'
+import { MOBILE_PREFIX } from 'utils/constant'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { FormikHelpers } from 'formik'

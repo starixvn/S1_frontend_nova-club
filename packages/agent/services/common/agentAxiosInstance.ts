@@ -1,10 +1,9 @@
 import { AGENT_API_DOMAIN } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
-import { AGENT_LANGUAGE_CODE } from 'agent/constant/language'
 import { RootState } from 'app/provider/redux/store'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { LANGUAGE_CODE } from 'utils/constant'
 import { getFpsParams } from 'utils/fps/fpsGenerator'
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export enum AuthURL {
   // AGENT LOGOUT URL TOBE INSERTED
@@ -110,10 +109,7 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
   // After login, backend will be using `locale` selected in `playerProfile` api
   const currentLocale = state?.setting.locale || LANGUAGE_CODE.VIETNAM
   // header only accept en | vn, hence replace vi into vn
-  headers['Accept-Language'] =
-    currentLocale === LANGUAGE_CODE.VIETNAM
-      ? AGENT_LANGUAGE_CODE.VIETNAM
-      : currentLocale
+  headers['Accept-Language'] = currentLocale
 
   return config
 }

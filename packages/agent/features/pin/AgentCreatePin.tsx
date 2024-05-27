@@ -28,7 +28,7 @@ import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
-import { MOBILE_PREFIX } from 'app/constants/country'
+import { MOBILE_PREFIX } from 'utils/constant'
 
 interface AddBankInfoValues {
   mobileNumber: string

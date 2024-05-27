@@ -1,7 +1,7 @@
 import { useAgentRegisterMutation } from 'agent/services/authApi'
 import { useLazyUserInfoQuery, useUserInfoQuery } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import { MOBILE_PREFIX } from 'app/constants/country'
+import { MOBILE_PREFIX } from 'utils/constant'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useLocalization from 'app/provider/localization'

@@ -11,6 +11,11 @@ export enum LANGUAGE_NAMESPACE {
   AGENT = 'Agent',
 }
 
+export enum MOBILE_PREFIX {
+  VND = '84',
+  THB = '66',
+}
+
 //For Desktop Scroll to Content offset and configuration
 export const CONTENT_FROM_TOP = 120
 export const CONTENT_FROM_TOP_2 = 130

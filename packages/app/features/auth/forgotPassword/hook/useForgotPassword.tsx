@@ -1,4 +1,4 @@
-import { MOBILE_PREFIX } from 'app/constants/country'
+import { MOBILE_PREFIX } from 'utils/constant'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useIsDesktop from 'app/hooks/useIsDesktop'
