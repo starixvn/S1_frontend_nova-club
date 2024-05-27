@@ -7,7 +7,7 @@ import { useUserCommissionListQuery } from 'agent/services/userApi'
 import DataTable from 'app/components/dataTable/DataTable'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Currency } from 'utils/constant'
+import { useAppSelector } from 'app/provider/redux/store'
 import { View, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { Platform, StyleSheet } from 'react-native'
@@ -25,8 +25,10 @@ const TitleContentAlignmentMap = {
 }
 
 const CommissionTable = () => {
+  const currency = useAppSelector((s) => s.agent.currency)
+
   const { commissionList } = useUserCommissionListQuery(
-    { currency: Currency.VND },
+    { currency },
     {
       selectFromResult: ({ data }) => ({ commissionList: data?.result?.data }),
     }

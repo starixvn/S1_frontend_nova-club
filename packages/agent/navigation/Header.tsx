@@ -1,4 +1,3 @@
-import Icon from 'agent/components/Icon'
 import RefreshButton from 'agent/components/Icon/RefreshButton'
 import Text from 'agent/components/Text'
 import {
@@ -12,14 +11,13 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
 import { toCurrency } from 'app/utils'
-import { Currency, LANGUAGE_CODE } from 'utils/constant'
 import { ActivityIndicator, Image, View, styled, useSx } from 'dripsy'
 import { useState } from 'react'
-import { ColorValue, LayoutChangeEvent } from 'react-native'
+import { ColorValue } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
+import { Currency, LANGUAGE_CODE } from 'utils/constant'
 import { AGENT_TAB_HEIGHT } from '../constant/sizes'
-import MainMenuTest from './MainMenu'
 import MainMenu from './MainMenu'
 
 const iconHeight = AGENT_TAB_HEIGHT * 0.6
@@ -99,7 +97,7 @@ const Header = () => {
               <>
                 <BalanceContainer>
                   <View sx={{ mr: '$3' }}>
-                    <CurrencyText color={balanceColor}>VND</CurrencyText>
+                    <CurrencyText color={balanceColor}>{currency}</CurrencyText>
                     <BalanceText color={balanceColor}>
                       {toCurrency(balance?.toString() ?? 0, currency, {
                         hideTruncatedThousand: false,

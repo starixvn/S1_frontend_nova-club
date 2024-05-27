@@ -23,18 +23,17 @@ import validation, {
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
-import KeyboardView from 'app/components/KeyboardView'
 import { MOBILE_PREFIX } from 'app/constants/country'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Currency } from 'utils/constant'
+import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
+import { Currency } from 'utils/constant'
 import * as Yup from 'yup'
-import { AGENT_STACK_CONTENT_PADDING } from 'agent/constant/sizes'
 
 interface AddBankInfoValues {
   bankCard: string
@@ -47,13 +46,15 @@ interface AddBankInfoValues {
 
 const AddBankInfoForm = () => {
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
+  const currency = useAppSelector((s) => s.agent.currency)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
   const { t } = useAgentLocalization()
   const { data: bankList, isLoading: bankListLoading } =
-    useLookupBankCodeQuery()
+    useLookupBankCodeQuery(currency)
+
   const [newBankAccount, { isLoading: isNewLoading }] =
     useAddBankAccountMutation()
   const [sendOtp] = useSendOTPMutation()
@@ -69,8 +70,6 @@ const AddBankInfoForm = () => {
       role: data?.role,
     }),
   })
-
-  const { currency } = useGetProfile()
 
   useEffect(() => {
     setFieldValue('hasVerified', hasVerified === 1)

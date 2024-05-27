@@ -22,6 +22,7 @@ import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
 import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
+import { useAppSelector } from 'app/provider/redux/store'
 
 export type MemberListFilterOptions = {
   date: DateFilter | string | undefined
@@ -38,6 +39,7 @@ type MemberListProps = {
 
 const MemberListScreen = () => {
   const { t } = useAgentLocalization()
+  const currency = useAppSelector((s) => s.agent.currency)
   const { openModal } = useModal()
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<MemberListFilterOptions>({
@@ -52,7 +54,7 @@ const MemberListScreen = () => {
     {
       start: offset * LIMIT,
       length: LIMIT,
-      currency: Currency.VND,
+      currency,
       registerdate_start: filter.date
         ? `${dayjs(filter.startDate).format(
             'YYYY-MM-DD HH:mm:ss Z'

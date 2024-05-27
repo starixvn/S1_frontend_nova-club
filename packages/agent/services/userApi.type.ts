@@ -15,7 +15,7 @@ export interface UserInfo {
 }
 
 export interface WalletBalance {
-  currency: string
+  currency: Currency
   balance: number
 }
 

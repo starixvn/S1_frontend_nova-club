@@ -19,6 +19,9 @@ export default function useAgentLoginProcess() {
     dispatch(AgentAuthActions.setAgentAuthToken(data.data.access_token))
 
     const resp = await getUserInfo().unwrap()
+
+    dispatch(AgentAuthActions.setAgentCurrency(resp.wallet.currency))
+
     if (!resp.has_logged_in || !resp.has_otp) {
       Platform.select({
         web: function () {
