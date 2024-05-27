@@ -1,4 +1,5 @@
 import { MOBILE_PREFIX } from 'app/constants/country'
+import { IS_MULTICURRENCY_ENABLED } from 'app/constants/multicurrency'
 import { Currency, LANGUAGE_CODE } from 'utils/constant'
 
 export const CURRENCY_LANGUAGE_LIST = [
@@ -36,10 +37,11 @@ export const CURRENCY_LANGUAGE_LIST = [
   },
 ]
 
-export const CURRENCY_SELECTION = [
-  { label: 'VND', value: Currency.VND },
-  { label: 'THB', value: Currency.THB },
-]
+/* CURRENCY_SELECTION */
+export const CURRENCY_SELECTION = [{ label: 'VND', value: Currency.VND }]
+if (IS_MULTICURRENCY_ENABLED)
+  CURRENCY_SELECTION.push({ label: 'THB', value: Currency.THB })
+/* */
 
 export const MOBILE_PREFIX_BY_CURRENCY = {
   [Currency.VND]: MOBILE_PREFIX.VND,

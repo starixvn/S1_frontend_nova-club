@@ -208,7 +208,8 @@ const settingSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(AuthActions.setAuthInfo, (state, action) => {
       const currency = action.payload.currency
-      console.log('🚀 ~ builder.addCase ~ currency:', currency)
+      tolgee.changeLanguage(CURRENCY_TO_LANGUAGE[currency])
+      
       return {
         ...state,
         currency: action.payload.currency,

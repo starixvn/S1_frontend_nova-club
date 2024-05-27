@@ -3,13 +3,15 @@ import { SettingActions } from 'app/store/setting.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { Row, Text, View, styled, useSx } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Platform } from 'react-native'
 import { SolitoImage } from 'solito/image'
 import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
 import BouncePressable from '../pressable/BouncePressable'
 import FloatingOverlay from 'app/features/floatingContent/FloatingOverlay'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { IS_MULTICURRENCY_ENABLED } from 'app/constants/multicurrency'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 
 const ICON_SIZE = 32
 
@@ -17,6 +19,8 @@ const LanguageDropdown = () => {
   const sx = useSx()
   const { top } = useSafeArea()
   const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const { currency } = useDefaultParamSelector()
   const isLanguageMenuVisible = useAppSelector(
     (s) => s.tempSetting.isLanguageMenuVisible
   )
@@ -30,6 +34,14 @@ const LanguageDropdown = () => {
   const handleToggle = () => {
     dispatch(TempSettingActions.setIsLanguageMenuVisible(false))
   }
+
+  const filteredLanguageList = useMemo(() => {
+    return !IS_MULTICURRENCY_ENABLED
+      ? [CURRENCY_LANGUAGE_LIST[0]] // if no multicurrency, use vn as default
+      : isLoggedIn
+      ? CURRENCY_LANGUAGE_LIST.filter((c) => c.currency === currency) // if manage to login thb on non multicurrency domain, should map the correct language list
+      : CURRENCY_LANGUAGE_LIST
+  }, [currency, isLoggedIn])
 
   return (
     <>
@@ -60,7 +72,7 @@ const LanguageDropdown = () => {
                 p: '$1',
               }}
             >
-              {CURRENCY_LANGUAGE_LIST.map((item) => (
+              {filteredLanguageList.map((item) => (
                 <View key={item.title} sx={{ py: '$2' }}>
                   <Row sx={{ alignItems: 'center' }}>
                     <View
