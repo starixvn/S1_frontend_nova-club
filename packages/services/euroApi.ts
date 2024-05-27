@@ -32,6 +32,15 @@ export const euroApi = baseApiWithTag.injectEndpoints({
         return data ?? []
       },
     }),
+    getEuroCupSportBookList: builder.query<EuroCupEvent, void>({
+      query: () => ({
+        url: `/static_api/getEuroCupSportBookList`,
+        method: 'GET',
+      }),
+      transformResponse: ({ data }: { data: EuroCupEvent }) => {
+        return data ?? []
+      },
+    }),
     getEligibleEuroCupTicket: builder.query<
       IResponse<EligibleEuroCupTicketResult>,
       EligibleEuroCupTicketArgs
@@ -85,4 +94,5 @@ export const {
   useGetEventEuroCupLogServiceQuery,
   useGetSubmittedTeamQuery,
   useGetEuroCupKnockoutQuery,
+  useGetEuroCupSportBookListQuery,
 } = euroApi

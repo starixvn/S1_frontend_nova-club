@@ -7,10 +7,14 @@ import { MatchHeader } from '../MatchListHeader'
 import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 import Knockout from './Knockout'
 import GroupStage from 'app/features/sportsbook/euro/GroupStage'
+import { useGetEuroCupSportBookListQuery } from 'services/euroApi'
 
 const EuroStandings = ({ data }: { data: MatchResult[] }) => {
   const { t } = useLocalization()
   const [page, setPage] = useState(1)
+
+  const { data: data2 } = useGetEuroCupSportBookListQuery()
+  console.log('🚀 ~ EuroStandings ~ data:', data2)
 
   const EuroStandingsMatch = useMemo(
     () => (page === 1 ? <Knockout data={data} /> : <GroupStage data={data} />),

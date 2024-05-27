@@ -66,4 +66,5 @@ export type EuroCupKnockout = {
   event_name: string
   position: string
   team_code: string
+  team_img: string
 }

@@ -3,7 +3,7 @@ import BouncePressable from 'app/components/pressable/BouncePressable'
 import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Row, Text, View } from 'dripsy'
 import sortBy from 'lodash/sortBy'
 import React, { useEffect, useState } from 'react'
@@ -50,6 +50,8 @@ const PredictionStage = ({
   const [roundTitle, setroundTitle] = useState('')
   const [score, setScore] = useState<string[]>(['0', '0'])
 
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+
   const ScoreOptions = Array.from({ length: 10 }, (_, index) => {
     return { label: index.toString(), value: index.toString() }
   })
@@ -68,7 +70,7 @@ const PredictionStage = ({
         teamScore: data?.data?.teams,
       }),
       refetchOnMountOrArgChange: true,
-      skip: !eventCode,
+      skip: !eventCode || !isLoggedIn,
     }
   )
 

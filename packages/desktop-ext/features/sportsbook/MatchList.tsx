@@ -11,15 +11,13 @@ import { ActivityIndicator, Pressable, Text, View } from 'dripsy'
 import { useMemo, useRef, useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import { MatchResult } from 'services/matchApi.type'
+import { createParam } from 'solito'
 import MatchListTable, { MatchListMethod } from './MatchListTable'
 import EuroMatches from './euro/EuroMatches'
 import EuroStandings from './euro/EuroStandings'
-import { createParam } from 'solito'
 dayjs.extend(customParseFormat)
 
 type Props = {}
-
-const BAR_HEIGHT = 50
 
 type Params = {
   section?: string
@@ -29,7 +27,7 @@ const { useParam } = createParam<Params>()
 
 export default function MatchList({}: Props) {
   const [selectedTime, setSelectedTime] = useState<string>('All')
-  const [selectedLeague, setSelectedLeague] = useState<EntityId>()
+  const [selectedLeague, setSelectedLeague] = useState<EntityId | null>()
   const [leagueSection, setleagueSection] = useParam('section', {
     initial: LEAGUE_SECTION.LEAGUE_ODDS,
   })
@@ -125,8 +123,10 @@ export default function MatchList({}: Props) {
   const MatchList = useMemo(() => {
     switch (leagueSection) {
       case LEAGUE_SECTION.EURO_MATCH:
+        setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
         return <EuroMatches data={filteredEuroData.slice(1)} />
       case LEAGUE_SECTION.EURO_STANDINGS:
+        setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
         return <EuroStandings data={filteredEuroData.slice(1)} />
       case LEAGUE_SECTION.EURO_ODDS:
         return (
@@ -137,6 +137,7 @@ export default function MatchList({}: Props) {
           />
         )
       case LEAGUE_SECTION.LEAGUE_ODDS:
+        setSelectedLeague(undefined)
         return (
           <MatchListTable
             filterKey={selectedTime}
@@ -146,6 +147,7 @@ export default function MatchList({}: Props) {
         )
 
       default:
+        setSelectedLeague(undefined)
         return (
           <MatchListTable
             filterKey={selectedTime}

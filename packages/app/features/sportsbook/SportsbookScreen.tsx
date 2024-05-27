@@ -134,21 +134,18 @@ export default function SportsbookScreen() {
 
   return (
     <ScrollToTopWrapper>
-      <>
-        <View sx={{ gap: '$3', my: '$3' }}>
-          {leagueSection === LEAGUE_SECTION.LEAGUE_ODDS ? (
-            <GamePageHeader
-              title={t('game.category.sportsbook')}
-              icon="sportbook"
-            />
-          ) : (
-            <EuroSectionHeader />
-          )}
-          <MatchSection />
-        </View>
-
+      <View sx={{ gap: '$3', my: '$3' }}>
+        {leagueSection === LEAGUE_SECTION.LEAGUE_ODDS ? (
+          <GamePageHeader
+            title={t('game.category.sportsbook')}
+            icon="sportbook"
+          />
+        ) : (
+          <EuroSectionHeader />
+        )}
+        <MatchSection />
         {SportsbookSection}
-      </>
+      </View>
     </ScrollToTopWrapper>
   )
 }

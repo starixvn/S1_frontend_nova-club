@@ -6,6 +6,7 @@ import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 import useLocalization from 'app/provider/localization'
 import { Row, Text, View } from 'dripsy'
 import React, { useMemo, useState } from 'react'
+import { useGetEuroCupSportBookListQuery } from 'services/euroApi'
 import { MatchResult } from 'services/matchApi.type'
 import { MatchHeader } from '../MatchListHeader'
 import { getMatchTime } from '../MatchListTable'
@@ -15,6 +16,9 @@ const ITEM_PER_PAGE = 6
 const EuroMatches = ({ data }: { data: MatchResult[] }) => {
   const { t } = useLocalization()
   const [page, setPage] = useState(1)
+
+  const { data: StandingData } = useGetEuroCupSportBookListQuery()
+  console.log('🚀 ~ EuroMatches ~ StandingData:', StandingData)
 
   const filteredData = useMemo(
     () => data.slice(ITEM_PER_PAGE * (page - 1), ITEM_PER_PAGE * page),

@@ -9,7 +9,7 @@ const KnockoutSection = () => {
   const { t } = useLocalization()
 
   return (
-    <View>
+    <View sx={{ px: '$2', mx: 'auto' }}>
       <View
         sx={{
           position: 'absolute',
@@ -24,7 +24,7 @@ const KnockoutSection = () => {
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/final-trophy.png`}
           width={62}
-          height={150}
+          height={120}
           alt=""
         />
         <Text
@@ -34,7 +34,7 @@ const KnockoutSection = () => {
             color: '$primaryEuro.500',
           }}
         >
-          {t('event.euro.rules.round5')}
+          {t('event.euro.knockout.stage4')}
         </Text>
       </View>
       <Bracket />

@@ -11,7 +11,7 @@ const Knockout = ({ data }: { data: MatchResult[] }) => {
   const { t } = useLocalization()
 
   return (
-    <View>
+    <View sx={{ width: 1000, mx: 'auto' }}>
       <View
         sx={{
           position: 'absolute',
@@ -36,7 +36,7 @@ const Knockout = ({ data }: { data: MatchResult[] }) => {
             color: '$primaryEuro.500',
           }}
         >
-          {t('event.euro.rules.round5')}
+          {t('event.euro.knockout.stage4')}
         </Text>
       </View>
       <Bracket />
