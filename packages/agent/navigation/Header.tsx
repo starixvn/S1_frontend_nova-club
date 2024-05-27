@@ -58,13 +58,14 @@ const Header = () => {
 
   async function testActionWithTimeout() {
     setIsLoading(true)
-    const data = await getBalance().unwrap()
+    const data = await getBalance(currency).unwrap()
     setTimeout(() => setIsLoading(false), 1500)
   }
 
   const countryImg = {
     [LANGUAGE_CODE.ENGLISH]: require('app/assets/images/common/en.jpg'),
     [LANGUAGE_CODE.VIETNAM]: require('app/assets/images/common/vn.jpg'),
+    [LANGUAGE_CODE.THAILAND]: require('app/assets/images/common/th.jpg'),
   }
 
   const onChangeLanguage = (value: LANGUAGE_CODE) => {
@@ -133,9 +134,14 @@ const Header = () => {
                   <BouncePressable
                     onPress={() =>
                       onChangeLanguage(
-                        lang === LANGUAGE_CODE.ENGLISH
-                          ? LANGUAGE_CODE.VIETNAM
-                          : LANGUAGE_CODE.ENGLISH
+                        {
+                          [LANGUAGE_CODE.ENGLISH]:
+                            currency === Currency.THB
+                              ? LANGUAGE_CODE.THAILAND
+                              : LANGUAGE_CODE.VIETNAM,
+                          [LANGUAGE_CODE.THAILAND]: LANGUAGE_CODE.ENGLISH,
+                          [LANGUAGE_CODE.VIETNAM]: LANGUAGE_CODE.ENGLISH,
+                        }[lang]
                       )
                     }
                   >

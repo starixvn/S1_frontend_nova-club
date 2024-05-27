@@ -21,7 +21,7 @@ export interface WalletBalance {
 
 export interface RefreshBalance {
   balance: {
-    VND: number
+    [key in Currency]: number
   }
 }
 

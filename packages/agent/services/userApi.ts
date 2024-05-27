@@ -14,6 +14,7 @@ import {
   ChangePasswordArgs,
 } from './userApi.type'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
+import { Currency } from 'utils/constant'
 
 export const userApi = agentBaseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -53,23 +54,22 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
         }
       },
     }),
-    userRefreshBalance: builder.query<IResponse<RefreshBalance>, void>({
+    userRefreshBalance: builder.query<IResponse<RefreshBalance>, Currency>({
       query: () => ({
         url: '/user/refreshBalance',
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      async onQueryStarted(currency, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
           const updateBalance = dispatch(
-            userApi.util.updateQueryData('userInfo', _, (draft) => {
+            userApi.util.updateQueryData('userInfo', undefined, (draft) => {
               if (draft?.wallet) {
                 // Update the balance of the user's wallet
-                draft.wallet.balance = data.result?.data.balance.VND ?? 0
+                draft.wallet.balance = data.result?.data.balance[currency] ?? 0
               }
               return draft
             })
           )
-          console.log(updateBalance)
         } catch {}
       },
       providesTags: ['WalletAmount'],

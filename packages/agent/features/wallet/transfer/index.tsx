@@ -1,11 +1,11 @@
-import useGetProfile from 'agent/hooks/useGetProfile'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
-import { Currency } from 'utils/constant'
+import { useAppSelector } from 'app/provider/redux/store'
 import { ScrollView } from 'dripsy'
 import { useEffect } from 'react'
 import { useRouter } from 'solito/router'
+import { Currency } from 'utils/constant'
 import AgentTransferForm from './AgentTransferForm'
 import AgentTransferHistory from './AgentTransferHistory'
 
@@ -13,7 +13,7 @@ const AgentFundTransferPage = () => {
   const { push } = useRouter()
   const isFocus = useIsFocused()
 
-  const { currency } = useGetProfile()
+  const currency = useAppSelector((s) => s.agent.currency)
 
   const { isAgent, balance, hasPin, isFetching, isUninitialized } =
     useUserInfoQuery(undefined, {

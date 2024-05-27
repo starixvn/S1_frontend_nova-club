@@ -51,7 +51,7 @@ export interface AgentTransferListArgs {
   start: number
   length: number
   date_from: string
-  currency: string
+  currency: Currency
 }
 export interface AgentTransferListResult {
   currency: string

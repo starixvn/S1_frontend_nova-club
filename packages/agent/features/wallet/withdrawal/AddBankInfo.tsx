@@ -7,7 +7,6 @@ import TimerButton, {
   ITimerButtonForwardRef,
 } from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
-import useGetProfile from 'agent/hooks/useGetProfile'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import {
   useAddBankAccountMutation,
@@ -23,7 +22,6 @@ import validation, {
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
-import { MOBILE_PREFIX } from 'utils/constant'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -32,7 +30,7 @@ import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
-import { Currency } from 'utils/constant'
+import { Currency, MOBILE_PREFIX } from 'utils/constant'
 import * as Yup from 'yup'
 
 interface AddBankInfoValues {
