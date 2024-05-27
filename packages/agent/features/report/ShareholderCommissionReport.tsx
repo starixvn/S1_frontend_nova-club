@@ -9,17 +9,15 @@ import { DateFilter, DateFilterOptions } from 'agent/constant/select'
 import useTableListing from 'agent/hooks/useTableListing'
 import { useShareholderCommissionListQuery } from 'agent/services/reportApi'
 import { ShareholderCommissionListResult } from 'agent/services/reportApi.type'
-import { useUserInfoQuery } from 'agent/services/userApi'
 import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toThousandSeparator } from 'app/utils'
-import { Currency } from 'utils/constant'
 import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
 import React, { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
-import DataTable from 'app/components/dataTable/DataTable'
 
 export type CommissionFilterOptions = {
   initial: boolean
@@ -31,6 +29,7 @@ export type CommissionFilterOptions = {
 const ShareholderCommissionScreen = () => {
   const { openModal } = useModal()
   const { t } = useAgentLocalization()
+  const currency = useAppSelector((s) => s.agent.currency)
   const [filter, setFilter] = useState<CommissionFilterOptions>({
     initial: true,
     date: DateFilterOptions[4]?.value,
@@ -40,16 +39,12 @@ const ShareholderCommissionScreen = () => {
 
   const [offset, setOffset] = useState(0)
 
-  const { currency } = useUserInfoQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      currency: (data?.wallet.currency ?? Currency.VND) as Currency,
-    }),
-  })
   const { reportData, totalData, isFetching, refetch } =
     useShareholderCommissionListQuery(
       {
         start: offset * LIMIT,
         length: LIMIT,
+        currency,
         rpt_date: `${dayjs(filter.startDate).format(
           'YYYY-MM-DD HH:mm:ss Z'
         )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,

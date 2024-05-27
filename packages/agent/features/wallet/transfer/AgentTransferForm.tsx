@@ -91,7 +91,7 @@ const AgentTransferForm = ({
       if (values.username && values.amount) {
         const { success, message, result } = await newTransfer({
           memberCode: values.username,
-          currency: Currency.VND,
+          currency,
           balance_transfer: amount?.replace(/,/g, '') ?? '0',
           remark: `${values.username} - ${values.amount}`,
           referrer_code: playerId,

@@ -15,7 +15,6 @@ import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toThousandSeparator } from 'app/utils'
-import { Currency } from 'utils/constant'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
@@ -32,6 +31,7 @@ export type TransactionFilterOptions = {
 
 const TransactionScreen = () => {
   const { t } = useAgentLocalization()
+  const currency = useAppSelector((s) => s.agent.currency)
   const lang = useAppSelector((state) => state.setting?.locale)
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<TransactionFilterOptions>({
@@ -52,7 +52,7 @@ const TransactionScreen = () => {
         date_from: `${dayjs(filter.startDate).format(
           'YYYY-MM-DD HH:mm:ss Z'
         )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
-        currency: Currency.VND,
+        currency,
         transaction_type: filter.type.toString(),
       },
       {

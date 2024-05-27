@@ -18,10 +18,12 @@ import React, { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
 import { CommissionFilterOptions } from './ShareholderCommissionReport'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const AgentCommissionScreen = () => {
   const { t } = useAgentLocalization()
   const { openModal } = useModal()
+  const currency = useAppSelector((s) => s.agent.currency)
   const [filter, setFilter] = useState<CommissionFilterOptions>({
     initial: true,
     date: DateFilterOptions[4]?.value,
@@ -36,6 +38,7 @@ const AgentCommissionScreen = () => {
       {
         start: offset * LIMIT,
         length: LIMIT,
+        currency: currency,
         rpt_date: `${dayjs(filter.startDate).format(
           'YYYY-MM-DD HH:mm:ss Z'
         )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,

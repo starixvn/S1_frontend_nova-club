@@ -5,7 +5,6 @@ import Select, { Options } from 'agent/components/Select/Select'
 import TimerButton, {
   ITimerButtonForwardRef,
 } from 'agent/components/TimerButton'
-import { MOBILE_PREFIX_BY_CURRENCY } from 'agent/constant/language'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
@@ -32,6 +31,7 @@ import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
+import { MOBILE_PREFIX_BY_CURRENCY } from 'utils/constant/currency'
 import * as Yup from 'yup'
 
 interface ResetPasswordValues {

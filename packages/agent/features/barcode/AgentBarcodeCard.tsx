@@ -4,6 +4,7 @@ import Text from 'agent/components/Text'
 import { useAgentReferralDetailsQuery } from 'agent/services/agentApi'
 import { copyToClipboard } from 'agent/utils/agentCopyToClipboard'
 import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
+import { useAppSelector } from 'app/provider/redux/store'
 import { styled, View } from 'dripsy'
 import { MotiView } from 'moti'
 import { useMemo } from 'react'
@@ -12,15 +13,16 @@ import QRCode from 'react-native-qrcode-svg'
 
 const AgentBarcodeCard = ({ userId }: { userId: number }) => {
   const { width } = useWindowDimensions()
+  const currency = useAppSelector((s) => s.agent.currency)
   const cardWidth = Math.min(500, width * 0.8)
 
   const { domain, userName, cash, isLoading } = useAgentReferralDetailsQuery(
     { agentId: userId.toString() },
     {
       selectFromResult: ({ data, isLoading }) => ({
-        domain: data?.result?.data.qrcode.VND.domain,
+        domain: data?.result?.data.qrcode[currency].domain,
         userName: data?.result?.data.username,
-        cash: data?.result?.data.qrcode.VND.agent_type,
+        cash: data?.result?.data.qrcode[currency].agent_type,
         isLoading,
       }),
       skip: userId ? false : true,
