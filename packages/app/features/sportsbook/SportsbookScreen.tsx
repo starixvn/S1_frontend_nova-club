@@ -2,24 +2,23 @@ import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
 import GameCard from 'app/components/game/GameCard'
-import {
-  GetCommissionList,
-  GetGameRebateValue,
-} from 'app/components/game/GameUtilityAction'
+import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
+import { LEAGUE_SECTION } from 'app/constants/recMatchMapping'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
+import FocusedLocalizationProvider from 'app/provider/localization/FocusedLocalizationProvider'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import uniqBy from 'lodash/uniqBy'
-import React, { useEffect, useMemo } from 'react'
+import { default as React, useEffect, useMemo } from 'react'
+import { Platform } from 'react-native'
+import { useCommissionTableQuery } from 'services/contentApi'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
-import { GAME_TYPE_CODE } from 'utils/constant'
-import MatchSection from './MatchSection'
 import { createParam } from 'solito'
-import { LEAGUE_SECTION } from 'app/constants/recMatchMapping'
+import { GAME_TYPE_CODE, LANGUAGE_NAMESPACE } from 'utils/constant'
+import MatchSection from './MatchSection'
 import EuroSection from './euro/EuroSection'
 import EuroSectionHeader from './euro/EuroSectionHeader'
-import { Platform } from 'react-native'
 
 type Params = {
   section?: string
@@ -29,6 +28,7 @@ const { useParam } = createParam<Params>()
 
 export default function SportsbookScreen() {
   const { t } = useLocalization()
+  const { locale, currency } = useDefaultParamSelector()
   const [leagueSection, setLeagueSection] = useParam('section', {
     initial: LEAGUE_SECTION.LEAGUE_ODDS,
   })
@@ -37,14 +37,21 @@ export default function SportsbookScreen() {
     if (Platform.OS !== 'web')
       leagueSection === undefined &&
         setLeagueSection(LEAGUE_SECTION.LEAGUE_ODDS)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagueSection])
 
-  const { data } = useGetGameListByCategoryQuery([
-    GAME_TYPE_CODE.SPORTS,
-    GAME_TYPE_CODE.E_SPORTS,
-    GAME_TYPE_CODE.VIRTUAL_SPORTS,
-  ])
-  const commissionList = GetCommissionList()
+  const { data } = useGetGameListByCategoryQuery({
+    currency,
+    categories: [
+      GAME_TYPE_CODE.SPORTS,
+      GAME_TYPE_CODE.E_SPORTS,
+      GAME_TYPE_CODE.VIRTUAL_SPORTS,
+    ],
+  })
+
+  const { data: commissionList } = useCommissionTableQuery({
+    currency,
+  })
 
   const numColumns = useResponsiveValue([2, 3, 3, 4])
 
@@ -54,8 +61,6 @@ export default function SportsbookScreen() {
   }, [data])
 
   function renderItem({ item, index }: { item: Game; index: number }) {
-    const { name } = item
-
     const isMostLeft = index % numColumns === 0
     const isMostRight = index % numColumns === numColumns - 1
     const isMiddle = !isMostLeft && !isMostRight
@@ -84,6 +89,8 @@ export default function SportsbookScreen() {
           }}
           isDualVersion
           {...item}
+          img={item.img[locale]}
+          xImg={item.xImg?.[locale]}
         />
       </Row>
     )
@@ -105,22 +112,8 @@ export default function SportsbookScreen() {
             onPress={setLeagueSection}
           />
         )
-      case LEAGUE_SECTION.LEAGUE_ODDS:
-        return (
-          <FlashList
-            key={numColumns}
-            estimatedItemSize={160}
-            showsVerticalScrollIndicator={false}
-            data={providers}
-            renderItem={renderItem}
-            numColumns={numColumns}
-            contentContainerStyle={{
-              paddingBottom: 40,
-            }}
-            extraData={commissionList}
-          />
-        )
 
+      case LEAGUE_SECTION.LEAGUE_ODDS:
       default:
         return (
           <FlashList
@@ -137,22 +130,25 @@ export default function SportsbookScreen() {
           />
         )
     }
-  }, [commissionList, leagueSection, providers])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commissionList, leagueSection, providers, numColumns])
 
   return (
-    <ScrollToTopWrapper>
-      <View sx={{ gap: '$3', my: '$3' }}>
-        {leagueSection === LEAGUE_SECTION.LEAGUE_ODDS ? (
-          <GamePageHeader
-            title={t('game.category.sportsbook')}
-            icon="sportbook"
-          />
-        ) : (
-          <EuroSectionHeader />
-        )}
-        <MatchSection />
-        {SportsbookSection}
-      </View>
-    </ScrollToTopWrapper>
+    <FocusedLocalizationProvider namespace={LANGUAGE_NAMESPACE.MEMBER}>
+      <ScrollToTopWrapper>
+        <View sx={{ gap: '$3', my: '$3' }}>
+          {leagueSection === LEAGUE_SECTION.LEAGUE_ODDS ? (
+            <GamePageHeader
+              title={t('game.category.sportsbook')}
+              icon="sportbook"
+            />
+          ) : (
+            <EuroSectionHeader />
+          )}
+          <MatchSection />
+          {SportsbookSection}
+        </View>
+      </ScrollToTopWrapper>
+    </FocusedLocalizationProvider>
   )
 }

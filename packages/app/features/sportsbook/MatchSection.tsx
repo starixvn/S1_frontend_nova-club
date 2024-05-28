@@ -1,13 +1,12 @@
 import MatchCarousel from 'app/components/match/MatchCarousel'
 import { LEAGUE_SECTION, MatchLeagueId } from 'app/constants/recMatchMapping'
-import useIsDesktop from 'app/hooks/useIsDesktop'
+import { GAEvents } from 'app/integrations/analytic/events'
 import { View } from 'dripsy'
-import React, { useEffect, useMemo, useState } from 'react'
+import { default as React, useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import { createParam } from 'solito'
 import MatchLeagueSelector from './MatchLeagueSelector'
-import { GAEvents } from 'app/integrations/analytic/events'
 
 type Params = {
   section?: string
@@ -16,7 +15,6 @@ type Params = {
 const { useParam } = createParam<Params>()
 
 export default function MatchSection() {
-  const desktop = useIsDesktop()
   const [selectedLeague, setSelectedLeague] = useState<string>()
   const [leagueSection, setLeagueSection] = useParam('section', {
     initial: LEAGUE_SECTION.LEAGUE_ODDS,
@@ -29,10 +27,11 @@ export default function MatchSection() {
     else
       leagueSection === undefined &&
         setLeagueSection(LEAGUE_SECTION.LEAGUE_ODDS)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagueSection])
 
   const { leagues, data } = useGetRecoMatchQuery(
-    { isApp: !desktop },
+    { isApp: Platform.OS !== 'web', currency },
     {
       selectFromResult: (resp) => ({
         ...resp,
@@ -57,6 +56,8 @@ export default function MatchSection() {
     setSelectedLeague(v)
     setLeagueSection(leagueSection)
   }
+
+  if (leagues.ids?.length === 0) return null
 
   return (
     <View>

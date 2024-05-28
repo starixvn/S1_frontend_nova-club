@@ -17,6 +17,7 @@ import { useRouter } from 'solito/router'
 import { RewardGameKeyMap } from 'utils/rewards'
 import RewardCard, { RewardGameTag } from './components/RewardCard'
 import RewardCardFull from './components/RewardCardFull'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 
 type RewardGameListConfig = {
   key: RewardGameKeyMap
@@ -59,7 +60,7 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
   const { openModal } = useModal<ModalStackParams>()
   const isDesktop = useIsDesktop()
   const { t } = useLocalization()
-  const lang = useAppSelector((state) => state.setting.locale)
+  const defaultParams = useDefaultParamSelector()
 
   const { data: profileData } = usePlayerProfileQuery()
   const disableEvent = !!profileData?.disabled_event ?? false
@@ -84,15 +85,17 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
     )
   }, [])
 
-  const { data, isFetching, isLoading, isUninitialized, refetch } =
-    useGetCoinRedemptionListQuery(undefined, {
+  const { data, isLoading, isUninitialized } = useGetCoinRedemptionListQuery(
+    defaultParams,
+    {
       selectFromResult: (result) => {
         return {
           ...result,
           data: matchRedemptionListData(result),
         }
       },
-    })
+    }
+  )
 
   useEffect(() => {
     // Inform parent that the api to get rewards list has been completed
@@ -100,10 +103,6 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
       setTimeout(() => onLoaded && onLoaded(), 100)
     }
   }, [isUninitialized, data])
-
-  useEffect(() => {
-    refetch()
-  }, [lang])
 
   const [gameList, lastGameList] = useMemo(() => {
     if (!data) {
@@ -183,7 +182,7 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
                 key={key}
                 gameKey={_data.key}
                 cost={cost}
-                gameName={name}
+                gameName={name[defaultParams.locale]}
                 src={_data.image}
                 tag={_data.tag}
                 onOpeningGame={onOpeningGame}
@@ -205,7 +204,7 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
               <RewardCardFull
                 key={key}
                 cost={cost}
-                gameName={name}
+                gameName={name[defaultParams.locale]}
                 src={_data?.image}
                 onPress={() => {
                   onOpeningGame(_data.key)

@@ -1,7 +1,7 @@
 import * as Dropdown from 'zeego/dropdown-menu'
 import { styled, useSx, Sx, Theme } from 'dripsy'
 import { Platform, StyleSheet } from 'react-native'
-import { MotiView } from 'moti'
+import { MotiView, useAnimationState } from 'moti'
 import { ComponentProps, createContext, useContext } from 'react'
 import { useCallback, useMemo } from 'react'
 import Icon from './Icon'
@@ -14,11 +14,9 @@ const activeSurfaceColor: keyof Theme['colors'] = 'muted3'
 
 const DripsyContent = styled(Dropdown.Content)({
   minWidth: 220,
-  bg: 'background',
-  borderRadius: '3',
-  p: '$2',
-  borderColor: 'border',
-  borderWidth: 1,
+  bg: 'white',
+  p: '$1',
+  borderRadius: 15,
   ...Platform.select({
     web: {
       animationDuration: '275ms',
@@ -70,7 +68,7 @@ const DropdownItemFocusRing = ({
 }
 
 const height = 32
-const x = 25
+const x = 20
 
 const useFocusedItem = ({
   onFocus,
@@ -148,7 +146,7 @@ const DropdownMenuItem = Dropdown.create(
           onFocus={handleFocus}
           onBlur={handleBlur}
         >
-          <DropdownItemFocusRing motiState={motiState} />
+          {/* <DropdownItemFocusRing motiState={motiState} /> */}
           {children}
         </ItemPrimitive>
       </ItemContext.Provider>
@@ -214,9 +212,9 @@ const DropdownMenuItemTitle = Dropdown.create(
 
 const DropdownMenuSeparator = Dropdown.create(
   styled(Dropdown.Separator)({
-    m: '$2',
+    my: '$1',
     height: 1,
-    bg: 'border',
+    bg: '$tableBorder',
   }),
   'Separator'
 )

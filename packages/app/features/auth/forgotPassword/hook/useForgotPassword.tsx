@@ -1,4 +1,4 @@
-import { MOBILE_PREFIX } from 'app/constants/country'
+import { MOBILE_PREFIX } from 'utils/constant'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useIsDesktop from 'app/hooks/useIsDesktop'
@@ -66,7 +66,7 @@ function useForgotPassword(rootView: RefObject<RNView>, modalType?: LoginType) {
           password,
           cpassword: confirmPassword,
           // WIP: Prefix should not be hardcoded
-          contactNumber: MOBILE_PREFIX.VND.replace('+', '') + contactNumber,
+          contactNumber: MOBILE_PREFIX.VND + contactNumber,
           verify_code: verifyCode,
         })
           .unwrap()

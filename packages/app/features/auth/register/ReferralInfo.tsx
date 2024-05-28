@@ -1,4 +1,3 @@
-import { skipToken } from '@reduxjs/toolkit/query/react'
 import ShadowButton from 'app/components/ShadowButton'
 import Image from 'app/components/common/Image'
 import useLocalization from 'app/provider/localization'
@@ -12,10 +11,18 @@ import { useAffiliateUsernameQuery } from 'services/contentApi'
 const ReferralInfo = () => {
   const dispatch = useAppDispatch()
   const { t } = useLocalization()
+
+  const currency = useAppSelector((s) => s.setting.currency)
   const referral = useAppSelector((s) => s.setting.referral)
   const isBanned = isBannedTrackingCode(referral?.trackingCode)
+
   const { error, isSuccess } = useAffiliateUsernameQuery(
-    referral?.trackingCode && !isBanned ? referral.trackingCode : skipToken
+    {
+      trackingCode:
+        referral?.trackingCode && !isBanned ? referral.trackingCode : '',
+      currency,
+    },
+    { skip: !referral?.trackingCode }
   )
 
   useEffect(() => {

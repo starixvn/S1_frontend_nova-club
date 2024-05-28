@@ -1,0 +1,22 @@
+{
+  "client_id": "785800932.1682577240",
+  "user_id": "techtestwthb02",
+  "non_personalized_ads": true,
+  "events": [
+    {
+      "name": "purchase",
+      "params": {
+        "items": [
+          {
+            "item_id": "online_bank_alipay3",
+            "item_name": "online_bank3",
+            "price": 353000
+          }
+        ],
+        "currency": "THB",
+        "transaction_id": "88811",
+        "value": 353000
+      }
+    }
+  ]
+}

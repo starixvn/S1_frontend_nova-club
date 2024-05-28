@@ -31,10 +31,10 @@ interface SlotSingleProviderListingProps {
   provider?: string
   icon?: string
   title?: string
-  onBack: () => void
+  onBack?: () => void
   sx?: SxProp
   gameCategoryTagTranslation?: GameCategoryTagTranslation
-  commissionList: CommissionTableResult[]
+  commissionList?: CommissionTableResult[]
   gtc: string
   hideTag?: boolean
 }
@@ -57,7 +57,8 @@ const SlotSingleProviderListing = ({
   const [filter, setFilter] = useState<string>(ALL)
   const [search, setSearch] = useState<string>()
   const [pageNumber, setPageNumber] = useState(1)
-  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
+  const currency = useAppSelector((s) => s.setting.currency)
+  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery(currency)
   const { getTagName } = useGetTagName()
 
   const tags = useMemo(() => {
@@ -196,6 +197,8 @@ const SlotSingleProviderListing = ({
                   {...item}
                   displayName={item.name[locale]}
                   isFullCard
+                  img={item.img[locale]}
+                  xImg={item.xImg?.[locale]}
                 />
               </View>
             )

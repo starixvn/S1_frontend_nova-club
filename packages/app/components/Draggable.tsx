@@ -8,7 +8,7 @@ const Draggable = ({ children }) => {
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
       onPanResponderRelease: () => {
         pan.extractOffset()

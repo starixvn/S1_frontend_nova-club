@@ -2,15 +2,15 @@ import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { RootState } from 'app/provider/redux/store'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { LANGUAGE_CODE } from 'utils/constant'
+import { Currency, LANGUAGE_CODE } from 'utils/constant'
 import { getUserAgent } from 'utils/deviceInfo'
 import { appendFpsParams, getFpsParams } from 'utils/fps/fpsGenerator'
 
-// const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api/v1'
+// const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api'
 // const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
 
 export enum AuthURL {
-  LOGOUT = '/player_api/logout',
+  LOGOUT = '/player_api/v1/logout',
 }
 
 enum RESPONSE_STATUS {
@@ -36,7 +36,7 @@ export const configureAxios = (newConfig: CustomConfig) => {
 const isUsingRootDomain = false
 
 const axiosInstance = axios.create({
-  baseURL: `${isUsingRootDomain ? '/api/nv88_api/v1' : API_DOMAIN}`,
+  baseURL: `${isUsingRootDomain ? '/api/nv88_api' : API_DOMAIN}`,
   timeout: DEFAULT_TIMEOUT,
   transformRequest: [
     (data, headers) => {
@@ -63,6 +63,7 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   type RequestParams = {
     black_b?: string
     username?: string
+    currency?: string
   } & Partial<ReturnType<typeof getFpsParams>>
 
   let { url, headers, baseURL } = config
@@ -73,6 +74,7 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   if (baseURL && baseURL?.startsWith(API_DOMAIN) && url?.startsWith('/')) {
     const { token, playerName } = state?.auth.info || {}
     const { deviceId } = state?.tempSetting || {}
+    const currency = state?.setting.currency
 
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
@@ -93,21 +95,30 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
         requestParams.username = playerName
       }
     }
+    if (currency) {
+      if (
+        config.method?.toLowerCase() !== 'get' &&
+        (!config.data || 'currency' in config.data === false)
+      ) {
+        requestParams.currency = currency
+      }
+    }
 
     config.headers = {
       ...headers,
       api_key: API_KEY,
     }
+
     console.log(`Request ${config.url} : `, config.data)
   }
 
-  // const cacheControlNeeded = ['/player_api/transfer']
+  // const cacheControlNeeded = ['/player_api/v1/transfer']
   // if (cacheControlNeeded.includes(url!)) {
   //   config.headers['Cache-Control'] = 'no-cache'
   // }
 
   /** FRAUD DETECTION (No longer using IOVATION) */
-  // const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
+  // const fraudDetectionNeeded = ['/player_api/v1/createPlayer', '/player_api/v1/login']
 
   // if (fraudDetectionNeeded.includes(url!)) {
   //   headers = {

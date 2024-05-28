@@ -1,4 +1,4 @@
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
+import { Currency, GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import random from 'lodash/random'
 import sampleSize from 'lodash/sampleSize'
 import { Game, LatestWinner, LatestWinnerType } from 'services/gameApi.type'
@@ -6,21 +6,21 @@ import { generateUsername } from 'unique-username-generator'
 
 export default async function handler(req, res) {
   let type = req.query.type as LatestWinnerType
-  let games = []
+  let currency = (req.query.currency as Currency) ?? Currency.VND
+  let games: Game[] = []
 
   try {
     if (!Object.values(LatestWinnerType).includes(type)) {
       type = LatestWinnerType.Games
     }
-    console.log('requesting ')
     switch (type) {
       case LatestWinnerType.Slot: {
-        games = await requestSlotGameList()
+        games = await requestSlotGameList(currency)
         break
       }
       case LatestWinnerType.Games: {
         console.log('requesting games')
-        games = await requestGamesGameList()
+        games = await requestGamesGameList(currency)
         break
       }
 
@@ -47,6 +47,7 @@ export default async function handler(req, res) {
 }
 
 async function requestGameList(
+  currency: Currency,
   game_category: GAME_TYPE_CODE[] = [],
   gdc_game_category: GDC_GAME_CATEGORY[] = []
 ) {
@@ -54,7 +55,7 @@ async function requestGameList(
   try {
     if (game_category) {
       const resp = await fetch(
-        `${process.env.API_DOMAIN}/static_api/getGameList`,
+        `${process.env.API_DOMAIN}/static_api/v1/getGameList`,
         {
           method: 'POST',
           headers: {
@@ -62,7 +63,7 @@ async function requestGameList(
             api_key: process.env.API_KEY,
           },
           body: JSON.stringify({
-            currency: 'VND',
+            currency,
             game_category,
             limit: 9999,
             offset: 0,
@@ -80,7 +81,7 @@ async function requestGameList(
 
     if (gdc_game_category) {
       const resp = await fetch(
-        `${process.env.API_DOMAIN}/static_api/getGameList`,
+        `${process.env.API_DOMAIN}/static_api/v1/getGameList`,
         {
           method: 'POST',
           headers: {
@@ -88,7 +89,7 @@ async function requestGameList(
             api_key: process.env.API_KEY,
           },
           body: JSON.stringify({
-            currency: 'VND',
+            currency,
             game_category,
             limit: 9999,
             offset: 0,
@@ -111,12 +112,16 @@ async function requestGameList(
   }
 }
 
-function requestSlotGameList() {
-  return requestGameList([GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING])
+function requestSlotGameList(currency: Currency) {
+  return requestGameList(currency, [
+    GAME_TYPE_CODE.SLOTS,
+    GAME_TYPE_CODE.FISHING,
+  ])
 }
 
-function requestGamesGameList() {
+function requestGamesGameList(currency: Currency) {
   return requestGameList(
+    currency,
     [
       GAME_TYPE_CODE.GAMES,
       GAME_TYPE_CODE.FISHING,

@@ -15,7 +15,7 @@ import { AuthURL } from './common/axiosInstance'
 import { EndpointBuilderType, IResponse } from './common/types'
 
 // export enum AuthURL {
-//   LOGOUT = '/player_api/logout',
+//   LOGOUT = '/player_api/v1/logout',
 // }
 
 /**
@@ -26,7 +26,7 @@ export const authApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     login: builder.mutation<IResponse<LoginResult>, LoginQueryArgs>({
       query: ({ username, password }) => ({
-        url: `/player_api/login`,
+        url: `/player_api/v1/login`,
         data: {
           username,
           password,
@@ -35,7 +35,7 @@ export const authApi = baseApiWithTag.injectEndpoints({
     }),
     register: builder.mutation<IResponse<RegisterResult>, RegisterQueryArgs>({
       query: (queryArgs) => ({
-        url: `/player_api/createPlayer`,
+        url: `/player_api/v1/createPlayer`,
         data: {
           ...queryArgs,
         },
@@ -43,7 +43,7 @@ export const authApi = baseApiWithTag.injectEndpoints({
     }),
     checkUsername: builder.query<IResponse<string>, CheckUsernameQueryArgs>({
       query: ({ username }) => ({
-        url: `/player_api/checkUsername`,
+        url: `/player_api/v1/checkUsername`,
         data: {
           username,
         },
@@ -61,12 +61,9 @@ export const authApi = baseApiWithTag.injectEndpoints({
       IResponse<{ verify_code: string }>,
       RegisterOtpQueryArgs
     >({
-      query: ({ contactNumber, username }) => ({
-        url: `/player_api/sendRegistrationOtp`,
-        data: {
-          contactNumber,
-          username,
-        },
+      query: (queryArgs) => ({
+        url: `/player_api/v1/sendRegistrationOtp`,
+        data: { ...queryArgs },
       }),
     }),
     sendPasswordRecoveryOtp: builder.mutation<
@@ -74,7 +71,7 @@ export const authApi = baseApiWithTag.injectEndpoints({
       ForgotPasswordOtpQueryArgs
     >({
       query: ({ contactNumber }) => ({
-        url: `/player_api/passwordRecoveryOtp`,
+        url: `/player_api/v1/passwordRecoveryOtp`,
         data: {
           contactNumber,
         },
@@ -85,7 +82,7 @@ export const authApi = baseApiWithTag.injectEndpoints({
       PasswordRecoveryQeuryArgs
     >({
       query: ({ contactNumber, cpassword, password, verify_code }) => ({
-        url: `/player_api/passwordRecovery`,
+        url: `/player_api/v1/passwordRecovery`,
         data: {
           contactNumber,
           cpassword,
@@ -96,7 +93,7 @@ export const authApi = baseApiWithTag.injectEndpoints({
     }),
     updateShield: builder.mutation<IResponse<void>, UpdateShieldQueryArgs>({
       query: ({ action_type, platform, session_id }) => ({
-        url: `/player_api/updateShield`,
+        url: `/player_api/v1/updateShield`,
         data: {
           action_type,
           platform,

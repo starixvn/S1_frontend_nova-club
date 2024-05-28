@@ -1,6 +1,6 @@
 import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -24,6 +24,7 @@ const ReferralScreen = () => {
 
   const { data: playerData } = usePlayerProfileQuery()
 
+  const currency = useAppSelector((s) => s.setting.currency)
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const { data } = usePlayerOverviewSummaryQuery(undefined, {
     skip: !token,
@@ -33,7 +34,9 @@ const ReferralScreen = () => {
   const referralLink = `${ROOT_DOMAIN}/download?ref=${referralCode}`
 
   const referralFriend = data?.data?.registered ?? 0
-  const referralComm = `VND ${toThousandSeparator(data?.data?.ref_comm || '')}`
+  const referralComm = `${currency} ${toThousandSeparator(
+    data?.data?.ref_comm || ''
+  )}`
 
   return (
     <PageWithBackHeader

@@ -1,5 +1,6 @@
 import SessionHandler from 'app/components/SessionHandler'
 import BottomTabBar from 'app/components/navigation/BottomTabBar'
+import LanguageDropdown from 'app/components/navigation/LanguageDropdown'
 import MainHeader from 'app/components/navigation/header/MainHeader'
 import DraggableFloatingEuroCup from 'app/features/floatingContent/DraggableFloatingEuroCup'
 import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
@@ -21,12 +22,16 @@ export default function Root() {
           {/** APP floating mystery */}
           <DraggableFloatingEuroCup />
           <DraggableFloatingMystery />
+          <LanguageDropdown />
         </>
       )}
       <Tabs
         // tabBar={() => <BottomTabBar />}
         tabBar={() => (splashScreenLoaded ? <BottomTabBar /> : null)}
-        screenOptions={{ header: (props) => null }}
+        screenOptions={{
+          header: (props) => null,
+          lazy: true,
+        }}
         sceneContainerStyle={{ backgroundColor: '#1E2238' }} // need to find ways to use dripsy, or move to packages/app
       />
     </View>

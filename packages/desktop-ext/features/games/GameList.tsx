@@ -1,21 +1,21 @@
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import {
   useGetTagName,
   type GameCategoryTagTranslation,
 } from 'app/hooks/appState/game/useGameCategoryTag'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
-import { ALL, HOT } from 'utils/constant'
 import SelectProvider from 'desktop-ext/components/game/SelectProvider'
 import { SxProp, Text, View } from 'dripsy'
+import sortBy from 'lodash/sortBy'
 import union from 'lodash/union'
 import uniqBy from 'lodash/uniqBy'
-import sortBy from 'lodash/sortBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { ViewProps } from 'react-native'
+import { useCommissionTableQuery } from 'services/contentApi'
 import { useGameCategoryTagTypesQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
+import { ALL } from 'utils/constant'
 interface Props extends ViewProps {
   label: string
   games: Game[]
@@ -33,9 +33,9 @@ export default function GameList({
   const [provider, setProvider] = useState<string | undefined>()
   const [search, setSearch] = useState<string>()
   const { t } = useLocalization()
-  const locale = useAppSelector((s) => s.setting.locale)
-  const commissionList = GetCommissionList()
-  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
+  const { locale, currency } = useDefaultParamSelector()
+  const { data: commissionList } = useCommissionTableQuery({ currency })
+  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery(currency)
 
   const tags = useMemo(() => {
     setProvider(undefined)

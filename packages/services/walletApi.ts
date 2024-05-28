@@ -20,7 +20,7 @@ export const walletApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     playerBalance: builder.query<PlayerBalance, void>({
       query: () => ({
-        url: `/player_api/getPlayerBalance`,
+        url: `/player_api/v1/getPlayerBalance`,
         method: 'POST',
       }),
       providesTags: ['Balance'],
@@ -47,7 +47,7 @@ export const walletApi = baseApiWithTag.injectEndpoints({
       PlayerWalletDetailArgs | void
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getPlayerWalletDetail`,
+        url: `/player_api/v1/getPlayerWalletDetail`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -56,7 +56,7 @@ export const walletApi = baseApiWithTag.injectEndpoints({
     }),
     transfer: builder.mutation<IResponse<TransferResult>, TransferArgs>({
       query: (queryArgs) => ({
-        url: `/player_api/transfer`,
+        url: `/player_api/v1/transfer`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -69,7 +69,7 @@ export const walletApi = baseApiWithTag.injectEndpoints({
       TransferAllToOneArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/transferAllToOne`,
+        url: `/player_api/v1/transferAllToOne`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -82,7 +82,7 @@ export const walletApi = baseApiWithTag.injectEndpoints({
       TransferMemberToMemberArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/memberToMemberTransfer`,
+        url: `/player_api/v1/memberToMemberTransfer`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -109,7 +109,7 @@ export const walletApi = baseApiWithTag.injectEndpoints({
       GetUsernameByCodeArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getUsernameByCode`,
+        url: `/player_api/v1/getUsernameByCode`,
         method: 'POST',
         data: {
           ...queryArgs,

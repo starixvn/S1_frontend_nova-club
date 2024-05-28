@@ -1,6 +1,7 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useAlert from 'app/hooks/useAlert'
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -8,18 +9,13 @@ import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useMemo } from 'react'
 import { useModal } from 'react-native-modalfy'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 export default function HireBanner() {
   const { t } = useLocalization()
   const { push } = useRouter()
-  const lang = useAppSelector((state) => state.setting.locale)
-  const { token } = useAppSelector((state) => state.auth.info) || {}
+  const { token } = useFocusedSelector((state) => state.auth.info) || {}
   const isDesktop = useIsDesktop()
-  const { data: playerData } = usePlayerProfileQuery(undefined, {
-    skip: !token,
-  })
   const { openModal } = useModal()
   const { showAlert } = useAlert()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
@@ -116,7 +112,6 @@ export default function HireBanner() {
 const Label = styled(Text)({
   mt: FONT_TOP_OFFSET,
   fontSize: [11, 12, 12, 11, 12],
-  lineHeight: [13, 15, 15, 13, 15],
   fontWeight: 'bold',
 })
 

@@ -3,10 +3,11 @@ import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
 import validation from 'app/utils/validation'
 import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
@@ -20,7 +21,6 @@ import {
   useSubmitDepositMutation,
 } from 'services/deposit'
 import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { MaxLength, TopUpCard } from 'utils/constant'
 import * as Yup from 'yup'
 import DailyMax from '../component/DailyMax'
@@ -28,6 +28,7 @@ import useDepositFailedMessage, {
   FailedMessageModule,
 } from '../tools/useDepositFailedMessage'
 import ValueCard from './ValueCard'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 
 type TopupValues = {
   realAmount: number
@@ -44,17 +45,19 @@ const TopupCardForm = () => {
   const { t } = useLocalization()
   const { showAlert } = useAlert()
   const [postSubmitDeposit] = useSubmitDepositMutation()
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((state) => state.setting.currency)
   const horizontalMode = useIsDesktop()
+  const { isMobile } = useCheckMobile()
+
   const { data } = useDepositPaymentListQuery({
-    is_mobile: horizontalMode ? 1 : 0,
+    is_mobile: isMobile ? 1 : 0,
   })
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 
   const { data: dailyData } = useGetAvailableDepositAmountQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
-  const depositPayment = data?.data?.result.auto.find(
+  const depositPayment = data?.result.auto.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.TOP_UP
   )
 
@@ -168,7 +171,7 @@ const TopupCardForm = () => {
       setValues({
         ...values,
         cardValue: text,
-        realAmount: toRealAmount(amountNumber),
+        realAmount: toRealAmount(amountNumber, currency),
       })
     }
   }

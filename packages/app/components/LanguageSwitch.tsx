@@ -1,17 +1,19 @@
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
+import { useAppDispatch } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { LANGUAGE_CODE } from 'utils/constant'
 import { Image, Pressable, SxProp, View } from 'dripsy'
-import React, { useState } from 'react'
+import { AnimatePresence, MotiView } from 'moti'
+import React, { useMemo } from 'react'
 import { ViewProps } from 'react-native'
-import { usePlayerLangMutation } from '../../services/playerApi'
-import { AnimatePresence, MotiImage, MotiView } from 'moti'
+import { LANGUAGE_CODE } from 'utils/constant'
+import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
 
 const LANGUAGE_BUTTON_SIZE = 25
 
 const LANGUAGE_TO_FLAG_ICON = {
   [LANGUAGE_CODE.ENGLISH]: require('../assets/images/common/en.jpg'),
   [LANGUAGE_CODE.VIETNAM]: require('../assets/images/common/vn.jpg'),
+  [LANGUAGE_CODE.THAILAND]: require('../assets/images/common/th.jpg'),
 }
 
 const enum UPDATE_STATE {
@@ -80,32 +82,34 @@ export function LanguageButton({
 
 export default function LanguageSwitch({ ...rest }: ViewProps) {
   const dispatch = useAppDispatch()
-  const lang = useAppSelector((state) => state.setting.locale)
-  const [updateState, setUpdateState] = useState(UPDATE_STATE.COMPLETED)
-  const [updateLanguage] = usePlayerLangMutation()
+  const { locale, currency } = useDefaultParamSelector()
 
-  const submitLanguage = async (value: LANGUAGE_CODE) => {
-    if (updateState === UPDATE_STATE.UPDATING) return
+  // const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  // const [updateState, setUpdateState] = useState(UPDATE_STATE.COMPLETED)
+  // const [updateLanguage] = usePlayerLangMutation()
 
-    setUpdateState(UPDATE_STATE.UPDATING)
+  // const submitLanguage = async (value: LANGUAGE_CODE) => {
+  //   if (updateState === UPDATE_STATE.UPDATING) return
 
-    try {
-      const { success, message } = await updateLanguage({ lang: value })
-        .unwrap()
-        .catch((error) => {
-          return error
-        })
+  //   setUpdateState(UPDATE_STATE.UPDATING)
 
-      if (success) {
-        setLanguage(value)
-        // baseApiWithTag.util.invalidateTags(['Announcement'])
-      }
-    } catch (e) {
-      console.error(e)
-    } finally {
-      setUpdateState(UPDATE_STATE.COMPLETED)
-    }
-  }
+  //   try {
+  //     const { success, message } = await updateLanguage({ lang: value })
+  //       .unwrap()
+  //       .catch((error) => {
+  //         return error
+  //       })
+
+  //     if (success) {
+  //       setLanguage(value)
+  //       // baseApiWithTag.util.invalidateTags(['Announcement'])
+  //     }
+  //   } catch (e) {
+  //     console.error(e)
+  //   } finally {
+  //     setUpdateState(UPDATE_STATE.COMPLETED)
+  //   }
+  // }
 
   const setLanguage = (value: LANGUAGE_CODE) => {
     dispatch(SettingActions.setLocale(value))
@@ -115,14 +119,20 @@ export default function LanguageSwitch({ ...rest }: ViewProps) {
     setLanguage(value)
   }
 
+  const languageList = useMemo(() => {
+    return CURRENCY_LANGUAGE_LIST.find((c) => c.currency === currency)
+  }, [currency])
+
+  if (!languageList) return null
+
   return (
     <View sx={{ flexDirection: 'row' }} {...rest}>
-      {Object.values(LANGUAGE_CODE).map((languageCode) => (
+      {languageList.language.map(({ value }) => (
         <LanguageButton
-          key={languageCode}
-          languageCode={languageCode}
-          onPress={() => onChangeLanguage(languageCode)}
-          active={languageCode === lang}
+          key={value}
+          languageCode={value}
+          onPress={() => onChangeLanguage(value)}
+          active={value === locale}
         />
       ))}
     </View>

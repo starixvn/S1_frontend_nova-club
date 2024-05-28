@@ -3,6 +3,7 @@ import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
+import { useAppSelector } from 'app/provider/redux/store'
 import { desktopScrollToElement } from 'app/utils'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
@@ -18,9 +19,11 @@ import { ResizeMode, Video } from 'expo-av'
 import uniqBy from 'lodash/uniqBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
-import { useBannerQuery } from 'services/contentApi'
+import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
+import { BannerPage } from 'services/contentApi.type'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
@@ -45,13 +48,22 @@ function SlotScreen({}: Props) {
 
   const [filteredGames, setFilteredGames] = useState<Game[]>()
 
-  const { data: banner } = useBannerQuery()
-  const bannerList = banner?.filter((el) => el.banner_display_page === 'slots')
+  const currency = useAppSelector((s) => s.setting.currency)
+  const { banners } = useBannerQuery(currency, {
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        banners: selectBannerByPage(s.data, BannerPage.Slot),
+      }
+    },
+  })
 
   const { data: games } = useGameListMultipleQuery({
+    currency,
     game_category: GameCategory,
   })
-  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
+
+  const gameCategoryTagTranslation = useGameCategoryTag(GameCategory)
 
   const providers = useMemo(() => {
     if (games)
@@ -88,11 +100,7 @@ function SlotScreen({}: Props) {
           <LatestWinnerSection type={LatestWinnerType.Slot} />
         </View>
         <View sx={{ flexBasis: 480, minHeight: 320 }}>
-          <BannerCarousel
-            data={bannerList}
-            bannerType="slot"
-            ratio={480 / 320}
-          />
+          <BannerCarousel data={banners} bannerType="slot" ratio={480 / 320} />
         </View>
         {showSlotVideo && (
           <View sx={{ flex: 1, minHeight: 320 }}>

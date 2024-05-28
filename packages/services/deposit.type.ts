@@ -16,6 +16,7 @@ export type SubmitDepositArgs = {
   process_url: string
   success_url: string
   username?: string
+  player_bank_details_id?: number
 }
 
 export type SubmitDepositResult = {
@@ -78,7 +79,7 @@ export type DepositPaymentListResult = {
   }
 }
 
-type CategoryItem = {
+export type CategoryItem = {
   category_id: number
   category_text: string
   list: AutoBankItem[] | ManualBankItem[]
@@ -95,7 +96,10 @@ export type AutoBankItem = {
   order: number
   pay_acc_id: number
   payment_account_name: string
-  player_input_fields: PlayerInputFieldsAmount | PlayerInputFieldsBank
+  player_input_fields: Record<
+    string,
+    PlayerInputFieldsAmount | PlayerInputFieldsBank
+  >
   vendor_percentage?: string
 }
 
@@ -130,4 +134,17 @@ export type PlayerInputFieldsBank = {
 export type AvailableDepositAmountResult = {
   current: string
   max: string
+}
+
+export type DepositEWalletQRInfo = {
+  bankAccount: string
+  bankAccountName: string
+  bank: string
+  referenceId: string
+  transactionId: string
+  amount: string
+  deposit_amount: string
+  depositAmount: string
+  type: string
+  qrString: string
 }

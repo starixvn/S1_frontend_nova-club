@@ -1,20 +1,33 @@
 import GamePageHeader from 'app/components/GamePageHeader'
 import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
 import BannerCarousel from 'app/components/banner/BannerCarousel'
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import useLocalization from 'app/provider/localization'
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
+import FocusedLocalizationProvider from 'app/provider/localization/FocusedLocalizationProvider'
 import { View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import uniqBy from 'lodash/uniqBy'
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import {
+  default as React,
+  useEffect,
+  useMemo,
+  useRef
+} from 'react'
 import { Platform } from 'react-native'
-import { useBannerQuery } from 'services/contentApi'
+import {
+  selectBannerByPage,
+  useBannerQuery,
+  useCommissionTableQuery,
+} from 'services/contentApi'
+import { BannerPage } from 'services/contentApi.type'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { createParam } from 'solito'
-import { useRouter } from 'solito/router'
-import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
+import {
+  GAME_TYPE_CODE,
+  LANGUAGE_NAMESPACE,
+  ProviderImageCategory,
+} from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
 
@@ -27,10 +40,7 @@ const { useParam } = createParam<Params>()
 const GameCategory = [GAME_TYPE_CODE.SLOTS]
 
 function SlotScreen() {
-  const { t } = useLocalization()
-  const { push } = useRouter()
   const scrollRef = useRef()
-  const commissionList = GetCommissionList()
   const [provider, setProvider] = useParam('provider', {
     initial: undefined,
     parse: (templateFromUrl) => {
@@ -40,13 +50,24 @@ function SlotScreen() {
     },
   })
 
-  const { data: banner } = useBannerQuery()
-  const bannerList = banner?.filter((el) => el.banner_display_page === 'slots')
+  const currency = useFocusedSelector((s) => s.setting.currency)
 
-  const { data: games, isUninitialized } = useGameListMultipleQuery({
+  const { data: commissionList } = useCommissionTableQuery({ currency })
+
+  const { banners } = useBannerQuery(currency, {
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        banners: selectBannerByPage(s.data, BannerPage.Slot),
+      }
+    },
+  })
+
+  const { data: games } = useGameListMultipleQuery({
+    currency,
     game_category: GameCategory,
   })
-  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
+  const gameCategoryTagTranslation = useGameCategoryTag(GameCategory)
 
   const gamesByProviders = useMemo(() => {
     return groupBy(games, 'gpc')
@@ -90,10 +111,6 @@ function SlotScreen() {
     }
   }
 
-  const handleSelectProvider = useCallback((gpc: string) => {
-    setProvider(gpc)
-  }, [])
-
   // if (!isDelayed || isUninitialized)
   //   return <ActivityIndicator color="$tertiary" sx={{ my: '$3' }} />
 
@@ -115,30 +132,32 @@ function SlotScreen() {
   // }
 
   return (
-    <ScrollToTopWrapper ref={scrollRef}>
-      <View sx={{ gap: '$3', my: '$3', paddingBottom: 0 }}>
-        <GamePageHeader icon="sl" title={t('game.category.slots')} />
-        <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
-          <BannerCarousel data={bannerList} bannerType="slot" />
-        </View>
-        <RecentlyPlayedSection
-          gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
-        />
-        <ProviderList
-          data={providers}
-          onNavigateProvider={handleSelectProvider}
-          imageCategory={ProviderImageCategory.Slot}
-        />
+    <FocusedLocalizationProvider namespace={LANGUAGE_NAMESPACE.MEMBER}>
+      <ScrollToTopWrapper ref={scrollRef}>
+        <View sx={{ gap: '$3', my: '$3', paddingBottom: 0 }}>
+          <GamePageHeader icon="sl" title={'game.category.slots'} />
+          <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
+            <BannerCarousel data={banners} bannerType="slot" />
+          </View>
+          <RecentlyPlayedSection
+            gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
+          />
+          <ProviderList
+            data={providers}
+            onNavigateProvider={setProvider}
+            imageCategory={ProviderImageCategory.Slot}
+          />
 
-        <SlotSingleProviderListing
-          gtc={GAME_TYPE_CODE.SLOTS}
-          commissionList={commissionList}
-          games={provider ? gamesByProviders[provider.toUpperCase()] : games}
-          provider={provider}
-          gameCategoryTagTranslation={gameCategoryTagTranslation}
-        />
-      </View>
-    </ScrollToTopWrapper>
+          <SlotSingleProviderListing
+            gtc={GAME_TYPE_CODE.SLOTS}
+            commissionList={commissionList}
+            games={provider ? gamesByProviders[provider.toUpperCase()] : games}
+            provider={provider}
+            gameCategoryTagTranslation={gameCategoryTagTranslation}
+          />
+        </View>
+      </ScrollToTopWrapper>
+    </FocusedLocalizationProvider>
   )
 }
 

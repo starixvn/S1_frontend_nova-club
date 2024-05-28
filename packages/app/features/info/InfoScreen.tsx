@@ -1,9 +1,9 @@
-import AvertaStd from 'app/assets/fonts/Averta'
 import FormContainer from 'app/components/form/FormContainer'
 import { useAppSelector } from 'app/provider/redux/store'
 import { LANGUAGE_CODE } from 'utils/constant'
 import { useRouter } from 'next/router'
 import React, { ComponentType } from 'react'
+import Montserrat from 'app/assets/fonts/Montserrat'
 
 const FONT_COLOR = '#FFF'
 const FONT_SIZE = '0.85rem'
@@ -27,7 +27,7 @@ const InfoScreen = ({ map }: InfoScreenProps) => {
       <main
         style={{
           padding: 12,
-          fontFamily: AvertaStd.Regular.name,
+          fontFamily: Montserrat.Regular.name,
           fontSize: FONT_SIZE,
           color: FONT_COLOR,
         }}

@@ -1,4 +1,4 @@
-import { AvertaStdUseFont } from 'app/assets/fonts/Averta'
+import { MontserratUseFont } from 'app/assets/fonts/Montserrat'
 import { useFonts } from 'expo-font'
 import React, { ReactNode, createContext } from 'react'
 
@@ -9,7 +9,7 @@ type Props = {
 }
 const FontProvider = ({ children }: Props) => {
   const [fontsLoaded] = useFonts({
-    ...AvertaStdUseFont,
+    ...MontserratUseFont,
   })
 
   return (

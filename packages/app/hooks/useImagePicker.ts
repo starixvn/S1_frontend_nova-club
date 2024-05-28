@@ -1,5 +1,5 @@
 import useLocalization from 'app/provider/localization'
-import { RootState } from 'app/provider/redux/store'
+import { RootState, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { Buffer } from 'buffer'
 import * as ImagePicker from 'expo-image-picker'
@@ -10,9 +10,9 @@ import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
-import useAlert from './useAlert'
 import { useRouter } from 'solito/router'
 import { useIsFocused } from './isFocus/useIsFocused'
+import useAlert from './useAlert'
 const PNG = require('pngjs/browser').PNG
 
 const useImagePicker = () => {
@@ -24,6 +24,7 @@ const useImagePicker = () => {
   const isScanning = useSelector(
     (state: RootState) => state.setting.transferScan
   )
+  const currency = useAppSelector((s) => s.setting.currency)
   const [loading, setLoading] = useState(false)
   const [fetchUsername, { isError, error }] = useLazyAffiliateUsernameQuery()
 
@@ -49,10 +50,6 @@ const useImagePicker = () => {
       base64: true,
       quality: 1,
     })
-    console.log(
-      '🚀 ~ file: useImagePicker.ts ~ line 54 ~ pickImageFromGallery ~ result',
-      result
-    )
 
     if (!result.canceled) {
       try {
@@ -81,10 +78,6 @@ const useImagePicker = () => {
         const imageData = imageParse.data
         const data = Uint8ClampedArray.from(imageData)
         const code = jsQR(data, result.width, result.height)
-        console.log(
-          '🚀 ~ file: useImagePicker.ts ~ line 88 ~ pickImageFromGallery ~ code',
-          code
-        )
 
         code
           ? handleGoToTransfer(code?.data)
@@ -103,7 +96,7 @@ const useImagePicker = () => {
     handleScan(false)
     const cleanText = value.replace(/\W/g, '') ?? ''
 
-    const data = await fetchUsername(cleanText)
+    const data = await fetchUsername({ trackingCode: cleanText, currency })
       .unwrap()
       .catch((error) => {
         openModal('AlertModal', {

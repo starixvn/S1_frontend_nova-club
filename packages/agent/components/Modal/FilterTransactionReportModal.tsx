@@ -41,7 +41,6 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
     return value.slice(0, -2)
   }
 
-  console.log('typeValue', getTypeValue())
   const dateOptions = DateFilterOptions.map((item) => {
     return { ...item, label: t(item.label) }
   })

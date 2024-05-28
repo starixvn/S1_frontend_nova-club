@@ -1,4 +1,3 @@
-import AvertaStd from 'app/assets/fonts/Averta'
 import useOrientation from 'app/hooks/useOrientation'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -13,6 +12,7 @@ import { useRouter } from 'solito/router'
 import IconButton from '../IconButton'
 import { MotifiedImage } from '../common/Image'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import Montserrat from 'app/assets/fonts/Montserrat'
 
 const SpinDrawContent = ({
   balance,
@@ -367,7 +367,7 @@ const HintButton = ({
             textTransform: 'uppercase',
             color: 'white',
             borderRadius: 10,
-            fontFamily: AvertaStd.Regular.name,
+            fontFamily: Montserrat.Regular.name,
             padding: 6,
             marginRight: 4,
           }}

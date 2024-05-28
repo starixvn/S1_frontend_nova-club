@@ -1,4 +1,7 @@
-import { AGENT_TAB_HEIGHT } from 'agent/constant/sizes'
+import {
+  AGENT_ANNOUNCEMENT_HEIGHT,
+  AGENT_TAB_HEIGHT,
+} from 'agent/constant/sizes'
 import Header from 'agent/navigation/Header'
 import AgentShareholderTab from 'agent/navigation/components/AgentTabNavigator/AgentShareholderTabs'
 import AgentProvider from 'agent/provider'
@@ -11,15 +14,15 @@ const AgentLayout = ({ children }: { children: ReactNode }) => {
   return (
     <AgentProvider>
       <View
+        nativeID="agent-layout"
         sx={{
-          paddingTop: AGENT_TAB_HEIGHT * 2,
+          paddingTop: AGENT_TAB_HEIGHT * 2 + AGENT_ANNOUNCEMENT_HEIGHT,
           position: 'relative',
           backgroundColor: 'white',
           minHeight: '100dvh',
         }}
       >
         <HeaderFloat />
-        <View sx={{ mb: 32 }} />
         {children}
         <NavigationLoading />
         <BottomTabFloat />

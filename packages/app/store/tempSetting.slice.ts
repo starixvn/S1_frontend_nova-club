@@ -9,6 +9,7 @@ interface settingStateProps {
   deviceId?: string // to be hydrated from local storage / async storage by RegisterUniqueId.tsx
   isFloatingMysteryVisible: boolean
   isFloatingEuroCupVisible: boolean
+  isLanguageMenuVisible: boolean
 }
 
 const initialState: settingStateProps = {
@@ -18,6 +19,7 @@ const initialState: settingStateProps = {
   isHomeEventModalTriggered: false,
   isFloatingMysteryVisible: false,
   isFloatingEuroCupVisible: false,
+  isLanguageMenuVisible: false,
 }
 
 const tempSettingSlice = createSlice({
@@ -38,6 +40,9 @@ const tempSettingSlice = createSlice({
     },
     setIsFloatingEuroCupVisible: (state, action: PayloadAction<boolean>) => {
       state.isFloatingEuroCupVisible = action.payload
+    },
+    setIsLanguageMenuVisible: (state, action: PayloadAction<boolean>) => {
+      state.isLanguageMenuVisible = action.payload
     },
     setSyncShieldActionType: (state, action: PayloadAction<Shield_Action>) => {
       state.syncShieldActionType = action.payload

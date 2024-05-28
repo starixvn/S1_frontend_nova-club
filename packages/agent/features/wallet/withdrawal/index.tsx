@@ -1,7 +1,9 @@
-import useGetProfile from 'agent/hooks/useGetProfile'
 import { useBankAccountListQuery } from 'agent/services/accountApi'
+import { useProfileDetailQuery } from 'agent/services/profileApi'
 import { useUserInfoQuery } from 'agent/services/userApi'
+import { useAppSelector } from 'app/provider/redux/store'
 import { ActivityIndicator, ScrollView } from 'dripsy'
+import { Currency } from 'utils/constant'
 import AgentWithdrawalForm from './AgentWithdrawalForm'
 import AgentWithdrawalHistory from './AgentWithdrawalHistory'
 import EmptyBankCard from './EmptyBankCard'
@@ -10,7 +12,7 @@ const AgentWithdrawalPage = () => {
   const { data: userData } = useUserInfoQuery()
   const balance = userData?.wallet.balance
 
-  const { currency } = useGetProfile()
+  const currency = useAppSelector((s) => s.setting.currency)
 
   const { data: bankListData, isLoading: bankListLoading } =
     useBankAccountListQuery()

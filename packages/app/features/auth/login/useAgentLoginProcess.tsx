@@ -5,11 +5,6 @@ import { Platform } from 'react-native'
 import { LoginResult } from 'services/authApi.type'
 import { useRouter } from 'solito/router'
 
-type LoginFormValues = {
-  username: string
-  password: string
-}
-
 export default function useAgentLoginProcess() {
   const dispatch = useAppDispatch()
   const { push, replace, back } = useRouter()
@@ -19,6 +14,9 @@ export default function useAgentLoginProcess() {
     dispatch(AgentAuthActions.setAgentAuthToken(data.data.access_token))
 
     const resp = await getUserInfo().unwrap()
+
+    dispatch(AgentAuthActions.setAgentCurrency(resp.wallet.currency))
+
     if (!resp.has_logged_in || !resp.has_otp) {
       Platform.select({
         web: function () {
@@ -30,7 +28,6 @@ export default function useAgentLoginProcess() {
         },
       })()
     } else {
-      // navigateAfterLogin('/agent/profile')
       push('/agent/profile')
     }
   }

@@ -1,12 +1,14 @@
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { Row, Text, View, styled, useDripsyTheme } from 'dripsy'
+import { Row, Text } from 'dripsy'
 import React from 'react'
 import Icon from './Icon'
 
+import useLocalization from 'app/provider/localization'
 import ShadowButton from './ShadowButton'
 
 export default function GamePageHeader({ icon, title }) {
-  const { theme } = useDripsyTheme()
+  const { t } = useLocalization()
+
   return (
     <Row
       sx={{
@@ -39,14 +41,8 @@ export default function GamePageHeader({ icon, title }) {
           fontSize: [14, 18],
         }}
       >
-        {title}
+        {t(title)}
       </Text>
     </Row>
   )
 }
-
-const IndentIconContainer = styled(View)({
-  bg: '$primary.700',
-  p: [6, '$2'],
-  borderRadius: 100,
-})

@@ -6,6 +6,7 @@ import { useRouter } from 'solito/router'
 import { Route_GameCategory, SUB_ROUTES } from './subroutes'
 import { createParam } from 'solito'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type Params = {
   type?: string[]
@@ -20,7 +21,9 @@ const GameCategory = [
 ]
 
 export default function useGameScreen(defaultType?: string) {
+  const currency = useAppSelector((s) => s.setting.currency)
   const { data: games } = useGameListMultipleQuery({
+    currency,
     game_category: GameCategory,
     gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
   })
@@ -43,11 +46,8 @@ export default function useGameScreen(defaultType?: string) {
   const route = type ? SUB_ROUTES[type] : undefined
   if (!route && defaultType) setType(defaultType)
 
-  const { gameCategoryTagTranslation } = useGameCategoryTag(
-    Route_GameCategory[type ?? defaultType ?? GAME_TYPE_CODE.GAMES],
-    {
-      refetchOnMountOrArgChange: true,
-    }
+  const gameCategoryTagTranslation = useGameCategoryTag(
+    Route_GameCategory[type ?? defaultType ?? GAME_TYPE_CODE.GAMES]
   )
 
   useEffect(() => {

@@ -1,8 +1,12 @@
-import React from 'react'
-import BankWithdrawalPage from './BankWithdrawalPage'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 const WithdrawalScreen = ({ children }) => {
-  return <BankWithdrawalPage />
+  const { replace } = useRouter()
+
+  useEffect(() => replace('/withdrawal/bank-withdrawal'), [])
+
+  return null
 }
 
 export default WithdrawalScreen

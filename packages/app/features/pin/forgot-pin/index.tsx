@@ -259,6 +259,7 @@ const ForgotPinScreen = () => {
         <View sx={{ flexDirection: 'row', justifyContent: 'center' }}>
           {desktop && <View sx={{ width: '20%', minWidth: 200 }} />}
           <Button
+            loading={isSubmitting}
             onPress={submitForm}
             disabled={!isValid || !dirty}
             sx={{

@@ -17,7 +17,7 @@ import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
 import { useState } from 'react'
-import { ListRenderItemInfo } from 'react-native'
+import { ListRenderItemInfo, Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useRouter } from 'solito/router'
@@ -160,7 +160,9 @@ const AgentListing = () => {
   }
 
   const onNavigate = (id) => {
-    push(`/agent/list/agent/${id}`)
+    Platform.OS === 'web'
+      ? push(`/agent/list/agent/${id}`)
+      : push(`/agent/agent/${id}`)
   }
 
   const onFilter = () => {

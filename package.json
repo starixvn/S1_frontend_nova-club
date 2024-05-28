@@ -16,12 +16,14 @@
   "scripts": {
     "native": "cd apps/expo && yarn start",
     "native:staging": "cd apps/expo && yarn start:staging",
+    "native:staging2": "cd apps/expo && yarn start:staging2",
     "native:soft": "cd apps/expo && yarn start:soft",
     "native:pre": "cd apps/expo && yarn start:pre",
     "native:prod": "cd apps/expo && yarn start:prod",
     "native:ios": "cd apps/expo && yarn ios",
     "web:prod": "APP_ENV=prod turbo dev",
     "web:staging": "APP_ENV=staging turbo dev",
+    "web:staging2": "APP_ENV=staging2 turbo dev",
     "web:soft": "APP_ENV=soft turbo dev",
     "web:pre": "APP_ENV=pre turbo dev",
     "web:rewards": "yarn workspace rewards-next dev",
@@ -78,7 +80,8 @@
     "expo-font@~11.1.1": "patch:expo-font@npm%3A11.1.1#./.yarn/patches/expo-font-npm-11.1.1-e30f61f5aa.patch",
     "react-native-shield-fraud-plugin@1.0.4": "patch:react-native-shield-fraud-plugin@npm%3A1.0.4#./.yarn/patches/react-native-shield-fraud-plugin-npm-1.0.4-a03692a411.patch",
     "react-native-modalfy@3.3.3": "patch:react-native-modalfy@npm%3A3.3.3#./.yarn/patches/react-native-modalfy-npm-3.3.3-e38ac7cab1.patch",
-    "react-native-actions-sheet@0.8.29": "patch:react-native-actions-sheet@npm%3A0.8.29#./.yarn/patches/react-native-actions-sheet-npm-0.8.29-67be4d5903.patch"
+    "react-native-actions-sheet@0.8.29": "patch:react-native-actions-sheet@npm%3A0.8.29#./.yarn/patches/react-native-actions-sheet-npm-0.8.29-67be4d5903.patch",
+    "@radix-ui/react-popper@1.1.2": "patch:@radix-ui/react-popper@npm%3A1.1.2#./.yarn/patches/@radix-ui-react-popper-npm-1.1.2-2ec2059680.patch"
   },
   "nohoist": [
     "**/expo-router",

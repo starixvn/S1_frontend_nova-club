@@ -4,8 +4,7 @@ import Button from 'app/components/common/Button'
 import CheckBox from 'app/components/common/CheckBox'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
-import { MOBILE_PREFIX } from 'app/constants/country'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import SelectList from 'app/components/select/SelectList'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
@@ -19,6 +18,11 @@ import { ModalComponentProp } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
+import {
+  CURRENCY_SELECTION,
+  MOBILE_PREFIX_BY_CURRENCY,
+} from 'utils/constant/currency'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
 import { RegisterFormValues } from './RegisterScreen'
 
@@ -84,7 +88,9 @@ const AccountVerificationForm = ({
       const { data, message, success } = await sendOtp({
         username: values.username?.toLowerCase(),
         // WIP: Prefix should not be hardcoded
-        contactNumber: '84' + values.contactNumber,
+        contactNumber:
+          MOBILE_PREFIX_BY_CURRENCY[values.currency] + values.contactNumber,
+        currency: values.currency,
       }).unwrap()
 
       OTPRef.current?.startOtpTimer()
@@ -105,7 +111,8 @@ const AccountVerificationForm = ({
       const { data, message, success } = await sendAgentRegistrationOtp({
         username: values.username?.toLowerCase(),
         // WIP: Prefix should not be hardcoded
-        mobile_no: MOBILE_PREFIX.VND + values.contactNumber,
+        mobile_no:
+          MOBILE_PREFIX_BY_CURRENCY[values.currency] + values.contactNumber,
       }).unwrap()
 
       if (success) {
@@ -139,13 +146,28 @@ const AccountVerificationForm = ({
     isDesktop ? Linking.openURL(tncUrl) : push('/info/tnc')
   }
 
+  const handleSelected = (value) => {
+    const currency = CURRENCY_SELECTION?.find((el) => el.value === value)
+
+    setFieldValue('currency', currency?.value)
+  }
+
   return (
     <StyledFormContainer {...rest}>
+      <SelectList
+        enabledLabel={false}
+        label={t('common.currency')}
+        placeholder={t('common.currency')}
+        options={CURRENCY_SELECTION}
+        value={values.currency}
+        onSelected={(e) => handleSelected(e)}
+      />
+
       <Input
         inputContainerSx={{ width: '100%' }}
         icon="icon-hp"
         textContentType="telephoneNumber"
-        prefix="+84"
+        prefix={'+' + MOBILE_PREFIX_BY_CURRENCY[values.currency]}
         inputMode="numeric"
         keyboardType="number-pad"
         maxLength={9}

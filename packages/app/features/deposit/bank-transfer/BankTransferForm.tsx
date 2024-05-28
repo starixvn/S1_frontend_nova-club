@@ -1,12 +1,14 @@
+import MoneyInput from 'app/components/MoneyInput'
 import Button from 'app/components/common/Button'
-import Input from 'app/components/form/Input'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { getBankLogo } from 'app/config/bank'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import {
+  isThousandCurrency,
   toCleanAmount,
   toCurrency,
   toDisplayAmount,
@@ -17,7 +19,7 @@ import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelect
 import { Pressable, Text, View, styled } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
 import { FormikHelpers, useFormik } from 'formik'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
@@ -27,8 +29,6 @@ import {
   useSubmitManualDepositMutation,
 } from 'services/deposit'
 import { ManualBankItem } from 'services/deposit.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
-import { Currency } from 'utils/constant'
 import * as Yup from 'yup'
 import BankSlipUpload, {
   BankSlipUploadMethod,
@@ -36,6 +36,7 @@ import BankSlipUpload, {
 import DailyMax from '../component/DailyMax'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import AccountDetail from './AccountDetail'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -51,13 +52,14 @@ const BankTransferForm = () => {
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
   const bankSlipUploadRef = useRef<BankSlipUploadMethod>(null)
   const amountFieldRef = useRef<TextInput>(null)
+  const { isMobile } = useCheckMobile()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery({
-    is_mobile: 1,
+    is_mobile: isMobile ? 1 : 0,
   })
   const [submitDeposit] = useSubmitManualDepositMutation()
-  const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
-  const depositPayment = data?.data?.result?.manual?.find(
+
+  const currency = useAppSelector((state) => state.setting.currency)
+  const depositPayment = data?.result?.manual?.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
 
@@ -182,7 +184,7 @@ const BankTransferForm = () => {
       setValues({
         ...values,
         amount: cleanText ? cleanText : '',
-        realAmount: toRealAmount(amountNumber),
+        realAmount: toRealAmount(amountNumber, currency),
       })
     }
   }
@@ -193,6 +195,8 @@ const BankTransferForm = () => {
       callback: () => handleSubmit(),
     })
   }
+
+  const isShowingK = useMemo(() => isThousandCurrency(currency), [currency])
 
   return (
     <View sx={{ pt: '$3' }}>
@@ -253,7 +257,7 @@ const BankTransferForm = () => {
       </View>
 
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
-        <Input
+        <MoneyInput
           label={t('deposit.depositAmount')}
           placeholder={t('validation.minMaxLimit', {
             min: toCurrency(limit.minAmount ?? 0, currency, {
@@ -265,17 +269,11 @@ const BankTransferForm = () => {
               forceDecimal: false,
             }),
           })}
+          isThousandCurrency={isShowingK}
           value={values.amount}
           onBlur={handleBlur('amount')}
           onChangeText={onAmountChanged}
           ref={amountFieldRef}
-          action={() => (
-            <>
-              <Text sx={{ color: '$secondary.100' }}>
-                = {values.amount ? values.amount : 0}K
-              </Text>
-            </>
-          )}
           error={
             touched.amount && errors.amount
               ? t(errors.amount, {

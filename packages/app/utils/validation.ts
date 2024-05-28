@@ -80,7 +80,11 @@ const validation = {
           clearThousandSeparator(val).replace(/,/g, '')
         )
 
-        return !(isNaN(amountFloat) || !amountFloat || amountFloat > balance)
+        // skip if not valid number
+        if (isNaN(amountFloat) || amountFloat === 0 || balance == null)
+          return true
+
+        return amountFloat <= balance
       })
       .test('min-max', `validation.amount`, (val) => {
         if (!val) return false

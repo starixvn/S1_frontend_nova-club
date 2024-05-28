@@ -7,7 +7,6 @@ import TimerButton, {
   ITimerButtonForwardRef,
 } from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
-import useGetProfile from 'agent/hooks/useGetProfile'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import {
   useAddBankAccountMutation,
@@ -23,18 +22,15 @@ import validation, {
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
-import KeyboardView from 'app/components/KeyboardView'
-import { MOBILE_PREFIX } from 'app/constants/country'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Currency } from 'utils/constant'
+import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
+import { Currency, MOBILE_PREFIX } from 'utils/constant'
 import * as Yup from 'yup'
-import { AGENT_STACK_CONTENT_PADDING } from 'agent/constant/sizes'
 
 interface AddBankInfoValues {
   bankCard: string
@@ -47,18 +43,19 @@ interface AddBankInfoValues {
 
 const AddBankInfoForm = () => {
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
+  const currency = useAppSelector((s) => s.agent.currency)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
   const { t } = useAgentLocalization()
   const { data: bankList, isLoading: bankListLoading } =
-    useLookupBankCodeQuery()
+    useLookupBankCodeQuery(currency)
+
   const [newBankAccount, { isLoading: isNewLoading }] =
     useAddBankAccountMutation()
   const [sendOtp] = useSendOTPMutation()
   const { back } = useRouter()
-  const { height } = useContainerDimension()
 
   const { hasVerified, phoneNo, realName, role } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
@@ -70,26 +67,18 @@ const AddBankInfoForm = () => {
     }),
   })
 
-  const { currency } = useGetProfile()
-
   useEffect(() => {
     setFieldValue('hasVerified', hasVerified === 1)
   }, [hasVerified])
 
   const onSubmit = async (
-    {
-      bankCard,
-      accountNumber,
-      accountName,
-      mobileNumber,
-      otp,
-    }: AddBankInfoValues,
+    { bankCard, accountNumber, accountName, otp }: AddBankInfoValues,
     { setStatus }: FormikHelpers<AddBankInfoValues>
   ) => {
     try {
       setIsLoading(true)
       const { result, message, success } = await newBankAccount({
-        currency: currency,
+        currency,
         bank_code: bankCard,
         acc_no: accountNumber,
         acc_name: accountName,
@@ -157,7 +146,7 @@ const AddBankInfoForm = () => {
     try {
       setIsLoading(true)
       const { message, success } = await sendOtp({
-        mobile_no: MOBILE_PREFIX.VND + values.mobileNumber,
+        mobile_no: MOBILE_PREFIX[currency] + values.mobileNumber,
       })
         .unwrap()
         .catch((error): IResponse<void> => {

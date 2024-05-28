@@ -1,13 +1,13 @@
 import { useAgentRegisterMutation } from 'agent/services/authApi'
 import { useLazyUserInfoQuery, useUserInfoQuery } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import { MOBILE_PREFIX } from 'app/constants/country'
+import { MOBILE_PREFIX } from 'utils/constant'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
+import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
-import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'utils/constant'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
@@ -27,11 +27,12 @@ import { LoginResult, Shield_Action } from 'services/authApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
+import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'utils/constant'
 import * as Yup from 'yup'
 import { LoginType } from '../AuthLayout'
-import { RegisterFormValues } from './RegisterScreen'
 import { agentRoute, memberRoute } from '../login/LoginScreen'
-import useLocalization from 'app/provider/localization'
+import { RegisterFormValues } from './RegisterScreen'
+import { MOBILE_PREFIX_BY_CURRENCY } from 'utils/constant/currency'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
@@ -80,6 +81,7 @@ export default function useRegisterScreen(
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const memberToken = useAppSelector((state) => state.auth.info?.token)
+  const currency = useAppSelector((state) => state.setting.currency)
   const { openModal, closeAllModals } = useModal()
   const unmountAction = useRef<() => void>()
 
@@ -112,6 +114,7 @@ export default function useRegisterScreen(
       confirmPassword,
       verifyCode,
       terms,
+      currency,
       contactNumber,
     }: RegisterFormValues,
     { setStatus }: FormikHelpers<RegisterFormValues>
@@ -120,8 +123,9 @@ export default function useRegisterScreen(
       username,
       password,
       cpassword: confirmPassword,
+      currency,
       // WIP: Prefix should not be hardcoded
-      contactNumber: '84' + contactNumber,
+      contactNumber: MOBILE_PREFIX_BY_CURRENCY[currency] + contactNumber,
       terms,
       tracking_code: !!agentToken
         ? ''
@@ -170,13 +174,14 @@ export default function useRegisterScreen(
       password,
       confirmPassword,
       verifyCode,
+      currency,
       contactNumber,
     }: RegisterFormValues,
     { setStatus }: FormikHelpers<RegisterFormValues>
   ) => {
     const { result, success, message } = await agentRegister({
       currency: {
-        VND: {
+        [currency]: {
           CASH: '1',
         },
       },
@@ -184,7 +189,7 @@ export default function useRegisterScreen(
       password,
       confirmpassword: confirmPassword,
       // WIP: Prefix should not be hardcoded
-      mobile_no: MOBILE_PREFIX.VND + contactNumber,
+      mobile_no: MOBILE_PREFIX_BY_CURRENCY[currency] + contactNumber,
       // terms,
       referral_code: isLoggedIn ? referralCode : '',
       OTP: verifyCode,
@@ -266,6 +271,7 @@ export default function useRegisterScreen(
       username: '',
       password: '',
       confirmPassword: '',
+      currency: currency,
       contactNumber: '',
       verifyCode: '',
       terms: false,
@@ -275,6 +281,7 @@ export default function useRegisterScreen(
       password: validation.password,
       confirmPassword: validation.confirmPassword,
       contactNumber: validation.phoneNumber,
+      currency: validation.stringRequired,
       verifyCode: validation.verifyCode,
       terms: Yup.bool()
         .required('validation.required')

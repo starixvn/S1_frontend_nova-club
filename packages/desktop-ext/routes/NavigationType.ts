@@ -1,3 +1,5 @@
+import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+
 export interface DesktopRoute {
   base?: string
   title: string
@@ -6,5 +8,5 @@ export interface DesktopRoute {
   altIcon?: string
   key: string
   params?: any
-  categoryId?: number
+  categoryId?: DepositPaymentMethodCategoryId | DepositPaymentMethodCategoryId[]
 }

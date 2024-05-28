@@ -18,7 +18,7 @@ const BouncePressable: FC<BouncePressableProps> = ({ children, ...rest }) => {
 
             return {
               scale: pressed ? 1.05 : 1,
-              opacity: pressed ? 0.5 : 1,
+              opacity: hovered || pressed ? 0.5 : 1,
             }
           },
         []

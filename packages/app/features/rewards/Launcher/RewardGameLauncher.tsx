@@ -80,12 +80,12 @@ const RewardGameLauncher = () => {
         })
       )
     }
-  })
+  }, [])
 
   return (
     <PageWithBackHeader
       header={{
-        image: getRewardTitleImage(gamekey, lang) || '',
+        image: getRewardTitleImage(gamekey) || '',
         actions: (
           <IconButton name="tnc" size={20} onPress={handleTncComponent} />
         ),

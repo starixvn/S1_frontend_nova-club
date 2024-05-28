@@ -16,9 +16,15 @@ const LazyVi = dynamic(() => import('app/features/info/agent/AgentVi'), {
   ssr: false,
 })
 
+const LazyTh = dynamic(() => import('app/features/info/agent/AgentTh'), {
+  loading: () => <ActivityIndicator />,
+  ssr: false,
+})
+
 const infoLocalizationMapping = {
   [LANGUAGE_CODE.ENGLISH]: LazyEn,
   [LANGUAGE_CODE.VIETNAM]: LazyVi,
+  [LANGUAGE_CODE.THAILAND]: LazyTh,
 }
 
 const AgentInfo: AdaptiveLayoutPage = () => (

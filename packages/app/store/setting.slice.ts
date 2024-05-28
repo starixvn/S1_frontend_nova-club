@@ -1,9 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import dayjs, { Dayjs } from 'dayjs'
-import { LaunchGamePayload } from './gameLauncher.slice'
-import { isBannedTrackingCode } from 'app/utils/referralUtil'
-import { LANGUAGE_CODE } from 'utils/constant'
 import { tolgee } from 'app/integrations/tolgee'
+import { isBannedTrackingCode } from 'app/utils/referralUtil'
+import dayjs, { Dayjs } from 'dayjs'
+import { Currency, LANGUAGE_CODE } from 'utils/constant'
+import {
+  CURRENCY_TO_LANGUAGE,
+  LANGUAGE_TO_CURRENCY,
+} from 'utils/constant/currency'
+import { AuthActions } from './authReducer'
+import { LaunchGamePayload } from './gameLauncher.slice'
 
 interface PopUpExpire {
   [key: string]: Dayjs | null
@@ -26,6 +31,7 @@ interface Credential {
 
 export interface Setting {
   locale: LANGUAGE_CODE
+  currency: Currency
   referral?: Referral
   shieldSessionID?: string
   popUpExpiry: PopUpExpire
@@ -57,6 +63,7 @@ export interface Setting {
 
 const initialState: Setting = {
   locale: LANGUAGE_CODE.VIETNAM,
+  currency: Currency.VND,
   popUpExpiry: {},
   recentGames: [],
   recentGameResources: {},
@@ -78,6 +85,21 @@ const settingSlice = createSlice({
     setLocale: (state, action: PayloadAction<string>) => {
       tolgee.changeLanguage(action.payload)
       state.locale = action.payload as LANGUAGE_CODE
+
+      /* This logic only workable if each currency is using 2 languages, and 1 of them is EN */
+      if (state.locale !== LANGUAGE_CODE.ENGLISH) {
+        state.currency = LANGUAGE_TO_CURRENCY[state.locale]
+      }
+    },
+    setCurrency: (state, action: PayloadAction<string>) => {
+      state.currency = action.payload as Currency
+    },
+    setLocaleCurrency: (
+      state,
+      action: PayloadAction<{ locale: LANGUAGE_CODE; currency: Currency }>
+    ) => {
+      state.currency = action.payload.currency
+      state.locale = action.payload.locale
     },
     setPopUpExpiry: (state, action: PayloadAction<string>) => {
       state.popUpExpiry[action.payload] = dayjs().add(1, 'day')
@@ -184,6 +206,16 @@ const settingSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(AuthActions.setAuthInfo, (state, action) => {
+      const currency = action.payload.currency
+      tolgee.changeLanguage(CURRENCY_TO_LANGUAGE[currency])
+      
+      return {
+        ...state,
+        currency: action.payload.currency,
+        locale: CURRENCY_TO_LANGUAGE[currency],
+      }
+    })
     // reset sessionID every restart
     // builder.addCase(REHYDRATE, (state, action) => {
     //   state.shieldSessionID = undefined

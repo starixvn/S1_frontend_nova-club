@@ -1,21 +1,26 @@
 import GameCard from 'app/components/game/GameCard'
 import {
-  GetCommissionList,
-  GetGameRebateValue,
+  GetGameRebateValue
 } from 'app/components/game/GameUtilityAction'
-import { GAME_TYPE_CODE } from 'utils/constant'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import { Row, useResponsiveValue } from 'dripsy'
-import React, { useMemo } from 'react'
-import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import uniqBy from 'lodash/uniqBy'
+import React, { useMemo } from 'react'
+import { useCommissionTableQuery } from 'services/contentApi'
+import { useGetGameListByCategoryQuery } from 'services/gameApi'
+import { GAME_TYPE_CODE } from 'utils/constant'
 
 export default function GameList({}) {
-  const commissionList = GetCommissionList()
-  const { data } = useGetGameListByCategoryQuery([
-    GAME_TYPE_CODE.SPORTS,
-    GAME_TYPE_CODE.E_SPORTS,
-    GAME_TYPE_CODE.VIRTUAL_SPORTS,
-  ])
+  const { locale, currency } = useDefaultParamSelector()
+  const { data: commissionList } = useCommissionTableQuery({ currency })
+  const { data } = useGetGameListByCategoryQuery({
+    currency,
+    categories: [
+      GAME_TYPE_CODE.SPORTS,
+      GAME_TYPE_CODE.E_SPORTS,
+      GAME_TYPE_CODE.VIRTUAL_SPORTS,
+    ],
+  })
   const isHFive = useResponsiveValue([true, true, true, false])
 
   const providers = useMemo(() => {
@@ -50,6 +55,8 @@ export default function GameList({}) {
             sx={{ width: '11%' }}
             isDualVersion={isHFive}
             {...g}
+            img={g.img[locale]}
+            xImg={g.xImg?.[locale]}
           />
         )
       })}

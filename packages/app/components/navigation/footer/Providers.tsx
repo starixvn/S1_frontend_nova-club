@@ -4,9 +4,11 @@ import React from 'react'
 import { useGameProviderListQuery } from 'services/gameApi'
 import { SolitoImage } from 'solito/image'
 import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../../apps/next/config/env'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const Providers = () => {
-  const { data } = useGameProviderListQuery()
+  const currency = useAppSelector((s) => s.setting.currency)
+  const { data } = useGameProviderListQuery(currency)
   const systemCodes = Object.keys(data ?? {})
   // const mappedGPC = systemCodes.map((gpc) => {
   //   if (gpc === 'PTV2') {

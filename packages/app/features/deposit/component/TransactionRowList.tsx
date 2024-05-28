@@ -6,11 +6,11 @@ import PaymentMethod, {
 } from 'app/config/deposit'
 import { getDepositStatusColor } from 'app/config/status'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { copyToClipboard, toCurrency } from 'app/utils'
 import dayjsTz from 'app/utils/dayjs'
 import { Pressable, Text, View, useDripsyTheme } from 'dripsy'
 import { useModal } from 'react-native-modalfy'
-import { Currency } from 'utils/constant'
 
 type TransactionRowListProps = {
   item
@@ -23,11 +23,15 @@ const TransactionRowList = ({ item }: TransactionRowListProps) => {
   const time = dayjsTz(item.date).format('hh:mm a')
   const { openModal } = useModal()
 
-  const category = PaymentMethod.find(
-    (el) => el.categoryId === item.second_category_flag
+  const currency = useAppSelector((state) => state.setting.currency)
+
+  const category = PaymentMethod.find((el) =>
+    typeof el.categoryId === 'number'
+      ? el.categoryId === item.second_category_flag
+      : el.categoryId.includes(item.second_category_flag)
   ) as PaymentMethodProps
 
-  const amount = toCurrency(item.amount, Currency.VND, {
+  const amount = toCurrency(item.amount, currency, {
     symbol: false,
   })
 

@@ -6,22 +6,20 @@ import NumberInput from 'agent/components/NumberInput'
 import Text from 'agent/components/Text'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import {
-  useAgentChangeReferralToUserDetailMutation,
-  useAgentNewTransferMutation,
-  useShareholderChangeReferralToUserDetailMutation,
-  useShareholderNewTransferMutation,
+  useProfileChangeReferralToUserDetailMutation,
+  useProfileNewTransferMutation,
 } from 'agent/services/transferApi'
+import { agentToThousandSeparator } from 'agent/utils'
 import { ROLE } from 'agent/utils/helper'
 import validation from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Currency } from 'utils/constant'
-import { ActivityIndicator, View, useDripsyTheme } from 'dripsy'
+import { ActivityIndicator, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import debounce from 'lodash/debounce'
 import { useCallback, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
+import { Currency } from 'utils/constant'
 import * as Yup from 'yup'
-import { agentToThousandSeparator } from 'agent/utils'
 
 interface BankInfoValues {
   playerId: string
@@ -59,7 +57,6 @@ const AgentTransferForm = ({
   isAgent,
   hasPin,
 }: AgentTransferFormProps) => {
-  const { theme } = useDripsyTheme()
   const [isLoading, setIsLoading] = useState(false)
   const [isUserNameLoading, setIsUserNameLoading] = useState(false)
   const [isUserName, setIsUserName] = useState(true)
@@ -67,22 +64,36 @@ const AgentTransferForm = ({
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
 
-  const [agentNewTransfer] = useAgentNewTransferMutation()
-  const [shareholderNewTransfer] = useShareholderNewTransferMutation()
+  const [newTransfer] = useProfileNewTransferMutation()
+  const [referralToUserDetail] = useProfileChangeReferralToUserDetailMutation()
 
-  const [agentReferralToUserDetail] =
-    useAgentChangeReferralToUserDetailMutation()
-  const [shareholderReferralToUserDetail] =
-    useShareholderChangeReferralToUserDetailMutation()
+  const getUserDetailByReferralCode = async (refId: string) => {
+    if (!refId) {
+      setIsUserNameLoading(false)
+      setIsUserName(true)
+      return
+    }
+    try {
+      const { success, message, result } = await referralToUserDetail({
+        referralCode: refId,
+      }).unwrap()
 
-  const newTransfer = isAgent ? agentNewTransfer : shareholderNewTransfer
-
-  const referralToUserDetail = isAgent
-    ? agentReferralToUserDetail
-    : shareholderReferralToUserDetail
+      if (success && result?.data.value) {
+        setFieldValue('username', result.data.value)
+        setIsUserName(true)
+      } else {
+        setFieldValue('username', '')
+        setIsUserName(false)
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setIsUserNameLoading(false)
+    }
+  }
 
   const onSubmit = async (
-    { playerId, username, amount }: BankInfoValues,
+    { playerId, amount }: BankInfoValues,
     action: FormikHelpers<BankInfoValues>
   ) => {
     setIsLoading(true)
@@ -91,7 +102,7 @@ const AgentTransferForm = ({
       if (values.username && values.amount) {
         const { success, message, result } = await newTransfer({
           memberCode: values.username,
-          currency: Currency.VND,
+          currency,
           balance_transfer: amount?.replace(/,/g, '') ?? '0',
           remark: `${values.username} - ${values.amount}`,
           referrer_code: playerId,
@@ -117,7 +128,6 @@ const AgentTransferForm = ({
 
   const formik = useFormik<BankInfoValues>({
     initialValues: {
-      //IAJF465573
       playerId: '',
       username: '',
       amount: '',
@@ -129,36 +139,7 @@ const AgentTransferForm = ({
     }),
     onSubmit,
   })
-  const getUserDetailByReferralCode = async (refId: string) => {
-    if (!refId) {
-      setIsUserNameLoading(false)
-      setIsUserName(true)
-      return
-    }
-    try {
-      const { success, message, result } = await referralToUserDetail({
-        referralCode: refId,
-      }).unwrap()
 
-      if (success && result?.data.value) {
-        setFieldValue('username', result.data.value)
-        setIsUserName(true)
-      } else {
-        setFieldValue('username', '')
-        setIsUserName(false)
-      }
-    } catch (e) {
-      console.log(e)
-    } finally {
-      setIsUserNameLoading(false)
-    }
-  }
-  function transferPinConfirmation() {
-    openModal('AgentPinModal', {
-      isAgent,
-      onConfirm: () => onSubmit(values, ROLE.SHAREHOLDER, formik),
-    })
-  }
   const {
     handleChange,
     handleBlur,
@@ -173,6 +154,13 @@ const AgentTransferForm = ({
     submitForm,
     resetForm,
   } = formik
+
+  function transferPinConfirmation() {
+    openModal('AgentPinModal', {
+      isAgent,
+      onConfirm: () => onSubmit(values, ROLE.SHAREHOLDER, formik),
+    })
+  }
 
   const handleChangeAmount = (value: string, field: string) => {
     const amount = value.replace(/[^\d]/g, '')
@@ -242,7 +230,7 @@ const AgentTransferForm = ({
         }}
         keyboardType={'numeric'}
         isRequired
-        rightOuterElementProps={{ sx: { bg: theme.colors.$secondaryAgent } }}
+        rightOuterElementProps={{ sx: { bg: '$secondaryAgent' } }}
         rightOuterElement={
           <IconButton
             name="cash"

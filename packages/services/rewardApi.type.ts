@@ -1,3 +1,4 @@
+import { LANGUAGE_CODE } from 'utils/constant'
 import { RowData } from './common/types'
 
 export interface RedemptionResult {
@@ -12,7 +13,7 @@ export interface CoinRedemptionRow {
   cost: number
   game_type: string
   key: string
-  name: string
+  name: Record<LANGUAGE_CODE, string>
   seq: number
 }
 

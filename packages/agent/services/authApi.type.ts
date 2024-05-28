@@ -17,7 +17,7 @@ export type AgentCheckUsername = {
 
 export type RegisterArgs = {
   currency: {
-    [key in Currency]: {
+    [key in Currency]?: {
       CASH: string
       CREDIT: string
     }

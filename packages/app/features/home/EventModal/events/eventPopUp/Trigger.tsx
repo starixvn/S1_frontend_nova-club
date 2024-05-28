@@ -1,22 +1,29 @@
-import { useAppDispatch } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 import { contentApi } from 'services/contentApi'
 import { useHomeEvent } from '../../HomeEventProvider'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { BannerPage } from 'services/contentApi.type'
 type Props = {}
 
 const EventPopUpPriority = 0
 const EventPopUpSource = 'EventPopUp'
 export default function EventPopUpTrigger({}: Props) {
+  const currency = useAppSelector((s) => s.setting.currency)
   const { addResult, flagCompletedChecking } = useHomeEvent()
 
   const dispatch = useAppDispatch()
 
   async function filterAppearingBanners() {
     try {
-      const popups = await dispatch(contentApi.endpoints.banner.initiate())
+      const popups = await dispatch(
+        contentApi.endpoints.banner.initiate(currency)
+      )
         .unwrap()
-        .then((r) => r.filter((b) => b.banner_display_page === 'popup'))
+        .then((r) =>
+          r.filter((b) => b.banner_display_page === BannerPage.Popup)
+        )
 
       if (popups && popups.length > 0) {
         addResult(

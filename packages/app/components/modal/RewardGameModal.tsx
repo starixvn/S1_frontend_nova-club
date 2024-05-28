@@ -99,7 +99,7 @@ const RewardGameModal = ({
           ></IconButton>
           <Image
             source={{
-              uri: getRewardTitleImage(gameKey, lang) || '',
+              uri: getRewardTitleImage(gameKey) || '',
             }}
             alt="daily_check_in_header"
             resizeMode="contain"

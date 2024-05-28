@@ -3,6 +3,7 @@ export const HEADER_HEIGHT = 60
 export enum LANGUAGE_CODE {
   ENGLISH = 'en',
   VIETNAM = 'vi',
+  THAILAND = 'th',
 }
 
 export enum LANGUAGE_NAMESPACE {
@@ -10,9 +11,9 @@ export enum LANGUAGE_NAMESPACE {
   AGENT = 'Agent',
 }
 
-export const LANGUAGE_SUBTAG = {
-  [LANGUAGE_CODE.ENGLISH]: 'en',
-  [LANGUAGE_CODE.VIETNAM]: 'vi',
+export enum MOBILE_PREFIX {
+  VND = '84',
+  THB = '66',
 }
 
 //For Desktop Scroll to Content offset and configuration
@@ -37,27 +38,14 @@ export const currencyListMapper: { [key: number]: string } = {
 
 export enum Currency {
   // MYR = 2,
-  // THB = 4,
+  THB = 'THB',
   // RMB = 13,
   // IDR = 15,
   VND = 'VND',
   // CRYPTO = 96,
 }
 
-export const CURRENCY_TO_LANGUAGE = {
-  [Currency.VND]: LANGUAGE_CODE.VIETNAM,
-}
-
-export const CURRENCY_SEPARATOR = {
-  [LANGUAGE_CODE.ENGLISH]: {
-    decimal: '.',
-    thousands: ',',
-  },
-  [LANGUAGE_CODE.VIETNAM]: {
-    decimal: '.',
-    thousands: ',',
-  },
-}
+export const DEFAULT_CURRENCY = Currency.VND
 
 export enum PLATFORM_CODE {
   WEB = 0,

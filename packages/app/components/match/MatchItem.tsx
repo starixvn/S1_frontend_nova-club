@@ -7,7 +7,7 @@ import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import { Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiView } from 'moti'
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 
@@ -16,46 +16,49 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { MotifiedImage } from '../common/Image'
 
 dayjs.extend(customParseFormat)
-interface Props {
+
+export interface MatchLaunchParams {
+  leaguekey: string
+  matchid: string
+  homeName: string
+  awayName: string
+}
+interface Props extends MatchLaunchParams {
   width: number
-  match: MatchResult
-  onPress: (match: MatchResult) => void
+  onPress: (params: MatchLaunchParams) => void
+  homeImg: string
+  homeName: string
+  homePrice?: number
+  homeOdd?: number
+  awayImg: string
+  awayName: string
+  awayPrice?: number
+  awayOdd?: number
+  leagueLogo: string
+  displayDate: string
 }
 
 export const SCORE_HEIGHT = [20, 30]
 
-export default function MatchItem({ width, match, onPress }: Props) {
-  // const leagueLogo = getLeagueLogo(match.LeagueId)
-  let dateDisplay = '-'
-
-  try {
-    const gmt8 = dayjs(match.globalshowtime, 'MM/DD hh:mmA')
-    const gmt7 = dayjsTz(gmt8)
-
-    if (gmt7.isValid())
-      dateDisplay = gmt7.format('DD MMM YYYY') + '\n' + gmt7.format('hh:mmA')
-  } catch (e) {
-    // Android Hermes will hit error if using dayjsTz
-  }
-  const homeFlag = `${MEDIA_DOMAIN}/nvclub${match.HomeImagePath}`
-  const awayFlag = `${MEDIA_DOMAIN}/nvclub${match.AwayImagePath}`
-  const leagueLogo = getLeagueLogo(match.LeagueId)
-  const homeName = match.HomeName ?? 0
-  const awayName = match.AwayName ?? 0
-  const homePrice =
-    match.selection[MatchHandicapType.FULL_TIME]?.[0]?.Price ?? 0
-  const awayPrice =
-    match.selection[MatchHandicapType.FULL_TIME]?.[1]?.Price ?? 0
-  const homeOdd = match.selection[MatchHandicapType.FULL_TIME]?.[0]?.Point ?? 0
-  const awayOdd = match.selection[MatchHandicapType.FULL_TIME]?.[1]?.Point ?? 0
-
-  // console.log(match.LeagueName)
-  // console.log(JSON.stringify(match.selection, undefined, 2))
-
-  // console.log(homeFlag)
+function MatchItem({
+  width,
+  onPress,
+  homeImg,
+  homeName,
+  homePrice = 0,
+  homeOdd = 0,
+  awayImg,
+  awayName,
+  awayPrice = 0,
+  awayOdd = 0,
+  leagueLogo,
+  displayDate,
+  leaguekey,
+  matchid,
+}: Props) {
   return (
     <Pressable
-      onPress={() => onPress(match)}
+      onPress={() => onPress({ leaguekey, matchid })}
       sx={{
         borderRadius: 15,
         overflow: 'hidden',
@@ -69,11 +72,12 @@ export default function MatchItem({ width, match, onPress }: Props) {
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/match/fullbg.jpg`}
           alt="live match"
           width={width}
-          height={width / 3}
-          resizeMode="cover"
+          height={Math.ceil(width / 3)}
+          contentFit="cover"
+          priority
         />
-        <Logo image={homeFlag} sx={{ left: '17%' }} size={width * 0.15} />
-        <Logo image={awayFlag} sx={{ right: '17%' }} size={width * 0.15} />
+        <Logo image={homeImg} sx={{ left: '17%' }} size={width * 0.15} />
+        <Logo image={awayImg} sx={{ right: '17%' }} size={width * 0.15} />
         <LeagueLogo>
           <MotifiedImage
             key={leagueLogo}
@@ -96,7 +100,7 @@ export default function MatchItem({ width, match, onPress }: Props) {
           }}
         >
           <TeamName numberOfLines={1}>{homeName}</TeamName>
-          <MatchTime>{dateDisplay}</MatchTime>
+          <MatchTime>{displayDate}</MatchTime>
           <TeamName numberOfLines={1}>{awayName}</TeamName>
         </Row>
       </View>
@@ -112,6 +116,39 @@ export default function MatchItem({ width, match, onPress }: Props) {
       </Row>
     </Pressable>
   )
+}
+
+export default memo(MatchItem)
+
+export function matchItemToProps(
+  match: MatchResult
+): Omit<Props, 'width' | 'onPress'> {
+  let dateDisplay = '-'
+
+  try {
+    const gmt8 = dayjs(match.globalshowtime, 'MM/DD hh:mmA')
+    const gmt7 = dayjsTz(gmt8)
+
+    if (gmt7.isValid())
+      dateDisplay = gmt7.format('DD MMM YYYY') + '\n' + gmt7.format('hh:mmA')
+  } catch (e) {
+    // Android Hermes will hit error if using dayjsTz
+  }
+
+  return {
+    homeImg: `${MEDIA_DOMAIN}/nvclub${match.HomeImagePath}`,
+    homeName: match.HomeName,
+    homePrice: match.selection[MatchHandicapType.FULL_TIME]?.[0]?.Price,
+    homeOdd: match.selection[MatchHandicapType.FULL_TIME]?.[0]?.Point,
+    awayImg: `${MEDIA_DOMAIN}/nvclub${match.AwayImagePath}`,
+    awayName: match.AwayName,
+    awayPrice: match.selection[MatchHandicapType.FULL_TIME]?.[1]?.Price,
+    awayOdd: match.selection[MatchHandicapType.FULL_TIME]?.[1]?.Point,
+    leagueLogo: getLeagueLogo(match.LeagueId),
+    displayDate: dateDisplay,
+    leaguekey: match.LeagueId.toString(),
+    matchid: match.EventId.toString(),
+  }
 }
 
 function getLeagueLogo(leagueId: number) {

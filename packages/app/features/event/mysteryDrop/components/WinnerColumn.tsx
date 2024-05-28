@@ -1,6 +1,7 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toThousandSeparator } from 'app/utils'
 import { Row, Text, View, styled } from 'dripsy'
 import React from 'react'
@@ -54,7 +55,8 @@ export const DesktopWinnerColumn = () => {
 }
 
 const WinnerColumnContent = () => {
-  const { data } = useGetMysteryWinnerQuery(undefined, {
+  const currency = useAppSelector((s) => s.setting.currency)
+  const { data } = useGetMysteryWinnerQuery(currency, {
     refetchOnMountOrArgChange: true,
   })
 

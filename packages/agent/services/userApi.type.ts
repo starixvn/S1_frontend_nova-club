@@ -1,26 +1,27 @@
 import { Currency } from 'utils/constant'
 
 export interface UserInfo {
+  allWallet: { [key in Currency]?: number }
+  has_logged_in: 0 | 1
+  has_otp: 0 | 1
+  has_pin: 0 | 1
+  has_verified_wd: 0 | 1
   id: number
-  username: string
+  mobile_no: string
   name: string
   role: (string & {}) | 'shareholder' | 'agent'
+  username: string
   wallet: WalletBalance
-  mobile_no: string
-  has_logged_in: number
-  has_pin: number
-  has_verified_wd: number
-  has_otp: 0 | 1
 }
 
 export interface WalletBalance {
-  currency: string
+  currency: Currency
   balance: number
 }
 
 export interface RefreshBalance {
   balance: {
-    VND: number
+    [key in Currency]: number
   }
 }
 

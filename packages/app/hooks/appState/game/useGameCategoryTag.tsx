@@ -1,3 +1,4 @@
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useCallback, useMemo } from 'react'
@@ -16,8 +17,9 @@ const useGameCategoryTag = (
   gameTypes: GAME_TYPE_CODE[],
   options?: UseQueryOption
 ) => {
+  const currency = useFocusedSelector((s) => s.setting.currency)
   const { data: gameCategoryTagTypes, isError } = useGameCategoryTagTypesQuery(
-    undefined,
+    currency,
     options as any // Without `any` type casting, the `data` will become `any` type
   )
 
@@ -39,15 +41,15 @@ const useGameCategoryTag = (
     )
 
     return result
-  }, [gameCategoryTagTypes, gameTypes])
+  }, [gameCategoryTagTypes, gameTypes, isError])
 
-  return { gameCategoryTagTranslation }
+  return gameCategoryTagTranslation
 }
 
 export default useGameCategoryTag
 
 export const useGetTagName = () => {
-  const locale = useAppSelector((s) => s.setting.locale)
+  const locale = useFocusedSelector((s) => s.setting.locale)
   const { t } = useLocalization()
 
   const getTagName = useCallback(

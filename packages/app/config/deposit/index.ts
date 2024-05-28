@@ -1,5 +1,3 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-
 export enum DepositPaymentMethodCategoryId {
   LOCAL_BANK = 7,
   ONLINE_BANK = 1,
@@ -8,26 +6,14 @@ export enum DepositPaymentMethodCategoryId {
   TOP_UP = 25,
   CRYPTO = 9,
   INSTANT_TRANFER = 28,
+  // E_WALLET = 29,
+  PROMPTPAY = 30,
+  TRUEMONEY = 31,
 }
 
 export enum DepositPaymentMethodCategoryType {
-  LOCAL_BANK = 'manual',
-  ONLINE_BANK = 'auto',
-  MOMO = 'auto',
-  QR_CODE = 'auto',
-  TOP_UP = 'auto',
-  CRYPTO = 'auto',
-  INSTANT_TRANFER = 'auto',
-}
-
-const enum PAYMENT_METHOD_CATEGORY {
-  LOCAL_BANK,
-  ONLINE_BANK,
-  MOMO,
-  QR_CODE,
-  TOP_UP,
-  CRYPTO,
-  INSTANT_TRANFER,
+  AUTO = 'auto',
+  MANUAL = 'manual',
 }
 
 export enum DepositMethodId {
@@ -38,99 +24,107 @@ export enum DepositMethodId {
   QR_CODE = 5,
   TOP_UP = 6,
   CRYPTO = 7,
+  E_WALLET = 8,
 }
-
-export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
-  {
-    INSTANT_TRANFER: {
-      id: DepositMethodId.INSTANT_TRANFER,
-      type: DepositPaymentMethodCategoryType.INSTANT_TRANFER,
-      categoryId: DepositPaymentMethodCategoryId.INSTANT_TRANFER,
-      name: 'deposit.depositMethod.instantTransfer',
-      icon: 'instant-transfer',
-      color: '#1E2238',
-      active: true,
-    },
-    LOCAL_BANK: {
-      id: DepositMethodId.LOCAL_BANK,
-      type: DepositPaymentMethodCategoryType.LOCAL_BANK,
-      categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
-      name: 'deposit.depositMethod.bankTransfer',
-      icon: 'lba',
-      color: '#1E2238',
-      active: true,
-    },
-    ONLINE_BANK: {
-      id: DepositMethodId.ONLINE_BANK,
-      type: DepositPaymentMethodCategoryType.ONLINE_BANK,
-      categoryId: DepositPaymentMethodCategoryId.ONLINE_BANK,
-      name: 'deposit.depositMethod.onlineBanking',
-      icon: 'mac',
-      color: '#1E2238',
-      active: true,
-    },
-    MOMO: {
-      id: DepositMethodId.MOMO,
-      type: DepositPaymentMethodCategoryType.MOMO,
-      categoryId: DepositPaymentMethodCategoryId.MOMO,
-      name: 'deposit.depositMethod.momo',
-      icon: 'momo',
-      color: '#1E2238',
-      active: true,
-    },
-    QR_CODE: {
-      id: DepositMethodId.QR_CODE,
-      type: DepositPaymentMethodCategoryType.QR_CODE,
-      categoryId: DepositPaymentMethodCategoryId.QR_CODE,
-      name: 'deposit.depositMethod.qrPay',
-      icon: 'qr',
-      color: '#1E2238',
-      active: true,
-    },
-    TOP_UP: {
-      id: DepositMethodId.TOP_UP,
-      type: DepositPaymentMethodCategoryType.TOP_UP,
-      categoryId: DepositPaymentMethodCategoryId.TOP_UP,
-      name: 'deposit.depositMethod.topUp',
-      icon: 'card',
-      color: '#1E2238',
-      active: true,
-    },
-    CRYPTO: {
-      id: DepositMethodId.CRYPTO,
-      type: DepositPaymentMethodCategoryType.CRYPTO,
-      categoryId: DepositPaymentMethodCategoryId.CRYPTO,
-      name: 'deposit.depositMethod.crypto',
-      icon: 'cp',
-      color: '#1E2238',
-      active: true,
-    },
-  }
 
 export type PaymentMethodProps = {
   id: number
-  type: string
-  categoryId: number
+  type: DepositPaymentMethodCategoryType
+  categoryId: DepositPaymentMethodCategoryId | DepositPaymentMethodCategoryId[]
   name: string
   icon: string
   color: string
   active: boolean
+  path: string
 }
 
-export const PaymentMethod: PaymentMethodProps[] = [
-  PAYMENT_METHOD.LOCAL_BANK,
-  PAYMENT_METHOD.INSTANT_TRANFER,
-  PAYMENT_METHOD.ONLINE_BANK,
-  PAYMENT_METHOD.MOMO,
-  PAYMENT_METHOD.QR_CODE,
-  PAYMENT_METHOD.TOP_UP,
-  PAYMENT_METHOD.CRYPTO,
-]
-
-export const getPaymentMethodLogo = (bankCode: string) => {
-  const logo = PaymentMethod.find((el) => el.bank_code === bankCode)?.image
-
-  return logo ?? `${MEDIA_DOMAIN}${CONTENT_URI}/v2/common/empty-result.png`
+export const PaymentMethodDict: Record<DepositMethodId, PaymentMethodProps> = {
+  [`${DepositMethodId.INSTANT_TRANFER}`]: {
+    id: DepositMethodId.INSTANT_TRANFER,
+    type: DepositPaymentMethodCategoryType.AUTO,
+    categoryId: DepositPaymentMethodCategoryId.INSTANT_TRANFER,
+    name: 'deposit.depositMethod.instantTransfer',
+    path: `/deposit/instant-transfer`,
+    icon: 'instant-transfer',
+    color: '#1E2238',
+    active: true,
+  },
+  [`${DepositMethodId.LOCAL_BANK}`]: {
+    id: DepositMethodId.LOCAL_BANK,
+    type: DepositPaymentMethodCategoryType.MANUAL,
+    categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
+    name: 'deposit.depositMethod.bankTransfer',
+    path: `/deposit/bank-transfer`,
+    icon: 'lba',
+    color: '#1E2238',
+    active: true,
+  },
+  [`${DepositMethodId.ONLINE_BANK}`]: {
+    id: DepositMethodId.ONLINE_BANK,
+    type: DepositPaymentMethodCategoryType.AUTO,
+    categoryId: DepositPaymentMethodCategoryId.ONLINE_BANK,
+    name: 'deposit.depositMethod.onlineBanking',
+    path: `/deposit/online-banking`,
+    icon: 'mac',
+    color: '#1E2238',
+    active: true,
+  },
+  [`${DepositMethodId.MOMO}`]: {
+    id: DepositMethodId.MOMO,
+    type: DepositPaymentMethodCategoryType.AUTO,
+    categoryId: DepositPaymentMethodCategoryId.MOMO,
+    name: 'deposit.depositMethod.momo',
+    path: '/deposit/momo',
+    icon: 'momo',
+    color: '#1E2238',
+    active: true,
+  },
+  [`${DepositMethodId.QR_CODE}`]: {
+    id: DepositMethodId.QR_CODE,
+    type: DepositPaymentMethodCategoryType.AUTO,
+    categoryId: DepositPaymentMethodCategoryId.QR_CODE,
+    name: 'deposit.depositMethod.qrPay',
+    path: `/deposit/qr-pay`,
+    icon: 'qr',
+    color: '#1E2238',
+    active: true,
+  },
+  [`${DepositMethodId.TOP_UP}`]: {
+    id: DepositMethodId.TOP_UP,
+    type: DepositPaymentMethodCategoryType.AUTO,
+    categoryId: DepositPaymentMethodCategoryId.TOP_UP,
+    name: 'deposit.depositMethod.topUp',
+    path: '/deposit/topup-card',
+    icon: 'card',
+    color: '#1E2238',
+    active: true,
+  },
+  [`${DepositMethodId.CRYPTO}`]: {
+    id: DepositMethodId.CRYPTO,
+    type: DepositPaymentMethodCategoryType.AUTO,
+    categoryId: DepositPaymentMethodCategoryId.CRYPTO,
+    name: 'deposit.depositMethod.crypto',
+    path: '/deposit/crypto',
+    icon: 'cp',
+    color: '#1E2238',
+    active: true,
+  },
+  [`${DepositMethodId.E_WALLET}`]: {
+    id: DepositMethodId.E_WALLET,
+    type: DepositPaymentMethodCategoryType.AUTO,
+    categoryId: [
+      DepositPaymentMethodCategoryId.PROMPTPAY,
+      DepositPaymentMethodCategoryId.TRUEMONEY,
+    ],
+    name: 'deposit.depositMethod.eWallet',
+    path: '/deposit/e-wallet',
+    icon: 'mobile',
+    color: '#1E2238',
+    active: true,
+  },
 }
+
+export const PaymentMethod: PaymentMethodProps[] =
+  Object.values(PaymentMethodDict)
 
 export default PaymentMethod

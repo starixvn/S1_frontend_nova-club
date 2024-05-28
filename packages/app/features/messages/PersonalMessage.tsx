@@ -2,11 +2,12 @@ import IconButton from 'app/components/IconButton'
 import RefreshButton from 'app/components/RefreshButton'
 import CheckBox from 'app/components/common/CheckBox'
 import useLocalization from 'app/provider/localization'
-import { Pressable, Row, Text, View } from 'dripsy'
+import { ActivityIndicator, Pressable, Row, Text, View } from 'dripsy'
 import React, { useCallback, useState } from 'react'
 import { useDeleteMessagesMutation, useMessageQuery } from 'services/messageApi'
 import MessageCard from './components/MessageCard'
 import dayjs from 'dayjs'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 
 const PersonalMessage = () => {
   const { t } = useLocalization()
@@ -48,7 +49,12 @@ const PersonalMessage = () => {
       await deleteMessages(params).unwrap()
       setSelectedIds([])
       refetch()
-    } catch (e) {}
+    } catch (e) {
+      Toast.show({
+        type: 'error',
+        text1: t('status.systemError'),
+      })
+    }
   }
 
   return (
@@ -67,7 +73,11 @@ const PersonalMessage = () => {
           <Text sx={{ flex: 1 }}>{t('common.selectAll')}</Text>
         </Pressable>
         <Row sx={{ gap: '$2', alignItems: 'center' }}>
-          <IconButton name="bin" onPress={onDelete} />
+          {isDeleting ? (
+            <ActivityIndicator color="$primary.100" />
+          ) : (
+            <IconButton name="bin" onPress={onDelete} />
+          )}
           <RefreshButton loading={isFetching} onPress={() => refetch()} />
         </Row>
       </Row>

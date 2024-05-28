@@ -1,4 +1,5 @@
 import { BannerAction } from 'app/utils/carouselBannerActionGenerator'
+import { Currency } from 'utils/constant'
 
 // export interface BannerResult {
 //   image: string
@@ -16,15 +17,23 @@ import { BannerAction } from 'app/utils/carouselBannerActionGenerator'
 
 export interface BannerResult {
   row_count_total: number
-  rows: []
+  rows: BannerItem[]
 }
 export interface BannerItem {
-  banner_display_page: string
+  banner_display_page: BannerPage
   banner_image: string
   banner_name: string
   banner_seq: number
   banner_url: string
   banner_url_redirection: 'ext' | 'int'
+}
+
+export enum BannerPage {
+  Main = 'main',
+  Slot = 'slots',
+  LocalGame = 'local_game',
+  LiveCasino = 'live_casino',
+  Popup = 'popup',
 }
 export interface LeaderboardResult {
   custId: number
@@ -48,8 +57,16 @@ export interface CommissionTableResult {
   system_name: string
 }
 
+export interface CurrencyArgument {
+  currency: Currency
+}
+
 export interface CommissionQueryArgs {
   currency: string
+}
+
+export interface AffiliateUsernameArgs extends CurrencyArgument {
+  trackingCode: string
 }
 
 export interface AnnouncementResult {

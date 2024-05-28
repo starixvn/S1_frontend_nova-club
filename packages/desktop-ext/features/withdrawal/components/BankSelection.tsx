@@ -3,14 +3,13 @@ import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { Pressable, Row, SxProp, Text, View, styled } from 'dripsy'
 
-import React, { ComponentProps } from 'react'
+import React from 'react'
 
-import { SelectOptions } from 'services/common/types'
-import { SolitoImageProps } from 'solito/build/image/image.types'
-import { SolitoImage } from 'solito/image'
-import { ImageContentFit } from 'expo-image'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import { ImageContentFit } from 'expo-image'
+import { SelectOptions } from 'services/common/types'
+import { SolitoImage } from 'solito/image'
 
 type Prettier<T> = {
   [K in keyof T]: T[K]
@@ -18,7 +17,7 @@ type Prettier<T> = {
 
 type BankSelectionProps = {
   label: string
-  subtitle: string
+  subtitle?: string
   subtitleNote?: string
   list: SelectOptions[]
   selected?: string
@@ -49,9 +48,11 @@ const BankSelection = ({
     <View sx={{ mb: '$3' }}>
       <Text sx={{ mb: '$2' }}>{label}</Text>
       <SelectContainer>
-        <Text sx={{ fontSize: 18, fontWeight: 'bold', mb: '$1' }}>
-          {subtitle}
-        </Text>
+        {subtitle && (
+          <Text sx={{ fontSize: 18, fontWeight: 'bold', mb: '$1' }}>
+            {subtitle}
+          </Text>
+        )}
         {subtitleNote ? (
           <Text
             sx={{ color: '$secondary.500', fontSize: 18, fontWeight: 'bold' }}
@@ -64,6 +65,7 @@ const BankSelection = ({
             py: '$3',
             gap: '$1',
             flexWrap: 'wrap',
+            alignItems: 'center',
           }}
         >
           {list &&
@@ -112,7 +114,7 @@ const SelectionItem = ({
   limit,
 }) => {
   const { t } = useLocalization()
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const minAmount = toCurrency(limit?.min ?? 0, currency, {
     symbol: false,

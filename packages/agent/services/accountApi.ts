@@ -10,6 +10,7 @@ import {
 } from './accountApi.type'
 import { agentBaseApiWithTag } from './agentBaseApi'
 import { IResponse } from './common/agentAxiosBaseQuery'
+import { Currency } from 'utils/constant'
 
 export const accountApi = agentBaseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -23,11 +24,11 @@ export const accountApi = agentBaseApiWithTag.injectEndpoints({
       }),
       providesTags: ['BankAccount'],
     }),
-    lookupBankCode: builder.query<IResponse<LookUpBank>, void>({
-      query: () => ({
+    lookupBankCode: builder.query<IResponse<LookUpBank>, Currency>({
+      query: (currency) => ({
         url: `/account/new/lookup/bank_info`,
         data: {
-          currency: 'VND',
+          currency,
         },
       }),
     }),

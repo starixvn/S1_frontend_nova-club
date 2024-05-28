@@ -1,6 +1,7 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useAlert from 'app/hooks/useAlert'
 import useShield from 'app/hooks/useShield'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCleanCard, toCurrency, toDisplayAmount } from 'app/utils'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
@@ -11,7 +12,6 @@ import { Shield_Action } from 'services/authApi.type'
 import { usePlayerBankQuery } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { usePlayerBalanceQuery } from 'services/walletApi'
 import {
   useGetAvailableWithdrawalAmountQuery,
   useSubmitWithdrawalMutation,
@@ -72,9 +72,9 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
   )
 
   const { data } = useGetAvailableWithdrawalAmountQuery(undefined)
+  const { username } = usePlayerProfileQuery()
 
-  const { currency, username } = usePlayerProfileQuery()
-
+  const currency = useAppSelector((state) => state.setting.currency)
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
   const { syncShield } = useShield()
 
@@ -108,9 +108,8 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
     { bank, realAmount }: WithdrawalValues,
     actions: FormikHelpers<WithdrawalValues>
   ) => {
-    console.log('submitting')
     try {
-      const { data, success, message } = await postSubmitWithdrawal({
+      const { success, message } = await postSubmitWithdrawal({
         amount: realAmount,
         bank_details_id: bank?.PlayerBankDetailsId ?? 0,
       })

@@ -4,6 +4,7 @@ import { LEAGUE_SECTION, MatchLeagueId } from 'app/constants/recMatchMapping'
 import MatchLeagueSelector from 'app/features/sportsbook/MatchLeagueSelector'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -34,11 +35,11 @@ export default function MatchList({}: Props) {
 
   const tableRef = useRef<MatchListMethod>()
   const matchRef = useRef<View>()
-
+  const currency = useAppSelector((s) => s.setting.currency)
   const desktop = useIsDesktop()
   const { t } = useLocalization()
   const { leagues, isFetching } = useGetRecoMatchQuery(
-    { isApp: !desktop },
+    { isApp: !desktop, currency },
     {
       selectFromResult: (resp) => ({
         ...resp,

@@ -6,14 +6,17 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   CONTENT_FROM_TOP,
   CONTENT_FROM_TOP_2,
-  CURRENCY_SEPARATOR,
-  CURRENCY_TO_LANGUAGE,
   Currency,
   HEADER_HEIGHT_OFFSET,
   LANGUAGE_CODE,
   LANGUAGE_NAMESPACE,
   SCROLL_OFFSET_TOP,
 } from 'utils/constant'
+import {
+  CURRENCY_SEPARATOR,
+  CURRENCY_TO_LANGUAGE,
+  CURRENCY_WITH_THOUSAND_FORMAT,
+} from 'utils/constant/currency'
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
  * to support, and `setStringAsync` can't be used in IOS
@@ -35,6 +38,7 @@ export async function copyToClipboard(
         locale: store.getState().setting.locale,
         ns: LANGUAGE_NAMESPACE.MEMBER,
       }),
+      text2: message,
     })
   } catch (error) {
     Toast.show({
@@ -116,8 +120,7 @@ export function toCurrency(
     }
   }
 
-  const language = CURRENCY_TO_LANGUAGE[currency]
-  joined = appendWithThousandUnit(joined ?? '', language)
+  joined = appendWithThousandUnit(joined ?? '', currency)
 
   if (multiplier) {
     joined += multiplier
@@ -133,9 +136,13 @@ export function toCurrency(
  */
 export function appendWithThousandUnit(
   amount: string,
-  language: LANGUAGE_CODE = LANGUAGE_CODE.ENGLISH
+  currency: Currency = Currency.VND
 ) {
+  const language = CURRENCY_TO_LANGUAGE[currency]
+
   if (!amount) return amount
+  if (!CURRENCY_WITH_THOUSAND_FORMAT.includes(currency))
+    return toThousandSeparator(amount, language)
 
   let wholeNumber = amount
   const isContainDecimal = amount.includes('.')
@@ -151,13 +158,20 @@ export function appendWithThousandUnit(
 
   const MIN_AMOUNT = 100
   const formattedRemainder =
-    parsedWholeNumber < MIN_AMOUNT ? '0' : remainder.substring(0, 1)
+    parsedWholeNumber < MIN_AMOUNT ? '0' : remainder.substring(0, 2)
 
   if (quotient === '0' && formattedRemainder === '0') return '0'
 
   const formattedQuotient = toThousandSeparator(quotient, language)
   const formattedDecimal = toDecimalSeparator(formattedRemainder, language)
   return `${formattedQuotient ? formattedQuotient : '0'}${formattedDecimal}K`
+}
+
+export function depositCurrencyDisplay(realAmount: number, currency: Currency) {
+  return toCurrency(realAmount, currency, {
+    forceDecimal: false,
+    symbol: false,
+  })
 }
 
 export function clearThousandSeparator(amount: string) {
@@ -208,7 +222,7 @@ export function toThousandSeparator(
   text: string,
   language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
 ) {
-  if (!text) return 0
+  if (!text) return '0'
 
   const separatorSymbol = CURRENCY_SEPARATOR[language].thousands
   const significants = text.toString().split('.')

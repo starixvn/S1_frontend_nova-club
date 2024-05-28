@@ -1,15 +1,20 @@
 import MatchCarousel from 'app/components/match/MatchCarousel'
 import { MatchLeagueId } from 'app/constants/recMatchMapping'
-import useIsDesktop from 'app/hooks/useIsDesktop'
 import { GAEvents } from 'app/integrations/analytic/events'
-import React, { useMemo } from 'react'
+import { default as React, useMemo } from 'react'
+import { Platform } from 'react-native'
 import { useGetRecoMatchQuery } from 'services/matchApi'
+
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
 
 type Props = {}
 
 export default function MatchSection({}: Props) {
-  const desktop = useIsDesktop()
-  const { data } = useGetRecoMatchQuery({ isApp: !desktop })
+  const currency = useFocusedSelector((s) => s.setting.currency)
+  const { data } = useGetRecoMatchQuery({
+    isApp: Platform.OS !== 'web',
+    currency,
+  })
 
   const filteredData = useMemo(() => {
     const euroLeagueIndex = data?.findIndex(

@@ -121,7 +121,7 @@ const ChangePinScreen = () => {
         />
       </>
     ),
-    [values, errors]
+    [values, errors, t]
   )
 
   return (

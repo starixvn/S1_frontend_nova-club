@@ -18,21 +18,22 @@ import {
 } from 'redux-persist'
 
 import { agentBaseApi } from 'agent/services/agentBaseApi'
+import agentAuthReducer from 'agent/store/agentAuthReducer'
 import { depositReducer } from 'app/store/deposit.slice'
 import { Setting, settingReducer } from 'app/store/setting.slice'
+import { localizationApi } from 'services/localizationApi'
 import { baseApi } from '../../../services/baseApi'
 import { storage } from './persistStorage/index'
-import agentAuthReducer from 'agent/store/agentAuthReducer'
-import { localizationApi } from 'services/localizationApi'
+
 
 const migrations = {
-  6: (s: PersistedState) => {},
   7: (s: PersistedState) => {},
+  8: (s: PersistedState) => {},
 }
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
-  version: 7,
+  version: 8,
   storage,
   whitelist: ['auth', 'agent', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Currency } from 'utils/constant'
 
 // type PartialLoginResult = Pick<LoginResult, 'access_token' | 'token_type'>
 
@@ -6,12 +7,14 @@ interface AgentAuthState {
   access_token?: string
   has_logged_in?: number
   has_otp?: 0 | 1
+  currency: Currency
 }
 
 const agentAuthInitialState: AgentAuthState = {
   access_token: undefined,
   has_logged_in: undefined,
   has_otp: undefined,
+  currency: Currency.VND,
   // token_type: undefined,
 }
 
@@ -49,6 +52,9 @@ export const agentSlice = createSlice({
 
       state.has_logged_in = payload.has_logged_in
       state.has_otp = payload.has_otp
+    },
+    setAgentCurrency: (s, action: PayloadAction<Currency>) => {
+      s.currency = action.payload
     },
   },
 })

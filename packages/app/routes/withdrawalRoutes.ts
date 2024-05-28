@@ -1,25 +1,27 @@
-import { DesktopRoute } from './NavigationType'
+import { Route } from 'app/navigation/type'
 
-const _Routes: Readonly<DesktopRoute[]> = [
+const _Routes = [
   {
     key: 'BankWithdrawal',
     title: 'menu.bankWithdrawal',
     icon: 'lba',
+    base: '/withdrawal',
     route: '/withdrawal/bank-withdrawal',
   },
   {
     key: 'Crypto',
     title: 'menu.cryptoWithdrawal',
     icon: 'cp',
+    base: '/withdrawal',
     route: '/withdrawal/crypto-withdrawal',
   },
-] as const
+] as const satisfies Readonly<Route[]>
 
-export type WithdrawalRoutesParamList = Record<
+export type RewardRoutesParamList = Record<
   (typeof _Routes)[number]['key'],
   undefined | object
 >
 
-const WithdrawalRoutes = _Routes
+const withdrawalRoutes = _Routes
 
-export default WithdrawalRoutes
+export default withdrawalRoutes

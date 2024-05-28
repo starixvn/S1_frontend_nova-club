@@ -38,7 +38,7 @@ interface TableListingProps<T> extends FlashListProps<T> {
   onLoadMore: () => void
   isFetching: boolean
   innerRef?: React.RefObject<any>
-  containerStyle: SxProp
+  containerStyle?: SxProp
   refreshProps?: Partial<ComponentProps<typeof DataTableRefresh>>
 }
 
@@ -52,7 +52,7 @@ const TableListing = <T, FetchParamsType>({
   renderItem,
   onLoadMore,
   isFetching,
-  containerStyle,
+  containerStyle = {},
   refreshProps,
   ...rest
 }: TableListingProps<T>) => {

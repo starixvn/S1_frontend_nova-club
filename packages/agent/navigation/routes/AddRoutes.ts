@@ -13,8 +13,17 @@ const AddRoutes = [
   },
 ] as const
 
+export const AddPartnerRoutes = [
+  {
+    key: 'AddPartner',
+    title: 'common.shareholder_agent',
+    icon: 'add-agent',
+    route: '/agent/add/partner',
+  },
+]
+
 export type AddRoutesParamList = Record<
-  typeof AddRoutes[number]['key'],
+  (typeof AddRoutes)[number]['key'],
   undefined | object
 >
 

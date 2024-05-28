@@ -2,7 +2,7 @@ import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
-import { MOBILE_PREFIX } from 'app/constants/country'
+import { MOBILE_PREFIX } from 'utils/constant'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
@@ -94,8 +94,7 @@ const ForgotPasswordForm = ({
   const sendOTP = async () => {
     try {
       const { data, message, success } = await sendOtp({
-        contactNumber:
-          MOBILE_PREFIX.VND.replace('+', '') + values.contactNumber,
+        contactNumber: MOBILE_PREFIX.VND + values.contactNumber,
       })
         .unwrap()
         .catch((error) => {

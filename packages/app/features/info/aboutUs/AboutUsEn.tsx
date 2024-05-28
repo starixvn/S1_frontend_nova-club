@@ -6,6 +6,7 @@ const AboutUsEn = () => {
       <p>
         <strong>About Us</strong>
       </p>
+      <br />
       {/* <p>
         <strong>
           IMPORTANT: PLEASE READ THE INFORMATION SET OUT BELOW CAREFULLY BEFORE
@@ -37,6 +38,7 @@ const AboutUsEn = () => {
       </p>
       <div>Powered by</div>
       <div>bong88</div>
+      <br />
       <p>
         <strong>Why choose Vui123?</strong>
       </p>

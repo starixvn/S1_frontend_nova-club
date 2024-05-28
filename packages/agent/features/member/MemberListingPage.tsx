@@ -1,5 +1,6 @@
 import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
 import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Text from 'agent/components/Text'
@@ -11,17 +12,14 @@ import {
 import useTableListing from 'agent/hooks/useTableListing'
 import { useMemberListQuery } from 'agent/services/agentApi'
 import { MemberListResult } from 'agent/services/agentApi.type'
-import DataTable from 'app/components/dataTable/DataTable'
 import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Currency } from 'utils/constant'
+import { useAppSelector } from 'app/provider/redux/store'
 import dayjs from 'dayjs'
 import { View, styled } from 'dripsy'
 import { useState } from 'react'
-import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
-import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 
 export type MemberListFilterOptions = {
   date: DateFilter | string | undefined
@@ -38,6 +36,7 @@ type MemberListProps = {
 
 const MemberListScreen = () => {
   const { t } = useAgentLocalization()
+  const currency = useAppSelector((s) => s.agent.currency)
   const { openModal } = useModal()
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<MemberListFilterOptions>({
@@ -48,11 +47,11 @@ const MemberListScreen = () => {
     username: '',
   })
 
-  const { agentData, totalData, isFetching, refetch } = useMemberListQuery(
+  const { data, totalData, isFetching, refetch } = useMemberListQuery(
     {
       start: offset * LIMIT,
       length: LIMIT,
-      currency: Currency.VND,
+      currency,
       registerdate_start: filter.date
         ? `${dayjs(filter.startDate).format(
             'YYYY-MM-DD HH:mm:ss Z'
@@ -64,11 +63,12 @@ const MemberListScreen = () => {
     {
       selectFromResult: ({ data, isFetching, isSuccess }) => {
         return {
-          isFetching,
-          agentData: isSuccess ? data?.result?.data : [],
-          totalData: data?.result?.recordsTotal ?? 0,
+          isFetching: isFetching,
+          data: data?.result?.data,
+          totalData: data?.result?.recordsTotal,
         }
       },
+      // skip: !isAgent,
     }
   )
 
@@ -140,14 +140,14 @@ const MemberListScreen = () => {
   }
 
   return (
-    <View sx={{ flex: 1, mt: Platform.OS === 'web' ? 22 : 0 }}>
+    <View sx={{ flex: 1 }}>
       <TableListing
         title={`${t('shAgent.totalMember')} : ${totalData}`}
         titleCenter
-        data={agentData}
+        data={data}
         renderHeader={onRenderHeader}
         renderItem={onRenderItem}
-        keyExtractor={(item, index) => item.player_id}
+        keyExtractor={(item, index) => (item as MemberListResult).player_id}
         onLoadMore={onLoadMore}
         onRefresh={onRefresh}
         isFetching={isFetching}

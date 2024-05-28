@@ -1,11 +1,11 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
-import { ROOT_DOMAIN } from 'app/constants/domain'
 import useLocalization from 'app/provider/localization'
 
 import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
 import React from 'react'
 import WebView from 'react-native-webview'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 
 const Tnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)

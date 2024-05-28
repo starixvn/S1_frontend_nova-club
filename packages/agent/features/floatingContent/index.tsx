@@ -2,7 +2,7 @@ import Button from 'agent/components/Button'
 import Icon from 'agent/components/Icon'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { useDripsyTheme, View } from 'dripsy'
+import { Pressable, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 

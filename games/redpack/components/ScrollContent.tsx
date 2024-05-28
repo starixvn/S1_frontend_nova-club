@@ -1,9 +1,8 @@
 import { Container, Text } from '@pixi/react'
 import { ISize, TextStyle } from 'pixi.js'
 import { useMemo } from 'react'
-import RedPack, { REDPACK_RATIO } from './RedPack'
 import { useGameState } from '../context/GameContext'
-import { useGetCoinRedemptionListQuery } from 'services/rewardApi'
+import RedPack, { REDPACK_RATIO } from './RedPack'
 // import { waitFor } from "utils/asyncUtils";
 
 type Props = {

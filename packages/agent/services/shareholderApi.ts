@@ -4,23 +4,13 @@ import { IResponse } from './common/agentAxiosBaseQuery'
 import {
   AddNewShareholderArgs,
   AddNewShareholderResult,
-  NewEarnPercentage,
   ShareholderBalanceArgs,
   ShareholderBalanceResult,
-  ShareholderCreatePinArgs,
-  ShareholderCreatePinResult,
   ShareholderDetailsArgs,
   ShareholderDetailsResult,
-  ShareholderGetEarnPtArgs,
-  ShareholderGetEarnPtResult,
   ShareholderListArgs,
   ShareholderListResult,
-  ShareholderProfile,
-  ShareholderResetPinArgs,
   ShareholderSetStatusArgs,
-  ShareholderUpdatePtArgs,
-  ShareholderVerifyTransferPinArgs,
-  ShareholderVerifyTransferPinResult,
 } from './shareholderApi.type'
 
 export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
@@ -56,17 +46,6 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
       },
       providesTags: ['ShareholderList'],
     }),
-    newEarnPercentage: builder.query<IResponse<NewEarnPercentage>, void>({
-      query: () => ({
-        url: '/sh/earnPercNew',
-      }),
-    }),
-    shareholderProfile: builder.query<IResponse<ShareholderProfile>, void>({
-      query: () => ({
-        url: `/sh/profile`,
-      }),
-      providesTags: ['Profile'],
-    }),
     shareholderDetails: builder.query<
       IResponse<ShareholderDetailsResult>,
       ShareholderDetailsArgs
@@ -91,17 +70,6 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    shareholderResetPin: builder.mutation<
-      IResponse<[]>,
-      ShareholderResetPinArgs
-    >({
-      query: (queryArgs) => ({
-        url: `/sh/resetPin`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-    }),
     addNewShareholder: builder.mutation<
       IResponse<AddNewShareholderResult>,
       AddNewShareholderArgs
@@ -112,76 +80,6 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-    }),
-    shareholderCreatePin: builder.mutation<
-      IResponse<ShareholderCreatePinResult>,
-      ShareholderCreatePinArgs
-    >({
-      query: (queryArgs) => ({
-        url: `/sh/createPin`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-      invalidatesTags: ['UserInfo'],
-    }),
-    shareholderVerifyTransferPin: builder.mutation<
-      IResponse<ShareholderVerifyTransferPinResult>,
-      ShareholderVerifyTransferPinArgs
-    >({
-      query: (queryArgs) => ({
-        url: `/sh/verifyTransferPin`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-    }),
-    shareholderGetEarnPt: builder.query<
-      IResponse<ShareholderGetEarnPtResult>,
-      ShareholderGetEarnPtArgs
-    >({
-      query: (queryArgs) => ({
-        url: `/sh/earnPercEdit`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-    }),
-    shareholderUpdatePt: builder.mutation<
-      IResponse<void>,
-      ShareholderUpdatePtArgs
-    >({
-      query: (queryArgs) => ({
-        url: `/sh/updatePt`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-      async onQueryStarted(
-        { id, currency },
-        { dispatch, queryFulfilled, getState }
-      ) {
-        const { originalArgs } =
-          shareholderApi.endpoints.shareholderList.select()(getState())
-
-        const patchResult = dispatch(
-          shareholderApi.util.updateQueryData(
-            'shareholderList',
-            originalArgs,
-            (draft) => {
-              let selected = draft?.result?.data.find((el) => el.id === id)
-              if (selected) selected.earning_perc = currency.VND.EARNP
-            }
-          )
-        )
-
-        try {
-          await queryFulfilled
-        } catch {
-          patchResult.undo()
-        }
-      },
-      // invalidatesTags: ['ShareholderList'],
     }),
     shareholderSetStatus: builder.mutation<
       IResponse<void>,
@@ -220,16 +118,8 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
 
 export const {
   useShareholderListQuery,
-  useNewEarnPercentageQuery,
-  useLazyShareholderProfileQuery,
-  useShareholderProfileQuery,
   useShareholderDetailsQuery,
-  useShareholderResetPinMutation,
   useAddNewShareholderMutation,
-  useShareholderCreatePinMutation,
-  useShareholderVerifyTransferPinMutation,
-  useShareholderGetEarnPtQuery,
-  useShareholderUpdatePtMutation,
   useShareholderSetStatusMutation,
   useShareholderBalanceQuery,
 } = shareholderApi

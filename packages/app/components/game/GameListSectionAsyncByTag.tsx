@@ -2,7 +2,9 @@ import React, { memo, useEffect, useState } from 'react'
 import { useGetGameListByTagsQuery } from 'services/gameApi'
 import GameListSection, { GameListSectionProps } from './GameListSection'
 import { SlotType } from 'utils/constant'
+import { useAppSelector } from 'app/provider/redux/store'
 
+import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 interface GameListSectionAsyncByTagProps
   extends Omit<GameListSectionProps, 'data'> {
   nativeID?: string
@@ -19,16 +21,17 @@ const GameListSectionAsyncByTag = ({
   ...rest
 }: GameListSectionAsyncByTagProps) => {
   const [isDelayed, setDelayed] = useState(false)
+  const currency = useAppSelector((s) => s.setting.currency)
+
   useEffect(() => {
     setTimeout(() => {
       setDelayed(true)
-    }, delay ?? 10)
+    }, delay ?? Math.random() * 1000)
   }, [])
 
   const { data } = useGetGameListByTagsQuery(
-    { tags: [tag] },
+    { tags: [tag], currency },
     {
-      refetchOnMountOrArgChange: true,
       skip: !isDelayed,
     }
   )

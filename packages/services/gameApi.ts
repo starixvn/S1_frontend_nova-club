@@ -1,5 +1,6 @@
+import { createSelector } from '@reduxjs/toolkit'
 import uniqWith from 'lodash/uniqWith'
-import { Currency } from 'utils/constant'
+import { Currency, DEFAULT_CURRENCY } from 'utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
@@ -11,6 +12,7 @@ import {
   GameListQueryArgs,
   GameScreenMultipleRequest,
   GetFeaturedGameListResult,
+  GetGameListByCategoriesArgs,
   GetGameListByTagsArgs,
   GetGameListQueryArgs,
   GetGameListResult,
@@ -32,20 +34,20 @@ export const gameApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     goToGame: builder.mutation<IResponse<GotoGameResult>, GetGameUrlQueryArgs>({
       query: ({ token, ...params }) => ({
-        url: `/player_api/gotogame`,
+        url: `/player_api/v1/gotogame`,
         data: params,
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       }),
     }),
     demoGame: builder.mutation<IResponse<GotoGameResult>, GetGameUrlQueryArgs>({
       query: (params) => ({
-        url: `/static_api/gotodemogame`,
+        url: `/static_api/v1/gotodemogame`,
         data: params,
       }),
     }),
     gameList: builder.query<IResponse<GameConfig[]>, GameListQueryArgs>({
       query: (data) => ({
-        url: `/player_api/getGameList`,
+        url: `/player_api/v1/v1/getGameList`,
         data,
       }),
     }),
@@ -61,7 +63,7 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         gdc_game_category,
         gdc_tag,
       }) => ({
-        url: `/static_api/getGameList`,
+        url: `/static_api/v1/getGameList`,
         method: 'POST',
         data: {
           currency,
@@ -78,10 +80,9 @@ export const gameApi = baseApiWithTag.injectEndpoints({
     }),
     getGameListByTags: builder.query<Game[], GetGameListByTagsArgs>({
       query: (query) => ({
-        url: `/static_api/getGameList`,
+        url: `/static_api/v1/getGameList`,
         method: 'POST',
         data: {
-          currency: Currency.VND,
           game_category: [],
           limit: query.limit || GAME_BY_TAG_LIMIT,
           offset: 0,
@@ -96,12 +97,12 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         return data?.rows ?? []
       },
     }),
-    getGameListByCategory: builder.query<Game[], string[]>({
-      query: (categories) => ({
-        url: `/static_api/getGameList`,
+    getGameListByCategory: builder.query<Game[], GetGameListByCategoriesArgs>({
+      query: ({ categories, currency }) => ({
+        url: `/static_api/v1/getGameList`,
         method: 'POST',
         data: {
-          currency: Currency.VND,
+          currency,
           game_category: categories,
           limit: GAME_BY_CATEGORY_LIMIT,
           offset: 0,
@@ -116,9 +117,12 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         return data?.rows ?? []
       },
     }),
-    featuredGameList: builder.query<FeaturedGame[], void>({
-      query: () => ({
-        url: `/static_api/getFeaturedGameList`,
+    featuredGameList: builder.query<FeaturedGame[], Currency>({
+      query: (currency = DEFAULT_CURRENCY) => ({
+        url: `/static_api/v1/getFeaturedGameList`,
+        data: {
+          currency,
+        },
       }),
       transformResponse: ({ data }: { data: GetFeaturedGameListResult }) => {
         return data?.rows ?? []
@@ -130,10 +134,10 @@ export const gameApi = baseApiWithTag.injectEndpoints({
           let results = []
           if (_arg.game_category) {
             const gcFilterResp = await fetch({
-              url: '/static_api/getGameList',
+              url: '/static_api/v1/getGameList',
               method: 'POST',
               data: {
-                currency: Currency.VND,
+                currency: _arg.currency,
                 game_category: _arg.game_category,
                 limit: 4000,
                 offset: 0,
@@ -147,10 +151,10 @@ export const gameApi = baseApiWithTag.injectEndpoints({
           }
           if (_arg.gdc_game_category) {
             const gdcFilterResp = await fetch({
-              url: '/static_api/getGameList',
+              url: '/static_api/v1/getGameList',
               method: 'POST',
               data: {
-                currency: Currency.VND,
+                currency: _arg.currency,
                 game_category: [],
                 limit: 4000,
                 offset: 0,
@@ -180,12 +184,15 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         }
       },
     }),
-    latestWinner: builder.query<LatestWinner[], LatestWinnerType>({
+    latestWinner: builder.query<
+      LatestWinner[],
+      { type: LatestWinnerType; currency: Currency }
+    >({
       async queryFn(_arg, _queryApi, _extraOptions, fetch) {
         try {
           const resp = await fetch({
             baseUrl: '/',
-            url: `${window.location.origin}/api/latestWinner?type=${_arg}`,
+            url: `${window.location.origin}/api/latestWinner?type=${_arg.type}&currency=${_arg.currency}`,
             method: 'GET',
           })
 
@@ -199,9 +206,9 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         }
       },
     }),
-    gameProviderList: builder.query<Record<string, ProviderStatus>, void>({
-      query: () => ({
-        url: `/static_api/getGameProviderList`,
+    gameProviderList: builder.query<Record<string, ProviderStatus>, Currency>({
+      query: (currency = DEFAULT_CURRENCY) => ({
+        url: `/static_api/v1/getGameProviderList/${currency}`,
         method: 'GET',
       }),
       transformResponse: (resp: IResponse<Record<string, ProviderStatus>>) => {
@@ -214,9 +221,9 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         }, {})
       },
     }),
-    gameCategoryTagTypes: builder.query<GameCategoryTagTypes[], void>({
-      query: () => ({
-        url: `/static_api/getGameCategoryTagTypes`,
+    gameCategoryTagTypes: builder.query<GameCategoryTagTypes[], Currency>({
+      query: (currency = DEFAULT_CURRENCY) => ({
+        url: `/static_api/v1/getGameCategoryTagTypes/${currency}`,
         method: 'GET',
       }),
       transformResponse: ({ data }: { data: GameCategoryTagResult }) => {
@@ -225,6 +232,13 @@ export const gameApi = baseApiWithTag.injectEndpoints({
     }),
   }),
 })
+
+export const selectFeaturedGameByCategory = createSelector(
+  (res: { data?: FeaturedGame[] }) => res.data,
+  (res: { data?: FeaturedGame[] }, catergoryId: string) => catergoryId,
+  (data: FeaturedGame[] | undefined, catergoryId: string) =>
+    data?.filter((g) => g.cat === catergoryId)
+)
 
 export const {
   useGoToGameMutation,

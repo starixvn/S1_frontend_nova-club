@@ -1,5 +1,7 @@
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { toCurrency } from 'app/utils'
 import { Pressable, styled, Text, View } from 'dripsy'
 import uniqueId from 'lodash/uniqueId'
 import { AnimatePresence, MotiView, useAnimationState } from 'moti'
@@ -18,8 +20,6 @@ import ActionSheet, { ActionSheetProps } from '../actionSheet/ActionSheet'
 import Input, { InputProps } from '../form/Input'
 import Icon from '../Icon'
 import { InputLabelProps } from '../Label'
-import { toCurrency } from 'app/utils'
-import { usePlayerProfileQuery } from 'services/playerApi'
 
 const StyledPressable = styled(Pressable)({
   borderRadius: 9,
@@ -182,7 +182,7 @@ const Select = <T,>(
   } = props
 
   const { t } = useLocalization()
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((state) => state.setting.currency)
   const { sheetId: passedSheetId, ...actionSheetProp } = _actionSheet || {}
   const { bottom } = useSafeArea()
   const [isOpen, toggleIsOpen] = useReducer((state) => !state, false)

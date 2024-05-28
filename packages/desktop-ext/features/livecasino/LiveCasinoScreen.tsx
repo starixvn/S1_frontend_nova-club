@@ -2,13 +2,16 @@ import SkeletonPlaceholder from 'app/components/SkeletonPlaceholder'
 import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
+import { useAppSelector } from 'app/provider/redux/store'
 import { desktopScrollToElement } from 'app/utils'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import { ActivityIndicator, Container, Row, View } from 'dripsy'
 import uniqBy from 'lodash/uniqBy'
 import React, { useEffect, useMemo } from 'react'
-import { useBannerQuery } from 'services/contentApi'
+import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
+import { BannerPage } from 'services/contentApi.type'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 
@@ -27,14 +30,21 @@ export default function LiveCasinoScreen({}: Props) {
     initial: undefined,
   })
 
-  const { data: games } = useGetGameListByCategoryQuery([
-    GAME_TYPE_CODE.LIVE_DEALER,
-  ])
+  const currency = useAppSelector((s) => s.setting.currency)
 
-  const { data: banner } = useBannerQuery()
-  const bannerList = banner?.filter(
-    (el) => el.banner_display_page === 'live_casino'
-  )
+  const { data: games } = useGetGameListByCategoryQuery({
+    currency,
+    categories: [GAME_TYPE_CODE.LIVE_DEALER],
+  })
+
+  const { banners } = useBannerQuery(currency, {
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        banners: selectBannerByPage(s.data, BannerPage.LiveCasino),
+      }
+    },
+  })
 
   const filteredGames = useMemo(() => {
     if (games && games.length > 0) {
@@ -70,7 +80,7 @@ export default function LiveCasinoScreen({}: Props) {
     <Container>
       <View sx={{ width: '100%', aspectRatio: 1280 / 333, mb: '$3' }}>
         <SkeletonPlaceholder width={'100%'} height={'100%'}>
-          <BannerCarousel data={bannerList} />
+          <BannerCarousel data={banners} />
         </SkeletonPlaceholder>
       </View>
       <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />

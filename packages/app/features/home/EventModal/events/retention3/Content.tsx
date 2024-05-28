@@ -1,5 +1,4 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import AvertaStd from 'app/assets/fonts/Averta'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
 import {
@@ -22,6 +21,7 @@ import { ClaimEventCoinResult } from 'services/rewardApi.type'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
+import Montserrat from 'app/assets/fonts/Montserrat'
 
 type Props = { code: string }
 
@@ -251,7 +251,7 @@ const ContainerView = styled(AnimatePresence)({
 })
 
 const BoldText = styled(Text)({
-  fontFamily: AvertaStd.Black.name,
+  fontFamily: Montserrat.Black.name,
   width: 180,
   fontSize: 24,
   textAlign: 'center',

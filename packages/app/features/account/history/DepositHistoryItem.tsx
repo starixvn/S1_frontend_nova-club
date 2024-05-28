@@ -7,6 +7,7 @@ import PaymentMethod, {
 import { getDepositStatusColor } from 'app/config/status'
 import TransactionHistoryItemBox from 'app/features/account/history/TransactionHistoryItemBox'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { copyToClipboard, toCurrency, toThousandSeparator } from 'app/utils'
 import dayjsTz from 'app/utils/dayjs'
 import { Text, View, styled, useDripsyTheme } from 'dripsy'
@@ -14,7 +15,6 @@ import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { Shadow } from 'react-native-shadow-2'
 import { ReportDepositItem } from 'services/playerApi.type'
-import { Currency } from 'utils/constant'
 import DateTimeCell from './DateTimeCell'
 
 export const CELL_PAYMENT_WIDTH = 0.5
@@ -54,12 +54,15 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
   const { theme } = useDripsyTheme()
   const { t } = useLocalization()
   const { openModal } = useModal()
+  const currency = useAppSelector((state) => state.setting.currency)
 
-  const category = PaymentMethod.find(
-    (el) => el.categoryId === item.second_category_flag
+  const category = PaymentMethod.find((el) =>
+    typeof el.categoryId === 'number'
+      ? el.categoryId === item.second_category_flag
+      : el.categoryId.includes(item.second_category_flag)
   ) as PaymentMethodProps
 
-  const amount = toCurrency(item.amount, Currency.VND, {
+  const amount = toCurrency(item.amount, currency, {
     symbol: false,
   })
 

@@ -106,6 +106,37 @@ export const reportApi = agentBaseApiWithTag.injectEndpoints({
       },
       providesTags: ['ShareholderCommission'],
     }),
+    partnerCommissionList: builder.query<
+      IResponse<ShareholderCommissionListResult[]> | undefined,
+      ShareholderCommissionListArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/partner/commission`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+      // Only have one cache entry because the arg always maps to one string
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName
+      },
+      // Always merge incoming data to the cache entry
+      merge: (currentCache, newItems, { arg }) => {
+        if (arg.start > 0) {
+          newItems?.result?.data &&
+            currentCache?.result?.data.push(...newItems.result.data)
+
+          return currentCache
+        }
+        return newItems
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg
+      },
+      providesTags: ['PartnerCommission'],
+    }),
   }),
 })
 
@@ -113,4 +144,5 @@ export const {
   useTransactionReportQuery,
   useShareholderCommissionListQuery,
   useAgentCommissionListQuery,
+  usePartnerCommissionListQuery,
 } = reportApi

@@ -1,4 +1,4 @@
-import AvertaStd from 'app/assets/fonts/Averta'
+import Montserrat from 'app/assets/fonts/Montserrat'
 import FormContainer from 'app/components/form/FormContainer'
 import React from 'react'
 
@@ -11,7 +11,7 @@ const TncContainer = ({ children }) => {
       <main
         style={{
           padding: 12,
-          fontFamily: AvertaStd.Regular.name,
+          fontFamily: Montserrat.Regular.name,
           fontSize: FONT_SIZE,
           color: FONT_COLOR,
         }}

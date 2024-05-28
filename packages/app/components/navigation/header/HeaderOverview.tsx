@@ -72,14 +72,13 @@ const HeaderButton = ({
             </Pressable>
           )}
 
-          <View sx={{ marginLeft: 'auto' }}>
+          <View sx={{ marginLeft: 'auto', flex: 1 }}>
             {isLoading ? (
               <ActivityIndicator color={'$secondary.100'} />
             ) : (
               <Text
                 numberOfLines={1}
                 sx={{
-                  flex: 1,
                   mt: FONT_TOP_OFFSET,
                   fontSize: [12, 14],
                   color: '$secondary.100',
@@ -108,6 +107,7 @@ interface HeaderOverviewProps {
 const HeaderOverview = ({}: HeaderOverviewProps) => {
   const { push } = useRouter()
   const token = useAppSelector((s) => s.auth.info?.token)
+  const currency = useAppSelector((s) => s.setting.currency)
 
   const {
     data: playerBalance,
@@ -143,7 +143,7 @@ const HeaderOverview = ({}: HeaderOverviewProps) => {
         <HeaderButton
           icon="wallet"
           label="Balance"
-          value={toCurrency(playerBalance?.totalBalance ?? '-', Currency.VND, {
+          value={toCurrency(playerBalance?.totalBalance ?? '-', currency, {
             symbol: false,
           })}
           isLoading={isMainWalletLoading}

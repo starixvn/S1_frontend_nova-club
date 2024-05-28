@@ -12,6 +12,7 @@ import {
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
+import { useAppSelector } from '../redux/store'
 
 const GameFilterContext = createContext<{
   games: Game[]
@@ -70,7 +71,10 @@ const GameFilterProvider = ({
   const [filterKey, setFilterKey] = useState<string | undefined>(provider)
   const [isPending, startTransition] = useTransition()
 
+  const currency = useAppSelector((s) => s.setting.currency)
+
   const { data: games } = useGameListMultipleQuery({
+    currency,
     game_category: gameTypes,
     gdc_game_category: gameCategories,
   })

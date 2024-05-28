@@ -1,9 +1,7 @@
-import { DripsyGradient } from 'app/components/Gradient'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
-import { Currency } from 'utils/constant'
 import { styled, Text, View } from 'dripsy'
-import { usePlayerProfileQuery } from 'services/playerApi'
 
 type Amount = string | number
 
@@ -68,8 +66,7 @@ const TopInfo = ({
   amount: Amount
   isCurrency?: boolean
 }) => {
-  const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
+  const currency = useAppSelector((state) => state.setting.currency)
   return (
     <View
       sx={{
@@ -93,8 +90,7 @@ const TopInfo = ({
 }
 
 const BottomInfo = ({ label, amount }: { label: string; amount: Amount }) => {
-  const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
+  const currency = useAppSelector((state) => state.setting.currency)
 
   return (
     <StyledBottomContainer>

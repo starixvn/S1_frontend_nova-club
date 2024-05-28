@@ -2,7 +2,9 @@ import AgentListing from 'agent/features/agent/AgentListing'
 import ShareholderListing from 'agent/features/shareholder/ShareholderListing'
 import React from 'react'
 import { createAgentNestedTabNavigator } from '../components/AgentNestedTabNavigator'
-import ListRoutes, { ListRoutesParamList } from '../routes/ListRoutes'
+import ListRoutes, {
+  ListRoutesParamList,
+} from '../routes/ShareholderListRoutes'
 
 const Tab = createAgentNestedTabNavigator<ListRoutesParamList>(ListRoutes)
 

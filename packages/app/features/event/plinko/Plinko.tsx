@@ -1,5 +1,5 @@
 import WebView from 'app/components/WebView'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { useDripsyTheme } from 'dripsy'

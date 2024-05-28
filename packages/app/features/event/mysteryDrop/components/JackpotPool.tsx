@@ -3,7 +3,14 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useWindowResize from 'app/hooks/useWindowResize'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Row, Text, View, styled, useResponsiveValue } from 'dripsy'
+import {
+  ActivityIndicator,
+  Row,
+  Text,
+  View,
+  styled,
+  useResponsiveValue,
+} from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useEffect, useMemo, useState } from 'react'
 import { SolitoImage } from 'solito/image'
@@ -17,17 +24,16 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
   const { width } = useWindowResize()
   const isDesktop = useIsDesktop()
 
-  const bgWidth = useResponsiveValue([width, width, width])
+  const bgWidth = width
   const bgHeight = isDesktop ? bgWidth * 0.5625 : width * 0.802
-  const logoWidth = useResponsiveValue([width, 600, 600, 1000])
-  const logoHeight = isDesktop ? logoWidth * 0.3 : logoWidth * 0.5387
+  const containerWidth = useResponsiveValue([width, 600, 600, 1000])
+  const containerHeight = isDesktop
+    ? containerWidth * 0.3
+    : containerWidth * 0.5387
 
-  const locale = useAppSelector((s) => s.setting.locale)
-
+  const logoWidth = Math.min(width * 0.7, 500)
+  const logoHeight = logoWidth / (600 / 445)
   const background = isDesktop ? 'bg-jackpot-desktop.jpg' : 'bg-jackpot.png'
-  const logo = isDesktop
-    ? `logo-desktop-${locale}.png`
-    : `logo-mobile-${locale}.png`
   const logoElement = isDesktop ? `logo-desktop` : `logo-mobile`
 
   const animateElement01 = useMemo(
@@ -52,8 +58,8 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logoElement}-01.png`}
           alt=""
-          width={logoWidth}
-          height={logoHeight}
+          width={containerWidth}
+          height={containerHeight}
         />
       </MotiView>
     ),
@@ -81,8 +87,8 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logoElement}-02.png`}
           alt=""
-          width={logoWidth}
-          height={logoHeight}
+          width={containerWidth}
+          height={containerHeight}
         />
       </MotiView>
     ),
@@ -104,7 +110,7 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
         {animateElement02}
 
         <SolitoImage
-          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logo}`}
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/mystery-event-logo.png`}
           alt=""
           width={logoWidth}
           height={logoHeight}
@@ -122,6 +128,7 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
   const jackpotWidth = useResponsiveValue([width - width * 0.1, 500])
   const [total, setTotal] = useState<number>()
   const [prevPrize, setPrevPrize] = useState<number>()
+  const currency = useAppSelector((s) => s.setting.currency)
 
   useEffect(() => {
     setTimeout(() => {
@@ -145,27 +152,34 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
       <View
         sx={{
           position: 'absolute',
+          alignItems: 'center',
         }}
       >
-        <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>
-          {t('event.mystery.totalJackpot')}
-        </Text>
-        {total && (
-          <Row>
-            <JackpotText>
-              <CountUp
-                key={jackpot}
-                isCounting
-                start={prevPrize ? prevPrize : total}
-                end={total}
-                duration={5}
-                easing="easeOutCubic"
-                thousandsSeparator=","
-                onComplete={() => setPrevPrize(total)}
-              />
-            </JackpotText>
-            <JackpotText>{` VND`}</JackpotText>
-          </Row>
+        {total ? (
+          <>
+            <Text
+              sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}
+            >
+              {t('event.mystery.totalJackpot')}
+            </Text>
+            <Row>
+              <JackpotText>
+                <CountUp
+                  key={jackpot}
+                  isCounting={!!total}
+                  start={prevPrize ? prevPrize : total}
+                  end={total}
+                  duration={5}
+                  easing="easeOutCubic"
+                  thousandsSeparator=","
+                  onComplete={() => setPrevPrize(total)}
+                />
+              </JackpotText>
+              <JackpotText>{` ${currency.toUpperCase()}`}</JackpotText>
+            </Row>
+          </>
+        ) : (
+          <ActivityIndicator color={'$secondary.500'} size={'large'} />
         )}
       </View>
     </View>

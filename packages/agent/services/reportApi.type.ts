@@ -19,6 +19,7 @@ export type ShareholderCommissionListArgs = {
   start: number
   length: number
   rpt_date: string
+  currency: Currency
 }
 
 export type ShareholderCommissionListResult = {
@@ -34,6 +35,7 @@ export type AgentCommissionListArgs = {
   start: number
   length: number
   rpt_date: string
+  currency: Currency
 }
 
 export type AgentCommissionListResult = {

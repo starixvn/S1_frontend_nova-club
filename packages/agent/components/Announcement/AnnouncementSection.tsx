@@ -3,8 +3,7 @@ import React, { useMemo } from 'react'
 
 import { useAnnouncementQuery } from 'agent/services/contentApi'
 import MarqueeFlip from './MarqueeFlip'
-
-const ANNOUNCEMENT_HEIGHT = 30
+import { AGENT_ANNOUNCEMENT_HEIGHT } from 'agent/constant/sizes'
 
 export default function AnnouncementSection() {
   const token = useAppSelector((s) => s.agent.access_token)
@@ -27,7 +26,7 @@ export default function AnnouncementSection() {
   return (
     <MarqueeFlip
       announcementList={marquees}
-      announcementHeight={ANNOUNCEMENT_HEIGHT}
+      announcementHeight={AGENT_ANNOUNCEMENT_HEIGHT}
       loading={isUninitialized}
     />
   )

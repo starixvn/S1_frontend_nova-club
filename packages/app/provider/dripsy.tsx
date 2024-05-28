@@ -1,5 +1,5 @@
 import AvertaStd from 'app/assets/fonts/Averta'
-import BeVietnamPro from 'app/assets/fonts/BeVietnamePro'
+import Montserrat from 'app/assets/fonts/Montserrat'
 import { DripsyProvider, makeTheme } from 'dripsy'
 import { Platform } from 'react-native'
 
@@ -38,6 +38,17 @@ const theme = makeTheme({
       '800': webFont(AvertaStd.Bold.name),
       '900': webFont(AvertaStd.Black.name),
     },
+    [Montserrat.Regular.name]: {
+      bold: webFont(Montserrat.Bold.name),
+      default: webFont(Montserrat.Regular.name),
+      normal: webFont(Montserrat.Regular.name),
+      '400': webFont(Montserrat.Regular.name),
+      '500': webFont(Montserrat.Semibold.name),
+      '600': webFont(Montserrat.Bold.name),
+      '700': webFont(Montserrat.Bold.name),
+      '800': webFont(Montserrat.Bold.name),
+      '900': webFont(Montserrat.Black.name),
+    },
   },
   breakpoints: [576, 768, 992, 1200, 1400],
   layout: {
@@ -47,13 +58,13 @@ const theme = makeTheme({
     },
   },
   fonts: {
-    root: AvertaStd.Regular.name,
+    root: Montserrat.Regular.name,
   },
   forms: {
     input: {
       fontSize: 16,
       color: '$text',
-      fontFamily: AvertaStd.Regular.name,
+      fontFamily: Montserrat.Regular.name,
     },
     icon: {
       size: 16,

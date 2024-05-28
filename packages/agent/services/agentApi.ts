@@ -2,19 +2,13 @@ import { EndpointBuilderType } from 'services/common/types'
 import {
   AddNewAgentArgs,
   AddNewAgentResult,
-  AgentCreatePinArgs,
-  AgentCreatePinResult,
   AgentDetailsArgs,
   AgentDetailsResult,
   AgentListArgs,
   AgentListResult,
-  AgentProfile,
   AgentReferralDetailsArgs,
   AgentReferralDetailsResult,
-  AgentResetPinArgs,
   AgentSetStatusArgs,
-  AgentVerifyTransferPinArgs,
-  AgentVerifyTransferPinResult,
   MemberListArgs,
   MemberListResult,
 } from './agentApi.type'
@@ -23,12 +17,6 @@ import { IResponse } from './common/agentAxiosBaseQuery'
 
 export const agentApi = agentBaseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    agentProfile: builder.query<IResponse<AgentProfile>, void>({
-      query: () => ({
-        url: `/agent/profile`,
-      }),
-      providesTags: ['Profile'],
-    }),
     agentList: builder.query<
       IResponse<AgentListResult[]> | undefined,
       AgentListArgs
@@ -115,44 +103,12 @@ export const agentApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    agentResetPin: builder.mutation<IResponse<[]>, AgentResetPinArgs>({
-      query: (queryArgs) => ({
-        url: `/agent/resetPin`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-    }),
     addNewAgent: builder.mutation<
       IResponse<AddNewAgentResult>,
       AddNewAgentArgs
     >({
       query: (queryArgs) => ({
         url: `/agent/new`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-    }),
-
-    agentCreatePin: builder.mutation<
-      IResponse<AgentCreatePinResult>,
-      AgentCreatePinArgs
-    >({
-      query: (queryArgs) => ({
-        url: `/agent/createPin`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-      invalidatesTags: ['UserInfo'],
-    }),
-    agentVerifyTransferPin: builder.mutation<
-      IResponse<AgentVerifyTransferPinResult>,
-      AgentVerifyTransferPinArgs
-    >({
-      query: (queryArgs) => ({
-        url: `/agent/verifyTransferPin`,
         data: {
           ...queryArgs,
         },
@@ -198,15 +154,10 @@ export const agentApi = agentBaseApiWithTag.injectEndpoints({
 })
 
 export const {
-  useLazyAgentProfileQuery,
-  useAgentProfileQuery,
   useAgentListQuery,
   useAgentDetailsQuery,
-  useAgentResetPinMutation,
   useAddNewAgentMutation,
   useMemberListQuery,
-  useAgentCreatePinMutation,
-  useAgentVerifyTransferPinMutation,
   useAgentReferralDetailsQuery,
   useAgentBalanceQuery,
   useAgentSetStatusMutation,

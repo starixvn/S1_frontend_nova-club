@@ -65,7 +65,7 @@ export interface AgentResetPinArgs {
 
 export type AddNewAgentArgs = {
   currency: {
-    [Currency.VND]: {
+    [key in Currency]?: {
       CASH: string
       CREDIT: string
     }

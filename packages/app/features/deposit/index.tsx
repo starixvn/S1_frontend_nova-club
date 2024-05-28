@@ -79,43 +79,6 @@ const Deposit = () => {
     skipCheckPrompting,
   ])
 
-  const handlePress = (id) => {
-    let to = '/deposit'
-
-    switch (id) {
-      case DepositMethodId.INSTANT_TRANFER:
-        to = `/deposit/instant-transfer`
-        break
-      case DepositMethodId.LOCAL_BANK:
-        to = `/deposit/bank-transfer`
-        break
-      case DepositMethodId.ONLINE_BANK:
-        to = `/deposit/online-banking`
-        break
-      case DepositMethodId.MOMO:
-        to = `/deposit/momo`
-        break
-      case DepositMethodId.QR_CODE:
-        to = `/deposit/qr-pay`
-        break
-      case DepositMethodId.TOP_UP:
-        to = `/deposit/topup-card`
-        break
-      case DepositMethodId.CRYPTO:
-        to = `/deposit/crypto`
-        break
-      default:
-        break
-    }
-
-    logEvent(GAEvents.CTA_DepositCategory, {
-      ref: to,
-      display_name: to,
-    })
-
-    push(to)
-  }
-
   return (
     <PageWithBackHeader
       header={{
@@ -128,9 +91,13 @@ const Deposit = () => {
       }}
       disableScrollView
     >
-      {isLoading ? (
+      {paymentMethodList == null || isLoading ? (
         <ActivityIndicator sx={{ my: '$6' }} color={'$primary.100'} />
-      ) : paymentMethodList.length > 0 ? (
+      ) : paymentMethodList.length === 0 ? (
+        <Text sx={{ textAlign: 'center', pt: '$4' }}>
+          {t('deposit.noMethod')}
+        </Text>
+      ) : (
         <>
           <DailyMax
             type="deposit"
@@ -138,7 +105,6 @@ const Deposit = () => {
             dailyMax={data?.max}
             sx={{ px: '$4', pt: '$4' }}
           />
-
           <Text sx={{ my: '$3', mx: '$4' }}>{t('deposit.choose')}</Text>
           <View
             sx={{
@@ -148,27 +114,24 @@ const Deposit = () => {
               justifyContent: 'space-between',
             }}
           >
-            {paymentMethodList &&
-              paymentMethodList.map((item, index) => (
-                <DepositCard
-                  key={item.id}
-                  item={item}
-                  sx={{
-                    mb:
-                      paymentMethodList.length - index <= 1 &&
-                      (index + 1) % 2 === 1
-                        ? 0
-                        : '$1',
-                  }}
-                  onPress={() => {
-                    handlePress(item.id)
-                  }}
-                />
-              ))}
-            {/* <Seperator /> */}
+            {paymentMethodList.map((item, index) => (
+              <DepositCard
+                key={index}
+                item={item}
+                sx={{}}
+                onPress={() => {
+                  logEvent(GAEvents.CTA_DepositCategory, {
+                    ref: item.path,
+                    display_name: item.path,
+                  })
+
+                  push(item.path)
+                }}
+              />
+            ))}
           </View>
         </>
-      ) : null}
+      )}
       <View
         sx={{
           flexDirection: 'row',

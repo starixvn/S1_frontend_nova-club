@@ -71,6 +71,7 @@ export type SelectProps<T> = {
   _actionSheetContent?: (args: {
     closeActionSheet: () => void
   }) => React.ReactNode
+  showLabel?: boolean
 } & ViewProps
 
 interface CommonHeaderProps {
@@ -159,6 +160,7 @@ const Select = <T,>(
     onOpen,
     selectTriggerProps,
     contentContainerProps,
+    showLabel = true,
     ...rest
   } = props
 
@@ -188,7 +190,7 @@ const Select = <T,>(
 
   return (
     <View {...rest}>
-      {label ? (
+      {label && showLabel ? (
         <Label isRequired={isRequired} {...labelProps}>
           {label}
         </Label>

@@ -3,10 +3,10 @@ import GamePageHeader from 'app/components/GamePageHeader'
 import IconButtonGradientGroup from 'app/components/IconButtonGradientGroup'
 import IconButtonGradientToggle from 'app/components/IconButtonGradientToggle'
 import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import useLocalization from 'app/provider/localization'
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
+import FocusedLocalizationProvider from 'app/provider/localization/FocusedLocalizationProvider'
 import { View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import uniqBy from 'lodash/uniqBy'
@@ -18,6 +18,7 @@ import React, {
   useState,
 } from 'react'
 import { Platform } from 'react-native'
+import { useCommissionTableQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
@@ -27,6 +28,7 @@ import {
   GAME_TYPE_CODE,
   GDC_GAME_CATEGORY,
   HEADER_HEIGHT,
+  LANGUAGE_NAMESPACE,
   ProviderImageCategory,
 } from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
@@ -48,15 +50,17 @@ const GameCategory = [
 ]
 
 const GamesScreen = () => {
-  const { t } = useLocalization()
-  const commissionList = GetCommissionList()
   const scrollingRef = useRef<View>()
   const scrollRef = useRef()
+  const currency = useFocusedSelector((s) => s.setting.currency)
+  const { data: commissionList } = useCommissionTableQuery({ currency })
+
   const { data: games } = useGameListMultipleQuery({
+    currency,
     game_category: GameCategory,
     gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
   })
-  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
+  const gameCategoryTagTranslation = useGameCategoryTag(GameCategory)
 
   const [filteredGames, setFilteredGames] = useState<Game[]>()
   const [provider, setProvider] = useState('')
@@ -170,61 +174,65 @@ const GamesScreen = () => {
   // }
 
   return (
-    <ScrollToTopWrapper ref={scrollRef}>
-      <View sx={{ gap: '$3', my: '$3' }}>
-        <GamePageHeader icon="games1" title={t('game.category.games')} />
-        <IconButtonGradientGroup
-          sx={{
-            flex: 1,
-            minWidth: ['100%', 450],
-            alignSelf: 'center',
-          }}
-        >
-          {MobileGamesFilter.map((r, i) => {
-            return (
-              <IconButtonGradientToggle
-                sx={{ flex: 1 }}
-                key={r.label}
-                active={
-                  type !== ALL ? r.route.includes(type) : r.route === '/games'
-                }
-                label={r.label}
-                size={mobileGamesFilterResponsiveSize}
-                icon={r.icon ?? 'notice'}
-                labelProps={{ style: { fontSize: 10 }, numberOfLines: 2 }}
-                onPress={() => onFilterClicked(r, i)}
-              />
-            )
-          })}
-        </IconButtonGradientGroup>
-        <RecentlyPlayedSection
-          gameTypes={[
-            GAME_TYPE_CODE.GAMES,
-            GAME_TYPE_CODE.FISHING,
-            GAME_TYPE_CODE.LOTTERY,
-            GAME_TYPE_CODE.COCKFIGHTING,
-          ]}
-          gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}
-        />
-        <TopGameSection />
-        <View ref={scrollingRef} nativeID="scrollingPoint" />
-        <ProviderList
-          data={providers}
-          onNavigateProvider={handleSelectProvider}
-          imageCategory={ProviderImageCategory.Games}
-        />
+    <FocusedLocalizationProvider namespace={LANGUAGE_NAMESPACE.MEMBER}>
+      <ScrollToTopWrapper ref={scrollRef}>
+        <View sx={{ gap: '$3', my: '$3' }}>
+          <GamePageHeader icon="games1" title={'game.category.games'} />
+          <IconButtonGradientGroup
+            sx={{
+              flex: 1,
+              minWidth: ['100%', 450],
+              alignSelf: 'center',
+            }}
+          >
+            {MobileGamesFilter.map((r, i) => {
+              return (
+                <IconButtonGradientToggle
+                  sx={{ flex: 1 }}
+                  key={r.label}
+                  active={
+                    type !== ALL ? r.route.includes(type) : r.route === '/games'
+                  }
+                  label={r.label}
+                  size={mobileGamesFilterResponsiveSize}
+                  icon={r.icon ?? 'notice'}
+                  labelProps={{ style: { fontSize: 10 }, numberOfLines: 2 }}
+                  onPress={() => onFilterClicked(r, i)}
+                />
+              )
+            })}
+          </IconButtonGradientGroup>
+          <RecentlyPlayedSection
+            gameTypes={[
+              GAME_TYPE_CODE.GAMES,
+              GAME_TYPE_CODE.FISHING,
+              GAME_TYPE_CODE.LOTTERY,
+              GAME_TYPE_CODE.COCKFIGHTING,
+            ]}
+            gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}
+          />
+          <TopGameSection />
+          <View ref={scrollingRef} nativeID="scrollingPoint" />
+          <ProviderList
+            data={providers}
+            onNavigateProvider={handleSelectProvider}
+            imageCategory={ProviderImageCategory.Games}
+          />
 
-        <SlotSingleProviderListing
-          gtc={GAME_TYPE_CODE.SLOTS}
-          commissionList={commissionList}
-          games={
-            provider ? gamesByProviders[provider.toUpperCase()] : filteredGames
-          }
-          provider={provider}
-          gameCategoryTagTranslation={gameCategoryTagTranslation}
-        />
-      </View>
-    </ScrollToTopWrapper>
+          <SlotSingleProviderListing
+            gtc={GAME_TYPE_CODE.SLOTS}
+            commissionList={commissionList}
+            games={
+              provider
+                ? gamesByProviders[provider.toUpperCase()]
+                : filteredGames
+            }
+            provider={provider}
+            gameCategoryTagTranslation={gameCategoryTagTranslation}
+          />
+        </View>
+      </ScrollToTopWrapper>
+    </FocusedLocalizationProvider>
   )
 }
 

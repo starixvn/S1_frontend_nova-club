@@ -6,6 +6,7 @@ const AboutUsVi = () => {
       <p>
         <strong>Về chúng tôi</strong>
       </p>
+      <br />
       <p>
         VUI123 là một trong những thương hiệu nền tảng cá cược trực tuyến lớn
         nhất châu Á. Chúng tôi đã có mặt trên thị trường hơn 10 năm với đội ngũ
@@ -25,6 +26,7 @@ const AboutUsVi = () => {
       </p>
       <div>Một sản phẩm của</div>
       <div>bong88</div>
+      <br />
       <p>
         <strong>Tại sao bạn nên chọn Vui123?</strong>
       </p>

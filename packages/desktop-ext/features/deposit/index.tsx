@@ -1,49 +1,35 @@
-import FormContainer from 'app/components/form/FormContainer'
-import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
-import BankTransferContent from 'app/features/deposit/bank-transfer/BankTransferContent'
-import CryptoPayContent from 'app/features/deposit/crypto/CryptoPayContent'
-import InstantTransferContent from 'app/features/deposit/instant-transfer/InstantTransferContent'
-import MomoContent from 'app/features/deposit/momo/MomoContent'
-import OnlineBankingContent from 'app/features/deposit/online-banking/OnlineBankingContent'
-import QRPayContent from 'app/features/deposit/qr-pay/QRPayContent'
 import useDepositList from 'app/features/deposit/tools/useDepositList'
-import TopUpCardContent from 'app/features/deposit/topup-card/TopUpCardContent'
-import useIsDesktop from 'app/hooks/useIsDesktop'
-import DepositRoutes from 'desktop-ext/routes/depositRoutes'
-import { View } from 'dripsy'
-import React, { useMemo } from 'react'
+import useLocalization from 'app/provider/localization'
+import { ActivityIndicator, Text } from 'dripsy'
+import React, { useEffect } from 'react'
+import { useRouter } from 'solito/router'
 
 const DepositScreen = () => {
-  const { paymentMethodList } = useDepositList()
-  const horizontalMode = useIsDesktop()
+  const { paymentMethodList, isUninitialized } = useDepositList()
+  const { replace } = useRouter()
+  const { t } = useLocalization()
 
-  const availableRoutes = DepositRoutes.filter((route) =>
-    paymentMethodList.find((el) => route.categoryId === el.categoryId)
-  )
-
-  const memoContent = useMemo(() => {
-    switch (availableRoutes[0]?.categoryId) {
-      case DepositPaymentMethodCategoryId.INSTANT_TRANFER:
-        return <InstantTransferContent />
-      case DepositPaymentMethodCategoryId.LOCAL_BANK:
-        return <BankTransferContent />
-      case DepositPaymentMethodCategoryId.ONLINE_BANK:
-        return <OnlineBankingContent />
-      case DepositPaymentMethodCategoryId.MOMO:
-        return <MomoContent />
-      case DepositPaymentMethodCategoryId.QR_CODE:
-        return <QRPayContent />
-      case DepositPaymentMethodCategoryId.TOP_UP:
-        return <TopUpCardContent />
-      case DepositPaymentMethodCategoryId.CRYPTO:
-        return <CryptoPayContent />
-
-      default:
-        break
+  useEffect(() => {
+    if (paymentMethodList && paymentMethodList.length > 0) {
+      const firstMethod = paymentMethodList[0]
+      firstMethod && replace(firstMethod.path)
     }
-  }, [availableRoutes])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paymentMethodList])
 
-  return <>{memoContent}</>
+  if (isUninitialized)
+    return (
+      <ActivityIndicator
+        color="$primary.200"
+        sx={{ mt: '$4' }}
+        size={'large'}
+      />
+    )
+
+  if (!paymentMethodList || paymentMethodList.length === 0)
+    return <Text sx={{ mx: '$3', my: '$4' }}>{t('deposit.noMethod')}</Text>
+
+  return null
 }
 
 export default DepositScreen

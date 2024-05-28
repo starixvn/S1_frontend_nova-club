@@ -8,12 +8,14 @@ import AuthLayout from '../AuthLayout'
 import AccountVerificationForm from './AccountVerificationForm'
 import RegisterForm from './RegisterForm'
 import useRegisterScreen, { Register_Screen } from './useRegisterScreen'
+import { Currency } from 'utils/constant'
 
 export type RegisterFormValues = {
   username: string
   password: string
   confirmPassword: string
   contactNumber: string
+  currency: Currency
   verifyCode: string
   terms: boolean
 }

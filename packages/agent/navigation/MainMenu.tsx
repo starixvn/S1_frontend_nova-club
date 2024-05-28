@@ -13,7 +13,7 @@ import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
 import { modalDelaySubmission } from 'utils/common'
 import { MODAL_ANIMATION_DELAY } from 'app/provider/modal'
 
-const smallIconHeight = AGENT_TAB_HEIGHT * 0.5
+const smallIconHeight = AGENT_TAB_HEIGHT * 0.4
 interface MainMenuTestProps {
   isShow: boolean
   onMenu: (...args: any[]) => any

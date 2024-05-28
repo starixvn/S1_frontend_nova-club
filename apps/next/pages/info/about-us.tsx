@@ -15,10 +15,15 @@ const LazyVi = dynamic(() => import('app/features/info/aboutUs/AboutUsVi'), {
   loading: () => <ActivityIndicator />,
   ssr: false,
 })
+const LazyTh = dynamic(() => import('app/features/info/aboutUs/AboutUsTh'), {
+  loading: () => <ActivityIndicator />,
+  ssr: false,
+})
 
 const infoLocalizationMapping = {
   [LANGUAGE_CODE.ENGLISH]: LazyEn,
   [LANGUAGE_CODE.VIETNAM]: LazyVi,
+  [LANGUAGE_CODE.THAILAND]: LazyTh,
 }
 
 const AboutUs: AdaptiveLayoutPage = () => (

@@ -1,7 +1,7 @@
 import React from 'react'
-import AvertaStd from 'app/assets/fonts/Averta'
 import Logo from '../public/android/android-launchericon-144-144.png'
 import Image from 'next/image'
+import Montserrat from 'app/assets/fonts/Montserrat'
 
 const _offline = () => {
   return (
@@ -25,7 +25,7 @@ const _offline = () => {
         style={{
           marginTop: 24,
           fontSize: 24,
-          fontFamily: AvertaStd.Regular.name,
+          fontFamily: Montserrat.Regular.name,
           fontWeight: 'bold',
           color: 'white',
         }}

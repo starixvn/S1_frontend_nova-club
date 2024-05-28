@@ -1,10 +1,8 @@
 import AgentUnderlinePinField from 'agent/features/pin/AgentUnderlinePinField'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
-import { ModalStackParams } from 'agent/provider/agentModal'
-import { useAgentVerifyTransferPinMutation } from 'agent/services/agentApi'
 import { AgentVerifyTransferPinResult } from 'agent/services/agentApi.type'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
-import { useShareholderVerifyTransferPinMutation } from 'agent/services/shareholderApi'
+import { useProfileVerifyTransferPinMutation } from 'agent/services/profileApi'
 import { ShareholderVerifyTransferPinResult } from 'agent/services/shareholderApi.type'
 import validation from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
@@ -33,10 +31,7 @@ const AgentPinModal = ({ modal: { closeModal, getParam } }) => {
   const onConfirm = getParam('onConfirm')
   const { t } = useAgentLocalization()
   const { showAlert } = useAgentAlert()
-  const [agentVerifyPin] = useAgentVerifyTransferPinMutation()
-  const [shareholderVerifyPin] = useShareholderVerifyTransferPinMutation()
-
-  const verifyPin = isAgent ? agentVerifyPin : shareholderVerifyPin
+  const [verifyPin] = useProfileVerifyTransferPinMutation()
 
   function onDismiss() {
     closeModal()
@@ -68,7 +63,6 @@ const AgentPinModal = ({ modal: { closeModal, getParam } }) => {
             return error
           }
         )
-      console.log('result', result)
       if (success) {
         onWithdrawalConfirmed()
       }

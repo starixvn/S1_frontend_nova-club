@@ -1,8 +1,9 @@
 import { SabaGamePayload } from 'app/constants/game'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import { GAEvents } from 'app/integrations/analytic/events'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { Pressable, View, styled, useResponsiveValue } from 'dripsy'
-import React, { forwardRef, useCallback, useRef } from 'react'
+import React, { forwardRef, memo, useCallback, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
 import Carousel, {
   ICarouselInstance,
@@ -12,9 +13,12 @@ import { Game } from 'services/gameApi.type'
 import { MatchResult } from 'services/matchApi.type'
 import { mergeRefs } from 'utils/mergeRefs'
 import Icon from '../Icon'
-import MatchItem, { SCORE_HEIGHT } from './MatchItem'
+import MatchItem, {
+  MatchLaunchParams,
+  SCORE_HEIGHT,
+  matchItemToProps,
+} from './MatchItem'
 import { logEvent } from 'app/integrations/analytic'
-import { GAEvents } from 'app/integrations/analytic/events'
 const ASPECT_RATIO = 3
 
 export type MatchCarouselProps = Omit<
@@ -32,114 +36,122 @@ export type MatchCarouselProps = Omit<
   gaEvent?: GAEvents
 }
 
-const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
-  ({ data, gaEvent, ...rest }: MatchCarouselProps, ref) => {
-    const width = useWindowDimensions().width
-    const resWidth = useResponsiveValue([500, 500, 500, 400, 400, 500])
-    const itemWidth = Math.min(resWidth, width * 0.8)
-    const carouselRef = useRef<ICarouselInstance>(null)
+const MatchCarousel = memo(
+  forwardRef<ICarouselInstance, MatchCarouselProps>(
+    ({ data, gaEvent, ...rest }: MatchCarouselProps, ref) => {
+      const width = useWindowDimensions().width
+      const resWidth = useResponsiveValue([500, 500, 500, 400, 400, 500])
+      const itemWidth = Math.min(resWidth, width * 0.8)
+      const carouselRef = useRef<ICarouselInstance>(null)
 
-    const scoreHeight = useResponsiveValue(SCORE_HEIGHT)
+      const scoreHeight = useResponsiveValue(SCORE_HEIGHT)
 
-    const mergedRef = mergeRefs([carouselRef, ref])
-    const height = itemWidth / ASPECT_RATIO + scoreHeight
+      const mergedRef = mergeRefs([carouselRef, ref])
+      const height = itemWidth / ASPECT_RATIO + scoreHeight
 
-    function next() {
-      carouselRef?.current?.next()
-    }
+      function next() {
+        carouselRef?.current?.next()
+      }
 
-    function prev() {
-      carouselRef?.current?.prev()
-    }
+      function prev() {
+        carouselRef?.current?.prev()
+      }
 
-    const isDesktop = useIsDesktop()
+      const isDesktop = useIsDesktop()
 
-    const onPress = useCallback(
-      (match: MatchResult) => {
-        if (gaEvent)
-          logEvent(gaEvent, {
-            ref: match.EventId.toString(),
-            display_name: `${match.HomeName} vs ${match.AwayName}`,
-          })
-        getAction({
-          type: ActionType.GAME,
-          payload: {
-            desktopMode: isDesktop,
-            game: {
-              ...SabaGamePayload,
-              params: {
-                leaguekey: match.LeagueId.toString(),
-                matchid: match.EventId.toString(),
-              },
-            } as Game,
-          },
-        })()
-      },
-      [isDesktop]
-    )
+      const onPress = useCallback(
+        (params: MatchLaunchParams) => {
+          const { homeName, awayName, ...gameParams } = params
+          if (gaEvent)
+            logEvent(gaEvent, {
+              ref: params.matchid.toString(),
+              display_name: `${homeName} vs ${awayName}`,
+            })
 
-    if (!data) return <View sx={{ height }} />
+          getAction({
+            type: ActionType.GAME,
+            payload: {
+              desktopMode: isDesktop,
+              game: {
+                ...SabaGamePayload,
+                ...gameParams,
+              } as Game,
+            },
+          })()
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [isDesktop]
+      )
 
-    const isMultiple = data.length > 1
+      if (!data) return <View sx={{ height }} />
 
-    // const animationStyle = useCallback((value: number) => {
-    //   'worklet'
+      const isMultiple = data.length > 1
 
-    //   const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30])
-    //   const scale = interpolate(value, [-1, 0, 1], [1.25, 1, 0.25])
-    //   const opacity = interpolate(value, [-0.75, 0, 1], [0, 1, 0])
+      // const animationStyle = useCallback((value: number) => {
+      //   'worklet'
 
-    //   return {
-    //     transform: [{ scale }],
-    //     zIndex,
-    //     opacity,
-    //   }
-    // }, [])
+      //   const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30])
+      //   const scale = interpolate(value, [-1, 0, 1], [1.25, 1, 0.25])
+      //   const opacity = interpolate(value, [-0.75, 0, 1], [0, 1, 0])
 
-    return (
-      <Root nativeID="match-section">
-        {isMultiple && (
-          <PaginationIconButton
-            sx={{
-              left: 0,
-            }}
-            onPress={prev}
-          >
-            <Icon name="back" />
-          </PaginationIconButton>
-        )}
+      //   return {
+      //     transform: [{ scale }],
+      //     zIndex,
+      //     opacity,
+      //   }
+      // }, [])
 
-        <Carousel
-          // autoPlay={isMultiple}
-          autoPlayInterval={5000}
-          enabled={isMultiple}
-          ref={mergedRef}
-          data={data}
-          windowSize={3}
-          renderItem={({ item }) => (
-            <MatchItem match={item} width={itemWidth} onPress={onPress} />
+      return (
+        <Root>
+          {isMultiple && (
+            <PaginationIconButton
+              sx={{
+                left: 0,
+              }}
+              onPress={prev}
+            >
+              <Icon name="back" />
+            </PaginationIconButton>
           )}
-          width={itemWidth}
-          height={height}
-          panGestureHandlerProps={{
-            activeOffsetX: [-10, 10],
-          }}
-          {...rest}
-        />
 
-        {isMultiple && (
-          <PaginationIconButton
-            sx={{
-              right: 0,
+          <Carousel
+            // autoPlay={isMultiple}
+            autoPlayInterval={5000}
+            enabled={isMultiple}
+            ref={mergedRef}
+            data={data}
+            windowSize={3}
+            renderItem={({ item }) => {
+              return (
+                <MatchItem
+                  width={itemWidth}
+                  onPress={onPress}
+                  {...matchItemToProps(item)}
+                />
+              )
             }}
-            onPress={next}
-          >
-            <Icon name="next" />
-          </PaginationIconButton>
-        )}
-      </Root>
-    )
-  }
+            width={itemWidth}
+            height={height}
+            panGestureHandlerProps={{
+              activeOffsetX: [-10, 10],
+            }}
+            {...rest}
+          />
+
+          {isMultiple && (
+            <PaginationIconButton
+              sx={{
+                right: 0,
+              }}
+              onPress={next}
+            >
+              <Icon name="next" />
+            </PaginationIconButton>
+          )}
+        </Root>
+      )
+    }
+  )
 )
 
 MatchCarousel.displayName = 'MatchCarousel'

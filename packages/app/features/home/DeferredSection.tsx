@@ -1,4 +1,5 @@
 import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
@@ -6,24 +7,27 @@ import { SlotType } from 'utils/constant'
 import LeaderboardSection from './LeaderboardSection'
 import MatchSection from './Match/MatchSection'
 import ReferralSection from './Referral/ReferralSection'
-import { CnyFlower2, CnyLantern } from './CnyTheme'
 
 type Props = {}
 
 export default function DeferredSection({}: Props) {
   const { t } = useLocalization()
+  const { currency, locale } = useDefaultParamSelector()
 
   return (
     <View sx={{ gap: ['$3', '$4'] }}>
       <GameListSectionAsyncByTag
         nativeID="gamelist-new"
+        key={currency + locale + 0}
         tag={SlotType.NEW}
         title={t('game.new').toUpperCase()}
         icon="star"
         seeMoreUrl="/tag/new"
       />
+
       <GameListSectionAsyncByTag
         nativeID="gamelist-jackpot"
+        key={currency + locale + 1}
         tag={SlotType.JACKPOT}
         title={t('game.jackpot').toUpperCase()}
         icon="jackpot"
@@ -31,6 +35,7 @@ export default function DeferredSection({}: Props) {
       />
       <GameListSectionAsyncByTag
         nativeID="gamelist-megaway"
+        key={currency + locale + 2}
         tag={SlotType.MEGAWAY}
         title={t('game.megaway').toUpperCase()}
         icon="megaway"

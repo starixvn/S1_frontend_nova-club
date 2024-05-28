@@ -1,11 +1,13 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import { baseApiWithTag } from './baseApi'
-import { EndpointBuilderType, IResponse } from './common/types'
+import { DefaultParams, EndpointBuilderType, IResponse } from './common/types'
 import {
+  AffiliateUsernameArgs,
   AnnouncementListItems,
   AnnouncementResult,
   BannerItem,
+  BannerPage,
   BannerResult,
   CommissionQueryArgs,
   CommissionTableResult,
@@ -14,15 +16,17 @@ import {
   LeaderboardResult,
   RankingItem,
 } from './contentApi.type'
+import { Currency, DEFAULT_CURRENCY } from 'utils/constant'
+import { createSelector } from '@reduxjs/toolkit'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
  */
 export const contentApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    banner: builder.query<BannerItem[], void>({
-      query: () => ({
-        url: `/static_api/getBannerList`,
+    banner: builder.query<BannerItem[], Currency>({
+      query: (currency = DEFAULT_CURRENCY) => ({
+        url: `/static_api/v1/bannerList/${currency}`,
         method: 'GET',
       }),
       transformResponse: ({ data }: { data: BannerResult }) => {
@@ -41,15 +45,9 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         method: 'GET',
       }),
     }),
-    leaderboard: builder.query<IResponse<LeaderboardResult[]>, void>({
-      query: () => ({
-        url: `/static_api/leaderboard`,
-        method: 'GET',
-      }),
-    }),
-    getLeaderboard: builder.query<RankingItem[], void>({
-      query: () => ({
-        url: `/static_api/getLeaderboard`,
+    getLeaderboard: builder.query<RankingItem[], Currency>({
+      query: (currency = DEFAULT_CURRENCY) => ({
+        url: `/static_api/v1/getLeaderboard/${currency}`,
         method: 'GET',
       }),
       transformResponse: ({ data }: { data: LeaderboardRankingResult }) => {
@@ -61,7 +59,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
       CommissionQueryArgs
     >({
       query: ({ currency }) => ({
-        url: `/player_api/getProviderAndGameTypeCommission`,
+        url: `/player_api/v1/getProviderAndGameTypeCommission`,
         data: {
           currency,
         },
@@ -79,24 +77,26 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         return transformResponse ?? []
       },
     }),
-    announcement: builder.query<AnnouncementListItems[], string>({
-      query: (lang) => ({
-        url: `/static_api/announcement`,
+    announcement: builder.query<AnnouncementListItems[], DefaultParams>({
+      query: ({ locale, currency }) => ({
+        url: `/static_api/v1/announcement/${currency}`,
         method: 'GET',
       }),
       transformResponse: (resp: IResponse<AnnouncementResult>) => {
         return resp.data?.list ?? []
       },
       providesTags: (result, error, arg) => {
-        return [{ type: 'Announcement', lang: arg }]
+        return [
+          { type: 'Announcement', lang: arg.locale, currency: arg.currency },
+        ]
       },
     }),
     affiliateUsername: builder.query<
       IResponse<{ username: string; currency: string }>,
-      string
+      AffiliateUsernameArgs
     >({
-      query: (trackingCode) => ({
-        url: `/static_api/referral/${trackingCode}`,
+      query: ({ trackingCode, currency = DEFAULT_CURRENCY }) => ({
+        url: `/static_api/v1/referral/${trackingCode}/${currency}`,
         method: 'GET',
       }),
     }),
@@ -117,11 +117,17 @@ export const contentApi = baseApiWithTag.injectEndpoints({
   }),
 })
 
+export const selectBannerByPage = createSelector(
+  (banners: BannerItem[] | undefined) => banners,
+  (banners: BannerItem[] | undefined, page: BannerPage) => page,
+  (banners: BannerItem[] | undefined, page: BannerPage) =>
+    banners?.filter((b) => b.banner_display_page === page) ?? []
+)
+
 export const {
   useBannerQuery,
   useSlotBannerQuery,
   useSlotBannerFullQuery,
-  useLeaderboardQuery,
   useGetLeaderboardQuery,
   useCommissionTableQuery,
   useAnnouncementQuery,

@@ -7,10 +7,11 @@ import { SolitoImage } from 'solito/image'
 import BouncePressable from './pressable/BouncePressable'
 
 const DownloadButton = () => {
+  const referral = useAppSelector((s) => s.setting.referral)
   const lang = useAppSelector((state) => state.setting.locale)
 
   const handleDownload = () => {
-    Linking.openURL(REFERRAL_DOMAIN)
+    Linking.openURL(`${REFERRAL_DOMAIN}?ref=${referral?.trackingCode}`)
   }
 
   return (

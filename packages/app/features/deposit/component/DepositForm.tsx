@@ -3,11 +3,12 @@ import Button from 'app/components/common/Button'
 import SelectList from 'app/components/select/SelectList'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { MAP_CRYPTO_PROTOCOL } from 'app/constants/crypto'
-import { ROOT_DOMAIN } from 'app/constants/domain'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import useAlert from 'app/hooks/useAlert'
 import useCheckMobile from 'app/hooks/useCheckMobile'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toDisplayAmount } from 'app/utils'
 import validation from 'app/utils/validation'
 import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
@@ -26,9 +27,7 @@ import {
   PlayerInputFieldsAmount,
   PlayerInputFieldsBank,
 } from 'services/deposit.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
-import { Currency } from 'utils/constant'
 import * as Yup from 'yup'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import DailyMax from './DailyMax'
@@ -48,8 +47,8 @@ const DepositForm = ({ DepositCategoryId }) => {
   const { showAlert } = useAlert()
   const { openModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
-  const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
+
+  const currency = useAppSelector((state) => state.setting.currency)
   const horizontalMode = useIsDesktop()
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 
@@ -61,7 +60,7 @@ const DepositForm = ({ DepositCategoryId }) => {
     refetchOnMountOrArgChange: true,
   })
 
-  const depositPayment = data?.data?.result.auto.find(
+  const depositPayment = data?.result.auto.find(
     (el) => el.category_id === DepositCategoryId
   )
 
