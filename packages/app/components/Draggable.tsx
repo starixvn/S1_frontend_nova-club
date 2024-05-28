@@ -4,16 +4,17 @@ import { Animated, PanResponder } from 'react-native'
 const Draggable = ({ children }) => {
   const pan = useRef(new Animated.ValueXY()).current
 
-  const panResponder = PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
-    onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
-      useNativeDriver: false,
-    }),
-    onPanResponderRelease: () => {
-      pan.extractOffset()
-    },
-  })
-
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
+        useNativeDriver: true,
+      }),
+      onPanResponderRelease: () => {
+        pan.extractOffset()
+      },
+    })
+  ).current
   return (
     <Animated.View style={[pan.getLayout(), {}]} {...panResponder.panHandlers}>
       {children}

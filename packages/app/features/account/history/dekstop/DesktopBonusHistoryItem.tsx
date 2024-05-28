@@ -1,7 +1,7 @@
-import { getStatusColor } from 'app/config/status'
+import { getDepositStatusColor } from 'app/config/status'
 import useLocalization from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
-import { styled, Text, useDripsyTheme, View } from 'dripsy'
+import { Text, View, styled, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import DateTimeCell from '../DateTimeCell'
 import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
@@ -32,7 +32,7 @@ const DesktopBonusHistoryItem = ({ item, index }) => {
         <Text
           sx={{
             textAlign: 'center',
-            color: getStatusColor(item.status, theme),
+            color: getDepositStatusColor(item.status),
           }}
         >
           {t('filter.transactionType.bonus')}

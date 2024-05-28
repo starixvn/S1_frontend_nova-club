@@ -11,9 +11,8 @@ import {
   DateFilter,
   DateFilterOptions,
   ReportCommonStatusOptions,
-  ReportDepositStatusOptions,
   ReportTransactionType,
-  ReportTransactionTypeOptions,
+  ReportTransactionTypeOptions
 } from 'utils/constant'
 import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../../apps/next/config/env'
 
@@ -109,7 +108,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               return setSelected({
                 ...selected,
                 selectedTransType: value,
-                selectedStatus: ReportDepositStatusOptions[0]?.value,
+                selectedStatus: ReportCommonStatusOptions[0]?.value,
               })
             }}
             _actionSheet={{

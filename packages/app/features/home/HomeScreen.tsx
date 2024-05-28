@@ -1,4 +1,5 @@
 import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
+import { CheckModuleExist as ConnectionCheck } from 'app/components/netInfo/CheckModuleExist'
 import useShield from 'app/hooks/useShield'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
@@ -70,9 +71,7 @@ export default function HomeScreen() {
         <GameGridSection />
         <Deferrable />
         <ModalTriggers />
-
-        <CnyFireCracker />
-        <CnyDragon />
+        <ConnectionCheck />
       </ScrollView>
     </ScrollToTopWrapper>
   )

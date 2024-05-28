@@ -179,14 +179,24 @@ export const CoinRedemptionTypeOptions = [
 ]
 
 export enum ReportDepositStatus {
-  ALL = 'all',
-  PENDING = 'pending',
-  SETTLED_ON_BROWSER = 'settledonBrowser',
-  SETTLED = 'settled',
-  CANCELLED = 'cancelled',
-  FAILED = 'failed',
+  PENDING = 3,
+  SETTLED_ON_BROWSER = 4,
+  SETTLED = 5,
+  CANCELLED = 6,
+  FAILED = 7,
+  DECLINED = 8,
+  CHECKING = 9,
+}
+
+export enum ReportWithdrawalStatus {
+  REQUEST = 'request',
+  APPROVED = 'approved',
   DECLINED = 'declined',
-  CHECKING = 'checking',
+  PAID = 'paid',
+  PAYMENT_PROCESSING = 'payProc',
+  PAYMENT = 'CS0',
+  REQUIRE_CHECK = 'required_check',
+  PROCESSING = '__default',
 }
 
 export enum ReportCommonStatus {
@@ -215,81 +225,10 @@ export const ReportCommonStatusOptions = [
   },
 ]
 
-export const ReportDepositStatusOptions = [
-  {
-    value: ReportDepositStatus.ALL,
-    label: 'common.all',
-  },
-  {
-    value: ReportDepositStatus.PENDING,
-    label: 'filter.depositStatus.pending',
-  },
-  {
-    value: ReportDepositStatus.SETTLED_ON_BROWSER,
-    label: 'filter.depositStatus.settledonBrowser',
-  },
-  {
-    value: ReportDepositStatus.SETTLED,
-    label: 'filter.depositStatus.settled',
-  },
-  {
-    value: ReportDepositStatus.CANCELLED,
-    label: 'filter.depositStatus.cancelled',
-  },
-  {
-    value: ReportDepositStatus.FAILED,
-    label: 'filter.depositStatus.failed',
-  },
-  {
-    value: ReportDepositStatus.DECLINED,
-    label: 'filter.depositStatus.declined',
-  },
-  {
-    value: ReportDepositStatus.CHECKING,
-    label: 'filter.depositStatus.checking',
-  },
-]
-
-export enum ReportWithdrawalStatus {
-  ALL = 'all',
-  REQUEST = 'request',
-  PENDING_REVIEW = 'pendingReview',
-  DECLINED = 'declined',
-  PAID = 'paid',
-  PAYMENT_PROCESSING = 'paymentProcessing',
-  PAYMENT = 'payment',
+export enum ReportAdjustmentType {
+  ADD_BALANCE = '7',
+  SUBSTRACT_BALANCE = '8',
 }
-
-export const ReportWithdrawalStatusOptions = [
-  {
-    value: ReportWithdrawalStatus.ALL,
-    label: 'filter.withdrawalStatus.all',
-  },
-  {
-    value: ReportWithdrawalStatus.REQUEST,
-    label: 'filter.withdrawalStatus.request',
-  },
-  {
-    value: ReportWithdrawalStatus.PENDING_REVIEW,
-    label: 'filter.withdrawalStatus.pendingReview',
-  },
-  {
-    value: ReportWithdrawalStatus.DECLINED,
-    label: 'filter.withdrawalStatus.declined',
-  },
-  {
-    value: ReportWithdrawalStatus.PAID,
-    label: 'filter.withdrawalStatus.paid',
-  },
-  {
-    value: ReportWithdrawalStatus.PAYMENT_PROCESSING,
-    label: 'filter.withdrawalStatus.paymentProcessing',
-  },
-  {
-    value: ReportWithdrawalStatus.PAYMENT,
-    label: 'filter.withdrawalStatus.payment',
-  },
-]
 
 export enum ReportGameStatus {
   ALL = 'all',

@@ -7,6 +7,7 @@ import { Platform } from 'react-native'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import { createParam } from 'solito'
 import MatchLeagueSelector from './MatchLeagueSelector'
+import { GAEvents } from 'app/integrations/analytic/events'
 
 type Params = {
   section?: string
@@ -69,7 +70,10 @@ export default function MatchSection() {
       {leagueSection === LEAGUE_SECTION.LEAGUE_ODDS && (
         <>
           <View sx={{ mb: '$4' }} />
-          <MatchCarousel data={leagues.entities[leagueId]} />
+          <MatchCarousel
+            data={leagues.entities[leagueId]}
+            gaEvent={GAEvents.CTA_MatchSportsbook}
+          />
         </>
       )}
     </View>

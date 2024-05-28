@@ -62,18 +62,11 @@ const DailyCheckInModal = ({ modal: { closeModal, getParam } }) => {
           style={{
             width: '100%',
             height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          <View
-            sx={{
-              width: '100%',
-              height: '100%',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <CheckInBox />
-          </View>
+          <CheckInBox />
         </ImageBackground>
       </View>
     </>

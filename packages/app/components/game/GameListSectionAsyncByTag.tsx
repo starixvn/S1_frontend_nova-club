@@ -5,6 +5,7 @@ import { SlotType } from 'utils/constant'
 
 interface GameListSectionAsyncByTagProps
   extends Omit<GameListSectionProps, 'data'> {
+  nativeID?: string
   tag: SlotType
   delay?: number
   seeMoreUrl?: string
@@ -14,6 +15,7 @@ const GameListSectionAsyncByTag = ({
   tag,
   delay,
   seeMoreUrl,
+  nativeID,
   ...rest
 }: GameListSectionAsyncByTagProps) => {
   const [isDelayed, setDelayed] = useState(false)
@@ -31,7 +33,14 @@ const GameListSectionAsyncByTag = ({
     }
   )
 
-  return <GameListSection data={data} seeMoreUrl={seeMoreUrl} {...rest} />
+  return (
+    <GameListSection
+      nativeID={nativeID}
+      data={data}
+      seeMoreUrl={seeMoreUrl}
+      {...rest}
+    />
+  )
 }
 
 export default memo(GameListSectionAsyncByTag)

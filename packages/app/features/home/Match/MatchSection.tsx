@@ -1,6 +1,7 @@
 import MatchCarousel from 'app/components/match/MatchCarousel'
 import { MatchLeagueId } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import { GAEvents } from 'app/integrations/analytic/events'
 import React, { useMemo } from 'react'
 import { useGetRecoMatchQuery } from 'services/matchApi'
 
@@ -20,5 +21,5 @@ export default function MatchSection({}: Props) {
     return finalData ?? []
   }, [data])
 
-  return <MatchCarousel data={filteredData} />
+  return <MatchCarousel data={filteredData} gaEvent={GAEvents.CTA_MatchHome} />
 }

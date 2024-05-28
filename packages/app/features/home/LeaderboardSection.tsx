@@ -8,7 +8,7 @@ const LeaderboardSection = (props) => {
   const displayRowCount = useResponsiveValue([5, 5, 5, 10])
   const { t } = useLocalization()
   return (
-    <View {...props}>
+    <View nativeID='leaderboard-section' {...props}>
       <SectionHeader
         icon="crown"
         title={t('menu.leaderboard')}

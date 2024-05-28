@@ -49,6 +49,7 @@ export interface Setting {
   triggerPopupTutorial: boolean
   rewardPopup: number
   lastSubscribeUsername: string
+  stopShowingDailyCheckin?: string
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -177,6 +178,9 @@ const settingSlice = createSlice({
     },
     setLastSubscribeUsername: (state, action: PayloadAction<string>) => {
       state.lastSubscribeUsername = action.payload
+    },
+    setStopShowingDailyCheckin: (state, action: PayloadAction<string>) => {
+      state.stopShowingDailyCheckin = action.payload
     },
   },
   extraReducers: (builder) => {

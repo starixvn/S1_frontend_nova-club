@@ -1181,6 +1181,8 @@ PODS:
     - React-Core
   - react-native-menu (0.7.3):
     - React
+  - react-native-netinfo (11.3.1):
+    - React-Core
   - react-native-pager-view (6.1.2):
     - React-Core
   - react-native-render-html (6.3.4):
@@ -1421,6 +1423,7 @@ DEPENDENCIES:
   - react-native-date-picker (from `../../../node_modules/react-native-date-picker`)
   - react-native-ios-context-menu (from `../../../node_modules/react-native-ios-context-menu`)
   - "react-native-menu (from `../../../node_modules/@react-native-menu/menu`)"
+  - "react-native-netinfo (from `../../../node_modules/@react-native-community/netinfo`)"
   - react-native-pager-view (from `../../../node_modules/react-native-pager-view`)
   - react-native-render-html (from `../../../node_modules/react-native-render-html`)
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
@@ -1590,6 +1593,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native-ios-context-menu"
   react-native-menu:
     :path: "../../../node_modules/@react-native-menu/menu"
+  react-native-netinfo:
+    :path: "../../../node_modules/@react-native-community/netinfo"
   react-native-pager-view:
     :path: "../../../node_modules/react-native-pager-view"
   react-native-render-html:
@@ -1742,6 +1747,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 04e866ba4e7857f83abd504ad42e787f0f02ae00
   react-native-ios-context-menu: e529171ba760a1af7f2ef0729f5a7f4d226171c5
   react-native-menu: 9d7d6f819cc7fa14a15cf86888c53f3240d86f1b
+  react-native-netinfo: bdb108d340cdb41875c9ced535977cac6d2ff321
   react-native-pager-view: 54bed894cecebe28cede54c01038d9d1e122de43
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
@@ -1789,4 +1795,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 064f3182356f31d08a066994172b6a646ec59c27
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.12.0

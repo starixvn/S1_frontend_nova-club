@@ -1,8 +1,8 @@
 import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
-import { DesktopWalletLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
 import DepositGuard from './deposit-guard'
+import { DesktopDepositLayout } from 'components/layouts/desktop'
 
 const LazyMobileScreen = dynamic(
   () => import('app/features/deposit/momo/index'),
@@ -25,6 +25,6 @@ const GuardMomoScreen: AdaptiveLayoutPage = DepositGuard(
   MomoPayScreen,
   'deposit'
 )
-GuardMomoScreen.DesktopLayout = DesktopWalletLayout
+GuardMomoScreen.DesktopLayout = DesktopDepositLayout
 
 export default GuardMomoScreen
