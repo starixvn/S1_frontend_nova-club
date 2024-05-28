@@ -1,5 +1,6 @@
 import {
   ReportAdjustmentType,
+  ReportCommonStatus,
   ReportDepositStatus,
   ReportWithdrawalStatus,
 } from 'utils/constant'
@@ -37,6 +38,19 @@ export const getWithdrawalStatusColor = (status?: ReportWithdrawalStatus) => {
     case ReportWithdrawalStatus.PAYMENT_PROCESSING:
     case ReportWithdrawalStatus.PAYMENT:
     case ReportWithdrawalStatus.PROCESSING:
+      return '$info'
+    default:
+      return '#FFF'
+  }
+}
+
+export const getBonusStatusColor = (
+  status: ReportCommonStatus = ReportCommonStatus.PENDING
+) => {
+  switch (status) {
+    case ReportCommonStatus.APPROVED:
+      return '$success'
+    case ReportCommonStatus.PENDING:
       return '$info'
     default:
       return '#FFF'
