@@ -1,20 +1,21 @@
 import Icon from 'agent/components/Icon'
 import AgentRoutes from 'agent/navigation/routes/AgentRoutes'
+import PartnerRoutes from 'agent/navigation/routes/PartnerRoutes'
 import ShareholderRoutes from 'agent/navigation/routes/ShareholderRoutes'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import usePathname from 'app/hooks/usePathname'
 import { useAgentLocalization } from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import React, { useMemo } from 'react'
 import { useRouter } from 'solito/router'
 import AgentTabBar from './AgentTabBar'
 import AgentTabBarItem from './AgentTabBarItem'
-import { useAppSelector } from 'app/provider/redux/store'
 
 export default function AgentShareholderTabBar({}) {
   const token = useAppSelector((s) => s.agent.access_token)
-  const { isAgent } = useUserInfoQuery(undefined, {
-    selectFromResult: (s) => ({ ...s, isAgent: s.data?.role === ROLE.AGENT }),
+  const { role } = useUserInfoQuery(undefined, {
+    selectFromResult: (s) => ({ ...s, role: s.data?.role }),
     skip: !token,
   })
 
@@ -24,8 +25,18 @@ export default function AgentShareholderTabBar({}) {
   const pathname = usePathname()
 
   const routes = useMemo(() => {
-    return isAgent ? AgentRoutes : ShareholderRoutes
-  }, [isAgent])
+    switch (role) {
+      case ROLE.AGENT:
+        return AgentRoutes
+      case ROLE.SHAREHOLDER:
+        return ShareholderRoutes
+      // case ROLE.PARTNER:
+      //   return PartnerRoutes
+
+      default:
+        return ShareholderRoutes
+    }
+  }, [role])
 
   return (
     <AgentTabBar>

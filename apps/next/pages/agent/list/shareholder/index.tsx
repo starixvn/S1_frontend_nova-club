@@ -1,12 +1,12 @@
 import ShareholderListing from 'agent/features/shareholder/ShareholderListing'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
-import ListRoutes from 'agent/navigation/routes/ListRoutes'
+import ShareholderListRoutes from 'agent/navigation/routes/ListRoutes'
 import { MobileAgentLayout } from 'components/layouts/agent'
 
 const ListShareholder = () => {
   return (
     <>
-      <AgentNestedTabs routes={ListRoutes} />
+      <AgentNestedTabs routes={ShareholderListRoutes} />
       <ShareholderListing />
     </>
   )

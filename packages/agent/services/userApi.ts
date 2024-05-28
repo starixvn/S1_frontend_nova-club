@@ -24,23 +24,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
       }),
       providesTags: ['WalletAmount', 'UserInfo'],
       transformResponse: (res: IResponse<UserInfo>): UserInfo => {
-        return (
-          res.result?.data ?? {
-            name: '-',
-            role: 'agent',
-            username: '-',
-            wallet: {
-              currency: 'VND',
-              balance: 0,
-            },
-            has_logged_in: 1,
-            has_otp: 1,
-            has_pin: 1,
-            mobile_no: '-',
-            id: 0,
-            has_verified_wd: 1,
-          }
-        )
+        return res.result?.data as UserInfo
       },
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {

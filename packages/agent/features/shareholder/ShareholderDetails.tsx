@@ -5,10 +5,7 @@ import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
-import {
-  useShareholderBalanceQuery,
-  useShareholderDetailsQuery,
-} from 'agent/services/shareholderApi'
+import { useShareholderDetailsQuery } from 'agent/services/shareholderApi'
 import DataTable from 'app/components/dataTable/DataTable'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
@@ -34,15 +31,6 @@ const ShareholderDetailsScreen = () => {
         }),
       }
     )
-
-  const { shareholderBalance } = useShareholderBalanceQuery(
-    { id },
-    {
-      selectFromResult: ({ data }) => ({
-        shareholderBalance: data?.result?.data.wallet_bal_amt?.VND,
-      }),
-    }
-  )
 
   const firstCellStyle = { flex: 0.4 }
   const secondCellStyle = { flex: 0.3 }
@@ -71,19 +59,23 @@ const ShareholderDetailsScreen = () => {
             label={t('profile.name')}
             value={shareholderData?.name}
           />
-          <DetailsField label={t('profile.mobile')} value={mobileNumber} />
+          <DetailsField
+            label={t('profile.mobile')}
+            value={shareholderData?.mobile_no && mobileNumber}
+          />
           <DetailsField
             label={t('profile.email')}
             value={shareholderData?.email}
           />
-          <DetailsField
-            label={t('profile.walletBalance')}
-            value={shareholderBalance}
-          />
+          <DetailsField label={t('profile.walletBalance')} value="****" />
           <DetailsField
             label={t('report.pt')}
             value={
-              shareholderData ? `${shareholderData?.earning_perc?.VND}%` : ' '
+              shareholderData
+                ? `${
+                    shareholderData?.earning_perc?.[shareholderData.currency]
+                  }%`
+                : ' '
             }
           />
 

@@ -3,7 +3,7 @@ import { ROLE } from 'agent/utils/helper'
 import { useAgentLocalization } from 'app/provider/localization'
 import { View } from 'dripsy'
 
-const ProfileTitle = ({ userRole }: { userRole: string }) => {
+const ProfileTitle = ({ userRole }: { userRole: string | undefined }) => {
   const { t } = useAgentLocalization()
   return (
     <View
@@ -20,6 +20,7 @@ const ProfileTitle = ({ userRole }: { userRole: string }) => {
             color: 'black',
             fontWeight: 'bold',
             fontSize: 24,
+            lineHeight: 24,
             paddingRight: '$2',
           }}
         >
@@ -44,7 +45,9 @@ const ProfileTitle = ({ userRole }: { userRole: string }) => {
         >
           {userRole === ROLE.AGENT
             ? t('common.agent')
-            : t('common.shareholder')}
+            : userRole === ROLE.SHAREHOLDER
+            ? t('common.shareholder')
+            : t('common.shareholder_agent')}
         </Text>
       </View>
     </View>

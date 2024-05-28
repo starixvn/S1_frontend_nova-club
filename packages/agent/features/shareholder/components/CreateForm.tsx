@@ -6,18 +6,20 @@ import Select from 'agent/components/Select/Select'
 import { NewEarnPercentagePercList } from 'agent/services/shareholderApi.type'
 import { USERNAME_MAX_LENGTH } from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Flex } from 'dripsy'
+import { ActivityIndicator, Flex } from 'dripsy'
 import { FormikProps } from 'formik'
 import React from 'react'
 
 export enum ShareholderAgent {
   Agent = 'agent',
   Shareholder = 'shareholder',
+  Partner = 'partner',
 }
 
 type CreateFormProps<T> = {
   screen: ShareholderAgent
-  isLoading: boolean
+  isLoading?: boolean
+  isLoadingOptions?: boolean
   formik: FormikProps<T>
   earningPt?: NewEarnPercentagePercList
 }
@@ -25,12 +27,15 @@ type CreateFormProps<T> = {
 const CreateForm = <T,>({
   screen = ShareholderAgent.Shareholder,
   isLoading,
+  isLoadingOptions,
   formik,
   earningPt,
 }: CreateFormProps<T>) => {
   const { t } = useAgentLocalization()
   const isCheck = true
-  const isShareholder = screen === ShareholderAgent.Shareholder
+  const isShareholder =
+    screen === ShareholderAgent.Shareholder ||
+    screen === ShareholderAgent.Partner
   const inputWidth = isShareholder ? '48%' : '32%'
 
   const {
@@ -58,60 +63,64 @@ const CreateForm = <T,>({
 
   return (
     <Card sx={{ mb: '$5' }}>
-      <Flex
-        sx={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-        }}
-      >
-        <Input
-          editable={false}
-          label={t('profile.currency')}
-          value="VND"
-          containerProps={{
-            sx: { width: inputWidth, mb: 12 },
+      {isLoadingOptions ? (
+        <ActivityIndicator />
+      ) : (
+        <Flex
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
           }}
-        />
-        {isShareholder && earningPt && (
-          <Select
-            label={t('report.pt') + ' %'}
-            options={parseEarningList()}
-            placeholder={t('report.pt')}
-            value={values.earning}
-            onSelected={(val) => {
-              setFieldValue('earning', val)
+        >
+          <Input
+            editable={false}
+            label={t('profile.currency')}
+            value="VND"
+            containerProps={{
+              sx: { width: inputWidth, mb: 12 },
             }}
-            isRequired
-            sx={{ width: inputWidth, mb: 12 }}
           />
-        )}
-        <Input
-          editable={false}
-          label={isShareholder ? t('report.type') : '\u00A0'}
-          leftInnerElement={<CheckBox isCheck={isCheck} />}
-          value={t('common.cash')}
-          containerProps={{
-            sx: { width: inputWidth, mb: 12 },
-          }}
-        />
-        <Input
-          editable={false}
-          label="&nbsp;"
-          leftInnerElement={
-            <CheckBox
-              isCheck={isCheck}
-              tickColor="#D1D1D1"
-              sx={{ bg: '#818384' }}
+          {isShareholder && earningPt && (
+            <Select
+              label={t('report.pt') + ' %'}
+              options={parseEarningList()}
+              placeholder={t('report.pt')}
+              value={values.earning}
+              onSelected={(val) => {
+                setFieldValue('earning', val)
+              }}
+              isRequired
+              sx={{ width: inputWidth, mb: 12 }}
             />
-          }
-          value={t('common.credit')}
-          containerProps={{
-            sx: { width: inputWidth, mb: 12 },
-          }}
-        />
-      </Flex>
+          )}
+          <Input
+            editable={false}
+            label={isShareholder ? t('report.type') : '\u00A0'}
+            leftInnerElement={<CheckBox isCheck={isCheck} />}
+            value={t('common.cash')}
+            containerProps={{
+              sx: { width: inputWidth, mb: 12 },
+            }}
+          />
+          <Input
+            editable={false}
+            label="&nbsp;"
+            leftInnerElement={
+              <CheckBox
+                isCheck={isCheck}
+                tickColor="#D1D1D1"
+                sx={{ bg: '#818384' }}
+              />
+            }
+            value={t('common.credit')}
+            containerProps={{
+              sx: { width: inputWidth, mb: 12 },
+            }}
+          />
+        </Flex>
+      )}
 
       <Input
         label={t('common.username')}

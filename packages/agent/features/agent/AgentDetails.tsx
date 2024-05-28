@@ -2,10 +2,7 @@ import Card from 'agent/components/Card'
 import { ParseDownlineTable } from 'agent/features/profile/ParseDownlineChart'
 import DetailsField from 'agent/features/shareholder/components/DetailsField'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
-import {
-  useAgentBalanceQuery,
-  useAgentDetailsQuery,
-} from 'agent/services/agentApi'
+import { useAgentDetailsQuery } from 'agent/services/agentApi'
 import DataTable from 'app/components/dataTable/DataTable'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
@@ -15,9 +12,9 @@ import { createParam } from 'solito'
 
 import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
 import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
-import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 
 const { useParam } = createParam<{ id: string }>()
 const AgentDetailsScreen = () => {
@@ -33,15 +30,6 @@ const AgentDetailsScreen = () => {
           data?.result?.data.total_downline
         )?.[2],
         success: data?.success,
-      }),
-    }
-  )
-
-  const { agentBalance } = useAgentBalanceQuery(
-    { id },
-    {
-      selectFromResult: ({ data }) => ({
-        agentBalance: data?.result?.data.wallet_bal_amt?.VND,
       }),
     }
   )
@@ -68,11 +56,11 @@ const AgentDetailsScreen = () => {
             value={dayjs(agentData?.created_at).format('YYYY-MM-DD hh:mm:ss A')}
           />
           <DetailsField label={t('profile.name')} value={agentData?.name} />
-          <DetailsField label={t('profile.mobile')} value={mobileNumber} />
           <DetailsField
-            label={t('profile.walletBalance')}
-            value={agentBalance}
+            label={t('profile.mobile')}
+            value={agentData?.mobile_no && mobileNumber}
           />
+          <DetailsField label={t('profile.walletBalance')} value="****" />
 
           <DataTable
             sx={{

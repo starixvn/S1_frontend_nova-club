@@ -71,7 +71,7 @@ export type SelectProps<T> = {
   _actionSheetContent?: (args: {
     closeActionSheet: () => void
   }) => React.ReactNode
-  showLabel: boolean
+  showLabel?: boolean
 } & ViewProps
 
 interface CommonHeaderProps {

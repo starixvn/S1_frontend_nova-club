@@ -22,7 +22,6 @@ import validation, {
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
@@ -57,7 +56,6 @@ const AddBankInfoForm = () => {
     useAddBankAccountMutation()
   const [sendOtp] = useSendOTPMutation()
   const { back } = useRouter()
-  const { height } = useContainerDimension()
 
   const { hasVerified, phoneNo, realName, role } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
@@ -74,19 +72,13 @@ const AddBankInfoForm = () => {
   }, [hasVerified])
 
   const onSubmit = async (
-    {
-      bankCard,
-      accountNumber,
-      accountName,
-      mobileNumber,
-      otp,
-    }: AddBankInfoValues,
+    { bankCard, accountNumber, accountName, otp }: AddBankInfoValues,
     { setStatus }: FormikHelpers<AddBankInfoValues>
   ) => {
     try {
       setIsLoading(true)
       const { result, message, success } = await newBankAccount({
-        currency: currency,
+        currency,
         bank_code: bankCard,
         acc_no: accountNumber,
         acc_name: accountName,
@@ -154,7 +146,7 @@ const AddBankInfoForm = () => {
     try {
       setIsLoading(true)
       const { message, success } = await sendOtp({
-        mobile_no: MOBILE_PREFIX.VND + values.mobileNumber,
+        mobile_no: MOBILE_PREFIX[currency] + values.mobileNumber,
       })
         .unwrap()
         .catch((error): IResponse<void> => {

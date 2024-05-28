@@ -12,6 +12,7 @@ export const agentBaseApiWithTag = agentBaseApi.enhanceEndpoints({
     'agentAuth',
     'AgentCommission',
     'ShareholderCommission',
+    'PartnerCommission',
     'TransactionReport',
     'Memberlist',
     'AgentList',

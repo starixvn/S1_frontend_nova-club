@@ -208,7 +208,6 @@ const AgentResetPassword = () => {
         <View
           sx={{
             alignItems: 'center',
-            paddingTop: Platform.OS === 'web' ? 45 : 0,
           }}
         >
           <Image

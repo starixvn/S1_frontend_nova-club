@@ -16,7 +16,7 @@ const NewRegistrationModal = ({
   modal: { closeModal, getParam },
 }: NewRegistrationModalProps) => {
   const { t } = useAgentLocalization()
-  const SBO_LINK = 'https://sbo-stage.gball8.com/login'
+  const SBO_LINK = 'https://sbo.sbe123.site/login'
 
   const username = getParam('username', '')
   const password = getParam('password', '')

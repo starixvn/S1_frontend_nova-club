@@ -26,6 +26,7 @@ const AgentFundTransferPage = () => {
         isUninitialized,
       }),
     })
+
   useEffect(() => {
     if (isFetching || isUninitialized || !isFocus) return
     if (!hasPin) {

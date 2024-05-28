@@ -5,11 +5,6 @@ import { Platform } from 'react-native'
 import { LoginResult } from 'services/authApi.type'
 import { useRouter } from 'solito/router'
 
-type LoginFormValues = {
-  username: string
-  password: string
-}
-
 export default function useAgentLoginProcess() {
   const dispatch = useAppDispatch()
   const { push, replace, back } = useRouter()
@@ -33,7 +28,6 @@ export default function useAgentLoginProcess() {
         },
       })()
     } else {
-      // navigateAfterLogin('/agent/profile')
       push('/agent/profile')
     }
   }

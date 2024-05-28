@@ -1,33 +1,36 @@
 import {
-  useShareholderGetEarnPtQuery,
-  useShareholderUpdatePtMutation,
-} from 'agent/services/shareholderApi'
+  useProfileGetEarnPtQuery,
+  useProfileUpdatePtMutation,
+} from 'agent/services/profileApi'
 import { useAgentLocalization } from 'app/provider/localization'
 import React, { useState } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import Button from '../Button'
 import Select from '../Select/Select'
 import ModalWrapper from './ModalWrapper'
+import { useAppSelector } from 'app/provider/redux/store'
+import { Currency } from 'utils/constant'
 
 const EditPTModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useAgentLocalization()
   const id = getParam('id')
   const pt = getParam('pt')
+  const currency = getParam('currency') as Currency
 
-  const { ptList } = useShareholderGetEarnPtQuery(
+  const { ptList } = useProfileGetEarnPtQuery(
     { id },
     {
-      selectFromResult: ({ data }) => ({
-        ptList: data?.result?.data.earnPercList.VND ?? {},
+      selectFromResult: (s) => ({
+        ptList: s.data?.earnPercList,
       }),
     }
   )
 
-  const [updatePT] = useShareholderUpdatePtMutation()
+  const [updatePT] = useProfileUpdatePtMutation()
 
   const [selected, setSelected] = useState(pt)
 
-  const ptOptions = Object.values(ptList).map((el) => {
+  const ptOptions = Object.values(ptList?.[currency] ?? {}).map((el) => {
     return { label: el, value: el }
   })
 
@@ -39,7 +42,7 @@ const EditPTModal = ({ modal: { closeModal, getParam } }) => {
     const { success, message } = await updatePT({
       id,
       currency: {
-        VND: {
+        [currency]: {
           EARNP: selected,
         },
       },

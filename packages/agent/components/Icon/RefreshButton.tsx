@@ -1,6 +1,6 @@
 import { SxProp, styled } from 'dripsy'
 import { MotiView } from 'moti'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { GestureResponderEvent } from 'react-native'
 
 import { IconButtonProps } from 'app/components/IconButton'
@@ -21,23 +21,26 @@ const RefreshButton = ({
   size = 22,
   sx,
 }: RefreshButtonProps) => {
-  return (
-    <StyledMotiView
-      // key={(!!loading).toString()}
-      from={{ rotateZ: `0deg` }}
-      animate={{ rotateZ: `${ROTATION_DEG}deg` }}
-      transition={{
-        // repeat: loading ? 0 : 1,
-        // loop: loading,
-        // repeatReverse: false,
-        type: 'timing',
-        duration: 1000,
-      }}
-      sx={sx}
-    >
-      <IconButton name="refresh" size={size} onPress={onPress} />
-    </StyledMotiView>
+  const AnimatedRefresh = useMemo(
+    () => (
+      <StyledMotiView
+        key={(!!loading).toString()}
+        from={{ rotateZ: `0deg` }}
+        animate={{ rotateZ: `${ROTATION_DEG}deg` }}
+        transition={{
+          loop: loading,
+          repeatReverse: false,
+          type: 'timing',
+          duration: 1000,
+        }}
+        sx={sx}
+      >
+        <IconButton name="refresh" size={size} onPress={onPress} />
+      </StyledMotiView>
+    ),
+    [loading]
   )
+  return <>{AnimatedRefresh}</>
 }
 
 const StyledMotiView = styled(MotiView)()

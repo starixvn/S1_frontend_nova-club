@@ -6,9 +6,8 @@ import TimerButton, {
 } from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
-import { useAgentCreatePinMutation } from 'agent/services/agentApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
-import { useShareholderCreatePinMutation } from 'agent/services/shareholderApi'
+import { useProfileCreatePinMutation } from 'agent/services/profileApi'
 import {
   useCreatePinOtpMutation,
   useUserInfoQuery,
@@ -21,14 +20,15 @@ import validation, {
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
+import { MOBILE_PREFIX } from 'utils/constant'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
-import { MOBILE_PREFIX } from 'utils/constant'
 
 interface AddBankInfoValues {
   mobileNumber: string
@@ -39,8 +39,10 @@ interface AddBankInfoValues {
 
 const AgentCreatePin = () => {
   const { push, back, replace } = useRouter()
-  const { isAgent, mobile_no, hasPin, isUninitialized, isFetching } =
-    useUserInfoQuery(undefined, {
+  const currency = useAppSelector((s) => s.agent.currency)
+  const { mobile_no, hasPin, isUninitialized, isFetching } = useUserInfoQuery(
+    undefined,
+    {
       selectFromResult: ({ data, ...rest }) => ({
         isAgent: data?.role === ROLE.AGENT,
         mobile_no: data?.mobile_no,
@@ -48,7 +50,8 @@ const AgentCreatePin = () => {
         ...rest,
       }),
       refetchOnMountOrArgChange: true,
-    })
+    }
+  )
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
@@ -58,10 +61,7 @@ const AgentCreatePin = () => {
   const [sendOtp] = useCreatePinOtpMutation()
   const [isOtpLoading, setIsOtpLoading] = useState(false)
 
-  const [agentCreatePin] = useAgentCreatePinMutation()
-  const [shCreatePin] = useShareholderCreatePinMutation()
-
-  const createPin = isAgent ? agentCreatePin : shCreatePin
+  const [createPin] = useProfileCreatePinMutation()
 
   const onSubmit = async (
     { otp, pin, confirmPin }: AddBankInfoValues,
@@ -123,7 +123,7 @@ const AgentCreatePin = () => {
 
     try {
       const { message, success } = await sendOtp({
-        mobile_no: MOBILE_PREFIX.VND + mobile_no,
+        mobile_no: MOBILE_PREFIX[currency] + mobile_no,
       })
         .unwrap()
         .catch((error): IResponse<void> => {
@@ -183,7 +183,9 @@ const AgentCreatePin = () => {
                   sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
                 }}
                 leftOuterElement={
-                  <Text sx={{ paddingX: '$4', color: 'black' }}>+84</Text>
+                  <Text sx={{ paddingX: '$4', color: 'black' }}>
+                    {`+${MOBILE_PREFIX[currency]}`}
+                  </Text>
                 }
                 rightOuterElement={
                   isOtpLoading ? (

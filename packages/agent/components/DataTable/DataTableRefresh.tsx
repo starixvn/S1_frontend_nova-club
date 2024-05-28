@@ -5,10 +5,12 @@ import { Pressable, styled, SxProp, useDripsyTheme, View } from 'dripsy'
 import React, { ComponentProps } from 'react'
 import { Linking } from 'react-native'
 
-const StyleText = styled(Text)(({ isHyperlink }: { isHyperlink: boolean }) => ({
-  color: 'white',
-  textDecorationLine: isHyperlink ? 'underline' : null,
-}))
+const StyleText = styled(Text)(
+  ({ isHyperlink }: { isHyperlink?: boolean }) => ({
+    color: 'white',
+    textDecorationLine: isHyperlink ? 'underline' : null,
+  })
+)
 
 type DataTableRefreshProps = {
   title: string
@@ -37,7 +39,7 @@ const DataTableRefresh = ({
   return (
     <View
       sx={{
-        bg: theme.colors.$primaryAgent,
+        bg: '$primaryAgent',
         justifyContent: 'center',
         minHeight: 36,
         py: 8,

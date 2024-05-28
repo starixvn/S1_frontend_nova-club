@@ -1,4 +1,5 @@
 export enum ROLE {
-  SHAREHOLDER = 'sh',
+  SHAREHOLDER = 'shareholder',
   AGENT = 'agent',
+  PARTNER = 'shareholder_agent',
 }

@@ -27,7 +27,7 @@ export default function AgentTabBarItem({
     <Pressable
       sx={{
         flex: 1,
-        height: AGENT_TAB_HEIGHT * 1.25,
+        height: AGENT_TAB_HEIGHT,
         alignItems: 'center',
         py: 5,
         ...sx,

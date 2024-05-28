@@ -1,31 +1,31 @@
 import Card from 'agent/components/Card'
-import useGetProfile from 'agent/hooks/useGetProfile'
+import { useProfileDetailQuery } from 'agent/services/profileApi'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import { DripsyGradient } from 'app/components/Gradient'
+import { useAppSelector } from 'app/provider/redux/store'
 import { ScrollView, styled } from 'dripsy'
 import { MotiView } from 'moti'
 import ProfileChart from './ProfileChart'
 import ProfileChartLegend from './ProfileChartLegend'
 import ProfileDetails from './ProfileDetails'
 import ProfileTitle from './ProfileTitle'
-import { useAppSelector } from 'app/provider/redux/store'
 
 const AgentProfile = () => {
   const token = useAppSelector((s) => s.agent.access_token)
   const { data: userInfoData } = useUserInfoQuery(undefined, { skip: !token })
-  const isAgent = userInfoData?.role === ROLE.AGENT
-  const userRole = isAgent ? ROLE.AGENT : ROLE.SHAREHOLDER
+  const userRole = userInfoData?.role
 
-  const { loading, profile } = useGetProfile()
+  const { data, isLoading } = useProfileDetailQuery()
 
-  const downline = profile?.total_downline
+  const profile = data?.result?.data
+  const downline = data?.result?.data.total_downline
 
   return (
     <DripsyGradient locations={[0.0, 0.1]} gradient="agentContent">
       <ScrollView sx={{ px: '$3', pt: '$4' }}>
         <ProfileTitle userRole={userRole} />
-        <Card isLoading={loading} sx={{ mb: '$6' }}>
+        <Card isLoading={isLoading} sx={{ mb: '$6' }}>
           <ProfileContentContainer
             from={{ opacity: 0, height: 0 }}
             animate={{
