@@ -192,9 +192,7 @@ const QuarterFinal = ({
           ...bottomBracketStyle,
         }}
       />
-      <StageText sx={textStyle}>
-        {t('event.euro.knockout.stage2').replace(' ', '')}
-      </StageText>
+      <StageText sx={textStyle}>{t('event.euro.knockout.stage2')}</StageText>
     </View>
   )
 }
@@ -237,9 +235,7 @@ const SemiFinal = ({
           ...bottomBracketStyle,
         }}
       />
-      <StageText sx={textStyle}>
-        {t('event.euro.knockout.stage3').replace(' ', '')}
-      </StageText>
+      <StageText sx={textStyle}>{t('event.euro.knockout.stage3')}</StageText>
     </View>
   )
 }
@@ -314,8 +310,8 @@ const StageText = styled(Text)({
   position: 'absolute',
   textTransform: 'uppercase',
   fontWeight: 'bold',
-  fontSize: 11,
-  minWidth: 100,
+  fontSize: [11, 12],
+  width: 100,
   mt: 4,
 })
 export default Bracket
