@@ -3,6 +3,7 @@ import { FlashList } from '@shopify/flash-list'
 import { useAppSelector } from 'app/provider/redux/store'
 import dayjs from 'dayjs'
 import { Pressable, Row, Text, View } from 'dripsy'
+import sortBy from 'lodash/sortBy'
 import React, { useMemo, useState } from 'react'
 import { useGetEuroCupSportBookListQuery } from 'services/euroApi'
 import { EuroCupMatchDetail } from 'services/euroApi.type'
@@ -20,7 +21,10 @@ const EuroMatches = () => {
     refetchOnMountOrArgChange: true,
   })
 
-  const filteredData = useMemo(() => data?.[page], [data, page])
+  const filteredData = useMemo(
+    () => sortBy(data, 'sorting')?.[page],
+    [data, page]
+  )
 
   const handlePress = (url) => {
     if (isLoggedIn) {

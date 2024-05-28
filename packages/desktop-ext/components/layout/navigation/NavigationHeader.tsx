@@ -217,7 +217,7 @@ const MenuButton = ({
         </View>
       ) : (
         <View>
-          <Text sx={{ fontSize: [10, 10, 10, 12, 14] }}>
+          <Text sx={{ fontSize: [10, 10, 10, 12, 13] }}>
             {t(label).toUpperCase()}
           </Text>
           <Text

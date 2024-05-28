@@ -36,15 +36,19 @@ const PageSwitcher = ({ page, setPage, maxPage, label }: PageSwitcherProps) => {
         right: 0,
       }}
     >
-      <BouncePressable onPress={handlePrev} disabled={isStartPage}>
-        <Icon name="back" sx={{ opacity: isStartPage ? 0.6 : 1 }} />
-      </BouncePressable>
+      {maxPage > 1 && (
+        <BouncePressable onPress={handlePrev} disabled={isStartPage}>
+          <Icon name="back" sx={{ opacity: isStartPage ? 0.6 : 1 }} />
+        </BouncePressable>
+      )}
 
       <Text sx={{ minWidth: 300, textAlign: 'center' }}>{label}</Text>
 
-      <BouncePressable onPress={handleNext} disabled={isEndPage}>
-        <Icon name="next" sx={{ opacity: isEndPage ? 0.6 : 1 }} />
-      </BouncePressable>
+      {maxPage > 1 && (
+        <BouncePressable onPress={handleNext} disabled={isEndPage}>
+          <Icon name="next" sx={{ opacity: isEndPage ? 0.6 : 1 }} />
+        </BouncePressable>
+      )}
     </Row>
   )
 }

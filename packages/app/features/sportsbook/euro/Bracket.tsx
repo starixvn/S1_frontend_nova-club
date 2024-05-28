@@ -41,7 +41,7 @@ const Bracket = () => {
         {stage1?.slice(0, 8).map((item, index) => (
           <TeamBracket key={index} image={item.team_img} />
         ))}
-        <StageText sx={{ bottom: -12 }}>
+        <StageText sx={{ top: -12 }}>
           {t('event.euro.knockout.stage1')}
         </StageText>
       </View>
@@ -147,7 +147,7 @@ const Bracket = () => {
         {stage1?.slice(8).map((item, index) => (
           <TeamBracket key={index} image={item.team_img} />
         ))}
-        <StageText sx={{ bottom: -12, right: 0, textAlign: 'right' }}>
+        <StageText sx={{ top: -12, right: 0, textAlign: 'right' }}>
           {t('event.euro.knockout.stage1')}
         </StageText>
       </View>
