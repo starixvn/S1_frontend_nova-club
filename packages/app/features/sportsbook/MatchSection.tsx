@@ -1,5 +1,6 @@
 import MatchCarousel from 'app/components/match/MatchCarousel'
 import { LEAGUE_SECTION, MatchLeagueId } from 'app/constants/recMatchMapping'
+import useFocusedSelector from 'app/hooks/useFocusedSelector'
 import { GAEvents } from 'app/integrations/analytic/events'
 import { View } from 'dripsy'
 import { default as React, useEffect, useMemo, useState } from 'react'
@@ -15,6 +16,7 @@ type Params = {
 const { useParam } = createParam<Params>()
 
 export default function MatchSection() {
+  const currency = useFocusedSelector((s) => s.setting.currency)
   const [selectedLeague, setSelectedLeague] = useState<string>()
   const [leagueSection, setLeagueSection] = useParam('section', {
     initial: LEAGUE_SECTION.LEAGUE_ODDS,
@@ -30,7 +32,7 @@ export default function MatchSection() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagueSection])
 
-  const { leagues, data } = useGetRecoMatchQuery(
+  const { leagues } = useGetRecoMatchQuery(
     { isApp: Platform.OS !== 'web', currency },
     {
       selectFromResult: (resp) => ({

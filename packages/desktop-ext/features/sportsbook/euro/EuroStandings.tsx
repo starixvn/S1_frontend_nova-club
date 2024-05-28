@@ -11,10 +11,10 @@ const EuroStandings = () => {
   const { t } = useLocalization()
   const [page, setPage] = useState(0)
 
-  const EuroStandingsMatch = useMemo(
-    () => (page === 0 ? <Knockout /> : <GroupStage />),
-    [page]
-  )
+  // const EuroStandingsMatch = useMemo(
+  //   () => (page === 0 ? <Knockout /> : <GroupStage />),
+  //   [page]
+  // )
 
   return (
     <View>

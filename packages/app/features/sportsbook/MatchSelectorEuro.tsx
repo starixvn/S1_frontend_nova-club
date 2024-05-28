@@ -36,7 +36,7 @@ const MatchSelectorEuro = ({ active, onPress }) => {
           <Pressable
             sx={{
               position: 'absolute',
-              width: 120,
+              width: 200,
               height: 180,
               top: -20,
               ml: -10,
@@ -73,7 +73,7 @@ const MatchSelectorEuro = ({ active, onPress }) => {
               sx={{
                 bg: '$primary.200',
                 p: '$2',
-                width: 100,
+                pt: '$3',
                 borderRadius: 12,
               }}
             >
@@ -90,7 +90,9 @@ const MatchSelectorEuro = ({ active, onPress }) => {
                     }}
                     onPress={() => handlePress(item)}
                   >
-                    <Text sx={{ fontWeight: 'bold' }}>{item.label}</Text>
+                    <Text sx={{ fontWeight: 'bold', mb: '$1' }}>
+                      {item.label}
+                    </Text>
                   </MotiPressable>
                 ))}
               </View>

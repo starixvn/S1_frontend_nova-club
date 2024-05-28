@@ -125,10 +125,10 @@ export default function MatchList({}: Props) {
     switch (leagueSection) {
       case LEAGUE_SECTION.EURO_MATCH:
         setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
-        return <EuroMatches data={filteredEuroData.slice(1)} />
+        return <EuroMatches />
       case LEAGUE_SECTION.EURO_STANDINGS:
         setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
-        return <EuroStandings data={filteredEuroData.slice(1)} />
+        return <EuroStandings />
       case LEAGUE_SECTION.EURO_ODDS:
         return (
           <MatchListTable
