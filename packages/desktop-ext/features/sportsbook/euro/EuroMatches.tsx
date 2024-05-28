@@ -1,4 +1,4 @@
-import { MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
 import { MatchLeagueId } from 'app/constants/recMatchMapping'
 import MatchFlag from 'app/features/sportsbook/euro/MatchFlag'
@@ -7,23 +7,19 @@ import useLocalization from 'app/provider/localization'
 import { Row, Text, View } from 'dripsy'
 import React, { useMemo, useState } from 'react'
 import { useGetEuroCupSportBookListQuery } from 'services/euroApi'
-import { MatchResult } from 'services/matchApi.type'
+import { EuroCupMatchDetail } from 'services/euroApi.type'
 import { MatchHeader } from '../MatchListHeader'
 import { getMatchTime } from '../MatchListTable'
 
-const ITEM_PER_PAGE = 6
-
-const EuroMatches = ({ data }: { data: MatchResult[] }) => {
+const EuroMatches = () => {
   const { t } = useLocalization()
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
 
-  const { data: StandingData } = useGetEuroCupSportBookListQuery()
-  console.log('🚀 ~ EuroMatches ~ StandingData:', StandingData)
+  const { data } = useGetEuroCupSportBookListQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
-  const filteredData = useMemo(
-    () => data.slice(ITEM_PER_PAGE * (page - 1), ITEM_PER_PAGE * page),
-    [data, page]
-  )
+  const filteredData = useMemo(() => data?.[page], [data, page])
 
   return (
     <View>
@@ -35,8 +31,8 @@ const EuroMatches = ({ data }: { data: MatchResult[] }) => {
         <PageSwitcher
           page={page}
           setPage={setPage}
-          maxPage={3}
-          label={`${t('event.euro.sportsbook.gameStage')} ${page} of 3`}
+          maxPage={data ? data?.length - 1 : 0}
+          label={filteredData?.event_name}
         />
       </MatchHeader>
 
@@ -45,7 +41,7 @@ const EuroMatches = ({ data }: { data: MatchResult[] }) => {
       <FlashList
         // key={page}
         estimatedItemSize={100}
-        data={filteredData}
+        data={filteredData?.match_detail}
         numColumns={3}
         renderItem={MatchCard}
       />
@@ -53,11 +49,17 @@ const EuroMatches = ({ data }: { data: MatchResult[] }) => {
   )
 }
 
-const MatchCard = ({ item, index }: { index: number; item: MatchResult }) => {
-  const homeFlag = `${MEDIA_DOMAIN}/nvclub${item.HomeImagePath}`
-  const awayFlag = `${MEDIA_DOMAIN}/nvclub${item.AwayImagePath}`
+const MatchCard = ({
+  item,
+  index,
+}: {
+  index: number
+  item: EuroCupMatchDetail
+}) => {
+  const homeFlag = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.home_team_image}`
+  const awayFlag = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.away_team_image}`
 
-  const { matchDayjs } = getMatchTime(item.globalshowtime)
+  const { matchDayjs } = getMatchTime(item.match_time)
   const time = matchDayjs.format('DD MMM/hh:mm a').split('/')
 
   return (
@@ -76,8 +78,8 @@ const MatchCard = ({ item, index }: { index: number; item: MatchResult }) => {
       }}
     >
       <View>
-        <MatchFlag flag={homeFlag} label={item.HomeName} />
-        <MatchFlag flag={awayFlag} label={item.AwayName} />
+        <MatchFlag flag={homeFlag} label={item.home_team_name} />
+        <MatchFlag flag={awayFlag} label={item.away_team_name} />
       </View>
       <View>
         <Text sx={{ textAlign: 'right', mb: '$2' }}>{time[0]}</Text>

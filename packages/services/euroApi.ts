@@ -5,6 +5,7 @@ import {
   EligibleEuroCupTicketResult,
   EuroCupEvent,
   EuroCupKnockout,
+  EuroCupSportBookList,
   EventEuroCupLogServiceResult,
   GetSubmittedTeamArgs,
   GetSubmittedTeamResult,
@@ -32,12 +33,12 @@ export const euroApi = baseApiWithTag.injectEndpoints({
         return data ?? []
       },
     }),
-    getEuroCupSportBookList: builder.query<EuroCupEvent, void>({
+    getEuroCupSportBookList: builder.query<EuroCupSportBookList[], void>({
       query: () => ({
         url: `/static_api/getEuroCupSportBookList`,
         method: 'GET',
       }),
-      transformResponse: ({ data }: { data: EuroCupEvent }) => {
+      transformResponse: ({ data }: { data: EuroCupSportBookList[] }) => {
         return data ?? []
       },
     }),

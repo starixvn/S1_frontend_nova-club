@@ -13,7 +13,7 @@ type PageSwitcherProps = {
 
 const PageSwitcher = ({ page, setPage, maxPage, label }: PageSwitcherProps) => {
   const { t } = useLocalization()
-  const isStartPage = page === 1
+  const isStartPage = page === 0
   const isEndPage = page === maxPage
 
   const handlePrev = () => {

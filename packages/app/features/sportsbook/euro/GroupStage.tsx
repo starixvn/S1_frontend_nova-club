@@ -4,14 +4,14 @@ import React from 'react'
 import { MatchResult } from 'services/matchApi.type'
 import MatchFlag from './MatchFlag'
 
-const GroupStage = ({ data }: { data: MatchResult[] }) => {
+const GroupStage = () => {
   return (
     <View sx={{ p: '$2' }}>
       <GroupHeader />
       <View sx={{ gap: '$2' }}>
-        {data.map((item, index) => (
+        {/* {data.map((item, index) => (
           <GroupRow key={index} index={index} item={item} />
-        ))}
+        ))} */}
       </View>
     </View>
   )

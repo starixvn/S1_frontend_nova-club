@@ -1,42 +1,28 @@
-import { MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
-import { MatchLeagueId } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import { Row, Text, View } from 'dripsy'
 import React, { useMemo, useState } from 'react'
-import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
+import { useGetEuroCupSportBookListQuery } from 'services/euroApi'
 import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import PageSwitcher from './PageSwitcher'
+import { EuroCupMatchDetail } from 'services/euroApi.type'
 
 const ITEM_PER_PAGE = 12
 
 const EuroMatches = () => {
   const { t } = useLocalization()
-  const desktop = useIsDesktop()
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
 
-  const { leagues, isFetching } = useGetRecoMatchQuery(
-    { isApp: !desktop },
-    {
-      selectFromResult: (resp) => ({
-        ...resp,
-        leagues: matchGroupByLeague(resp),
-      }),
-    }
-  )
+  const { data } = useGetEuroCupSportBookListQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
-  const filteredData = useMemo(
-    () =>
-      leagues?.entities[MatchLeagueId.EURO_CUP]?.slice(
-        ITEM_PER_PAGE * (page - 1),
-        ITEM_PER_PAGE * page
-      ) ?? [],
-    [leagues, page]
-  )
+  const filteredData = useMemo(() => data?.[page], [data, page])
 
   return (
     <View>
@@ -44,14 +30,14 @@ const EuroMatches = () => {
         <PageSwitcher
           page={page}
           setPage={setPage}
-          maxPage={3}
-          label={`${t('event.euro.sportsbook.gameStage')} ${page} of 3`}
+          maxPage={data ? data?.length - 1 : 0}
+          label={filteredData?.event_name}
         />
       </View>
 
       <FlashList
         estimatedItemSize={100}
-        data={filteredData}
+        data={filteredData?.match_detail}
         numColumns={3}
         renderItem={MatchCard}
         style={{ padding: 12 }}
@@ -61,11 +47,17 @@ const EuroMatches = () => {
   )
 }
 
-const MatchCard = ({ item, index }: { index: number; item: MatchResult }) => {
-  const homeFlag = `${MEDIA_DOMAIN}/nvclub${item.HomeImagePath}`
-  const awayFlag = `${MEDIA_DOMAIN}/nvclub${item.AwayImagePath}`
+const MatchCard = ({
+  item,
+  index,
+}: {
+  index: number
+  item: EuroCupMatchDetail
+}) => {
+  const homeFlag = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.home_team_image}`
+  const awayFlag = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.away_team_image}`
 
-  const gmt8 = dayjs(item.globalshowtime, 'MM/DD hh:mmA')
+  const gmt8 = dayjs(item.match_time, 'MM/DD hh:mmA')
   const gmt7 = dayjsTz(gmt8)
 
   const time = gmt7.format('DD MMM hh:mm a')
@@ -83,10 +75,10 @@ const MatchCard = ({ item, index }: { index: number; item: MatchResult }) => {
         my: '$2',
       }}
     >
-      <Text sx={{ fontSize: 14 }}>{time}</Text>
+      <Text sx={{ fontSize: 12 }}>{time}</Text>
       <View>
-        <MatchFlag flag={homeFlag} label={item.HomeName} />
-        <MatchFlag flag={awayFlag} label={item.AwayName} />
+        <MatchFlag flag={homeFlag} label={item.home_team_name} />
+        <MatchFlag flag={awayFlag} label={item.away_team_name} />
       </View>
     </View>
   )
@@ -100,7 +92,7 @@ const MatchFlag = ({ flag, label }) => {
           mr: '$1',
           borderWidth: 2,
           borderColor: 'white',
-          borderRadius: 4,
+          borderRadius: 50,
           overflow: 'hidden',
         }}
       >

@@ -2,7 +2,7 @@ import MatchCarousel from 'app/components/match/MatchCarousel'
 import { LEAGUE_SECTION, MatchLeagueId } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { View } from 'dripsy'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import { createParam } from 'solito'
 import MatchLeagueSelector from './MatchLeagueSelector'
@@ -19,6 +19,11 @@ export default function MatchSection() {
   const [leagueSection, setleagueSection] = useParam('section', {
     initial: LEAGUE_SECTION.LEAGUE_ODDS,
   })
+
+  useEffect(() => {
+    leagueSection !== LEAGUE_SECTION.LEAGUE_ODDS &&
+      setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
+  }, [leagueSection])
 
   const { leagues, data } = useGetRecoMatchQuery(
     { isApp: !desktop },

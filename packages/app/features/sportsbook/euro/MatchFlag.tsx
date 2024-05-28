@@ -9,7 +9,7 @@ const MatchFlag = ({ flag, label }) => {
           mr: ['$2', '$3'],
           borderWidth: 2,
           borderColor: 'white',
-          borderRadius: 4,
+          borderRadius: 50,
           overflow: 'hidden',
         }}
       >

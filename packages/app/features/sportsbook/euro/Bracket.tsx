@@ -3,10 +3,8 @@ import { KNOCKOUT_STAGE } from 'app/constants/euroCup'
 import useLocalization from 'app/provider/localization'
 import { Row, SxProp, Text, View, styled, useResponsiveValue } from 'dripsy'
 import React from 'react'
-import { ImageStyle } from 'react-native'
 import { useGetEuroCupKnockoutQuery } from 'services/euroApi'
 import { EuroCupKnockout } from 'services/euroApi.type'
-import { SolitoImageProps } from 'solito/build/image/image.types'
 import { SolitoImage } from 'solito/image'
 
 type StageProps = {
@@ -44,7 +42,7 @@ const Bracket = () => {
           <TeamBracket
             key={index}
             image={item.team_img}
-            label={item.team_code ? item.team_code : item.position}
+            label={item.position}
           />
         ))}
         <StageText sx={{ bottom: -12 }}>
@@ -154,7 +152,7 @@ const Bracket = () => {
           <TeamBracket
             key={index}
             image={item.team_img}
-            label={item.team_code ? item.team_code : item.position}
+            label={item.position}
           />
         ))}
         <StageText sx={{ bottom: -12, right: 0, textAlign: 'right' }}>
@@ -188,11 +186,7 @@ const QuarterFinal = ({
         }}
       />
       {teams.map((item, index) => (
-        <TeamBracket
-          key={index}
-          image={item.team_img}
-          label={item.team_code ? item.team_code : item.position}
-        />
+        <TeamBracket key={index} image={item.team_img} label={item.position} />
       ))}
 
       <StyledImage
@@ -237,11 +231,7 @@ const SemiFinal = ({
         }}
       />
       {teams.map((item, index) => (
-        <TeamBracket
-          key={index}
-          image={item.team_img}
-          label={item.team_code ? item.team_code : item.position}
-        />
+        <TeamBracket key={index} image={item.team_img} label={item.position} />
       ))}
 
       <StyledImage
@@ -280,11 +270,7 @@ const Final = ({ teams = [] }: StageProps) => {
         }}
       />
       {teams.map((item, index) => (
-        <TeamBracket
-          key={index}
-          image={item.team_img}
-          label={item.team_code ? item.team_code : item.position}
-        />
+        <TeamBracket key={index} image={item.team_img} label={item.position} />
       ))}
       <StyledImage
         src={require('app/assets/images/events/euro/H5/line4.png')}
@@ -337,8 +323,9 @@ const StyledImage = styled(SolitoImage)({})
 const StageText = styled(Text)({
   position: 'absolute',
   textTransform: 'uppercase',
+  fontWeight: 'bold',
   fontSize: 12,
   minWidth: 80,
-  mt: 8,
+  mt: 4,
 })
 export default Bracket

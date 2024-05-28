@@ -1,24 +1,19 @@
 import { MatchLeagueId } from 'app/constants/recMatchMapping'
+import GroupStage from 'app/features/sportsbook/euro/GroupStage'
+import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React, { useMemo, useState } from 'react'
-import { MatchResult } from 'services/matchApi.type'
 import { MatchHeader } from '../MatchListHeader'
-import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 import Knockout from './Knockout'
-import GroupStage from 'app/features/sportsbook/euro/GroupStage'
-import { useGetEuroCupSportBookListQuery } from 'services/euroApi'
 
-const EuroStandings = ({ data }: { data: MatchResult[] }) => {
+const EuroStandings = () => {
   const { t } = useLocalization()
-  const [page, setPage] = useState(1)
-
-  const { data: data2 } = useGetEuroCupSportBookListQuery()
-  console.log('🚀 ~ EuroStandings ~ data:', data2)
+  const [page, setPage] = useState(0)
 
   const EuroStandingsMatch = useMemo(
-    () => (page === 1 ? <Knockout data={data} /> : <GroupStage data={data} />),
-    [data, page]
+    () => (page === 0 ? <Knockout /> : <GroupStage />),
+    [page]
   )
 
   return (
@@ -31,15 +26,15 @@ const EuroStandings = ({ data }: { data: MatchResult[] }) => {
         <PageSwitcher
           page={page}
           setPage={setPage}
-          maxPage={2}
+          maxPage={0}
           label={t(
-            `event.euro.sportsbook.${page === 1 ? 'knockout' : 'group'}`
+            `event.euro.sportsbook.${page === 0 ? 'knockout' : 'group'}`
           )}
         />
       </MatchHeader>
 
       <View sx={{ height: 24 }} />
-      {EuroStandingsMatch}
+      <Knockout />
     </View>
   )
 }
