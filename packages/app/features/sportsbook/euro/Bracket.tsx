@@ -314,8 +314,8 @@ const StageText = styled(Text)({
   position: 'absolute',
   textTransform: 'uppercase',
   fontWeight: 'bold',
-  fontSize: 12,
-  minWidth: 80,
+  fontSize: 11,
+  minWidth: 100,
   mt: 4,
 })
 export default Bracket
