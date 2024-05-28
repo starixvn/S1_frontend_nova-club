@@ -39,11 +39,7 @@ const Bracket = () => {
     <Row sx={{ justifyContent: 'space-between', width: [400, 500] }}>
       <View sx={{ zIndex: 3 }}>
         {stage1?.slice(0, 8).map((item, index) => (
-          <TeamBracket
-            key={index}
-            image={item.team_img}
-            label={item.position}
-          />
+          <TeamBracket key={index} image={item.team_img} />
         ))}
         <StageText sx={{ bottom: -12 }}>
           {t('event.euro.knockout.stage1')}
@@ -149,11 +145,7 @@ const Bracket = () => {
 
       <View sx={{ zIndex: 3 }}>
         {stage1?.slice(8).map((item, index) => (
-          <TeamBracket
-            key={index}
-            image={item.team_img}
-            label={item.position}
-          />
+          <TeamBracket key={index} image={item.team_img} />
         ))}
         <StageText sx={{ bottom: -12, right: 0, textAlign: 'right' }}>
           {t('event.euro.knockout.stage1')}
@@ -186,7 +178,7 @@ const QuarterFinal = ({
         }}
       />
       {teams.map((item, index) => (
-        <TeamBracket key={index} image={item.team_img} label={item.position} />
+        <TeamBracket key={index} image={item.team_img} />
       ))}
 
       <StyledImage
@@ -231,7 +223,7 @@ const SemiFinal = ({
         }}
       />
       {teams.map((item, index) => (
-        <TeamBracket key={index} image={item.team_img} label={item.position} />
+        <TeamBracket key={index} image={item.team_img} />
       ))}
 
       <StyledImage
@@ -270,7 +262,7 @@ const Final = ({ teams = [] }: StageProps) => {
         }}
       />
       {teams.map((item, index) => (
-        <TeamBracket key={index} image={item.team_img} label={item.position} />
+        <TeamBracket key={index} image={item.team_img} />
       ))}
       <StyledImage
         src={require('app/assets/images/events/euro/H5/line4.png')}
@@ -288,7 +280,7 @@ const Final = ({ teams = [] }: StageProps) => {
   )
 }
 
-const TeamBracket = ({ image, label }) => {
+const TeamBracket = ({ image }) => {
   return (
     <Row
       sx={{
@@ -311,9 +303,7 @@ const TeamBracket = ({ image, label }) => {
           width={28}
           height={28}
         />
-      ) : (
-        <Text>{label}</Text>
-      )}
+      ) : null}
     </Row>
   )
 }

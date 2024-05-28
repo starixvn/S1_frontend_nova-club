@@ -37,7 +37,7 @@ const Bracket = () => {
           <TeamBracket
             key={index}
             image={item.team_img}
-            label={item.team_name ? item.team_name : item.position}
+            label={item.team_name}
           />
         ))}
       </View>
@@ -81,7 +81,7 @@ const Bracket = () => {
             left: 5,
           }}
           bottomBracketStyle={{
-            top: 130,
+            top: 132,
             left: 5,
             transform: [{ scaleY: -1 }],
           }}
@@ -103,7 +103,7 @@ const Bracket = () => {
           }}
           bottomBracketStyle={{
             transform: [{ scale: -1 }],
-            top: 130,
+            top: 132,
             right: 5,
           }}
         />
@@ -149,7 +149,7 @@ const Bracket = () => {
           <TeamBracket
             key={index}
             image={item.team_img}
-            label={item.team_name ? item.team_name : item.position}
+            label={item.team_name}
           />
         ))}
       </View>
@@ -171,11 +171,7 @@ const QuarterFinal = ({ teams, topBracketStyle, bottomBracketStyle }) => (
       }}
     />
     {teams?.map((item, index) => (
-      <TeamBracket
-        key={index}
-        image={item.team_img}
-        label={item.team_name ? item.team_name : item.position}
-      />
+      <TeamBracket key={index} image={item.team_img} label={item.team_name} />
     ))}
     <SolitoImage
       src={require('app/assets/images/events/euro/DT/line1.png')}
@@ -205,11 +201,7 @@ const SemiFinal = ({ teams, topBracketStyle, bottomBracketStyle }) => (
       }}
     />
     {teams?.map((item, index) => (
-      <TeamBracket
-        key={index}
-        image={item.team_img}
-        label={item.team_name ? item.team_name : item.position}
-      />
+      <TeamBracket key={index} image={item.team_img} label={item.team_name} />
     ))}
     <SolitoImage
       src={require('app/assets/images/events/euro/DT/line2.png')}
@@ -240,11 +232,7 @@ const Final = ({ teams }) => (
       }}
     />
     {teams?.map((item, index) => (
-      <TeamBracket
-        key={index}
-        image={item.team_img}
-        label={item.team_name ? item.team_name : item.position}
-      />
+      <TeamBracket key={index} image={item.team_img} label={item.team_name} />
     ))}
     <SolitoImage
       src={require('app/assets/images/events/euro/DT/line4.png')}
@@ -277,25 +265,24 @@ const TeamBracket = ({ image, label }) => {
         minHeight: 42,
       }}
     >
-      <View
-        sx={{
-          borderRadius: 50,
-          borderWidth: 1,
-          borderColor: 'white',
-          mr: '$1',
-          width: 28,
-          height: 28,
-        }}
-      >
-        {image ? (
+      {image ? (
+        <View
+          sx={{
+            borderRadius: 50,
+            borderWidth: 1,
+            borderColor: 'white',
+            mr: '$1',
+            width: 28,
+            height: 28,
+          }}
+        >
           <SolitoImage
             src={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${image}`}
             alt=""
             fill
           />
-        ) : null}
-      </View>
-
+        </View>
+      ) : null}
       <Text sx={{ fontSize: 12, fontWeight: 'bold' }}>{label}</Text>
     </Row>
   )

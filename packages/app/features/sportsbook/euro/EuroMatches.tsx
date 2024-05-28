@@ -1,21 +1,19 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
-import useIsDesktop from 'app/hooks/useIsDesktop'
-import useLocalization from 'app/provider/localization'
-import dayjsTz from 'app/utils/dayjs'
+import { useAppSelector } from 'app/provider/redux/store'
 import dayjs from 'dayjs'
-import { Row, Text, View } from 'dripsy'
+import { Pressable, Row, Text, View } from 'dripsy'
 import React, { useMemo, useState } from 'react'
 import { useGetEuroCupSportBookListQuery } from 'services/euroApi'
-import { MatchResult } from 'services/matchApi.type'
-import { SolitoImage } from 'solito/image'
-import PageSwitcher from './PageSwitcher'
 import { EuroCupMatchDetail } from 'services/euroApi.type'
-
-const ITEM_PER_PAGE = 12
+import { SolitoImage } from 'solito/image'
+import { useRouter } from 'solito/router'
+import PageSwitcher from './PageSwitcher'
 
 const EuroMatches = () => {
-  const { t } = useLocalization()
+  const { push } = useRouter()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+
   const [page, setPage] = useState(0)
 
   const { data } = useGetEuroCupSportBookListQuery(undefined, {
@@ -23,6 +21,12 @@ const EuroMatches = () => {
   })
 
   const filteredData = useMemo(() => data?.[page], [data, page])
+
+  const handlePress = (url) => {
+    if (isLoggedIn) {
+      push(url)
+    } else push('/auth/login')
+  }
 
   return (
     <View>
@@ -39,7 +43,13 @@ const EuroMatches = () => {
         estimatedItemSize={100}
         data={filteredData?.match_detail}
         numColumns={3}
-        renderItem={MatchCard}
+        renderItem={({ item, index }) => (
+          <MatchCard
+            item={item}
+            index={index}
+            onPress={(value) => handlePress(value)}
+          />
+        )}
         style={{ padding: 12 }}
         contentContainerStyle={{ padding: 12 }}
       />
@@ -50,37 +60,40 @@ const EuroMatches = () => {
 const MatchCard = ({
   item,
   index,
+  onPress,
 }: {
   index: number
   item: EuroCupMatchDetail
+  onPress: (arg0) => void
 }) => {
   const homeFlag = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.home_team_image}`
   const awayFlag = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.away_team_image}`
 
-  const gmt8 = dayjs(item.match_time, 'MM/DD hh:mmA')
-  const gmt7 = dayjsTz(gmt8)
+  const time = dayjs(item.match_time, 'DD/MM hh:mma').format('DD MMM hh:mm a')
 
-  const time = gmt7.format('DD MMM hh:mm a')
+  const handlePress = () => {
+    onPress(item.redirect)
+  }
 
   return (
-    <View
-      sx={{
-        p: '$2',
-        bg: index % 6 < 3 ? '$primaryEuro.500' : 'transparent',
-        borderWidth: 2,
-        borderColor: '$primaryEuro.500',
-        borderRadius: 12,
-        justifyContent: 'center',
-        width: '95%',
-        my: '$2',
-      }}
-    >
-      <Text sx={{ fontSize: 12 }}>{time}</Text>
-      <View>
-        <MatchFlag flag={homeFlag} label={item.home_team_name} />
-        <MatchFlag flag={awayFlag} label={item.away_team_name} />
+    <Pressable sx={{ width: '95%', my: '$2' }} onPress={handlePress}>
+      <View
+        sx={{
+          p: '$2',
+          bg: index % 6 < 3 ? '$primaryEuro.500' : 'transparent',
+          borderWidth: 2,
+          borderColor: '$primaryEuro.500',
+          borderRadius: 12,
+          justifyContent: 'center',
+        }}
+      >
+        <Text sx={{ fontSize: 12 }}>{time}</Text>
+        <View>
+          <MatchFlag flag={homeFlag} label={item.home_team_name} />
+          <MatchFlag flag={awayFlag} label={item.away_team_name} />
+        </View>
       </View>
-    </View>
+    </Pressable>
   )
 }
 
