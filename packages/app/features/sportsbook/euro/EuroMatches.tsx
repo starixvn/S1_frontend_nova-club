@@ -108,7 +108,11 @@ const MatchCard = ({
   }
 
   return (
-    <Pressable sx={{ width: '95%', my: '$2' }} onPress={handlePress}>
+    <Pressable
+      sx={{ width: '95%', my: '$2' }}
+      onPress={handlePress}
+      disabled={!item.redirect}
+    >
       <View
         sx={{
           p: '$2',
