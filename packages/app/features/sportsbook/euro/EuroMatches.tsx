@@ -1,12 +1,16 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
+import { SabaGamePayload } from 'app/constants/game'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjs from 'dayjs'
 import { Pressable, Row, Text, View } from 'dripsy'
 import sortBy from 'lodash/sortBy'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useGetEuroCupSportBookListQuery } from 'services/euroApi'
 import { EuroCupMatchDetail } from 'services/euroApi.type'
+import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import PageSwitcher from './PageSwitcher'
@@ -14,6 +18,7 @@ import PageSwitcher from './PageSwitcher'
 const EuroMatches = () => {
   const { push } = useRouter()
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const isDesktop = useIsDesktop()
 
   const [page, setPage] = useState(0)
 
@@ -26,11 +31,30 @@ const EuroMatches = () => {
     [data, page]
   )
 
-  const handlePress = (url) => {
-    if (isLoggedIn) {
-      push(url)
-    } else push('/auth/login')
-  }
+  const onPress = useCallback(
+    (match: string) => {
+      const params = new URLSearchParams(match)
+      const leagueKey = params.get('leaguekey')
+      const matchId = params.get('matchid')
+
+      if (isLoggedIn) {
+        getAction({
+          type: ActionType.GAME,
+          payload: {
+            desktopMode: isDesktop,
+            game: {
+              ...SabaGamePayload,
+              params: {
+                leaguekey: leagueKey,
+                matchid: matchId,
+              },
+            } as Game,
+          },
+        })()
+      } else push('/auth/login')
+    },
+    [isDesktop]
+  )
 
   return (
     <View>
@@ -51,7 +75,7 @@ const EuroMatches = () => {
           <MatchCard
             item={item}
             index={index}
-            onPress={(value) => handlePress(value)}
+            onPress={(value) => onPress(value)}
           />
         )}
         style={{ padding: 12 }}

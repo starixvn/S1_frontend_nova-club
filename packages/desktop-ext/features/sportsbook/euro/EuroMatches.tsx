@@ -1,23 +1,26 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
+import { SabaGamePayload } from 'app/constants/game'
 import { MatchLeagueId } from 'app/constants/recMatchMapping'
 import MatchFlag from 'app/features/sportsbook/euro/MatchFlag'
 import PageSwitcher from 'app/features/sportsbook/euro/PageSwitcher'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjs from 'dayjs'
 import { Pressable, Row, Text, View } from 'dripsy'
 import sortBy from 'lodash/sortBy'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useGetEuroCupSportBookListQuery } from 'services/euroApi'
 import { EuroCupMatchDetail } from 'services/euroApi.type'
-import { useRouter } from 'solito/router'
+import { Game } from 'services/gameApi.type'
 import { MatchHeader } from '../MatchListHeader'
 
 const EuroMatches = () => {
   const { t } = useLocalization()
-  const { push } = useRouter()
+  const isDesktop = useIsDesktop()
   const { showAlert } = useAlert()
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
 
@@ -32,11 +35,30 @@ const EuroMatches = () => {
     [data, page]
   )
 
-  const handlePress = (url) => {
-    if (isLoggedIn) {
-      push(url)
-    } else showAlert(t('game.err.notLogin'))
-  }
+  const onPress = useCallback(
+    (match: string) => {
+      const params = new URLSearchParams(match)
+      const leagueKey = params.get('leaguekey')
+      const matchId = params.get('matchid')
+
+      if (isLoggedIn) {
+        getAction({
+          type: ActionType.GAME,
+          payload: {
+            desktopMode: isDesktop,
+            game: {
+              ...SabaGamePayload,
+              params: {
+                leaguekey: leagueKey,
+                matchid: matchId,
+              },
+            } as Game,
+          },
+        })()
+      } else showAlert(t('game.err.notLogin'))
+    },
+    [isDesktop]
+  )
 
   return (
     <View>
@@ -64,7 +86,7 @@ const EuroMatches = () => {
           <MatchCard
             item={item}
             index={index}
-            onPress={(value) => handlePress(value)}
+            onPress={(value) => onPress(value)}
           />
         )}
       />

@@ -10,7 +10,7 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import uniqBy from 'lodash/uniqBy'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { GAME_TYPE_CODE } from 'utils/constant'
@@ -19,6 +19,7 @@ import { createParam } from 'solito'
 import { LEAGUE_SECTION } from 'app/constants/recMatchMapping'
 import EuroSection from './euro/EuroSection'
 import EuroSectionHeader from './euro/EuroSectionHeader'
+import { Platform } from 'react-native'
 
 type Params = {
   section?: string
@@ -31,6 +32,12 @@ export default function SportsbookScreen() {
   const [leagueSection, setLeagueSection] = useParam('section', {
     initial: LEAGUE_SECTION.LEAGUE_ODDS,
   })
+
+  useEffect(() => {
+    if (Platform.OS !== 'web')
+      leagueSection === undefined &&
+        setLeagueSection(LEAGUE_SECTION.LEAGUE_ODDS)
+  }, [leagueSection])
 
   const { data } = useGetGameListByCategoryQuery([
     GAME_TYPE_CODE.SPORTS,

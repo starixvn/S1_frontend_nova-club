@@ -9,7 +9,7 @@ import { sleep } from 'utils/common'
 
 const INITIAL_JACKPOT = 100000000
 const MAX_JACKPOT = 500000000
-const JACKPOT_DURATION = 60
+const JACKPOT_DURATION = 45
 
 const JackpotPool = () => {
   const { t } = useLocalization()
