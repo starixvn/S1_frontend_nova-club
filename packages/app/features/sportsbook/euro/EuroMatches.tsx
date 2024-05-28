@@ -30,12 +30,16 @@ const EuroMatches = () => {
     () => sortBy(data, 'sorting')?.[page],
     [data, page]
   )
+  const getQueryParam = (param, url) => {
+    const regex = new RegExp(`[?&]${param}=([^&]*)`)
+    const match = regex.exec(url)
+    return match ? decodeURIComponent(match[1]) : null
+  }
 
   const onPress = useCallback(
     (match: string) => {
-      const params = new URLSearchParams(match)
-      const leagueKey = params.get('leaguekey')
-      const matchId = params.get('matchid')
+      const leagueKey = getQueryParam('leaguekey', match)
+      const matchId = getQueryParam('matchid', match)
 
       if (isLoggedIn) {
         getAction({
