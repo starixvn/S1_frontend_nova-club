@@ -44,7 +44,10 @@ const Logo = () => {
     HEADER_HEIGHT * 0.9,
   ])
 
-  const LOGO_PATH = `${MEDIA_DOMAIN}${CONTENT_URI}/logo-euro-cup-${lang}.gif`
+  const LOGO_PATH =
+    lang === 'th'
+      ? `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-th.png`
+      : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-euro-cup-${lang}.gif`
 
   return (
     <Row sx={{ alignItems: 'center' }}>
