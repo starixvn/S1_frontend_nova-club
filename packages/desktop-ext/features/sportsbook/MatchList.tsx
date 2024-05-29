@@ -98,7 +98,10 @@ export default function MatchList({}: Props) {
       (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
     )
 
-    const finalData = filterTime?.slice(0, euroLeagueIndex)
+    const finalData =
+      euroLeagueIndex && euroLeagueIndex > -1
+        ? filterTime?.slice(0, euroLeagueIndex)
+        : filterTime
 
     return finalData ?? []
   }, [selectedTime, fullData])
