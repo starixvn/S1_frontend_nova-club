@@ -41,11 +41,11 @@ const LEFT_MENU: MenuProps[] = [
     route: '/',
     icon: 'home',
   },
-  {
-    route: `/sportsbook?section=${LEAGUE_SECTION.EURO_MATCH}`,
-    image: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/euro-cup-icon.png`,
-    menu: NAVIGATION_DROPDOWN_MENU.Euro,
-  },
+  // {
+  //   route: `/sportsbook?section=${LEAGUE_SECTION.EURO_MATCH}`,
+  //   image: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/euro-cup-icon.png`,
+  //   menu: NAVIGATION_DROPDOWN_MENU.Euro,
+  // },
 ]
 
 const RIGHT_MENU: MenuProps[] = [

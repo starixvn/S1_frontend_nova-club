@@ -123,20 +123,20 @@ export default function MatchList({}: Props) {
 
   const MatchList = useMemo(() => {
     switch (leagueSection) {
-      case LEAGUE_SECTION.EURO_MATCH:
-        setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
-        return <EuroMatches />
-      case LEAGUE_SECTION.EURO_STANDINGS:
-        setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
-        return <EuroStandings />
-      case LEAGUE_SECTION.EURO_ODDS:
-        return (
-          <MatchListTable
-            filterKey={selectedTime}
-            ref={tableRef}
-            data={filteredEuroData}
-          />
-        )
+      // case LEAGUE_SECTION.EURO_MATCH:
+      //   setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
+      //   return <EuroMatches />
+      // case LEAGUE_SECTION.EURO_STANDINGS:
+      //   setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
+      //   return <EuroStandings />
+      // case LEAGUE_SECTION.EURO_ODDS:
+      //   return (
+      //     <MatchListTable
+      //       filterKey={selectedTime}
+      //       ref={tableRef}
+      //       data={filteredEuroData}
+      //     />
+      //   )
       case LEAGUE_SECTION.LEAGUE_ODDS:
         setSelectedLeague(undefined)
         return (

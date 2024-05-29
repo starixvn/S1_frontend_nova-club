@@ -52,7 +52,7 @@ const FloatedBottomBar = () => {
         height: BOTTOM_TAB_BAR_HEIGHT + 15,
       }}
     >
-      <DraggableFloatingEuroCup />
+      {/* <DraggableFloatingEuroCup /> */}
       <DraggableFloatingMystery />
       <BottomTabBar />
     </div>
