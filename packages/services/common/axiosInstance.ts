@@ -2,7 +2,7 @@ import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { RootState } from 'app/provider/redux/store'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { Currency, LANGUAGE_CODE } from 'utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { getUserAgent } from 'utils/deviceInfo'
 import { appendFpsParams, getFpsParams } from 'utils/fps/fpsGenerator'
 
@@ -32,11 +32,12 @@ export const configureAxios = (newConfig: CustomConfig) => {
     ...newConfig,
   }
 }
-// const isUsingRootDomain = Platform.OS === 'web' && !__DEV__
-const isUsingRootDomain = false
+const isUsingRootDomain = typeof window !== 'undefined' && !__DEV__
+const _baseURL = `${isUsingRootDomain ? '/api/nv88_api' : API_DOMAIN}`
+// const isUsingRootDomain = false
 
 const axiosInstance = axios.create({
-  baseURL: `${isUsingRootDomain ? '/api/nv88_api' : API_DOMAIN}`,
+  baseURL: _baseURL,
   timeout: DEFAULT_TIMEOUT,
   transformRequest: [
     (data, headers) => {
@@ -71,7 +72,7 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   const state = customConfig.store?.getState()
   if (config.headers === undefined) config.headers = {}
 
-  if (baseURL && baseURL?.startsWith(API_DOMAIN) && url?.startsWith('/')) {
+  if (baseURL && baseURL?.startsWith(_baseURL) && url?.startsWith('/')) {
     const { token, playerName } = state?.auth.info || {}
     const { deviceId } = state?.tempSetting || {}
     const currency = state?.setting.currency
