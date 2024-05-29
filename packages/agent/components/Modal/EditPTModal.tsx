@@ -18,7 +18,7 @@ const EditPTModal = ({ modal: { closeModal, getParam } }) => {
   const currency = getParam('currency') as Currency
 
   const { ptList } = useProfileGetEarnPtQuery(
-    { id },
+    { shid: id },
     {
       selectFromResult: (s) => ({
         ptList: s.data?.earnPercList,
@@ -40,7 +40,7 @@ const EditPTModal = ({ modal: { closeModal, getParam } }) => {
 
   async function handleConfirm() {
     const { success, message } = await updatePT({
-      id,
+      shid: id,
       currency: {
         [currency]: {
           EARNP: selected,

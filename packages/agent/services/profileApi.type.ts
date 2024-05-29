@@ -72,14 +72,14 @@ export interface PartnerResetPinArgs {
 }
 
 export type ProfileGetEarnPtArgs = {
-  id: string
+  shid: string
 }
 export type ProfileGetEarnPtResult = {
   earnPercList: { [key in Currency]?: number }
 }
 
 export type ProfileUpdatePtArgs = {
-  id: string
+  shid: string
   currency: {
     [key in Currency]?: {
       EARNP: string
