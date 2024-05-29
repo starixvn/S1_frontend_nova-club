@@ -36,7 +36,6 @@ import FieldSelectBank from './FieldSelectBank'
 
 export type DepositValues = {
   bank: string | null
-  selectedChannel: AutoBankItem | null
   amount: string
   realAmount: number
 }
@@ -94,15 +93,14 @@ const DepositForm = ({ DepositCategoryId }) => {
   const maxAmount = selectedChannel?.maxDeposit
 
   useEffect(() => {
-    selectedChannel && setFieldValue('selectedChannel', selectedChannel)
-
     fieldBank &&
       fieldBank.bank_tree &&
       setFieldValue('bank', Object.keys(fieldBank.bank_tree)[0])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChannel])
 
   const onSubmit = async (
-    { bank, selectedChannel, realAmount }: DepositValues,
+    { bank, realAmount }: DepositValues,
     actions: FormikHelpers<DepositValues>
   ) => {
     try {
@@ -152,7 +150,6 @@ const DepositForm = ({ DepositCategoryId }) => {
 
         formik.resetForm()
         setSelectedValues(0)
-        setFieldValue('selectedChannel', selectedChannel)
       }
     } catch (error) {
       showAlert(error)
@@ -164,7 +161,6 @@ const DepositForm = ({ DepositCategoryId }) => {
   const formik = useFormik<DepositValues>({
     initialValues: {
       bank: null,
-      selectedChannel: null,
       amount: '',
       realAmount: 0,
     },

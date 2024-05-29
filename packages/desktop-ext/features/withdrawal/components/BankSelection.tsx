@@ -48,11 +48,11 @@ const BankSelection = ({
     <View sx={{ mb: '$3' }}>
       <Text sx={{ mb: '$2' }}>{label}</Text>
       <SelectContainer>
-        {subtitle && (
+        {subtitle ? (
           <Text sx={{ fontSize: 18, fontWeight: 'bold', mb: '$1' }}>
             {subtitle}
           </Text>
-        )}
+        ) : null}
         {subtitleNote ? (
           <Text
             sx={{ color: '$secondary.500', fontSize: 18, fontWeight: 'bold' }}
