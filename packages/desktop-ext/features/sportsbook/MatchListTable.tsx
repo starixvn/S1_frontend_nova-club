@@ -159,7 +159,7 @@ const MatchListTable = forwardRef<MatchListMethod, MatchListTableProps>(
               return (
                 <MatchListHeader
                   icon={sample?.LeagueId}
-                  label={sample.LeagueName}
+                  label={sample?.LeagueName}
                   height={50}
                 />
               )

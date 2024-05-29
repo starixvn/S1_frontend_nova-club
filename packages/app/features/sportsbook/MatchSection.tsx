@@ -47,7 +47,10 @@ export default function MatchSection() {
       (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
     )
 
-    const finalData = leagues.ids?.slice(0, euroLeagueIndex)
+    const finalData =
+      euroLeagueIndex > -1
+        ? leagues.ids?.slice(0, euroLeagueIndex)
+        : leagues.ids
 
     return finalData ?? []
   }, [leagues])

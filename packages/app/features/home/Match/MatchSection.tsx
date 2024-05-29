@@ -21,7 +21,10 @@ export default function MatchSection({}: Props) {
       (el) => el.LeagueId === MatchLeagueId.EURO_CUP
     )
 
-    const finalData = data?.slice(0, euroLeagueIndex)
+    const finalData =
+      euroLeagueIndex && euroLeagueIndex > -1
+        ? data?.slice(0, euroLeagueIndex)
+        : data
 
     return finalData ?? []
   }, [data])
