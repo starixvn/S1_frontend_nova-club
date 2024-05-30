@@ -62,12 +62,12 @@ export default function MatchLeagueSelector({
           my: '$1',
         }}
       >
-        {/* {pathname.includes('/sportsbook') && (
+        {pathname.includes('/sportsbook') && (
           <MatchSelectorEuro
             active={value === MatchLeagueId.EURO_CUP.toString()}
             onPress={handleEuroPress}
           />
-        )} */}
+        )}
         {ids.map((id) => {
           return (
             <MatchLeagueSelectorTab

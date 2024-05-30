@@ -20,7 +20,7 @@ export default function Root() {
           <SessionHandler />
           <MainHeader />
           {/** APP floating mystery */}
-          {/* <DraggableFloatingEuroCup /> */}
+          <DraggableFloatingEuroCup />
           <DraggableFloatingMystery />
           <LanguageDropdown />
         </>

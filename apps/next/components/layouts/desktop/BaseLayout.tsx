@@ -95,7 +95,7 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
       {isVisible && (
         <>
           <DraggableFloatingMystery />
-          {/* <DraggableFloatingEuroCup /> */}
+          <DraggableFloatingEuroCup />
         </>
       )}
       <LiveChat />
