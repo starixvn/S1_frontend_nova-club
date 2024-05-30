@@ -17,7 +17,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     getEuroCupEvent: builder.query<EuroCupEvent, void>({
       query: () => ({
-        url: `/static_api/getEuroCupEvent`,
+        url: `/static_api/v1/getEuroCupEvent`,
         method: 'GET',
       }),
       transformResponse: ({ data }: { data: EuroCupEvent }) => {
@@ -26,7 +26,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
     }),
     getEuroCupKnockout: builder.query<EuroCupKnockout[], void>({
       query: () => ({
-        url: `/static_api/getEuroCupKnockout`,
+        url: `/static_api/v1/getEuroCupKnockout`,
         method: 'GET',
       }),
       transformResponse: ({ data }: { data: EuroCupKnockout[] }) => {
@@ -35,7 +35,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
     }),
     getEuroCupSportBookList: builder.query<EuroCupSportBookList[], void>({
       query: () => ({
-        url: `/static_api/getEuroCupSportBookList`,
+        url: `/static_api/v1/getEuroCupSportBookList`,
         method: 'GET',
       }),
       transformResponse: ({ data }: { data: EuroCupSportBookList[] }) => {
@@ -47,7 +47,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
       EligibleEuroCupTicketArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getEligibleEurocupTicket`,
+        url: `/player_api/v1/getEligibleEurocupTicket`,
         method: 'POST',
         data: queryArgs,
       }),
@@ -58,7 +58,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
       SubmitEuroCupTicketArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/submitEligibleEurocupTicket`,
+        url: `/player_api/v1/submitEligibleEurocupTicket`,
         method: 'POST',
         data: queryArgs,
       }),
@@ -69,7 +69,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
       void
     >({
       query: () => ({
-        url: `/player_api/getEventEuroCupLogService`,
+        url: `/player_api/v1/getEventEuroCupLogService`,
         method: 'POST',
       }),
     }),
@@ -78,7 +78,7 @@ export const euroApi = baseApiWithTag.injectEndpoints({
       GetSubmittedTeamArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getSubmittedTeam`,
+        url: `/player_api/v1/getSubmittedTeam`,
         method: 'POST',
         data: queryArgs,
       }),
