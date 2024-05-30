@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@expo/next-adapter": "5.0.2",
-    "@radix-ui/react-popper": "1.1.2",
     "@next/third-parties": "^14.2.3",
+    "@radix-ui/react-popper": "1.1.2",
     "@types/howler": "^2.2.7",
     "@types/matter-js": "^0.18.5",
     "agent": "*",

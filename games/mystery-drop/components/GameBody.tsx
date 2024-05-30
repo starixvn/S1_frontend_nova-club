@@ -1,11 +1,14 @@
 import { AssetBasePath } from '@games/config'
 import { Container, Sprite, Text } from '@pixi/react'
+import { useAppSelector } from 'app/provider/redux/store'
 import { TextStyle } from 'pixi.js'
 import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
+import { Currency } from 'utils/constant'
 import { GamePackageName } from '../config'
 import GameBox from './GameBox'
 
 const GameBody = () => {
+  const currency = useAppSelector((state) => state.setting.currency)
   const { width, height } = useWindowSize()
 
   return (
@@ -20,7 +23,9 @@ const GameBody = () => {
         <Text
           x={0}
           y={75}
-          text={`Ghép 3 để thắng`}
+          text={
+            currency === Currency.THB ? 'จับคู่ 3 เพื่อชนะ' : `Ghép 3 để thắng`
+          }
           anchor={[0.5, 0.5]}
           style={textStyle}
         />

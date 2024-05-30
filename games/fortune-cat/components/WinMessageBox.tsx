@@ -1,13 +1,30 @@
 import { AssetBasePath } from '@games/config'
 import useAnimatedAmount from '@games/shared/hooks/useAnimatedAmount'
 import { Container, Graphics, Sprite, Text } from '@pixi/react'
+import { GrayscaleFilter } from 'pixi-filters'
 import { TextStyle } from 'pixi.js'
+import { useMemo } from 'react'
+import { useAppSelector } from 'rewards/provider/redux/store'
+import { Currency } from 'utils/constant'
 import { GamePackageName } from '../config'
 import { useItemsLayout } from './Util'
-import { useMemo } from 'react'
-import { GrayscaleFilter } from 'pixi-filters'
 
-const WinMessageBox = ({ note, balance = 0, boxWidth, onClick, disabled }) => {
+type WinMessageBoxProps = {
+  note?: string
+  balance: number
+  boxWidth: number
+  onClick: () => void
+  disabled: boolean
+}
+
+const WinMessageBox = ({
+  note,
+  balance = 0,
+  boxWidth,
+  onClick,
+  disabled,
+}: WinMessageBoxProps) => {
+  const currency = useAppSelector((state) => state.setting.currency)
   const balanceDisplay = useAnimatedAmount(balance, { tickPerSecond: 10000 })
 
   const containerWidth = boxWidth * 0.7
@@ -23,6 +40,14 @@ const WinMessageBox = ({ note, balance = 0, boxWidth, onClick, disabled }) => {
     return disabled ? [new GrayscaleFilter()] : []
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled])
+
+  const textCongrats =
+    currency === Currency.THB ? 'ยินดีด้วย!' : 'XIN CHÚC MỪNG!'
+  const textWon =
+    currency === Currency.THB
+      ? 'คุณได้รับเงินรางวัลทั้งหมด'
+      : 'BẠN ĐÃ TRÚNG THƯỞNG'
+  const textNext = currency === Currency.THB ? 'เล่นต่อไป' : 'CHƠI TIẾP'
 
   return (
     <Container x={0} y={250}>
@@ -55,14 +80,14 @@ const WinMessageBox = ({ note, balance = 0, boxWidth, onClick, disabled }) => {
       <Text
         x={0}
         y={containerHeight * 0.3}
-        text={'XIN CHÚC MỪNG!'}
+        text={textCongrats}
         anchor={[0.5, 0.5]}
         style={noteStyle}
       />
       <Text
         x={0}
         y={containerHeight * 0.5}
-        text={'BẠN ĐÃ TRÚNG THƯỞNG'}
+        text={textWon}
         anchor={[0.5, 0.5]}
         style={noteStyle}
       />
@@ -89,7 +114,7 @@ const WinMessageBox = ({ note, balance = 0, boxWidth, onClick, disabled }) => {
         <Text
           x={0}
           y={0}
-          text={'CHƠI TIẾP'}
+          text={textNext}
           anchor={[0.5, 0.5]}
           style={textStyle}
         />
