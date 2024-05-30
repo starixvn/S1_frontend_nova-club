@@ -5,6 +5,7 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import { Pressable, Text, View } from 'dripsy'
+import { useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 
 type AccountDefailProps = {
@@ -23,6 +24,13 @@ const AccountDetail = ({
   const { t } = useLocalization()
   const horizontalMode = useIsDesktop()
   const { openModal } = useModal()
+  const { height, width } = useWindowDimensions()
+
+  const xRatio = 1920
+  const yRatio = 500
+  const scale = Math.max(width / xRatio, height / 10 / yRatio)
+  const enlargedWidth = Math.floor(scale * xRatio)
+  const enlargedHeight = Math.floor(scale * yRatio)
 
   return (
     <View
@@ -41,9 +49,10 @@ const AccountDetail = ({
           px: '$4',
           alignItems: 'center',
           justifyContent: 'space-between',
+          flex: 1,
         }}
       >
-        <View>
+        <View sx={{ flex: 0.6 }}>
           <View>
             <Text>{t('bank.accountName')} :</Text>
             <View
@@ -102,7 +111,7 @@ const AccountDetail = ({
           </View>
         </View>
 
-        <View>
+        <View sx={{ flex: 0.4 }}>
           {qrCode ? (
             <Pressable
               onPress={() => openModal('DepositQrModal', { qrCode })}
@@ -113,7 +122,11 @@ const AccountDetail = ({
                 source={{
                   uri: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${qrCode}`,
                 }}
-                sx={{ width: 120, height: 120 }}
+                sx={{
+                  width: enlargedWidth * 0.3,
+                  height: enlargedHeight,
+                }}
+                resizeMode="contain"
               />
             </Pressable>
           ) : null}
