@@ -1,8 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import GameCard from 'app/components/game/GameCard'
-import {
-  GetGameRebateValue
-} from 'app/components/game/GameUtilityAction'
+import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
 import { useAppSelector } from 'app/provider/redux/store'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
@@ -32,7 +30,6 @@ export default function Slots({}: Props) {
 
   const providers = useMemo(() => {
     if (data) {
-      console.log('data', data)
       return uniqBy(
         data.map(({ gtc, gpc }) => ({ gtc, gpc })),
         'gpc'

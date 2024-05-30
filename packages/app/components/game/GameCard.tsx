@@ -60,7 +60,7 @@ const GameCard = ({
   ...rest
 }: GameCardProps) => {
   const locale = useAppSelector((s) => s.setting.locale)
-  const imgLocale = img?.[locale]
+  const imgLocale = typeof img === 'string' ? img : img?.[locale]
 
   const lastLoadedRef = useRef(imgLocale)
   const [loaded, setLoaded] = useState(false)
