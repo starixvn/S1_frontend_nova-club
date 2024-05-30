@@ -26,7 +26,6 @@ export default function HorizontalGameList({
 }: HorizontalGameListProps) {
   const _localSize = size ?? DEFAULT_GAMESIZE
   const shadowSize = useResponsiveValue(_localSize)
-  const locale = useAppSelector((s) => s.setting.locale)
 
   return (
     <DraggableScrollView
@@ -50,8 +49,8 @@ export default function HorizontalGameList({
               key={g.gtc === GAME_TYPE_CODE.LIVE_DEALER ? g.gpc : g.gc}
               isFullCard
               {...g}
-              img={g.img[locale]}
-              xImg={g.xImg?.[locale]}
+              img={g.img}
+              xImg={g.xImg}
             />
           )
         })

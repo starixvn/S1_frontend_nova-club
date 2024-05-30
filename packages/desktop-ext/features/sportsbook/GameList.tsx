@@ -1,7 +1,5 @@
 import GameCard from 'app/components/game/GameCard'
-import {
-  GetGameRebateValue
-} from 'app/components/game/GameUtilityAction'
+import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
 import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import { Row, useResponsiveValue } from 'dripsy'
 import uniqBy from 'lodash/uniqBy'
@@ -55,8 +53,8 @@ export default function GameList({}) {
             sx={{ width: '11%' }}
             isDualVersion={isHFive}
             {...g}
-            img={g.img[locale]}
-            xImg={g.xImg?.[locale]}
+            img={g.img}
+            xImg={g.xImg}
           />
         )
       })}

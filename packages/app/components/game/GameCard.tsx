@@ -22,10 +22,9 @@ import { SolitoImage } from 'solito/image'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
 import { AnimatePresence, MotiView } from 'moti'
-import GameBottomRebateLabel from './GameBottomRebateLabel'
 import GameCardDualVersionButton from './GameCardDualVersionButton'
-import GameTagsLabel, { GAME_TAG_SIZE } from './GameTagsLabel'
 import GameRebateLabel from './GameRebateLabel'
+import GameTagsLabel, { GAME_TAG_SIZE } from './GameTagsLabel'
 
 export interface GameCardProps extends PressableProps, LaunchGamePayload {
   displayName?: string
@@ -60,20 +59,23 @@ const GameCard = ({
   isDropdownContent = false,
   ...rest
 }: GameCardProps) => {
-  const lastLoadedRef = useRef(img)
+  const locale = useAppSelector((s) => s.setting.locale)
+  const imgLocale = img?.[locale]
+
+  const lastLoadedRef = useRef(imgLocale)
   const [loaded, setLoaded] = useState(false)
   const desktopMode = useIsDesktop()
   const ss = useSx()
   const { tags, gpc, isFullCard } = rest
 
-  if (lastLoadedRef.current != img) {
-    lastLoadedRef.current = img
+  if (lastLoadedRef.current != imgLocale) {
+    lastLoadedRef.current = imgLocale
     startTransition(() => setLoaded(false))
   }
   const imageSrc =
-    img?.startsWith('/_next') || img?.startsWith('http')
-      ? img
-      : `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
+    imgLocale?.startsWith('/_next') || imgLocale?.startsWith('http')
+      ? imgLocale
+      : `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${imgLocale}`
 
   function onClick(e: GestureResponderEvent) {
     if (onPress) onPress(e)

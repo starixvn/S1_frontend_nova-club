@@ -3,8 +3,8 @@ import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 
 export type LaunchGamePayload = Partial<Omit<Game, 'img' | 'xImg'>> & {
-  img: string
-  xImg?: string
+  img: { [key: string]: string }
+  xImg?: { [key: string]: string }
   desktopMode?: boolean
   params?: Record<string, string> // Params will turn to query parameters, it must be casted to string
 }

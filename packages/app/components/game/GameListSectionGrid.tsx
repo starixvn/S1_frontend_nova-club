@@ -204,8 +204,8 @@ const GameListSectionGridList = ({
               }}
               isFullCard
               {...g}
-              img={g.img[locale]}
-              xImg={g.xImg?.[locale]}
+              img={g.img}
+              xImg={g.xImg}
             />
           )
         })

@@ -1,7 +1,5 @@
 import GameCard from 'app/components/game/GameCard'
-import {
-  GetGameRebateValue
-} from 'app/components/game/GameUtilityAction'
+import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
 import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
@@ -50,8 +48,8 @@ export default function Sportsbook({}: Props) {
               sx={{ width: ['9%', '9%', '9%', '9%', '10%'] }}
               isDropdownContent
               {...g}
-              img={g.img[locale]}
-              xImg={g.xImg?.[locale]}
+              img={g.img}
+              xImg={g.xImg}
             />
           )
         })}

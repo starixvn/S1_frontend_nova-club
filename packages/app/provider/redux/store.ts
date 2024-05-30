@@ -25,15 +25,14 @@ import { localizationApi } from 'services/localizationApi'
 import { baseApi } from '../../../services/baseApi'
 import { storage } from './persistStorage/index'
 
-
 const migrations = {
-  7: (s: PersistedState) => {},
   8: (s: PersistedState) => {},
+  9: (s: PersistedState) => {},
 }
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
-  version: 8,
+  version: 9,
   storage,
   whitelist: ['auth', 'agent', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),
