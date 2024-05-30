@@ -1,5 +1,6 @@
 import useAnimatedAmount from '@games/shared/hooks/useAnimatedAmount'
 import useGameConfig from '@games/shared/hooks/useGameConfig'
+import { translate } from '@games/shared/translations/translationByCurrency'
 import { Container, Graphics, Text } from '@pixi/react'
 import { ITextStyle, TextStyle } from 'pixi.js'
 import { ComponentProps, useMemo, useState } from 'react'
@@ -56,11 +57,6 @@ const ActionBox = ({
   const buttonWidth = boxWidth * 0.46
   const buttonHeight = boxWidth * 0.14
 
-  const textStart = currency === Currency.THB ? 'เริ่ม' : `BẮT ĐẦU`
-  const textAutoScratch =
-    currency === Currency.THB ? 'เปิดทั้งหมด' : `TỰ ĐỘNG CÀO`
-  const textPlayNext = currency === Currency.THB ? 'เล่นต่อไป' : `CHƠI TIẾP`
-
   return (
     <Container {...rest}>
       <Container width={buttonWidth} height={buttonHeight} x={-boxWidth * 0.25}>
@@ -81,9 +77,7 @@ const ActionBox = ({
         />
         <Text
           anchor={0.5}
-          text={`${
-            currency === Currency.THB ? 'ชนะทั้งหมด' : 'TỔNG TIỀN THẮNG'
-          }\n${balanceDisplay}`}
+          text={`${translate(currency, 'total')}\n${balanceDisplay}`}
           style={fontStyles[0]}
         />
       </Container>
@@ -110,10 +104,10 @@ const ActionBox = ({
         <Text
           text={
             isFirstStart
-              ? textStart
+              ? translate(currency, 'start')
               : gameStarted
-              ? textAutoScratch
-              : textPlayNext
+              ? translate(currency, 'revealAll')
+              : translate(currency, 'playNext')
           }
           anchor={0.5}
           style={fontStyles[1]}

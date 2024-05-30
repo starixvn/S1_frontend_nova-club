@@ -2,11 +2,11 @@ import { ComponentProps } from 'react'
 
 import { AssetBasePath } from '@games/config'
 import useAnimatedAmount from '@games/shared/hooks/useAnimatedAmount'
+import { translate } from '@games/shared/translations/translationByCurrency'
 import { Container, Sprite, Text } from '@pixi/react'
 import { TextStyle } from 'pixi.js'
 import { useAppSelector } from 'rewards/provider/redux/store'
 import { IContainer } from 'utils-pixi/type'
-import { Currency } from 'utils/constant'
 import { GamePackageName } from '../config'
 
 type Props = {
@@ -30,7 +30,7 @@ export default function TotalWon({
         height={height}
       />
       <Text
-        text={currency === Currency.THB ? 'ชนะทั้งหมด' : 'TỔNG TIỀN THẮNG'}
+        text={translate(currency, 'total')}
         anchor={[0.5, 1]}
         style={
           new TextStyle({

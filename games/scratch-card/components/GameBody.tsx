@@ -16,6 +16,7 @@ import { GamePackageName } from '../config'
 import ActionBox from './ActionBox'
 import PrizeBoxJs from './PrizeBoxJs'
 import { Prize } from './Util'
+import { translate } from '@games/shared/translations/translationByCurrency'
 
 export const prizeDict = {
   30000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
@@ -86,11 +87,7 @@ const GameBody = () => {
       <Container anchor={0.5} y={-boxWidth * 0.62}>
         <Text
           x={0}
-          text={
-            currency === Currency.THB
-              ? 'จับคู่       เพื่อชนะ'
-              : 'TÌM       TRỨNG GIỐNG NHAU'
-          }
+          text={translate(currency, 'scratch3ToWin')}
           anchor={[0.5, 1]}
           style={whiteText}
         />

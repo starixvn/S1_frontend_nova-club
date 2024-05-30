@@ -6,8 +6,9 @@ import NiceModal from '@ebay/nice-modal-react'
 import { AlertModal } from '@games/shared/components/AlertModal'
 import CoinBalance from '@games/shared/components/CoinBalance'
 import useGameConfig from '@games/shared/hooks/useGameConfig'
+import { translate } from '@games/shared/translations/translationByCurrency'
 import { IMediaInstance, sound } from '@pixi/sound'
-import { useAppDispatch } from 'rewards/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'rewards/provider/redux/store'
 import { IResponse } from 'services/common/types'
 import { rewardApi, useGetCoinQuery } from 'services/rewardApi'
 import { RedemptionResult } from 'services/rewardApi.type'
@@ -40,6 +41,7 @@ export default function SpinWinBody({}: Props) {
   const [isRequesting, setRequesting] = useState<boolean>(false)
   const [totalWon, setTotalWon] = useState<number>(0)
   const { data: balance } = useGetCoinQuery()
+  const currency = useAppSelector((s) => s.setting.currency)
   const { isSpinEnabled } = useGameConfig(RewardGameKeyMap.SPIN_N_WIN, balance)
 
   const dispatch = useAppDispatch()
@@ -206,7 +208,11 @@ export default function SpinWinBody({}: Props) {
           size={bodyFrameWidth * 0.22}
           loading={isRequesting || isStopping}
           eventMode={isRequesting || isStopping ? 'none' : 'static'}
-          text={!!currentSpinTween ? 'DỪNG' : 'QUAY'}
+          text={
+            !!currentSpinTween
+              ? translate(currency, 'stop')
+              : translate(currency, 'spin')
+          }
           pointertap={() => {
             if (!!currentSpinTween) {
               onStop()

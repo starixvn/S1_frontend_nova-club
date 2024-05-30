@@ -1,11 +1,11 @@
 import { AssetBasePath } from '@games/config'
 import useAnimatedAmount from '@games/shared/hooks/useAnimatedAmount'
+import { translate } from '@games/shared/translations/translationByCurrency'
 import { Container, Graphics, Sprite, Text } from '@pixi/react'
 import { GrayscaleFilter } from 'pixi-filters'
 import { TextStyle } from 'pixi.js'
 import { useMemo } from 'react'
 import { useAppSelector } from 'rewards/provider/redux/store'
-import { Currency } from 'utils/constant'
 import { GamePackageName } from '../config'
 import { useItemsLayout } from './Util'
 
@@ -41,14 +41,6 @@ const WinMessageBox = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled])
 
-  const textCongrats =
-    currency === Currency.THB ? 'ยินดีด้วย!' : 'XIN CHÚC MỪNG!'
-  const textWon =
-    currency === Currency.THB
-      ? 'คุณได้รับเงินรางวัลทั้งหมด'
-      : 'BẠN ĐÃ TRÚNG THƯỞNG'
-  const textNext = currency === Currency.THB ? 'เล่นต่อไป' : 'CHƠI TIẾP'
-
   return (
     <Container x={0} y={250}>
       <Graphics
@@ -80,14 +72,14 @@ const WinMessageBox = ({
       <Text
         x={0}
         y={containerHeight * 0.3}
-        text={textCongrats}
+        text={translate(currency, 'congratulation')}
         anchor={[0.5, 0.5]}
         style={noteStyle}
       />
       <Text
         x={0}
         y={containerHeight * 0.5}
-        text={textWon}
+        text={translate(currency, 'won')}
         anchor={[0.5, 0.5]}
         style={noteStyle}
       />
@@ -114,7 +106,7 @@ const WinMessageBox = ({
         <Text
           x={0}
           y={0}
-          text={textNext}
+          text={translate(currency, 'playNext')}
           anchor={[0.5, 0.5]}
           style={textStyle}
         />

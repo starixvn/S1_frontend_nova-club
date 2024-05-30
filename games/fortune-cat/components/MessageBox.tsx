@@ -7,6 +7,7 @@ import { GrayscaleFilter } from '@pixi/filter-grayscale'
 import { useMemo } from 'react'
 import { useAppSelector } from 'rewards/provider/redux/store'
 import { Currency } from 'utils/constant'
+import { translate } from '@games/shared/translations/translationByCurrency'
 
 const MessageBox = ({
   boxWidth,
@@ -76,7 +77,7 @@ const MessageBox = ({
         <Text
           x={0}
           y={0}
-          text={currency === Currency.THB ? 'เริ่ม' : `BẮT ĐẦU`}
+          text={translate(currency, 'start')}
           anchor={[0.5, 0.5]}
           style={textStyle}
         />

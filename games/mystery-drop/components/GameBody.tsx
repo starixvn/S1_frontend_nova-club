@@ -1,11 +1,11 @@
 import { AssetBasePath } from '@games/config'
+import { translate } from '@games/shared/translations/translationByCurrency'
 import { Container, Sprite, Text } from '@pixi/react'
-import { useAppSelector } from 'app/provider/redux/store'
 import { TextStyle } from 'pixi.js'
 import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
-import { Currency } from 'utils/constant'
 import { GamePackageName } from '../config'
 import GameBox from './GameBox'
+import { useAppSelector } from 'rewards/provider/redux/store'
 
 const GameBody = () => {
   const currency = useAppSelector((state) => state.setting.currency)
@@ -23,9 +23,7 @@ const GameBody = () => {
         <Text
           x={0}
           y={75}
-          text={
-            currency === Currency.THB ? 'จับคู่ 3 เพื่อชนะ' : `Ghép 3 để thắng`
-          }
+          text={translate(currency, 'match3ToWin')}
           anchor={[0.5, 0.5]}
           style={textStyle}
         />
