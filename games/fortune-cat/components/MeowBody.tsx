@@ -5,7 +5,7 @@ import CoinBalance from '@games/shared/components/CoinBalance'
 import useGameConfig from '@games/shared/hooks/useGameConfig'
 import { Container, Graphics, Sprite } from '@pixi/react'
 import { useState } from 'react'
-import { useAppDispatch } from 'rewards/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'rewards/provider/redux/store'
 import { IResponse } from 'services/common/types'
 import { rewardApi, useGetCoinQuery } from 'services/rewardApi'
 import { RedemptionResult } from 'services/rewardApi.type'
@@ -36,6 +36,7 @@ export const prizeDict = {
 const MeowBody = () => {
   const { width, height } = useWindowSize()
   const dispatch = useAppDispatch()
+  const currency = useAppSelector((s) => s.setting.currency)
   const [startMessage, setStartMessage] = useState(true)
   const [winMessage, setWinMessage] = useState(false)
   const [isRequesting, setRequesting] = useState(false)
@@ -101,7 +102,7 @@ const MeowBody = () => {
   return (
     <Container anchor={0.5} x={posX} y={0}>
       <Sprite
-        image={`${AssetBasePath}/assets/${GamePackageName}/images/wood.png`}
+        image={`${AssetBasePath}/assets/${GamePackageName}/images/wood_${currency.toLowerCase()}.png`}
         anchor={{ x: 0.5, y: 0.5 }}
         scale={{ x: 0.5, y: 0.5 }}
         y={150}

@@ -3,6 +3,9 @@ import * as PIXI from 'pixi.js'
 import { TextStyle } from 'pixi.js'
 import { useMemo, useState } from 'react'
 import { CENTER_ANCHOR, Coordinate, PrizeInfo, PrizeList } from './SpinWinUtil'
+import { translate } from '@games/shared/translations/translationByCurrency'
+import { useAppSelector } from 'rewards/provider/redux/store'
+import { Currency } from 'utils/constant'
 
 export const PrizeSprite = ({
   position,
@@ -13,6 +16,7 @@ export const PrizeSprite = ({
   prizeIndex: number
   size: number
 }) => {
+  const currency = useAppSelector((s) => s.setting.currency)
   const [prizeInfo] = useState<PrizeInfo>(PrizeList[prizeIndex] as PrizeInfo)
 
   const [time, setTime] = useState(0)
@@ -61,7 +65,7 @@ export const PrizeSprite = ({
     return new TextStyle({
       align: 'center',
       fontFamily: 'AvertaStd Regular',
-      fontSize: size * 0.23,
+      fontSize: size * (currency === Currency.THB ? 0.18 : 0.23),
       fontWeight: '400',
       fill: hasPrize ? ['#ffffff'] : '#FAFA7F',
       // dropShadow: true,
@@ -70,7 +74,7 @@ export const PrizeSprite = ({
       // dropShadowAngle: Math.PI / 6,
       // dropShadowDistance: 0.5,
     })
-  }, [size])
+  }, [size, currency])
 
   return (
     <Container position={position} anchor={CENTER_ANCHOR}>
@@ -94,7 +98,11 @@ export const PrizeSprite = ({
       )}
 
       <Text
-        text={prizeInfo?.prize}
+        text={
+          prizeInfo?.isEmpty
+            ? translate(currency, 'tryAgainDoubleLine')
+            : prizeInfo?.prize
+        }
         anchor={{ x: 0.5, y: hasPrize ? 1.5 : 0.5 }}
         style={textStyle}
       />

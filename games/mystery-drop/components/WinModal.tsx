@@ -1,9 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { AssetBasePath } from '@games/config'
+import { translate } from '@games/shared/translations/translationByCurrency'
 import { Back, gsap } from 'gsap'
 import { useEffect } from 'react'
+import { useAppSelector } from 'rewards/provider/redux/store'
 import { toThousandSeparator } from 'utils-pixi/helper'
+import { CURRENCY_TO_LANGUAGE } from 'utils/constant/currency'
 import { RewardPostMessageType } from 'utils/rewards'
 
 type WinModalProps = {
@@ -14,6 +17,7 @@ type WinModalProps = {
 
 export const WinModal = NiceModal.create(
   ({ winPrize, type, onClose }: WinModalProps) => {
+    const currency = useAppSelector((s) => s.setting.currency)
     const modal = useModal()
     const width = window.innerWidth
     const headWidth = width > 500 ? 450 : width
@@ -23,21 +27,21 @@ export const WinModal = NiceModal.create(
 
     switch (type) {
       case '1':
-        prizeType = 'JACKPOT KHUYẾN KHÍCH'
-        boardImage = `${AssetPath}/board-win-green-vi.png`
+        prizeType = `JACKPOT ${translate(currency, 'mini')}`
+        boardImage = `${AssetPath}/board-win-green-${CURRENCY_TO_LANGUAGE[currency]}.png`
         break
       case '2':
-        prizeType = 'JACKPOT LỘC PHÁT'
-        boardImage = `${AssetPath}/board-win-blue-vi.png`
+        prizeType = `JACKPOT ${translate(currency, 'major')}`
+        boardImage = `${AssetPath}/board-win-blue-${CURRENCY_TO_LANGUAGE[currency]}.png`
         break
       case '3':
-        prizeType = 'JACKPOT ĐẠI PHÁT'
-        boardImage = `${AssetPath}/board-win-red-vi.png`
+        prizeType = `JACKPOT ${translate(currency, 'grand')}`
+        boardImage = `${AssetPath}/board-win-red-${CURRENCY_TO_LANGUAGE[currency]}.png`
         break
 
       default:
-        prizeType = 'JACKPOT KHUYẾN KHÍCH'
-        boardImage = `${AssetPath}/board-win-green-vi.png`
+        prizeType = `JACKPOT ${translate(currency, 'mini')}`
+        boardImage = `${AssetPath}/board-win-green-${CURRENCY_TO_LANGUAGE[currency]}.png`
         break
     }
 
@@ -147,7 +151,9 @@ export const WinModal = NiceModal.create(
                 flexDirection: 'column',
               }}
             >
-              <div style={{ color: 'white', fontSize: 24 }}>Bạn nhận được</div>
+              <div style={{ color: 'white', fontSize: 24 }}>
+                {translate(currency, 'youWon')}
+              </div>
               <h1
                 style={{
                   color: '#FFE200',
@@ -155,7 +161,7 @@ export const WinModal = NiceModal.create(
                   fontFamily: 'Avertastd Bold',
                 }}
               >
-                {`${toThousandSeparator(winPrize)} VND`}
+                {`${toThousandSeparator(winPrize)} ${currency}`}
               </h1>
               <div style={{ color: 'white', fontSize: 20 }}>{prizeType}</div>
             </div>

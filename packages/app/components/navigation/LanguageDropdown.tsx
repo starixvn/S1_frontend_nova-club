@@ -10,8 +10,8 @@ import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
 import BouncePressable from '../pressable/BouncePressable'
 import FloatingOverlay from 'app/features/floatingContent/FloatingOverlay'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { IS_MULTICURRENCY_ENABLED } from 'app/constants/multicurrency'
 import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
+import { IS_MULTICURRENCY_ENABLED } from 'utils/multicurrency'
 
 const ICON_SIZE = 32
 

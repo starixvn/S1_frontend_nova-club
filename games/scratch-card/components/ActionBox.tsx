@@ -1,9 +1,12 @@
 import useAnimatedAmount from '@games/shared/hooks/useAnimatedAmount'
+import useGameConfig from '@games/shared/hooks/useGameConfig'
+import { translate } from '@games/shared/translations/translationByCurrency'
 import { Container, Graphics, Text } from '@pixi/react'
 import { ITextStyle, TextStyle } from 'pixi.js'
 import { ComponentProps, useMemo, useState } from 'react'
+import { useAppSelector } from 'rewards/provider/redux/store'
 import { IContainer } from 'utils-pixi/type'
-import useGameConfig from '@games/shared/hooks/useGameConfig'
+import { Currency } from 'utils/constant'
 import { RewardGameKeyMap } from 'utils/rewards'
 
 type ActionBoxProps = {
@@ -22,6 +25,7 @@ const ActionBox = ({
   onPress,
   ...rest
 }: ActionBoxProps) => {
+  const currency = useAppSelector((state) => state.setting.currency)
   const [isFirstStart, setIsFirstStart] = useState(true)
   const balanceDisplay = useAnimatedAmount(totalBalance, {
     tickPerSecond: 10000,
@@ -73,7 +77,7 @@ const ActionBox = ({
         />
         <Text
           anchor={0.5}
-          text={`TỔNG TIỀN THẮNG\n${balanceDisplay}`}
+          text={`${translate(currency, 'total')}\n${balanceDisplay}`}
           style={fontStyles[0]}
         />
       </Container>
@@ -99,7 +103,11 @@ const ActionBox = ({
         />
         <Text
           text={
-            isFirstStart ? 'BẮT ĐẦU' : gameStarted ? 'TỰ ĐỘNG CÀO' : 'CHƠI TIẾP'
+            isFirstStart
+              ? translate(currency, 'start')
+              : gameStarted
+              ? translate(currency, 'revealAll')
+              : translate(currency, 'playNext')
           }
           anchor={0.5}
           style={fontStyles[1]}

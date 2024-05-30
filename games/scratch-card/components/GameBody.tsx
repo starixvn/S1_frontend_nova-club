@@ -5,16 +5,18 @@ import CoinBalance from '@games/shared/components/CoinBalance'
 import { Container, Sprite, Text } from '@pixi/react'
 import { TextStyle } from 'pixi.js'
 import { useState } from 'react'
-import { useAppDispatch } from 'rewards/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'rewards/provider/redux/store'
 import { IResponse } from 'services/common/types'
 import { rewardApi, useGetCoinQuery } from 'services/rewardApi'
 import { RedemptionResult } from 'services/rewardApi.type'
 import { checkRedeemSuccess } from 'utils-pixi/helper'
 import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
+import { Currency } from 'utils/constant'
 import { GamePackageName } from '../config'
 import ActionBox from './ActionBox'
 import PrizeBoxJs from './PrizeBoxJs'
 import { Prize } from './Util'
+import { translate } from '@games/shared/translations/translationByCurrency'
 
 export const prizeDict = {
   30000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
@@ -28,6 +30,7 @@ export const prizeDict = {
 export const possibleResult = Object.keys(prizeDict)
 
 const GameBody = () => {
+  const currency = useAppSelector((state) => state.setting.currency)
   const { width, height } = useWindowSize()
   const dispatch = useAppDispatch()
   const [gameStarted, setGameStarted] = useState(false)
@@ -84,11 +87,16 @@ const GameBody = () => {
       <Container anchor={0.5} y={-boxWidth * 0.62}>
         <Text
           x={0}
-          text={'TÌM       TRỨNG GIỐNG NHAU'}
+          text={translate(currency, 'scratch3ToWin')}
           anchor={[0.5, 1]}
           style={whiteText}
         />
-        <Text x={-100} text={'3'} anchor={[0.5, 0.9]} style={yellowText} />
+        <Text
+          x={currency === Currency.THB ? -15 : -100}
+          text={'3'}
+          anchor={[0.5, 0.9]}
+          style={yellowText}
+        />
       </Container>
       <Container anchor={0.5}>
         <Sprite

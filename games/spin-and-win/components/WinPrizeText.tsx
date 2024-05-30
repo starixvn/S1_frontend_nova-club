@@ -1,7 +1,9 @@
 import useAnimatedAmount from '@games/shared/hooks/useAnimatedAmount'
+import { translate } from '@games/shared/translations/translationByCurrency'
 import { Container, Graphics, Text } from '@pixi/react'
 import { TextStyle } from 'pixi.js'
 import { ComponentProps, useMemo } from 'react'
+import { useAppSelector } from 'rewards/provider/redux/store'
 import { IContainer } from 'utils-pixi/type'
 
 type WinPrizeTextProps = {
@@ -11,6 +13,7 @@ type WinPrizeTextProps = {
 
 const WinPrizeText = ({ balance = 0, width, ...rest }: WinPrizeTextProps) => {
   const balanceDisplay = useAnimatedAmount(balance, { tickPerSecond: 1000 })
+  const currency = useAppSelector((s) => s.setting.currency)
 
   const textStyle = useMemo(() => {
     return new TextStyle({
@@ -40,7 +43,7 @@ const WinPrizeText = ({ balance = 0, width, ...rest }: WinPrizeTextProps) => {
       />
       <Text
         x={-width * 0.47}
-        text={`TỔNG TIỀN THẮNG :`}
+        text={`${translate(currency, 'total')} :`}
         anchor={[0, 0.5]}
         style={textStyle}
       />

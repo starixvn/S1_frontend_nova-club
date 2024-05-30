@@ -181,9 +181,20 @@
           }
         },
         {
-          "name": "images/wood.png",
+          "name": "images/wood_thb.png",
           "srcs": [
-            "images/wood.png"
+            "images/wood_thb.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/wood_vnd.png",
+          "srcs": [
+            "images/wood_vnd.png"
           ],
           "data": {
             "tags": {

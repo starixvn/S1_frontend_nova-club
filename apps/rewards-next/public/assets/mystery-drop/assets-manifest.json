@@ -60,6 +60,17 @@
           }
         },
         {
+          "name": "images/board-win-blue-th.png",
+          "srcs": [
+            "images/board-win-blue-th.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
           "name": "images/board-win-blue-vi.png",
           "srcs": [
             "images/board-win-blue-vi.png"
@@ -71,9 +82,31 @@
           }
         },
         {
+          "name": "images/board-win-green-th.png",
+          "srcs": [
+            "images/board-win-green-th.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
           "name": "images/board-win-green-vi.png",
           "srcs": [
             "images/board-win-green-vi.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/board-win-red-th.png",
+          "srcs": [
+            "images/board-win-red-th.png"
           ],
           "data": {
             "tags": {

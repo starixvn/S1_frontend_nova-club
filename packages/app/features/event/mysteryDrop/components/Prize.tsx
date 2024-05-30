@@ -3,6 +3,7 @@ import useLocalization from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Text, View, styled } from 'dripsy'
 import React, { useState } from 'react'
+import { useAppSelector } from 'app/provider/redux/store'
 import { MysteryEventPrize } from 'services/eventApi.type'
 import { SolitoImage } from 'solito/image'
 import { CountUp } from 'use-count-up'
@@ -16,6 +17,7 @@ type PrizeProps = {
 const defaultPrize: MysteryEventPrize = { amt: '0', min: '0', max: '0' }
 
 const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
+  const currency = useAppSelector((s) => s.setting.currency)
   const { t } = useLocalization()
   const [prevPrize, setPrevPrize] = useState<number>()
 
@@ -49,7 +51,7 @@ const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
   return (
     <View sx={{ alignItems: 'center', width }}>
       <SolitoImage
-        src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${type}.png`}
+        src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${type}-${currency.toLowerCase()}.png`}
         alt=""
         width={width * 0.5}
         height={width * 0.5}
@@ -87,15 +89,15 @@ const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
                   thousandsSeparator=","
                   onComplete={() => setPrevPrize(prizeAmount)}
                 />
-                {` VND`}
+                {` ${currency}`}
               </PrizeText>
 
               <SmallText>{t('event.mystery.hitRange')}:</SmallText>
               <SmallText>{`${toThousandSeparator(
                 prize.min.toString()
-              )} VND - ${toThousandSeparator(
+              )} ${currency} - ${toThousandSeparator(
                 prize.max.toString()
-              )} VND`}</SmallText>
+              )} ${currency}`}</SmallText>
             </>
           )}
         </View>

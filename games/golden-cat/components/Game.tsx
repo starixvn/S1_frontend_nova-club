@@ -7,7 +7,7 @@ import { Container, Sprite } from '@pixi/react'
 import { sound } from '@pixi/sound'
 import shuffle from 'lodash/shuffle'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useAppDispatch } from 'rewards/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'rewards/provider/redux/store'
 import { IResponse } from 'services/common/types'
 import { rewardApi, useGetCoinQuery } from 'services/rewardApi'
 import { RedemptionResult } from 'services/rewardApi.type'
@@ -18,10 +18,12 @@ import { GamePackageName } from '../config'
 import SlotMachine, { SlotMachineMethods, columns } from './SlotMachine'
 import SpinButton from './SpinButton'
 import TotalWon from './TotalWon'
+import { translate } from '@games/shared/translations/translationByCurrency'
 
 type Props = {}
 
 export default function Background({}: Props) {
+  const currency = useAppSelector((state) => state.setting.currency)
   const { width, height } = useWindowSize()
   const [columnAnswers, setColumnAnswers] = useState<boolean[]>([])
   const [totalWon, setTotalWon] = useState<number>(0)
@@ -153,7 +155,11 @@ export default function Background({}: Props) {
       {(isSpinEnabled || isAnimating || isStopping) && (
         <SpinButton
           loading={isRequesting || isStopping}
-          text={isAnimating ? 'DỪNG' : 'QUAY'}
+          text={
+            isAnimating
+              ? translate(currency, 'spin')
+              : translate(currency, 'stop')
+          }
           anchor={0.5}
           eventMode={isRequesting || isStopping ? 'none' : 'static'}
           pointertap={() => {

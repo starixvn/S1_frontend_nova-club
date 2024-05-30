@@ -1,6 +1,6 @@
 import { MOBILE_PREFIX } from 'utils/constant'
-import { IS_MULTICURRENCY_ENABLED } from 'app/constants/multicurrency'
 import { Currency, LANGUAGE_CODE } from 'utils/constant'
+import { IS_MULTICURRENCY_ENABLED } from 'utils/multicurrency'
 
 export const CURRENCY_LANGUAGE_LIST = [
   {
