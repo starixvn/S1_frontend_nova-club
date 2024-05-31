@@ -23,6 +23,7 @@ import { useRouter } from 'solito/router'
 import { Currency, LANGUAGE_CODE } from 'utils/constant'
 import { AGENT_TAB_HEIGHT } from '../constant/sizes'
 import MainMenu from './MainMenu'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const EmptySelection = [] as Options<Currency>[]
 
@@ -75,9 +76,9 @@ const Header = () => {
   }
 
   const countryImg = {
-    [LANGUAGE_CODE.ENGLISH]: require('app/assets/images/common/en.jpg'),
-    [LANGUAGE_CODE.VIETNAM]: require('app/assets/images/common/vn.jpg'),
-    [LANGUAGE_CODE.THAILAND]: require('app/assets/images/common/th.jpg'),
+    [LANGUAGE_CODE.ENGLISH]: `${MEDIA_DOMAIN}${CONTENT_URI}/language/en.jpg`,
+    [LANGUAGE_CODE.VIETNAM]: `${MEDIA_DOMAIN}${CONTENT_URI}/language/vn.jpg`,
+    [LANGUAGE_CODE.THAILAND]: `${MEDIA_DOMAIN}${CONTENT_URI}/language/th.jpg`,
   }
 
   const onChangeLanguage = (value: LANGUAGE_CODE) => {
