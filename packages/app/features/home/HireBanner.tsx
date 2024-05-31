@@ -1,22 +1,18 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useAlert from 'app/hooks/useAlert'
-import useFocusedSelector from 'app/hooks/useFocusedSelector'
-import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useMemo } from 'react'
-import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
+import { Currency } from 'utils/constant'
 
 export default function HireBanner() {
   const { t } = useLocalization()
   const { push } = useRouter()
-  const { token } = useFocusedSelector((state) => state.auth.info) || {}
-  const isDesktop = useIsDesktop()
-  const { openModal } = useModal()
+  const currency = useAppSelector((state) => state.setting.currency)
   const { showAlert } = useAlert()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const show = useResponsiveValue([false, true])
@@ -43,10 +39,14 @@ export default function HireBanner() {
           justifyContent: 'center',
         }}
       >
-        <Label sx={{ color: '#00FFFF' }}>{t('home.banner.n3')}</Label>
+        <Label sx={{ color: '#00FFFF' }}>
+          {t(
+            currency === Currency.THB ? 'home.banner.n3thb' : 'home.banner.n3'
+          )}
+        </Label>
       </MotiView>
     ),
-    [t('home.banner.n3')]
+    [t('home.banner.n3'), currency]
   )
 
   const handlePress = () => {

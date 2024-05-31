@@ -8,6 +8,7 @@ import React, { useMemo } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 import { AnimatedButton } from './HireBanner'
+import { Currency } from 'utils/constant'
 
 export default function HireBannerSecond() {
   const { t } = useLocalization()
@@ -16,6 +17,7 @@ export default function HireBannerSecond() {
   const showTime = useResponsiveValue([false, true])
   const token = useAppSelector((state) => state.auth.info?.token)
   const lang = useAppSelector((state) => state.setting.locale)
+  const currency = useAppSelector((state) => state.setting.currency)
   const { openModal } = useModal()
   const isDesktop = useIsDesktop()
 
@@ -49,10 +51,14 @@ export default function HireBannerSecond() {
           justifyContent: 'center',
         }}
       >
-        <Label sx={{ color: '#00FFFF' }}>{t('home.banner2.n3')}</Label>
+        <Label sx={{ color: '#00FFFF' }}>
+          {t(
+            currency === Currency.THB ? 'home.banner2.n3thb' : 'home.banner2.n3'
+          )}
+        </Label>
       </MotiView>
     ),
-    [t('home.banner2.n3')]
+    [t('home.banner2.n3'), currency]
   )
 
   return (
