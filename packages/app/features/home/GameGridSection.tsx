@@ -11,6 +11,7 @@ import GameGridSectionItem from './GameGridSectionItem'
 
 export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/agent-recruitment_220.mp4`
 export const COCKFIGHTING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/cockfighting_220.mp4`
+export const EURO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/euro.png`
 export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing_350.mp4`
 export const LOTTERY_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/keno_350.mp4`
 export const GAME_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games_350.mp4`
@@ -49,14 +50,14 @@ const config = [
   // },
   {
     col: 2,
-    src: COCKFIGHTING_IMG,
-    type: 'video',
-    title: 'game.category.cockfighting',
-    // fallback: `${MEDIA_DOMAIN}${CONTENT_URI}/home/cockfighting.jpg`,
+    src: EURO_IMG,
+    type: 'image',
+    fallback: EURO_IMG,
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        uri: '/games/cockfighting',
+        uri: '/sportsbook',
+        params: { section: 'euro-match' },
       },
     },
   },
@@ -184,7 +185,6 @@ export default function GameGridSection() {
           />
         )
       })}
-
     </Row>
   )
 }

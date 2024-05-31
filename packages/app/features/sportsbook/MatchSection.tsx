@@ -19,16 +19,22 @@ export default function MatchSection() {
   const currency = useFocusedSelector((s) => s.setting.currency)
   const [selectedLeague, setSelectedLeague] = useState<string>()
   const [leagueSection, setLeagueSection] = useParam('section', {
+    parse: (templateFromUrl) => {
+      if (templateFromUrl) return templateFromUrl
+      return LEAGUE_SECTION.LEAGUE_ODDS
+    },
     initial: LEAGUE_SECTION.LEAGUE_ODDS,
   })
 
   useEffect(() => {
-    if (Platform.OS === 'web')
-      leagueSection !== LEAGUE_SECTION.LEAGUE_ODDS &&
-        setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
-    else
-      leagueSection === undefined &&
-        setLeagueSection(LEAGUE_SECTION.LEAGUE_ODDS)
+    if (leagueSection === undefined) {
+      setLeagueSection(LEAGUE_SECTION.LEAGUE_ODDS)
+      setSelectedLeague(undefined)
+    }
+
+    if (leagueSection && leagueSection !== LEAGUE_SECTION.LEAGUE_ODDS)
+      setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagueSection])
 

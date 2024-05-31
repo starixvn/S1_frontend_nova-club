@@ -30,13 +30,16 @@ export default function SportsbookScreen() {
   const { t } = useLocalization()
   const { locale, currency } = useDefaultParamSelector()
   const [leagueSection, setLeagueSection] = useParam('section', {
+    parse: (templateFromUrl) => {
+      if (templateFromUrl) return templateFromUrl
+      return LEAGUE_SECTION.LEAGUE_ODDS
+    },
     initial: LEAGUE_SECTION.LEAGUE_ODDS,
   })
 
   useEffect(() => {
-    if (Platform.OS !== 'web')
-      leagueSection === undefined &&
-        setLeagueSection(LEAGUE_SECTION.LEAGUE_ODDS)
+    if (leagueSection === undefined)
+      setLeagueSection(LEAGUE_SECTION.LEAGUE_ODDS)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagueSection])
 
