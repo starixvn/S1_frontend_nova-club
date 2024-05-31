@@ -1,24 +1,25 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Divider from 'app/components/Divider'
 import DripsyMotiView from 'app/components/DripsyMotiView'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import { LEAGUE_SECTION } from 'app/constants/recMatchMapping'
 import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Container, Pressable, Row, Text, View, styled } from 'dripsy'
+import { MotiView } from 'moti'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
-import React, { startTransition } from 'react'
+import React, { startTransition, useMemo } from 'react'
 import { ViewStyle } from 'react-native'
+import { SolitoImage } from 'solito/image'
 import { useLink } from 'solito/link'
+import FloatingEuroCupNavigation from './FloatingEuroCupNavigation'
 import FloatingLiveChatDesktop from './FloatingLiveChatDesktop'
 import {
   NAVIGATION_DROPDOWN_MENU,
   useNavigationHeader,
 } from './NavigationHeaderProvider'
-import FloatingEuroCupNavigation from './FloatingEuroCupNavigation'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { SolitoImage } from 'solito/image'
-import { LEAGUE_SECTION } from 'app/constants/recMatchMapping'
 
 interface MenuProps {
   icon?: string
@@ -186,6 +187,29 @@ const MenuButton = ({
   const setDropdownMenu = useNavigationHeader()
   const { t } = useLocalization()
 
+  const AnimatedLogo = useMemo(
+    () => (
+      <MotiView
+        key={image}
+        from={{ transform: [{ rotate: '-15deg' }] }}
+        animate={{ transform: [{ rotate: '15deg' }] }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
+        style={{
+          height: '80%',
+          aspectRatio: 1 / 1,
+          alignItems: 'center',
+        }}
+      >
+        <SolitoImage src={image} width={32} height={32} alt="euro-cup" />
+      </MotiView>
+    ),
+    [image]
+  )
+
   return (
     <DripsyMotiPressable
       sx={{
@@ -204,17 +228,12 @@ const MenuButton = ({
       {icon ? (
         <Icon name={icon} size={22} />
       ) : image ? (
-        <View
-          sx={{
-            bg: 'blue',
-            height: '100%',
-            aspectRatio: 1 / 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <SolitoImage src={image} width={36} height={36} alt="euro-cup" />
-        </View>
+        <>
+          {AnimatedLogo}
+          <Text sx={{ fontSize: 9, position: 'absolute', bottom: 0 }}>
+            2024
+          </Text>
+        </>
       ) : (
         <View>
           <Text sx={{ fontSize: [10, 10, 10, 12, 13] }}>
