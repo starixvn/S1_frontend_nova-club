@@ -20,7 +20,29 @@ const EuroModal = ({ modal: { closeModal, getParam } }) => {
 
   return (
     <ModalWrapper sx={{ width: modalWidth }}>
-      <View sx={{ alignItems: 'center', justifyContent: 'center' }}>
+      <>
+        <View sx={{ alignItems: 'center', justifyContent: 'center' }}>
+          <SolitoImage
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/board-small.png`}
+            width={modalWidth}
+            height={modalWidth}
+            alt=""
+          />
+          <Text
+            sx={{
+              position: 'absolute',
+              width: '75%',
+              pt: [90, 100],
+              lineHeight: 32,
+              textAlign: 'center',
+              fontSize: 20,
+              fontWeight: 'bold',
+            }}
+          >
+            {message}
+          </Text>
+        </View>
+
         <BouncePressable
           containerStyle={{ position: 'absolute', top: top, right: -15 }}
           onPress={handleClose}
@@ -32,25 +54,7 @@ const EuroModal = ({ modal: { closeModal, getParam } }) => {
             alt=""
           />
         </BouncePressable>
-        <SolitoImage
-          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/board-small.png`}
-          width={modalWidth}
-          height={modalWidth}
-          alt=""
-        />
-        <Text
-          sx={{
-            position: 'absolute',
-            width: '75%',
-            mt: [90, 100],
-            textAlign: 'center',
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}
-        >
-          {message}
-        </Text>
-      </View>
+      </>
     </ModalWrapper>
   )
 }
