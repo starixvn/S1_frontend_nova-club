@@ -25,7 +25,7 @@ const JackpotPool = () => {
     async function initTotal() {
       await sleep(1000)
 
-      const startDate = dayjs('2024-05-01')
+      const startDate = dayjs('2024-06-01')
       const currentDate = dayjs()
 
       // Calculate the how much days passed in seconds
