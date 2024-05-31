@@ -185,27 +185,9 @@ const PredictionStage = ({
   }, [teams, t])
 
   return (
-    <View
-      sx={{
-        flex: 1,
-        width: contentWidth,
-        mt: -36,
-      }}
-    >
-      <ImageBackground
-        source={{
-          uri: imageUrl,
-        }}
-        resizeMode="stretch"
-        alt=""
-      >
-        <View
-          sx={{
-            m: '$4',
-            mt: 48,
-            alignItems: 'center',
-          }}
-        >
+    <View sx={{ flex: 1, width: contentWidth, mt: -36 }}>
+      <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" alt="">
+        <View sx={{ m: '$4', mt: 48, alignItems: 'center' }}>
           <TitleText>{roundTitle.toUpperCase()}</TitleText>
           <Row
             sx={{
@@ -352,7 +334,7 @@ const TeamFlag = ({
         />
       </View>
     </Pressable>
-    <Text sx={{ fontSize: 10, fontWeight: 'bold', textAlign: 'center' }}>
+    <Text sx={{ fontSize: [8, 10], fontWeight: 'bold', textAlign: 'center' }}>
       {label.toUpperCase()}
     </Text>
   </View>

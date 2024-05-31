@@ -115,7 +115,7 @@ const MainText = styled(Text)({
 
 const JackpotText = styled(Text)({
   textAlign: 'right',
-  fontSize: [20],
+  fontSize: [18, 20],
   color: '#4F0018',
   fontWeight: 'bold',
   fontFamily: 'arial',

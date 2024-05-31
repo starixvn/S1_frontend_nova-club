@@ -62,6 +62,7 @@ const Prediction = () => {
 
 const Trophy = ({ amount = '-' }: { amount?: number | string }) => {
   const { t } = useLocalization()
+  const { width } = useWindowDimensions()
   const imageWidth = useResponsiveValue([110, 120, 120, 140, 160])
 
   return (
@@ -72,7 +73,7 @@ const Trophy = ({ amount = '-' }: { amount?: number | string }) => {
         alignItems: 'center',
         position: 'absolute',
         bottom: [0, -12, -12, -30, -38],
-        left: [0, 24, 36, 30, 20],
+        left: [width < 400 ? -10 : 0, 24, 36, 30, 20],
       }}
     >
       <SolitoImage
