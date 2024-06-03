@@ -125,6 +125,8 @@ const AccountDetail = ({
                 sx={{
                   width: enlargedWidth * 0.3,
                   height: enlargedHeight,
+                  maxWidth: 120,
+                  maxHeight: 120,
                 }}
                 resizeMode="contain"
               />
