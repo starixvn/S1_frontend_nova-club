@@ -281,7 +281,7 @@ const LabelContainer = styled(View)(({ rebateTop }: { rebateTop?: boolean }) =>
         py: [6],
         width: '100%',
         position: 'absolute',
-        top: 50,
+        bottom: 20,
         right: 0,
         justifyContent: 'flex-end',
         flexDirection: 'row',

@@ -121,9 +121,10 @@ const MatchCard = ({
           borderColor: '$primaryEuro.500',
           borderRadius: 12,
           justifyContent: 'center',
+          minHeight: 110,
         }}
       >
-        <Text sx={{ fontSize: 12 }}>{time}</Text>
+        <Text sx={{ fontSize: [11, 14] }}>{time}</Text>
         <View>
           <MatchFlag flag={homeFlag} label={item.home_team_name} />
           <MatchFlag flag={awayFlag} label={item.away_team_name} />
@@ -153,7 +154,10 @@ const MatchFlag = ({ flag, label }) => {
           loading="lazy"
         />
       </View>
-      <Text numberOfLines={1} sx={{ fontSize: 14 }}>
+      <Text
+        numberOfLines={1}
+        sx={{ fontSize: [15, 14], width: ['75%', '80%'] }}
+      >
         {label}
       </Text>
     </Row>
