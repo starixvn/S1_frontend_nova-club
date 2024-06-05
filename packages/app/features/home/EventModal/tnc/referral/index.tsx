@@ -10,6 +10,7 @@ const list = [
   'referral.tnc.n3',
   'referral.tnc.n4',
   'referral.tnc.n5',
+  'referral.tnc.n51',
   'referral.tnc.n6',
   'referral.tnc.n7',
   'referral.tnc.n8',
@@ -28,10 +29,6 @@ const Tnc = () => {
         <div>
           <strong>{t('referral.tnc.title')}</strong>
           <br />
-        </div>
-        <div>
-          <strong>{period[0]}:</strong>
-          <span>{period[1]}</span>
         </div>
         <br />
 
