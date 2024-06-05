@@ -1,4 +1,4 @@
-import { getStatusColor } from 'app/config/status'
+import { getBonusStatusColor } from 'app/config/status'
 import useLocalization from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Text, useDripsyTheme, View } from 'dripsy'
@@ -62,6 +62,17 @@ const BonusHistoryItem = ({ item }) => {
               : isPositive
               ? `+${toThousandSeparator(item.amount)}`
               : `-${toThousandSeparator(item.amount)}`}
+          </Text>
+        </View>
+
+        <View style={{ flex: CELL_AMOUNT_WIDTH }}>
+          <Text
+            sx={{
+              textAlign: 'right',
+              color: getBonusStatusColor(item?.status?.toLowerCase()),
+            }}
+          >
+            {item.status}
           </Text>
         </View>
       </View>

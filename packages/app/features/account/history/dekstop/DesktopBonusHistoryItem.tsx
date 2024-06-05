@@ -1,4 +1,4 @@
-import { getDepositStatusColor } from 'app/config/status'
+import { getBonusStatusColor, getDepositStatusColor } from 'app/config/status'
 import useLocalization from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Text, View, styled, useDripsyTheme } from 'dripsy'
@@ -11,6 +11,7 @@ export const BonusTableHeader = [
   { label: 'common.date', textStyle: { flex: 1, textAlign: 'left' } },
   { label: 'deposit.type', textStyle: { flex: 1, textAlign: 'center' } },
   { label: 'common.amount', textStyle: { flex: 1, textAlign: 'center' } },
+  { label: 'deposit.status', textStyle: { flex: 1, textAlign: 'center' } },
 ]
 
 const DesktopBonusHistoryItem = ({ item, index }) => {
@@ -51,6 +52,15 @@ const DesktopBonusHistoryItem = ({ item, index }) => {
             : isPositive
             ? `+${toThousandSeparator(item.amount)}`
             : `-${toThousandSeparator(item.amount)}`}
+        </Text>
+      </CellView>
+      <CellView index={4}>
+        <Text
+          sx={{
+            color: getBonusStatusColor(item?.status?.toLowerCase()),
+          }}
+        >
+          {item.status}
         </Text>
       </CellView>
     </CellViewContainer>
