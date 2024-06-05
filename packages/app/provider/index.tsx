@@ -1,3 +1,4 @@
+import LandingPageTrigger from 'app/components/LandingPageTrigger'
 import ReferralTrigger from 'app/components/ReferralTrigger'
 import RootToast from 'app/components/RootToast'
 import DrawerProvider from 'app/components/navigation/drawer/DrawerProvider'
@@ -7,15 +8,15 @@ import GameLauncher from 'app/features/game/GameLauncher'
 import Branch from 'app/integrations/branch/Branch'
 import Notification from 'app/integrations/notification/Notification'
 import Shield from 'app/integrations/shield/Shield'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
+import { LANGUAGE_NAMESPACE } from 'utils/constant'
 import OnlineTracking from './OnlineTracker'
 import { Dripsy } from './dripsy'
 import { LocalizationProviderRedux } from './localization'
+import FocusedLocalizationProvider from './localization/FocusedLocalizationProvider'
 import ModalProvider from './modal'
 import ReduxProvider from './redux'
-import dayjs from 'dayjs'
-import isBetween from 'dayjs/plugin/isBetween'
-import FocusedLocalizationProvider from './localization/FocusedLocalizationProvider'
-import { LANGUAGE_NAMESPACE } from 'utils/constant'
 
 dayjs.extend(isBetween)
 
@@ -39,6 +40,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
                 <Branch />
                 <Shield />
                 <Notification />
+                <LandingPageTrigger />
                 <ReferralTrigger />
                 {isCNY && <SakuraFall />}
                 <RegisterUniqueId />
