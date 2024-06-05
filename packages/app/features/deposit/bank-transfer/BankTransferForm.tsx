@@ -1,7 +1,7 @@
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import MoneyInput from 'app/components/MoneyInput'
 import Button from 'app/components/common/Button'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
-import { getBankLogo } from 'app/config/bank'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
@@ -75,7 +75,7 @@ const BankTransferForm = () => {
       return {
         label: item.bank_branch,
         value: item.bankTypeId.toString(),
-        icon: getBankLogo(item.bank_code),
+        icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
         limit: { min: item.minDeposit, max: item.maxDeposit },
       }
     }) ?? []
