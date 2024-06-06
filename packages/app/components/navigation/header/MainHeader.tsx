@@ -31,7 +31,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import { SolitoImage } from 'solito/image'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
-import { HEADER_HEIGHT } from 'utils/constant'
+import { Currency, HEADER_HEIGHT } from 'utils/constant'
 import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
@@ -39,13 +39,14 @@ import HeaderOverview from './HeaderOverview'
 
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
+  const currency = useAppSelector((s) => s.setting.currency)
   const LogoSize = useResponsiveValue([
     HEADER_HEIGHT * 0.6,
     HEADER_HEIGHT * 0.9,
   ])
 
   const LOGO_PATH =
-    lang === 'th'
+    currency === Currency.THB
       ? `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-th.png`
       : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-euro-cup-${lang}.gif`
 

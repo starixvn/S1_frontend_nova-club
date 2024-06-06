@@ -10,9 +10,10 @@ import groupBy from 'lodash/groupBy'
 import uniqBy from 'lodash/uniqBy'
 import {
   default as React,
+  useCallback,
   useEffect,
   useMemo,
-  useRef
+  useRef,
 } from 'react'
 import { Platform } from 'react-native'
 import {
@@ -24,6 +25,7 @@ import { BannerPage } from 'services/contentApi.type'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { createParam } from 'solito'
 import {
+  Currency,
   GAME_TYPE_CODE,
   LANGUAGE_NAMESPACE,
   ProviderImageCategory,
@@ -73,13 +75,32 @@ function SlotScreen() {
     return groupBy(games, 'gpc')
   }, [games])
 
+  const sortProviders = useCallback(
+    (list) => {
+      if (currency === Currency.THB) {
+        const position = list.findIndex((item) => item.gpc === 'PGSF')
+
+        if (position !== -1) {
+          const [item] = list.splice(position, 1)
+          if (item) list.unshift(item)
+
+          return list
+        }
+      } else return list
+    },
+    [currency]
+  )
+
   const providers = useMemo(() => {
-    if (games)
-      return uniqBy(
+    if (games) {
+      const list = uniqBy(
         games.map(({ gtc, gpc }) => ({ gtc, gpc })),
         'gpc'
       )
-    else return []
+      const sortedList = sortProviders(list)
+
+      return sortedList
+    } else return []
   }, [games])
 
   useEffect(() => {

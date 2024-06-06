@@ -17,7 +17,13 @@ import {
 } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
 import uniqBy from 'lodash/uniqBy'
-import React, { startTransition, useEffect, useMemo, useState } from 'react'
+import React, {
+  startTransition,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { Platform } from 'react-native'
 import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
 import { BannerPage } from 'services/contentApi.type'
@@ -26,7 +32,7 @@ import { Game, LatestWinnerType } from 'services/gameApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
-import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
+import { Currency, GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 
 type Props = {}
 
@@ -65,13 +71,33 @@ function SlotScreen({}: Props) {
 
   const gameCategoryTagTranslation = useGameCategoryTag(GameCategory)
 
+  const sortProviders = useCallback(
+    (list) => {
+      if (currency === Currency.THB) {
+        const position = list.findIndex((item) => item.gpc === 'PGSF')
+
+        if (position !== -1) {
+          const [item] = list.splice(position, 1)
+          if (item) list.unshift(item)
+
+          return list
+        }
+      } else return list
+    },
+    [currency]
+  )
+
   const providers = useMemo(() => {
-    if (games)
-      return uniqBy(
+    if (games) {
+      const list = uniqBy(
         games.map(({ gtc, gpc }) => ({ gtc: GAME_TYPE_CODE.SLOTS, gpc })),
         'gpc'
       )
-    else return []
+
+      const sortedList = sortProviders(list)
+
+      return sortedList
+    } else return []
   }, [games])
 
   useEffect(() => {
