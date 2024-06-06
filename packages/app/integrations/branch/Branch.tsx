@@ -3,6 +3,7 @@ import { useAppDispatch } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { memo, useEffect } from 'react'
 import branch from 'react-native-branch'
+import { Currency } from 'utils/constant'
 
 function Branch() {
   const dispatch = useAppDispatch()
@@ -41,6 +42,7 @@ function Branch() {
 
         console.log('params', params)
         const trackingCode = params ? params['ref'] : undefined
+        const currency = params ? (params['currency'] as string) : undefined
         if (typeof trackingCode === 'string') {
           dispatch(SettingActions.setLog(JSON.stringify(params)))
           dispatch(
@@ -49,6 +51,9 @@ function Branch() {
             })
           )
         } else getRefFromKeepFit()
+
+        if (currency && currency in Currency)
+          dispatch(SettingActions.setCurrency(currency))
       },
     })
   }, [])

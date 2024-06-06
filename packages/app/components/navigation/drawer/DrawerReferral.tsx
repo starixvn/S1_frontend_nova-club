@@ -13,13 +13,14 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 const DrawerReferral = () => {
   const { t } = useLocalization()
   const { height } = useWindowDimensions()
+  const currency = useAppSelector((s) => s.setting.currency)
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const { data: playerData } = usePlayerProfileQuery(undefined, {
     skip: !isLoggedIn,
   })
 
-  const referralLink = `${ROOT_DOMAIN}/download?ref=${playerData?.referral_code}`
+  const referralLink = `${ROOT_DOMAIN}/download?ref=${playerData?.referral_code}&currency=${currency}`
 
   const referralHeight = height > 750 ? 300 : 200
 

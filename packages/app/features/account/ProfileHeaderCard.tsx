@@ -8,6 +8,7 @@ import { Image, Pressable, Text, View } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ProfileResult } from 'services/playerApi.type'
+import { useAppSelector } from 'app/provider/redux/store'
 
 interface ProfileHeaderCardProps {
   data?: ProfileResult
@@ -17,9 +18,10 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
   const { t } = useLocalization()
   const { openModal } = useModal()
   const desktop = useIsDesktop()
+  const currency = useAppSelector((s) => s.setting.currency)
   const AVATAR_SIZE = desktop ? 45 : 40
   const fontSize = desktop ? 15 : 14
-  const referralLink = `${ROOT_DOMAIN}/download?ref=${data?.referral_code}`
+  const referralLink = `${ROOT_DOMAIN}/download?ref=${data?.referral_code}&currency=${currency}`
 
   return (
     <View

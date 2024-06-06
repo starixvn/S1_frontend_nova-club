@@ -17,6 +17,7 @@ import { LocalizationProviderRedux } from './localization'
 import FocusedLocalizationProvider from './localization/FocusedLocalizationProvider'
 import ModalProvider from './modal'
 import ReduxProvider from './redux'
+import CurrencyTrigger from 'app/components/CurrencyTrigger'
 
 dayjs.extend(isBetween)
 
@@ -42,6 +43,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
                 <Notification />
                 <LandingPageTrigger />
                 <ReferralTrigger />
+                <CurrencyTrigger />
                 {isCNY && <SakuraFall />}
                 <RegisterUniqueId />
                 <OnlineTracking />

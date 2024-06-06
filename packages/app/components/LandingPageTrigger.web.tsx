@@ -12,7 +12,7 @@ const { useParam } = createParam<{ c: string }>()
 export default function LandingPageTrigger({}) {
   const isDesktop = useIsDesktop()
 
-  const [code] = useParam('c')
+  const [code, setCode] = useParam('c')
   const pathname = usePathname()
 
   const { openModal } = useModal()
@@ -28,6 +28,7 @@ export default function LandingPageTrigger({}) {
     if (code) {
       const filteredCode = code.replace(/[^0-9a-zA-Z]/g, '')
       dispatch(SettingActions.setLandingPagePromoCode(filteredCode))
+      setCode(undefined)
 
       if (isDesktop)
         setTimeout(() => {

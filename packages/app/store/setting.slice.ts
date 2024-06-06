@@ -4,6 +4,7 @@ import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import dayjs, { Dayjs } from 'dayjs'
 import { Currency, LANGUAGE_CODE } from 'utils/constant'
 import {
+  CURRENCY_LANGUAGE_LIST,
   CURRENCY_TO_LANGUAGE,
   LANGUAGE_TO_CURRENCY,
 } from 'utils/constant/currency'
@@ -94,6 +95,12 @@ const settingSlice = createSlice({
     },
     setCurrency: (state, action: PayloadAction<string>) => {
       state.currency = action.payload as Currency
+
+      /* This logic only workable if each currency is using 2 languages, and 1 of them is EN */
+      if (state.locale !== LANGUAGE_CODE.ENGLISH) {
+        state.locale = CURRENCY_TO_LANGUAGE[state.currency]
+        tolgee.changeLanguage(state.locale)
+      }
     },
     setLocaleCurrency: (
       state,
