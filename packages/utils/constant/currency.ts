@@ -24,7 +24,7 @@ export const CURRENCY_LANGUAGE_LIST = [
     title: 'Thailand',
     currency: Currency.THB,
     localeLang: LANGUAGE_CODE.THAILAND,
-    image: `${MEDIA_DOMAIN}${CONTENT_URI}/country/th.jpg`,
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/language/th.jpg`,
     language: [
       {
         label: 'English',
