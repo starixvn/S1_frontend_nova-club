@@ -12,6 +12,10 @@ const DefaultCurrencyByDomain = [
     currency: Currency.THB,
   },
   {
+    domain: 'stage.beviking.net',
+    currency: Currency.THB,
+  },
+  {
     domain: 'vui123thb.com',
     currency: Currency.THB,
   },
