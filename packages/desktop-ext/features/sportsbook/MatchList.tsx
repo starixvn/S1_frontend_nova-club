@@ -98,6 +98,8 @@ export default function MatchList({}: Props) {
       (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
     )
 
+    if (euroLeagueIndex === 0) return []
+
     const finalData =
       euroLeagueIndex && euroLeagueIndex > -1
         ? filterTime?.slice(0, euroLeagueIndex)
@@ -109,13 +111,16 @@ export default function MatchList({}: Props) {
   const filteredEuroData = useMemo(() => {
     const filterTime = fullData[selectedTime]
 
-    const euroLeagueIndex =
-      filterTime?.findIndex(
-        (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
-      ) ?? 0
+    const euroLeagueIndex = filterTime?.findIndex(
+      (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
+    )
+
+    if (euroLeagueIndex === 0) return filterTime
 
     const finalData =
-      euroLeagueIndex > 0 ? filterTime?.slice(euroLeagueIndex) : []
+      euroLeagueIndex && euroLeagueIndex > 0
+        ? filterTime?.slice(euroLeagueIndex)
+        : []
 
     return finalData ?? []
   }, [selectedTime, fullData]) as MatchResult[]
@@ -127,10 +132,10 @@ export default function MatchList({}: Props) {
   const MatchList = useMemo(() => {
     switch (leagueSection) {
       case LEAGUE_SECTION.EURO_MATCH:
-        setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
+        setSelectedLeague(MatchLeagueId.EURO_CUP)
         return <EuroMatches />
       case LEAGUE_SECTION.EURO_STANDINGS:
-        setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
+        setSelectedLeague(MatchLeagueId.EURO_CUP)
         return <EuroStandings />
       case LEAGUE_SECTION.EURO_ODDS:
         return (
@@ -209,7 +214,7 @@ export default function MatchList({}: Props) {
         ids={leagueTab}
         onChange={(v, leagueSection) => {
           setleagueSection(leagueSection)
-          setSelectedLeague(v.toString())
+          setSelectedLeague(v)
           matchRef?.current?.scrollIntoView({
             behavior: 'smooth',
             block: 'end',

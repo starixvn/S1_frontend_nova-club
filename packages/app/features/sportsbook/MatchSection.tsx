@@ -33,7 +33,7 @@ export default function MatchSection() {
     }
 
     if (leagueSection && leagueSection !== LEAGUE_SECTION.LEAGUE_ODDS)
-      setSelectedLeague(MatchLeagueId.EURO_CUP.toString())
+      setSelectedLeague(MatchLeagueId.EURO_CUP)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagueSection])
@@ -48,20 +48,20 @@ export default function MatchSection() {
     }
   )
 
-  const filteredIds = useMemo(() => {
-    const euroLeagueIndex = leagues.ids?.findIndex(
-      (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
-    )
+  // const filteredIds = useMemo(() => {
+  //   const euroLeagueIndex = leagues.ids?.findIndex(
+  //     (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
+  //   )
 
-    const finalData =
-      euroLeagueIndex > -1
-        ? leagues.ids?.slice(0, euroLeagueIndex)
-        : leagues.ids
+  //   const finalData =
+  //     euroLeagueIndex > -1
+  //       ? leagues.ids?.slice(0, euroLeagueIndex)
+  //       : leagues.ids
 
-    return finalData ?? []
-  }, [leagues])
+  //   return finalData ?? []
+  // }, [leagues])
 
-  const leagueId = selectedLeague ?? filteredIds[0] ?? ''
+  const leagueId = selectedLeague ?? leagues.ids[0] ?? ''
 
   const handleLeagueSelector = (v, leagueSection) => {
     setSelectedLeague(v)
@@ -73,7 +73,7 @@ export default function MatchSection() {
   return (
     <View>
       <MatchLeagueSelector
-        ids={filteredIds}
+        ids={leagues.ids}
         onChange={handleLeagueSelector}
         value={leagueId}
         gradient={'surface'}

@@ -5,8 +5,8 @@ import { View } from 'dripsy'
 import React from 'react'
 import { SlotType } from 'utils/constant'
 import LeaderboardSection from './LeaderboardSection'
-import MatchSection from './Match/MatchSection'
 import ReferralSection from './Referral/ReferralSection'
+import MatchSection from '../sportsbook/MatchSection'
 
 type Props = {}
 

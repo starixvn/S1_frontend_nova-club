@@ -202,6 +202,8 @@ const LogoView = styled(View)(({}) => ({
   position: 'absolute',
   top: '18%',
   zIndex: 1,
+  borderRadius: 50,
+  overflow: 'hidden',
 }))
 
 const Field = ({ width }) => {

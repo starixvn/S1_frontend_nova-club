@@ -37,7 +37,7 @@ export default function MatchLeagueSelector({
   const maxWidth = Math.min(700, width * 0.8)
 
   const handleEuroPress = (leagueSection) => {
-    onChange(MatchLeagueId.EURO_CUP.toString(), leagueSection)
+    onChange(MatchLeagueId.EURO_CUP, leagueSection)
   }
 
   return (
@@ -64,7 +64,7 @@ export default function MatchLeagueSelector({
       >
         {pathname.includes('/sportsbook') && (
           <MatchSelectorEuro
-            active={value === MatchLeagueId.EURO_CUP.toString()}
+            active={value === MatchLeagueId.EURO_CUP}
             onPress={handleEuroPress}
           />
         )}
