@@ -14,6 +14,10 @@ export const Translations = {
     tryAgainDoubleLine: 'THỬ\nLẠI',
     playNext: 'CHƠI TIẾ',
     won: 'BẠN ĐÃ TRÚNG THƯỞNG',
+    youWon: 'Bạn nhận được',
+    mini: 'KHUYẾN KHÍCH',
+    major: 'LỘC PHÁT',
+    grand: 'ĐẠI PHÁT',
   },
   [Currency.THB]: {
     congratulation: 'ยินดีด้วย!',
@@ -28,6 +32,10 @@ export const Translations = {
     tryAgainDoubleLine: 'THỬ\nLẠI',
     playNext: 'เล่นต่อไป',
     won: 'คุณได้รับเงินรางวัลทั้งหมด',
+    youWon: 'คุณได้รับรางวัล',
+    mini: 'MINI',
+    major: 'MAJOR',
+    grand: 'GRAND',
   },
 }
 

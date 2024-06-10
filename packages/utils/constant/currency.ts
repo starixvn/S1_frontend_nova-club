@@ -1,13 +1,14 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { MOBILE_PREFIX } from 'utils/constant'
-import { IS_MULTICURRENCY_ENABLED } from 'app/constants/multicurrency'
 import { Currency, LANGUAGE_CODE } from 'utils/constant'
+import { IS_MULTICURRENCY_ENABLED } from 'utils/multicurrency'
 
 export const CURRENCY_LANGUAGE_LIST = [
   {
     title: 'Vietnam',
     currency: Currency.VND,
     localeLang: LANGUAGE_CODE.VIETNAM,
-    image: require('app/assets/images/common/vn.jpg'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/language/vn.jpg`,
     language: [
       {
         label: 'English',
@@ -23,7 +24,7 @@ export const CURRENCY_LANGUAGE_LIST = [
     title: 'Thailand',
     currency: Currency.THB,
     localeLang: LANGUAGE_CODE.THAILAND,
-    image: require('app/assets/images/common/th.jpg'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/language/th.jpg`,
     language: [
       {
         label: 'English',

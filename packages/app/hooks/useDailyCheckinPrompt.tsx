@@ -14,9 +14,11 @@ dayjs.extend(isToday.default)
 
 const DepositThresholdByCurrency = {
   [Currency.VND]: 100000,
+  [Currency.THB]: 150,
 }
 export default function useDailyCheckinPrompt() {
   const { openModal } = useModal()
+  const currency = useAppSelector((s) => s.setting.currency)
   const promptedRef = useRef(false)
   const { data: profile } = usePlayerProfileQuery()
   const skipCheckPrompting = useAppSelector((s) => {
@@ -42,11 +44,11 @@ export default function useDailyCheckinPrompt() {
           : 0)
     }, 0)
 
-    const thresholdValue = DepositThresholdByCurrency[Currency.VND]
+    const thresholdValue = DepositThresholdByCurrency[currency]
     if (total < thresholdValue) {
       promptedRef.current = true
       openModal('InformDailyCheckinModal', {
-        amountDisplay: toCurrency(thresholdValue, Currency.VND),
+        amountDisplay: toCurrency(thresholdValue, currency),
       })
     }
   }

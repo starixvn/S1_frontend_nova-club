@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
@@ -11,9 +12,9 @@ import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
 const LANGUAGE_BUTTON_SIZE = 25
 
 const LANGUAGE_TO_FLAG_ICON = {
-  [LANGUAGE_CODE.ENGLISH]: require('../assets/images/common/en.jpg'),
-  [LANGUAGE_CODE.VIETNAM]: require('../assets/images/common/vn.jpg'),
-  [LANGUAGE_CODE.THAILAND]: require('../assets/images/common/th.jpg'),
+  [LANGUAGE_CODE.ENGLISH]: `${MEDIA_DOMAIN}${CONTENT_URI}/language/en.jpg`,
+  [LANGUAGE_CODE.VIETNAM]: `${MEDIA_DOMAIN}${CONTENT_URI}/language/vn.jpg`,
+  [LANGUAGE_CODE.THAILAND]: `${MEDIA_DOMAIN}${CONTENT_URI}/language/th.jpg`,
 }
 
 const enum UPDATE_STATE {
