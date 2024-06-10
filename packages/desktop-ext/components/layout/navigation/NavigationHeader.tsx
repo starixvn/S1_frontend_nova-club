@@ -10,7 +10,7 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { Container, Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiView } from 'moti'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
-import React, { startTransition, useMemo } from 'react'
+import React, { startTransition, useCallback, useMemo } from 'react'
 import { ViewStyle } from 'react-native'
 import { SolitoImage } from 'solito/image'
 import { useLink } from 'solito/link'
@@ -20,6 +20,7 @@ import {
   NAVIGATION_DROPDOWN_MENU,
   useNavigationHeader,
 } from './NavigationHeaderProvider'
+import { Currency } from 'utils/constant'
 
 interface MenuProps {
   icon?: string
@@ -29,7 +30,7 @@ interface MenuProps {
   style?: ViewStyle
   menu?: NAVIGATION_DROPDOWN_MENU
   tag?: string
-  checkIsVisible?: (args: { token?: string }) => boolean
+  checkIsVisible?: (args: { token?: string; currency?: Currency }) => boolean
 }
 interface MenuButtonProps extends MenuProps {}
 
@@ -113,11 +114,29 @@ export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()
   const token = useAppSelector((s) => s.auth.info?.token)
+  const currency = useAppSelector((s) => s.setting.currency)
   const pathname = usePathname()
+
+  const FILTER_MENU = useMemo(() => {
+    if (currency === Currency.THB) {
+      const NEW_MENU = [...MENU]
+
+      const position = MENU.findIndex(
+        (item) => item.label === 'game.category.slots'
+      )
+
+      if (position !== -1) {
+        const [item] = NEW_MENU.splice(position, 1)
+        if (item) NEW_MENU.unshift(item)
+
+        return NEW_MENU
+      }
+    } else return MENU
+  }, [currency]) as MenuProps[]
 
   const renderMenu = (menu: MenuProps[]) => {
     return menu.map((m, j) => {
-      if (m.checkIsVisible?.({ token }) === false) {
+      if (m.checkIsVisible?.({ token, currency }) === false) {
         return null
       }
 
@@ -156,7 +175,7 @@ export default function NavigationHeader({}) {
                     justifyContent: 'space-between',
                   }}
                 >
-                  {renderMenu(MENU)}
+                  {renderMenu(FILTER_MENU)}
                 </Row>
                 <Row>{renderMenu(RIGHT_MENU)}</Row>
               </Row>
