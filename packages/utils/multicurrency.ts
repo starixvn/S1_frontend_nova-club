@@ -1,1 +1,1 @@
-export const IS_MULTICURRENCY_ENABLED = true
+export const IS_MULTICURRENCY_ENABLED = false
