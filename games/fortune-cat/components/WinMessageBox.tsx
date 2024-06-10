@@ -1,13 +1,30 @@
 import { AssetBasePath } from '@games/config'
 import useAnimatedAmount from '@games/shared/hooks/useAnimatedAmount'
+import { translate } from '@games/shared/translations/translationByCurrency'
 import { Container, Graphics, Sprite, Text } from '@pixi/react'
+import { GrayscaleFilter } from 'pixi-filters'
 import { TextStyle } from 'pixi.js'
+import { useMemo } from 'react'
+import { useAppSelector } from 'rewards/provider/redux/store'
 import { GamePackageName } from '../config'
 import { useItemsLayout } from './Util'
-import { useMemo } from 'react'
-import { GrayscaleFilter } from 'pixi-filters'
 
-const WinMessageBox = ({ note, balance = 0, boxWidth, onClick, disabled }) => {
+type WinMessageBoxProps = {
+  note?: string
+  balance: number
+  boxWidth: number
+  onClick: () => void
+  disabled: boolean
+}
+
+const WinMessageBox = ({
+  note,
+  balance = 0,
+  boxWidth,
+  onClick,
+  disabled,
+}: WinMessageBoxProps) => {
+  const currency = useAppSelector((state) => state.setting.currency)
   const balanceDisplay = useAnimatedAmount(balance, { tickPerSecond: 10000 })
 
   const containerWidth = boxWidth * 0.7
@@ -55,14 +72,14 @@ const WinMessageBox = ({ note, balance = 0, boxWidth, onClick, disabled }) => {
       <Text
         x={0}
         y={containerHeight * 0.3}
-        text={'XIN CHÚC MỪNG!'}
+        text={translate(currency, 'congratulation')}
         anchor={[0.5, 0.5]}
         style={noteStyle}
       />
       <Text
         x={0}
         y={containerHeight * 0.5}
-        text={'BẠN ĐÃ TRÚNG THƯỞNG'}
+        text={translate(currency, 'won')}
         anchor={[0.5, 0.5]}
         style={noteStyle}
       />
@@ -89,7 +106,7 @@ const WinMessageBox = ({ note, balance = 0, boxWidth, onClick, disabled }) => {
         <Text
           x={0}
           y={0}
-          text={'CHƠI TIẾP'}
+          text={translate(currency, 'playNext')}
           anchor={[0.5, 0.5]}
           style={textStyle}
         />

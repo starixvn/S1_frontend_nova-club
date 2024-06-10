@@ -8,6 +8,7 @@ export interface Coordinate {
 }
 
 export interface PrizeInfo {
+  isEmpty?: boolean
   prize: string
   img?: string
   amount: number
@@ -38,7 +39,8 @@ enum PrizeType {
 
 const Prizes: Record<keyof typeof PrizeType, PrizeInfo> = {
   FAIL: {
-    prize: 'THỬ\nLẠI',
+    isEmpty: true,
+    prize: 'tryAgainDoubleLine',
     amount: 0,
   },
   '20K': {

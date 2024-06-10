@@ -5,8 +5,20 @@ import { GamePackageName } from '../config'
 import { useItemsLayout } from './Util'
 import { GrayscaleFilter } from '@pixi/filter-grayscale'
 import { useMemo } from 'react'
+import { useAppSelector } from 'rewards/provider/redux/store'
+import { Currency } from 'utils/constant'
+import { translate } from '@games/shared/translations/translationByCurrency'
 
-const MessageBox = ({ boxWidth, onClick, disabled }) => {
+const MessageBox = ({
+  boxWidth,
+  onClick,
+  disabled,
+}: {
+  boxWidth: number
+  onClick: () => void
+  disabled: boolean
+}) => {
+  const currency = useAppSelector((state) => state.setting.currency)
   const containerWidth = boxWidth * 0.7
   const containerHeight = boxWidth * 0.7
   const graphicWidth = boxWidth + 20
@@ -65,7 +77,7 @@ const MessageBox = ({ boxWidth, onClick, disabled }) => {
         <Text
           x={0}
           y={0}
-          text={`BẮT ĐẦU`}
+          text={translate(currency, 'start')}
           anchor={[0.5, 0.5]}
           style={textStyle}
         />

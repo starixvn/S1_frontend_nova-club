@@ -3,8 +3,8 @@ import useAlert from 'app/hooks/useAlert'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { getErrorMessage } from 'app/utils/validation'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
-import { useCallback, useEffect, useRef, useState } from 'react'
 import { useFonts } from 'expo-font'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   ImageBackground,
   Platform,
@@ -28,15 +28,17 @@ import {
 import { TicketSpinResult } from 'services/eventApi.type'
 import { useRouter } from 'solito/router'
 
+import { translate } from '@games/shared/translations/translationByCurrency'
+import BeVietnamPro, {
+  BeVietnamProUseFont,
+} from 'app/assets/fonts/BeVietnamePro'
 import IconButton from 'app/components/IconButton'
+import { useAppSelector } from 'rewards/provider/redux/store'
 import { SolitoImage } from 'solito/image'
 import Eyes from './Eyes'
 import Ghost from './Ghost'
 import SlotMachineRoll from './SlotMachineRoll'
 import { useSoundPlayback } from './audioUtils'
-import BeVietnamPro, {
-  BeVietnamProUseFont,
-} from 'app/assets/fonts/BeVietnamePro'
 
 Animated.addWhitelistedNativeProps({ value: true })
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
@@ -86,6 +88,7 @@ const SlotMachine = () => {
   const [results, setResults] = useState<TicketSpinResult[]>()
   const { showAlert } = useAlert()
   const { width: screenWidth } = useWindowDimensions()
+  const currency = useAppSelector((s) => s.setting.currency)
   const inputRef = useRef(null)
 
   const [isFontLoaded] = useFonts(BeVietnamProUseFont)
@@ -487,7 +490,7 @@ const SlotMachine = () => {
                     },
                   ]}
                 >
-                  TỔNG TIỀN THẮNG
+                  {translate(currency, 'total')}
                 </Text>
               )}
               <Image
