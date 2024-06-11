@@ -11,10 +11,12 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 const ShareCode = () => {
   const { t } = useLocalization()
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const currency = useAppSelector((s) => s.setting.currency)
+  
   const { data } = usePlayerProfileQuery(undefined, {
     skip: !isLoggedIn,
   })
-  const referralLink = `${ROOT_DOMAIN}/download?ref=${data?.referral_code}`
+  const referralLink = `${ROOT_DOMAIN}/download?ref=${data?.referral_code}&currency=${currency}`
 
   return (
     <View sx={{ width: '50%', alignItems: 'center' }}>

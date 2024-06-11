@@ -12,14 +12,16 @@ import QRCodeGenerator from '../QRCodeGenerator'
 import ViewScreenShot, { ViewScreenShotMethods } from '../ViewScreenShot'
 import BouncePressable from '../pressable/BouncePressable'
 import ModalWrapper from './ModalWrapper'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const ReferralModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
   const { data } = usePlayerProfileQuery()
+  const currency = useAppSelector((s) => s.setting.currency)
 
   const ref = useRef<ViewScreenShotMethods>(null)
   const referralCode = data?.referral_code
-  const referralLink = `${ROOT_DOMAIN}/download?ref=${referralCode}`
+  const referralLink = `${ROOT_DOMAIN}/download?ref=${referralCode}&currency=${currency}`
 
   const handleDownload = () => {
     ref?.current?.download()

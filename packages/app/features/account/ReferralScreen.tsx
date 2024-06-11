@@ -31,7 +31,7 @@ const ReferralScreen = () => {
   })
 
   const referralCode = playerData?.referral_code
-  const referralLink = `${ROOT_DOMAIN}/download?ref=${referralCode}`
+  const referralLink = `${ROOT_DOMAIN}/download?ref=${referralCode}&currency=${currency}`
 
   const referralFriend = data?.data?.registered ?? 0
   const referralComm = `${currency} ${toThousandSeparator(
