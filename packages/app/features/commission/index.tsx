@@ -167,7 +167,7 @@ const CommissionTableScreen = () => {
                   borderColor: '$primary.50',
                   borderRadius: 18,
                 }
-              : {}
+              : { flex: 1 }
           }
         >
           <TableHeader />

@@ -1,14 +1,13 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { HEADER_HEIGHT } from 'utils/constant'
 import { Pressable, View } from 'dripsy'
 import React from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { ProfileResult } from 'services/playerApi.type'
 import { useRouter } from 'solito/router'
 import ProfileHeaderCard from './ProfileHeaderCard'
-import { Platform } from 'react-native'
 
 interface ProfileHeaderProps {
   data?: ProfileResult

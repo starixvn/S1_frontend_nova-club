@@ -9,13 +9,13 @@ import { useDrawer } from 'app/hooks/useDrawer'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import usePathname from 'app/hooks/usePathname'
+import useVip from 'app/hooks/useVip'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import {
   Container,
-  Image,
   Pressable,
   Row,
   Text,
@@ -36,7 +36,6 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
-import useVip from 'app/hooks/useVip'
 
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
@@ -129,10 +128,12 @@ const MainHeader = () => {
               onPress={() => push('/account')}
             >
               <MessageBadge size="small" />
-              <Image
+              <SolitoImage
                 alt="user-avatar"
-                source={avatar}
-                sx={{ width: 34, height: 34, borderRadius: 50 }}
+                src={avatar}
+                width={34}
+                height={34}
+                style={{ borderRadius: 50 }}
               />
             </Pressable>
             {desktop && (

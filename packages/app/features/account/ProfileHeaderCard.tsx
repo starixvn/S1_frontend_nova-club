@@ -4,10 +4,11 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useVip from 'app/hooks/useVip'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
-import { Image, Pressable, Text, View } from 'dripsy'
+import { Pressable, Text, View } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ProfileResult } from 'services/playerApi.type'
+import { SolitoImage } from 'solito/image'
 import { ROOT_DOMAIN } from 'utils/constant/domain'
 
 interface ProfileHeaderCardProps {
@@ -47,14 +48,14 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
           px: desktop ? '$2' : 0,
         }}
       >
-        <Image
+        <SolitoImage
           alt="user-avatar"
-          source={avatar}
-          sx={{
+          src={avatar}
+          width={AVATAR_SIZE}
+          height={AVATAR_SIZE}
+          style={{
             aspectRatio: 1,
-            width: AVATAR_SIZE,
-            height: AVATAR_SIZE,
-            mx: desktop ? 0 : 15,
+            marginHorizontal: desktop ? 0 : 15,
             borderRadius: 50,
             borderWidth: 1,
             borderColor: 'white',
