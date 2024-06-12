@@ -29,7 +29,7 @@ export default function EventPopUpTrigger({}: Props) {
       if (popups && popups.length > 0) {
         let result = popups
 
-        if (data && data?.vip_level <= 0)
+        if (data && data?.vip_level <= 1)
           result = popups.filter((el) => el.banner_name !== 'Pop up - VIP')
 
         addResult(
