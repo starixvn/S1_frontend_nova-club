@@ -56,6 +56,7 @@ export interface Setting {
   rewardPopup: number
   lastSubscribeUsername: string
   stopShowingDailyCheckin?: string
+  stopShowingVip?: string
   landingPagePromoCode?: string
 }
 // export const DomainListHintPostfix = '-DomainListHint'
@@ -77,6 +78,7 @@ const initialState: Setting = {
   triggerPopupTutorial: true,
   rewardPopup: -1,
   lastSubscribeUsername: '',
+  stopShowingVip: undefined,
 }
 
 const settingSlice = createSlice({
@@ -210,6 +212,9 @@ const settingSlice = createSlice({
     },
     setStopShowingDailyCheckin: (state, action: PayloadAction<string>) => {
       state.stopShowingDailyCheckin = action.payload
+    },
+    setStopShowingVip: (state, action: PayloadAction<string>) => {
+      state.stopShowingVip = action.payload
     },
   },
   extraReducers: (builder) => {

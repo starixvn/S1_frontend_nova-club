@@ -2,7 +2,7 @@ import {
   CoinRedemptionType,
   ReportCommonStatus,
   ReportDepositStatus,
-  ReportTransactionType
+  ReportTransactionType,
 } from 'utils/constant'
 import { WheelInfo } from './authApi.type'
 
@@ -33,7 +33,7 @@ export interface ProfileResult {
   referral_code: string
   username: string
   vip_group: string
-  vip_level: string
+  vip_level: number
   vip_level_display: string
   verified_phone: number
   member_type: MEMBER_TYPE

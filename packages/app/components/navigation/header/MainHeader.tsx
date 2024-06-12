@@ -36,6 +36,7 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
+import useVip from 'app/hooks/useVip'
 
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
@@ -77,6 +78,8 @@ const MainHeader = () => {
   const { theme } = useDripsyTheme()
   const { logout } = useOnAppLogout()
   const pathname = usePathname()
+
+  const { avatar } = useVip()
 
   const showDownloadPanel =
     Platform.OS === 'web' && !desktop && pathname === '/'
@@ -128,7 +131,7 @@ const MainHeader = () => {
               <MessageBadge size="small" />
               <Image
                 alt="user-avatar"
-                source={require('../../../assets/images/common/avatarx2.png')}
+                source={avatar}
                 sx={{ width: 34, height: 34, borderRadius: 50 }}
               />
             </Pressable>

@@ -9,10 +9,13 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SxProp, View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
-import React, { ComponentProps, ReactNode } from 'react'
+import React, { ComponentProps, ReactNode, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { CommissionTableResult } from 'services/contentApi.type'
+import VipLevel from './VipLevel'
+import { COMMISSION_VIP_1 } from './commissionVip1'
+import { COMMISSION_VIP_2 } from './commissionVip2'
 
 type TitleCellProps = {
   border?: boolean
@@ -37,10 +40,28 @@ const CommissionTableScreen = () => {
   const desktop = useIsDesktop()
   const { bottom } = useSafeArea()
   const currency = useAppSelector((state) => state.setting.currency)
+  const [page, setPage] = useState(1)
+
   const { data: commissionList } = useCommissionTableQuery({
     currency,
   })
-  const titleList = groupBy(commissionList, 'game_type')
+
+  const tableList = useMemo(() => {
+    switch (page) {
+      case 2:
+        return COMMISSION_VIP_2
+      // case 3:
+      //   return COMMISSION_VIP_3
+      // case 4:
+      //   return COMMISSION_VIP_4
+
+      case 1:
+      default:
+        return COMMISSION_VIP_1
+    }
+  }, [commissionList, page])
+
+  const titleList = groupBy(tableList, 'game_type')
 
   const fillColumn = (value) => {
     if ((value && value < 0) || typeof value === 'undefined') return '⎯'
@@ -104,7 +125,6 @@ const CommissionTableScreen = () => {
         }}
       >
         <DataTable.Cell
-          bordered={isTitle ? false : true}
           center={false}
           sx={{
             flex: isTitle ? 1 : 0.4,
@@ -117,25 +137,13 @@ const CommissionTableScreen = () => {
         >
           {isTitle ? item.game_type : item.system_name}
         </DataTable.Cell>
-        <DataTable.Cell
-          bordered={isTitle ? false : true}
-          center
-          sx={{ flex: 0.2 }}
-        >
+        <DataTable.Cell center sx={{ flex: 0.2 }}>
           {isTitle ? '' : fillColumn(item.cash_player)}
         </DataTable.Cell>
-        <DataTable.Cell
-          bordered={isTitle ? false : true}
-          center
-          sx={{ flex: 0.2 }}
-        >
+        <DataTable.Cell center sx={{ flex: 0.2 }}>
           {isTitle ? '' : fillColumn(item.cash_player_referrer)}
         </DataTable.Cell>
-        <DataTable.Cell
-          bordered={isTitle ? false : true}
-          center
-          sx={{ flex: 0.2 }}
-        >
+        <DataTable.Cell center sx={{ flex: 0.2 }}>
           {isTitle ? '' : fillColumn(item.cash_agent)}
         </DataTable.Cell>
       </DataTable.Row>
@@ -149,49 +157,63 @@ const CommissionTableScreen = () => {
       hideHeader={desktop}
     >
       <FormContainer sx={{ flex: 1 }} hidePadding>
-        <TableHeader />
+        <VipLevel page={page} setPage={setPage} />
         <View
-          sx={{
-            flex: 1,
-            maxHeight: desktop ? '50vh' : '100%',
-          }}
+          sx={
+            desktop
+              ? {
+                  p: '$2',
+                  borderWidth: 2,
+                  borderColor: '$primary.50',
+                  borderRadius: 18,
+                }
+              : {}
+          }
         >
-          <ScrollFlashList
-            overrideProps={{
-              style: {
-                /**
-                 * !!!
-                 * DO NOT REMOVE `minHeight` and `minWidth`
-                 * !!!
-                 *
-                 * It is used inside `@shopify/FlashList` component internally. The reason
-                 * to use this `overrideProps` is to add `overscroll-behaviour` for web to
-                 * improve UX. However, to add this css property, the only way is to add
-                 * via `overrideProps`. To prevent override the style used inside `@shopify/FlashList`
-                 * component, the style used internally has to copy paste to below.
-                 *
-                 * See more:
-                 * https://shopify.github.io/flash-list/docs/usage/#overrideprops
-                 */
-                minHeight: 1,
-                minWidth: 1,
-                /** */
+          <TableHeader />
+          <View
+            sx={{
+              flex: 1,
+              maxHeight: desktop ? '50vh' : '100%',
+            }}
+          >
+            <ScrollFlashList
+              overrideProps={{
+                style: {
+                  /**
+                   * !!!
+                   * DO NOT REMOVE `minHeight` and `minWidth`
+                   * !!!
+                   *
+                   * It is used inside `@shopify/FlashList` component internally. The reason
+                   * to use this `overrideProps` is to add `overscroll-behaviour` for web to
+                   * improve UX. However, to add this css property, the only way is to add
+                   * via `overrideProps`. To prevent override the style used inside `@shopify/FlashList`
+                   * component, the style used internally has to copy paste to below.
+                   *
+                   * See more:
+                   * https://shopify.github.io/flash-list/docs/usage/#overrideprops
+                   */
+                  minHeight: 1,
+                  minWidth: 1,
+                  /** */
 
-                ...Platform.select({
-                  web: {
-                    overscrollBehavior: 'contain',
-                  },
-                }),
-              },
-            }}
-            data={commissionList}
-            renderItem={onRender}
-            estimatedItemSize={20}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingBottom: bottom,
-            }}
-          />
+                  ...Platform.select({
+                    web: {
+                      overscrollBehavior: 'contain',
+                    },
+                  }),
+                },
+              }}
+              data={tableList}
+              renderItem={onRender}
+              estimatedItemSize={20}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{
+                paddingBottom: bottom,
+              }}
+            />
+          </View>
         </View>
       </FormContainer>
     </PageWithBackHeader>

@@ -1,13 +1,14 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
-import { ROOT_DOMAIN } from 'utils/constant/domain'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import useVip from 'app/hooks/useVip'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import { Image, Pressable, Text, View } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ProfileResult } from 'services/playerApi.type'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 
 interface ProfileHeaderCardProps {
   data?: ProfileResult
@@ -16,10 +17,13 @@ interface ProfileHeaderCardProps {
 const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
   const { t } = useLocalization()
   const { openModal } = useModal()
+
   const desktop = useIsDesktop()
   const AVATAR_SIZE = desktop ? 45 : 40
   const fontSize = desktop ? 15 : 14
   const referralLink = `${ROOT_DOMAIN}/download?ref=${data?.referral_code}`
+
+  const { avatar } = useVip()
 
   return (
     <View
@@ -45,7 +49,7 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
       >
         <Image
           alt="user-avatar"
-          source={require('../../assets/images/common/avatarx2.png')}
+          source={avatar}
           sx={{
             aspectRatio: 1,
             width: AVATAR_SIZE,
