@@ -9,13 +9,24 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SxProp, View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
-import React, { ComponentProps, ReactNode, useMemo, useState } from 'react'
+import React, {
+  ComponentProps,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { Platform } from 'react-native'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { CommissionTableResult } from 'services/contentApi.type'
 import VipLevel from './VipLevel'
 import { COMMISSION_VIP_1 } from './commissionVip1'
 import { COMMISSION_VIP_2 } from './commissionVip2'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { COMMISSION_VIP_3 } from './commissionVip3'
+import { COMMISSION_VIP_4 } from './commissionVip4'
+import { COMMISSION_VIP_5 } from './commissionVip5'
+import { COMMISSION_VVIP } from './commissionVvip'
 
 type TitleCellProps = {
   border?: boolean
@@ -46,20 +57,30 @@ const CommissionTableScreen = () => {
     currency,
   })
 
+  const { data } = usePlayerProfileQuery()
+
+  useEffect(() => {
+    data && setPage(data.vip_level <= 1 ? 1 : data.vip_level - 1)
+  }, [data])
+
   const tableList = useMemo(() => {
     switch (page) {
       case 2:
         return COMMISSION_VIP_2
-      // case 3:
-      //   return COMMISSION_VIP_3
-      // case 4:
-      //   return COMMISSION_VIP_4
+      case 3:
+        return COMMISSION_VIP_3
+      case 4:
+        return COMMISSION_VIP_4
+      case 5:
+        return COMMISSION_VIP_5
+      case 6:
+        return COMMISSION_VVIP
 
       case 1:
       default:
         return COMMISSION_VIP_1
     }
-  }, [commissionList, page])
+  }, [page])
 
   const titleList = groupBy(tableList, 'game_type')
 
@@ -232,7 +253,7 @@ export const TitleCell = ({
       color: 'white',
       textAlign: 'center',
       lineHeight: 15,
-      fontSize: 12,
+      fontSize: [11, 12],
       ...textStyle,
     }}
     sx={{ flex: 0.2 }}

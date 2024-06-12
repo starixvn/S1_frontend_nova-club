@@ -17,8 +17,7 @@ const VipLevel = ({ page, setPage }) => {
   return (
     <Row
       sx={{
-        px: '$4',
-        py: '$3',
+        p: '$3',
         justifyContent: 'space-between',
         alignItems: 'center',
       }}
