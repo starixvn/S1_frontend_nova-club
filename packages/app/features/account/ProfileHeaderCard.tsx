@@ -1,13 +1,15 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
-import { ROOT_DOMAIN } from 'utils/constant/domain'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import useVip from 'app/hooks/useVip'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
-import { Image, Pressable, Text, View } from 'dripsy'
+import { Pressable, Text, View } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ProfileResult } from 'services/playerApi.type'
+import { SolitoImage } from 'solito/image'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import { useAppSelector } from 'app/provider/redux/store'
 
 interface ProfileHeaderCardProps {
@@ -17,11 +19,14 @@ interface ProfileHeaderCardProps {
 const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
   const { t } = useLocalization()
   const { openModal } = useModal()
+
   const desktop = useIsDesktop()
   const currency = useAppSelector((s) => s.setting.currency)
   const AVATAR_SIZE = desktop ? 45 : 40
   const fontSize = desktop ? 15 : 14
   const referralLink = `${ROOT_DOMAIN}/download?ref=${data?.referral_code}&currency=${currency}`
+
+  const { avatar } = useVip()
 
   return (
     <View
@@ -45,14 +50,14 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
           px: desktop ? '$2' : 0,
         }}
       >
-        <Image
+        <SolitoImage
           alt="user-avatar"
-          source={require('../../assets/images/common/avatarx2.png')}
-          sx={{
+          src={avatar}
+          width={AVATAR_SIZE}
+          height={AVATAR_SIZE}
+          style={{
             aspectRatio: 1,
-            width: AVATAR_SIZE,
-            height: AVATAR_SIZE,
-            mx: desktop ? 0 : 15,
+            marginHorizontal: desktop ? 0 : 15,
             borderRadius: 50,
             borderWidth: 1,
             borderColor: 'white',

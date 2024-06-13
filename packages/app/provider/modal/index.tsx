@@ -108,6 +108,7 @@ type DefaultModalStackParams = {
     message: string
     title: string
   }
+  VipInfoModal: undefined
 }
 
 /**
@@ -173,6 +174,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   HomeEventModal: () => import('app/features/home/EventModal/HomeEventModal'),
   EuroModal: () => import('app/components/modal/EuroModal'),
   ConnectionModal: () => import('app/components/modal/ConnectionModal'),
+  VipInfoModal: () => import('app/components/modal/VipInfoModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -282,6 +284,10 @@ const modalConfig: ModalConfigType = {
     backBehavior: 'none',
     disableFlingGesture: true,
   },
+  VipInfoModal: {
+    modal: getDynamicComponent('VipInfoModal'),
+  },
+
   ...agentModalConfig,
 }
 

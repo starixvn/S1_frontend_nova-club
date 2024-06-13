@@ -141,8 +141,7 @@ const ProfileDetails = () => {
         {desktop || isEditable ? (
           <View sx={{}}>
             {isPlayerName ? (
-              <DesktopInput
-                desktop={desktop}
+              <Input
                 responsive
                 label={t('common.realName')}
                 editable={false}
@@ -151,8 +150,7 @@ const ProfileDetails = () => {
                 }`}
               />
             ) : (
-              <DesktopInput
-                desktop={desktop}
+              <Input
                 responsive
                 label={t('common.realName')}
                 value={values.realName}
@@ -171,16 +169,14 @@ const ProfileDetails = () => {
                 }
               />
             )}
-            <DesktopInput
-              desktop={desktop}
+            <Input
               responsive
               label={t('common.username')}
               editable={false}
               value={playerData?.username || ''}
             />
 
-            <DesktopInput
-              desktop={desktop}
+            <Input
               responsive
               label={t('common.phone')}
               editable={false}
@@ -188,8 +184,7 @@ const ProfileDetails = () => {
             />
 
             {isDob ? (
-              <DesktopInput
-                desktop={desktop}
+              <Input
                 responsive
                 label={t('common.dob')}
                 editable={false}
@@ -198,7 +193,6 @@ const ProfileDetails = () => {
             ) : (
               <DatePicker
                 responsive
-                inputContainerSx={desktop ? { flex: 1.8, flexGrow: 1.8 } : {}}
                 label={t('common.dob')}
                 value={values.dob}
                 minimumDate={dayjs()
@@ -223,10 +217,8 @@ const ProfileDetails = () => {
               />
             )}
 
-            <DesktopInput
-              desktop={desktop}
+            <Input
               responsive
-              inputContainerSx={desktop ? { flex: 1.8, flexGrow: 1.8 } : {}}
               label={t('common.playerId')}
               editable={false}
               value={playerData?.referral_code.toString() || ''}
@@ -243,8 +235,7 @@ const ProfileDetails = () => {
                 )
               }}
             />
-            <DesktopInput
-              desktop={desktop}
+            <Input
               responsive
               label={t('common.currency')}
               editable={false}
@@ -252,16 +243,14 @@ const ProfileDetails = () => {
             />
 
             {isTelegram ? (
-              <DesktopInput
-                desktop={desktop}
+              <Input
                 responsive
                 label={t('contact.telegram')}
                 editable={false}
                 value={playerData?.telegram_id}
               />
             ) : (
-              <DesktopInput
-                desktop={desktop}
+              <Input
                 responsive
                 label={t('contact.telegram')}
                 value={values.telegram}
@@ -302,14 +291,5 @@ const ProfileDetails = () => {
     </PageWithBackHeader>
   )
 }
-
-const DesktopInput = styled(Input)(({ desktop }: { desktop: boolean }) =>
-  desktop
-    ? {
-        flex: 1.8,
-        flexGrow: 1.8,
-      }
-    : {}
-)
 
 export default ProfileDetails

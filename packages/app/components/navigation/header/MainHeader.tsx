@@ -9,13 +9,13 @@ import { useDrawer } from 'app/hooks/useDrawer'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import usePathname from 'app/hooks/usePathname'
+import useVip from 'app/hooks/useVip'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import {
   Container,
-  Image,
   Pressable,
   Row,
   Text,
@@ -78,6 +78,8 @@ const MainHeader = () => {
   const { logout } = useOnAppLogout()
   const pathname = usePathname()
 
+  const { avatar } = useVip()
+
   const showDownloadPanel =
     Platform.OS === 'web' && !desktop && pathname === '/'
   const TriggerLogout = async () => {
@@ -126,10 +128,12 @@ const MainHeader = () => {
               onPress={() => push('/account')}
             >
               <MessageBadge size="small" />
-              <Image
+              <SolitoImage
                 alt="user-avatar"
-                source={require('../../../assets/images/common/avatarx2.png')}
-                sx={{ width: 34, height: 34, borderRadius: 50 }}
+                src={avatar}
+                width={34}
+                height={34}
+                style={{ borderRadius: 50 }}
               />
             </Pressable>
             {desktop && (

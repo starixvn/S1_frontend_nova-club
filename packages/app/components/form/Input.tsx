@@ -98,13 +98,15 @@ const Input = forwardRef<NativeTextInput, InputProps>(
             alignItems: horizontalMode ? 'center' : 'stretch',
           }}
         >
-          {label && <Label sx={{ flex: 1 }}>{label + ' : '}</Label>}
+          {label && (
+            <Label sx={{ flex: responsive ? 0.5 : 1 }}>{label + ' : '}</Label>
+          )}
           <FocusArea focusable={false} onPress={handleOnPress}>
             <InputContainer
               focusable={false}
               editable={editable}
               color={sizeEffectColor}
-              sx={{ flexGrow: 1, ...inputContainerSx }}
+              sx={{ flex: 1, ...inputContainerSx }}
             >
               {InputIcon && <InputIcon color={sizeEffectColor ?? 'white'} />}
               {prefix && (
@@ -115,9 +117,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
               <View
                 focusable={false}
                 pointerEvents={onPress ? 'none' : undefined}
-                sx={{
-                  flex: 1,
-                }}
+                sx={{ flex: 1 }}
               >
                 {subtitle && (
                   <Subtitle numberOfLines={1}>{`${subtitle}`}</Subtitle>
