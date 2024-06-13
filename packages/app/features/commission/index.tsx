@@ -17,12 +17,11 @@ import React, {
   useState,
 } from 'react'
 import { Platform } from 'react-native'
-import { useCommissionTableQuery } from 'services/contentApi'
 import { CommissionTableResult } from 'services/contentApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import VipLevel from './VipLevel'
 import { COMMISSION_VIP_1 } from './commissionVip1'
 import { COMMISSION_VIP_2 } from './commissionVip2'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { COMMISSION_VIP_3 } from './commissionVip3'
 import { COMMISSION_VIP_4 } from './commissionVip4'
 import { COMMISSION_VIP_5 } from './commissionVip5'
@@ -53,14 +52,14 @@ const CommissionTableScreen = () => {
   const currency = useAppSelector((state) => state.setting.currency)
   const [page, setPage] = useState(1)
 
-  const { data: commissionList } = useCommissionTableQuery({
-    currency,
-  })
+  // const { data: commissionList } = useCommissionTableQuery({
+  //   currency,
+  // })
 
   const { data } = usePlayerProfileQuery()
 
   useEffect(() => {
-    data && setPage(data.vip_level <= 1 ? 1 : data.vip_level - 1)
+    data && setPage(data.vip_level > 1 ? data.vip_level - 1 : 1)
   }, [data])
 
   const tableList = useMemo(() => {

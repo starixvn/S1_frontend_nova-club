@@ -17,6 +17,10 @@ const useVip = () => {
         return `${MEDIA_DOMAIN}${CONTENT_URI}/vip/avatar-vip3.png`
       case 5:
         return `${MEDIA_DOMAIN}${CONTENT_URI}/vip/avatar-vip4.png`
+      case 6:
+        return `${MEDIA_DOMAIN}${CONTENT_URI}/vip/avatar-vip5.png`
+      case 7:
+        return `${MEDIA_DOMAIN}${CONTENT_URI}/vip/avatar-vvip.png`
 
       case 1:
       default:
