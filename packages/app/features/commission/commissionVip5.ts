@@ -835,8 +835,8 @@ export const COMMISSION_VIP_5 = [
     is_game_provider: false,
     currency: 'VND',
     cash_player: -1,
-    cash_player_referrer: -1,
-    cash_agent: -1,
+    cash_player_referrer: 0.2,
+    cash_agent: 0.2,
     seq: 58,
   },
   {
@@ -849,8 +849,8 @@ export const COMMISSION_VIP_5 = [
     is_game_provider: false,
     currency: 'VND',
     cash_player: -1,
-    cash_player_referrer: -1,
-    cash_agent: -1,
+    cash_player_referrer: 0.2,
+    cash_agent: 0.2,
     seq: 60,
   },
   {
@@ -877,8 +877,8 @@ export const COMMISSION_VIP_5 = [
     is_game_provider: false,
     currency: 'VND',
     cash_player: -1,
-    cash_player_referrer: -1,
-    cash_agent: -1,
+    cash_player_referrer: 0.2,
+    cash_agent: 0.2,
     seq: 57,
   },
   {
