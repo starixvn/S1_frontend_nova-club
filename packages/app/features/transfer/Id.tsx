@@ -152,11 +152,11 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
 
   const handleMaxAmount = () => {
     if (data?.totalBalance) {
-      const realAmount = Number(data?.totalBalance)
+      const realAmount = Math.trunc(Number(data?.totalBalance))
       setValues({
         ...values,
         amount: toThousandSeparator(
-          toDisplayAmount(realAmount, currency).toString()
+          Math.trunc(toDisplayAmount(realAmount, currency)).toString()
         ),
         realAmount,
       })
