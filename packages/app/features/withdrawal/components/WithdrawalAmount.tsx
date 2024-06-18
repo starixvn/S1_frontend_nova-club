@@ -37,11 +37,12 @@ const WithdrawalAmount = ({
 
   const handleMaxAmount = () => {
     if (availableBalance?.balance) {
-      const realAmount = Number(availableBalance?.balance)
+      const realAmount = Math.trunc(Number(availableBalance?.balance))
+
       setValues({
         ...values,
         amount: toThousandSeparator(
-          toDisplayAmount(realAmount, currency).toString()
+          Math.trunc(toDisplayAmount(realAmount, currency)).toString()
         ),
         realAmount,
       })

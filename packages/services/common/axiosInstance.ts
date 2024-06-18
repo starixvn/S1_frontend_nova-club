@@ -5,6 +5,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { LANGUAGE_CODE } from 'utils/constant'
 import { getUserAgent } from 'utils/deviceInfo'
 import { appendFpsParams, getFpsParams } from 'utils/fps/fpsGenerator'
+import isRootDomain from 'utils/isRootDomain'
 
 // const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api'
 // const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
@@ -32,9 +33,7 @@ export const configureAxios = (newConfig: CustomConfig) => {
     ...newConfig,
   }
 }
-const isUsingRootDomain = typeof window !== 'undefined' && !__DEV__
-const _baseURL = `${isUsingRootDomain ? '/api/nv88_api' : API_DOMAIN}`
-// const isUsingRootDomain = false
+const _baseURL = `${isRootDomain ? '/api/nv88_api' : API_DOMAIN}`
 
 const axiosInstance = axios.create({
   baseURL: _baseURL,
