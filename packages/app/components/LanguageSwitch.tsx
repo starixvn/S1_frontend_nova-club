@@ -2,7 +2,7 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { Image, Pressable, SxProp, View, styled } from 'dripsy'
+import { Pressable, SxProp, View, styled } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { useMemo } from 'react'
 import { ViewProps } from 'react-native'
@@ -49,9 +49,6 @@ export function LanguageButton({
   const defaultImageStyle: SxProp = {
     width: size,
     height: size,
-    borderRadius: 50,
-    borderWidth: 2,
-    borderColor: 'white',
   }
   const buttonSxStyle = Object.assign(defaultButtonStyle, sx)
   const imageSxStyle = Object.assign(defaultImageStyle, imageSx)
@@ -69,11 +66,18 @@ export function LanguageButton({
           exit={{ opacity: 0, transform: [{ rotateZ: '0deg' }] }}
           transition={{ type: 'timing' }}
           exitTransition={{ type: 'timing' }}
+          style={{
+            borderRadius: 50,
+            borderWidth: 2,
+            borderColor: 'white',
+            overflow: 'hidden',
+          }}
         >
           <StyledImage
-            sx={imageSxStyle}
             src={LANGUAGE_TO_FLAG_ICON[languageCode]}
-            resizeMode="contain"
+            width={size}
+            height={size}
+            contentFit="contain"
             alt=""
           />
         </MotiView>

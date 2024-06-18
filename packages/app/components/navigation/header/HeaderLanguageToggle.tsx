@@ -50,7 +50,6 @@ export default function HeaderLanguageToggle({}: Props) {
           size={26}
           languageCode={lang}
           onPress={onChangeLanguage}
-          imageSx={{ borderWidth: 1.5 }}
         />
       </HeaderLanguageButtonInnerContainer>
 
