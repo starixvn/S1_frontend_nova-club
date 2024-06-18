@@ -2,10 +2,11 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { Image, Pressable, SxProp, View } from 'dripsy'
+import { Image, Pressable, SxProp, View, styled } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { useMemo } from 'react'
 import { ViewProps } from 'react-native'
+import { SolitoImage } from 'solito/image'
 import { LANGUAGE_CODE } from 'utils/constant'
 import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
 
@@ -69,9 +70,9 @@ export function LanguageButton({
           transition={{ type: 'timing' }}
           exitTransition={{ type: 'timing' }}
         >
-          <Image
+          <StyledImage
             sx={imageSxStyle}
-            source={LANGUAGE_TO_FLAG_ICON[languageCode]}
+            src={LANGUAGE_TO_FLAG_ICON[languageCode]}
             resizeMode="contain"
             alt=""
           />
@@ -139,3 +140,5 @@ export default function LanguageSwitch({ ...rest }: ViewProps) {
     </View>
   )
 }
+
+const StyledImage = styled(SolitoImage)({})
