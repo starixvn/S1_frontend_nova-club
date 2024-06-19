@@ -1,21 +1,25 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useMemo } from 'react'
+import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 import { Currency } from 'utils/constant'
 
 export default function HireBanner() {
   const { t } = useLocalization()
   const { push } = useRouter()
+  const token = useAppSelector((state) => state.auth.info?.token)
   const currency = useAppSelector((state) => state.setting.currency)
   const { showAlert } = useAlert()
-  // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
-  const show = useResponsiveValue([false, true])
+  const isDesktop = useIsDesktop()
+  const { openModal } = useModal()
+
   const handleDesktopAccountVerification = () => {
     showAlert(
       t('accountVerification.secondaryTitle') +
@@ -27,7 +31,7 @@ export default function HireBanner() {
   const animatedText = useMemo(
     () => (
       <MotiView
-        key={t('home.banner.n3')}
+        key={t(`home.banner.${currency?.toLowerCase()}.n3`)}
         from={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{
@@ -40,17 +44,23 @@ export default function HireBanner() {
         }}
       >
         <Label sx={{ color: '#00FFFF' }}>
-          {t(
-            currency === Currency.THB ? 'home.banner.n3thb' : 'home.banner.n3'
-          )}
+          {t(`home.banner.${currency?.toLowerCase()}.n3`)}
         </Label>
       </MotiView>
     ),
-    [t('home.banner.n3'), currency]
+    [t(`home.banner.${currency?.toLowerCase()}.n3`), currency]
   )
 
   const handlePress = () => {
-    push('/euro-cup/prediction')
+    if (currency === Currency.THB) {
+      if (token) {
+        push('/account/referral')
+      } else {
+        isDesktop
+          ? openModal('RegisterModal')
+          : push('/auth/register/?t=member')
+      }
+    } else push('/euro-cup/prediction')
   }
 
   return (
@@ -78,7 +88,7 @@ export default function HireBanner() {
               textAlign: 'center',
             }}
           >
-            {t('home.banner.n1')}
+            {t(`home.banner.${currency?.toLowerCase()}.n1`)}
           </Label>
         </View>
         <Row
@@ -96,13 +106,15 @@ export default function HireBanner() {
             }}
           >
             <Label sx={{ flex: 1, color: '$secondary.100' }}>
-              {t('home.banner.n2')}
+              {t(`home.banner.${currency?.toLowerCase()}.n2`)}
             </Label>
 
             <Row sx={{ flex: 1, alignItems: 'center' }}>{animatedText}</Row>
           </View>
 
-          <AnimatedButton>{t('home.banner.button')}</AnimatedButton>
+          <AnimatedButton>
+            {t(`home.banner.${currency?.toLowerCase()}.button`)}
+          </AnimatedButton>
         </Row>
       </Row>
     </Pressable>
@@ -117,12 +129,12 @@ const Label = styled(Text)({
 
 export const AnimatedButton = ({ children }) => {
   const { t } = useLocalization()
-  const lang = useAppSelector((state) => state.setting.locale)
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const animatedText = useMemo(
     () => (
       <MotiView
-        key={t('home.banner.button')}
+        key={t(`home.banner.${currency?.toLowerCase()}.button`)}
         from={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -144,7 +156,7 @@ export const AnimatedButton = ({ children }) => {
         </Label>
       </MotiView>
     ),
-    [t('home.banner.button')]
+    [t(`home.banner.${currency?.toLowerCase()}.button`)]
   )
 
   return (

@@ -14,7 +14,7 @@ import { useAppSelector } from 'app/provider/redux/store'
 const LogoMapping = {
   en: `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`,
   vi: `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`,
-  th: `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-th.png`,
+  th: `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-th.png`,
 }
 
 type StyledContainerProps = {

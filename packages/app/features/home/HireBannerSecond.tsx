@@ -9,6 +9,7 @@ import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 import { AnimatedButton } from './HireBanner'
 import { Currency } from 'utils/constant'
+import { Linking } from 'react-native'
 
 export default function HireBannerSecond() {
   const { t } = useLocalization()
@@ -22,24 +23,29 @@ export default function HireBannerSecond() {
   const isDesktop = useIsDesktop()
 
   const handlePress = () => {
-    if (token) {
-      if (isDesktop) {
-        push('/rewards/redeem/list')
-        setTimeout(() => {
-          openModal('DailyCheckInModal')
-        }, 500)
+    if (currency === Currency.THB) Linking.openURL('https://t.me/vui123thai')
+    else {
+      if (token) {
+        if (isDesktop) {
+          push('/rewards/redeem/list')
+          setTimeout(() => {
+            openModal('DailyCheckInModal')
+          }, 500)
+        } else {
+          push('/rewards/daily')
+        }
       } else {
-        push('/rewards/daily')
+        isDesktop
+          ? openModal('RegisterModal')
+          : push('/auth/register/?t=member')
       }
-    } else {
-      isDesktop ? openModal('RegisterModal') : push('/auth/register/?t=member')
     }
   }
 
   const animatedText = useMemo(
     () => (
       <MotiView
-        key={t('home.banner2.n3')}
+        key={t(`home.banner2.${currency?.toLowerCase()}.n3`)}
         from={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{
@@ -52,13 +58,11 @@ export default function HireBannerSecond() {
         }}
       >
         <Label sx={{ color: '#00FFFF' }}>
-          {t(
-            currency === Currency.THB ? 'home.banner2.n3thb' : 'home.banner2.n3'
-          )}
+          {t(`home.banner2.${currency?.toLowerCase()}.n3`)}
         </Label>
       </MotiView>
     ),
-    [t('home.banner2.n3'), currency]
+    [t(`home.banner2.${currency?.toLowerCase()}.n3`), currency]
   )
 
   return (
@@ -86,7 +90,7 @@ export default function HireBannerSecond() {
               textAlign: 'center',
             }}
           >
-            {t('home.banner2.n1')}
+            {t(`home.banner2.${currency?.toLowerCase()}.n1`)}
           </Label>
         </View>
         <Row
@@ -104,12 +108,14 @@ export default function HireBannerSecond() {
             }}
           >
             <Label sx={{ flex: 1, color: '$secondary.100' }}>
-              {t('home.banner2.n2')}
+              {t(`home.banner2.${currency?.toLowerCase()}.n2`)}
             </Label>
             <Label sx={{ flex: 1, alignItems: 'center' }}>{animatedText}</Label>
           </View>
 
-          <AnimatedButton>{t('home.banner2.button')}</AnimatedButton>
+          <AnimatedButton>
+            {t(`home.banner2.${currency?.toLowerCase()}.button`)}
+          </AnimatedButton>
         </Row>
       </Row>
     </Pressable>
