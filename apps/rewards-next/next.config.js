@@ -29,9 +29,6 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    appDir: true,
-  },
   reactStrictMode: false,
   eslint: {
     ignoreDuringBuilds: true,
@@ -74,9 +71,13 @@ const nextConfig = {
       '.web.tsx',
       ...config.resolve.extensions,
     ]
+
+    config.plugins.push(new webpack.DefinePlugin({ __DEV__: dev }))
     // Important: return the modified config
     return config
   },
 }
+
+nextConfig
 
 module.exports = nextConfig
