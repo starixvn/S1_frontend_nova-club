@@ -165,7 +165,9 @@ export default function NavigationHeader({}) {
         </Pressable>
       </View>
       <FloatingLiveChatDesktop />
-      {pathname.includes('/euro-cup') && <FloatingEuroCupNavigation />}
+      {pathname.includes('/euro-cup') && !pathname.includes('/winner') && (
+        <FloatingEuroCupNavigation />
+      )}
 
       {/* <FloatingContent BottomTabBarHeight={BOTTOM_TAB_BAR_HEIGHT} /> */}
     </>

@@ -1,8 +1,10 @@
 import EuroBottomTab from 'app/features/event/euroCup/components/EuroBottomTab'
-import { Tabs } from 'expo-router'
+import { Tabs, usePathname } from 'expo-router'
 import { View } from 'react-native'
 
 export default function Root() {
+  const pathname = usePathname()
+
   return (
     <View style={{ flex: 1 }}>
       <Tabs
@@ -14,7 +16,7 @@ export default function Root() {
       />
 
       <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-        <EuroBottomTab />
+        {!pathname.includes('winner') && <EuroBottomTab />}
       </View>
     </View>
   )
