@@ -21,7 +21,7 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
 
   const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery()
 
-  const withdrawalMinMax = { min: 50000, max: 1000000000 }
+  const withdrawalMinMax = { min: 30000000, max: 1000000000 }
 
   const [walletAddressList, setWalletAddressList] = useState<SelectOptions[]>(
     []

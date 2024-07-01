@@ -23,10 +23,10 @@ const DefaultCurrencyByDomain = [
     domain: 'vui123thai.com',
     currency: Currency.THB,
   },
-  {
-    domain: 'localhost',
-    currency: Currency.THB,
-  },
+  // {
+  //   domain: 'localhost',
+  //   currency: Currency.THB,
+  // },
 ]
 
 export default function CurrencyTrigger({}) {
