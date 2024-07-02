@@ -21,4 +21,6 @@ export type AvailableWithdrawalAmountResult = {
   balance: string
   current: string
   max: string
+  max_withdrawal_per_trans: string
+  min_withdrawal_per_trans: string
 }

@@ -4,15 +4,14 @@ import useWithdrawalForm from 'app/features/withdrawal/hooks/useWithdrawalForm'
 import useLocalization from 'app/provider/localization'
 import React from 'react'
 import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
-import { WITHDRAWAL_MAX_LIMIT, WITHDRAWAL_MIN_LIMIT } from 'utils/constant'
 import BankSelection from './BankSelection'
 
 const DesktopWithdrawalForm = () => {
   const { t } = useLocalization()
   const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery()
   const withdrawalMinMax = {
-    min: WITHDRAWAL_MIN_LIMIT,
-    max: WITHDRAWAL_MAX_LIMIT,
+    min: availableBalance?.min_withdrawal_per_trans,
+    max: availableBalance?.max_withdrawal_per_trans,
   }
 
   const {

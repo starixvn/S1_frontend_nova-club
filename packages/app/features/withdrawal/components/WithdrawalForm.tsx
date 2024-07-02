@@ -5,7 +5,6 @@ import { View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { SelectOptions } from 'services/common/types'
 import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
-import { WITHDRAWAL_MAX_LIMIT, WITHDRAWAL_MIN_LIMIT } from 'utils/constant'
 import { ChannelList, ChannelRadioButton } from '../hooks/useCryptoSelection'
 import useWithdrawalForm from '../hooks/useWithdrawalForm'
 import EmptyAccount from './EmptyAccount'
@@ -23,8 +22,8 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
   const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery()
 
   const withdrawalMinMax = {
-    min: WITHDRAWAL_MIN_LIMIT,
-    max: WITHDRAWAL_MAX_LIMIT,
+    min: availableBalance?.min_withdrawal_per_trans,
+    max: availableBalance?.max_withdrawal_per_trans,
   }
 
   const [walletAddressList, setWalletAddressList] = useState<SelectOptions[]>(
