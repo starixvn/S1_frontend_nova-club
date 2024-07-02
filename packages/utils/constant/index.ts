@@ -1,5 +1,8 @@
 export const HEADER_HEIGHT = 60
 
+export const WITHDRAWAL_MIN_LIMIT = 50000
+export const WITHDRAWAL_MAX_LIMIT = 300000000
+
 export enum LANGUAGE_CODE {
   ENGLISH = 'en',
   VIETNAM = 'vi',

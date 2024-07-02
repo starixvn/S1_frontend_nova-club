@@ -4,12 +4,16 @@ import useWithdrawalForm from 'app/features/withdrawal/hooks/useWithdrawalForm'
 import useLocalization from 'app/provider/localization'
 import React from 'react'
 import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
+import { WITHDRAWAL_MAX_LIMIT, WITHDRAWAL_MIN_LIMIT } from 'utils/constant'
 import BankSelection from './BankSelection'
 
 const DesktopWithdrawalForm = () => {
   const { t } = useLocalization()
   const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery()
-  const withdrawalMinMax = { min: 30000000, max: 1000000000 }
+  const withdrawalMinMax = {
+    min: WITHDRAWAL_MIN_LIMIT,
+    max: WITHDRAWAL_MAX_LIMIT,
+  }
 
   const {
     formik,
