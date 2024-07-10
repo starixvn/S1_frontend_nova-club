@@ -1,13 +1,14 @@
+import { PageWithBackHeader } from 'app/components/layouts/Page'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { ActivityIndicator, Text, View, styled } from 'dripsy'
+import * as ScreenOrientation from 'expo-screen-orientation'
 import React, { useEffect } from 'react'
+import { WebView } from 'react-native-webview'
 import { useLazyPlayerBalanceQuery } from 'services/walletApi'
 import { createParam } from 'solito'
-import * as ScreenOrientation from 'expo-screen-orientation'
-
-import { PageWithBackHeader } from 'app/components/layouts/Page'
-import { ActivityIndicator, Text, View, styled } from 'dripsy'
-import { WebView } from 'react-native-webview'
 import { useRouter } from 'solito/router'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
+import { gameEncodedHtml } from './GameLauncher'
 
 type Props = {}
 
@@ -21,7 +22,7 @@ const { useParam } = createParam<{
 export default function GameLoaderScreen({}: Props) {
   const { left, right } = useSafeArea()
   const [url] = useParam('url')
-  const [html] = useParam('html')
+  // const [html] = useParam('html')
   const [title] = useParam('title')
   const [trigger] = useLazyPlayerBalanceQuery()
   const { back } = useRouter()
@@ -47,7 +48,13 @@ export default function GameLoaderScreen({}: Props) {
         <WebView
           bounces={false}
           style={{ flex: 1, width: '100%' }}
-          source={url ? { uri: url } : html ? { html } : undefined}
+          source={
+            url
+              ? { uri: url }
+              : gameEncodedHtml
+              ? { html: gameEncodedHtml }
+              : undefined
+          }
           mediaPlaybackRequiresUserAction
           allowsFullscreenVideo={false}
           allowsInlineMediaPlayback
@@ -58,7 +65,7 @@ export default function GameLoaderScreen({}: Props) {
           setSupportMultipleWindows={false}
           textZoom={100}
           onShouldStartLoadWithRequest={(e) => {
-            if (e.url === 'https://vui123vn.com/') {
+            if (e.url === ROOT_DOMAIN) {
               back()
               return false
             }

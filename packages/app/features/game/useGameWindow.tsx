@@ -2,12 +2,7 @@
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Linking } from 'react-native'
 import { useDispatch } from 'react-redux'
-import {
-  GotoGameResult,
-  LaunchGameType,
-  LaunchGameWithHTML,
-  LaunchGameWithUrl,
-} from 'services/gameApi.type'
+import { GotoGameResult, LaunchGameType } from 'services/gameApi.type'
 import { useRouter } from 'solito/router'
 
 export interface OpenGameOptions {
@@ -28,11 +23,10 @@ export default function useGameWindow() {
     title = '',
   }: OpenGameOptions) {
     if (launchGameMethod.launchGameType === LaunchGameType.HTML) {
-      const { html } = launchGameMethod
       push({
         pathname: '/launcher',
         query: {
-          html: encodeURIComponent(html),
+          // html: encodeURIComponent(html),
           title,
           providerCode,
         },

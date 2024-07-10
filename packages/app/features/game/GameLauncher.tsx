@@ -1,4 +1,3 @@
-import { ROOT_DOMAIN } from 'utils/constant/domain'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLoading from 'app/hooks/useLoading'
@@ -17,6 +16,7 @@ import { IResponse } from 'services/common/types'
 import { useGoToGameMutation } from 'services/gameApi'
 import { GotoGameResult, LaunchGameType } from 'services/gameApi.type'
 import { useRouter } from 'solito/router'
+import { ROOT_DOMAIN } from 'utils/constant/domain'
 import useGameWindow from './useGameWindow'
 import { useMaintenanceStatus } from './useMaintenanceStatus'
 
@@ -28,6 +28,7 @@ const ProviderRunningWithoutIframePlatformBased: string[] = Platform.select({
   default: [],
 })
 
+export let gameEncodedHtml: string | undefined
 export let LaunchGame: (payload: LaunchGamePayload) => void
 
 function paramsToQuery(params) {
@@ -88,7 +89,14 @@ const GameLauncher = () => {
     const domain = Platform.OS === 'web' ? '' : ROOT_DOMAIN
     const ptLaunchUrl = `${domain}/launcher_pt?code=${gc}&t=${authState.info?.token}&username=${authState.info?.playerName}`
 
-    openGame(ptLaunchUrl, providerCode, { external: true })
+    openGame({
+      launchGameMethod: {
+        launchGameType: LaunchGameType.URL,
+        url: ptLaunchUrl,
+      },
+      providerCode,
+      external: true,
+    })
   }
 
   async function launchGame(providerCode: string) {
@@ -114,6 +122,7 @@ const GameLauncher = () => {
 
       if (success && data) {
         let launchGameMethod: GotoGameResult = data
+        gameEncodedHtml = undefined
         if (data.launchGameType === LaunchGameType.URL) {
           let url = data.url.replace(' ', '')
           if (params) {
@@ -124,7 +133,8 @@ const GameLauncher = () => {
             ...data,
             url,
           }
-        }
+        } else if (data.launchGameType === LaunchGameType.HTML)
+          gameEncodedHtml = launchGameMethod?.html
 
         openGame({
           launchGameMethod,
