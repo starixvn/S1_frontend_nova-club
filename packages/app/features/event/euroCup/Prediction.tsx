@@ -12,6 +12,7 @@ import EuroBackground from './components/EuroBackground'
 import JackpotPool from './components/JackpotPool'
 import PredictionStage from './components/PredictionStage'
 import { useAppSelector } from 'app/provider/redux/store'
+import orderBy from 'lodash/orderBy'
 
 const Prediction = () => {
   const { width } = useWindowDimensions()
@@ -52,7 +53,7 @@ const Prediction = () => {
             eventCode={data?.event_code}
             eligibleTicket={ticketData?.data?.eligible_ticket}
             isEligibleScore={!!ticketData?.data?.eligible_for_score}
-            teams={data?.event_team ?? []}
+            teams={orderBy(data?.event_team, 'team_code', 'desc') ?? []}
           />
         </View>
       </View>
