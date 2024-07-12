@@ -1,9 +1,10 @@
 import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import DisabledOverlay from 'app/components/DisabledOverlay'
 import BouncePressable from 'app/components/pressable/BouncePressable'
 import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Row, Text, View } from 'dripsy'
 import sortBy from 'lodash/sortBy'
 import React, { useEffect, useState } from 'react'
@@ -16,7 +17,7 @@ import {
 import { EventTeam } from 'services/euroApi.type'
 import { SolitoImage } from 'solito/image'
 import { TitleText } from './EuroText'
-import DisabledOverlay from 'app/components/DisabledOverlay'
+import { ErrorLabel } from 'app/components/form/Input'
 
 type PredictionStageProps = {
   contentWidth: number
@@ -34,6 +35,8 @@ type TeamFlagProps = {
   onPress: () => void
 }
 
+const DefaultOptions = [{ label: '-', value: '-' }]
+
 const PredictionStage = ({
   contentWidth,
   eventCode = '',
@@ -48,19 +51,26 @@ const PredictionStage = ({
 
   const [imageUrl, setImageUrl] = useState('')
   const [roundTitle, setroundTitle] = useState('')
-  const [score, setScore] = useState<string[]>(['0', '0'])
+  const [score, setScore] = useState<string[]>([])
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
 
-  const ScoreOptions = Array.from({ length: 10 }, (_, index) => {
+  useEffect(() => {
+    isEligibleScore && setScore(['-', '-'])
+  }, [isEligibleScore])
+
+  const options = Array.from({ length: 10 }, (_, index) => {
     return { label: index.toString(), value: index.toString() }
   })
+  const ScoreOptions = DefaultOptions.concat(options)
 
   const isFinal = teams.length === 2
   const disabled =
     eligibleTicket === 0 ||
     selected.length !== eligibleTicket ||
-    selected.length === 0
+    selected.length === 0 ||
+    score[0] === '-' ||
+    score[1] === '-'
 
   const { submittedTeam, teamScore } = useGetSubmittedTeamQuery(
     { event_code: eventCode },
@@ -268,6 +278,12 @@ const PredictionStage = ({
               )
             })}
           </Row>
+
+          {selected.length > 0 && score.includes('-') && (
+            <View sx={{ width: '100%', alignItems: 'center' }}>
+              <ErrorLabel>{t('event.euro.prediction.required')}</ErrorLabel>
+            </View>
+          )}
         </View>
 
         {(submittedTeam || eligibleTicket === 0) && (
