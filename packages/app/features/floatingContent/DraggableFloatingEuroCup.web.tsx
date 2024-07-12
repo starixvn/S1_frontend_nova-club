@@ -3,10 +3,12 @@ import { View } from 'dripsy'
 import React, { useState } from 'react'
 import Draggable from 'react-draggable'
 import FloatingEuroCup from './FloatingEuroCup'
+import dayjs from 'dayjs'
 
 const DraggableFloatingMystery = () => {
   const [isDragging, setIsDragging] = useState(false)
   const isDekstop = useIsDesktop()
+  const hideEuroCup = dayjs().isAfter(dayjs('2024-07-24T04:00:00.000Z'))
 
   const handleStart = () => {
     setIsDragging(true)
@@ -18,7 +20,7 @@ const DraggableFloatingMystery = () => {
     }, 300)
   }
 
-  return (
+  return hideEuroCup ? null : (
     <Draggable onDrag={handleStart} onStop={handleStop}>
       <View
         nativeID="outer-floating"

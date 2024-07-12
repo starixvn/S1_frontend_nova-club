@@ -2,9 +2,12 @@ import Draggable from 'app/components/Draggable'
 import { View } from 'dripsy'
 import React from 'react'
 import FloatingEuroCup from './FloatingEuroCup'
+import dayjs from 'dayjs'
 
 const DraggableFloatingMystery = () => {
-  return (
+  const hideEuroCup = dayjs().isAfter(dayjs('2024-07-24T04:00:00.000Z'))
+
+  return hideEuroCup ? null : (
     <View
       sx={{
         position: 'absolute',

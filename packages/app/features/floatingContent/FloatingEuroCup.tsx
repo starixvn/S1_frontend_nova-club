@@ -8,12 +8,21 @@ import React, { useEffect } from 'react'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
+
+dayjs.extend(isBetween)
 
 const FloatingEuroCup = ({ disabled }) => {
   const dispatch = useAppDispatch()
   const { push } = useRouter()
   const visible = useAppSelector((s) => s.tempSetting.isFloatingEuroCupVisible)
   const isDesktop = useIsDesktop()
+
+  const isPrediction = dayjs().isBetween(
+    dayjs('2024-06-01T17:00:00.000Z'),
+    dayjs('2024-07-14T21:00:00.000Z')
+  )
 
   useEffect(() => {
     // Delay floating icon to prevent drag lagging
@@ -24,7 +33,7 @@ const FloatingEuroCup = ({ disabled }) => {
 
   const handleOpen = () => {
     if (disabled) return
-    push('/euro-cup/prediction')
+    isPrediction ? push('/euro-cup/prediction') : push('/euro-cup/winner')
   }
 
   const handleClose = () => {
