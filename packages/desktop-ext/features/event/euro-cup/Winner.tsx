@@ -67,7 +67,7 @@ const Winner = () => {
               winner={item.winner}
             />
           ))}
-          <Row sx={{ width: '80%', justifyContent: 'space-evenly' }}>
+          <Row sx={{ width: 1000, justifyContent: 'space-evenly' }}>
             {SecondRow.map((item, index) => (
               <PrizeCard
                 key={index}

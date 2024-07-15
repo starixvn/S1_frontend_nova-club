@@ -117,21 +117,26 @@ const PrizeCard = ({
             ))}
           </View>
         ) : (
-          <SolitoImage
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/winning/winner-unknown.png`}
-            width={smallSize ? 60 : 100}
-            height={smallSize ? 60 : 100}
-            contentFit="contain"
-            contentPosition="bottom center"
-            alt=""
-            style={{
+          <View
+            sx={{
               position: 'absolute',
               bottom: -10,
               left: 0,
               right: 0,
               marginHorizontal: 'auto',
+              alignItems: 'center',
             }}
-          />
+          >
+            <SolitoImage
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/euro-cup/winning/winner-unknown.png`}
+              width={smallSize ? 60 : 100}
+              height={smallSize ? 60 : 100}
+              contentFit="contain"
+              contentPosition="bottom center"
+              alt=""
+              style={{}}
+            />
+          </View>
         )}
       </View>
     </Row>

@@ -1,6 +1,5 @@
 import { EntityId } from '@reduxjs/toolkit'
 import { DripsyGradient } from 'app/components/Gradient'
-import { LEAGUE_SECTION, MatchLeagueId } from 'app/constants/recMatchMapping'
 import MatchLeagueSelector from 'app/features/sportsbook/MatchLeagueSelector'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
@@ -12,26 +11,14 @@ import { ActivityIndicator, Pressable, Text, View } from 'dripsy'
 import { useMemo, useRef, useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import { MatchResult } from 'services/matchApi.type'
-import { createParam } from 'solito'
 import MatchListTable, { MatchListMethod } from './MatchListTable'
-import EuroMatches from './euro/EuroMatches'
-import EuroStandings from './euro/EuroStandings'
 dayjs.extend(customParseFormat)
 
 type Props = {}
 
-type Params = {
-  section?: string
-}
-
-const { useParam } = createParam<Params>()
-
 export default function MatchList({}: Props) {
   const [selectedTime, setSelectedTime] = useState<string>('All')
   const [selectedLeague, setSelectedLeague] = useState<EntityId | null>()
-  const [leagueSection, setleagueSection] = useParam('section', {
-    initial: LEAGUE_SECTION.LEAGUE_ODDS,
-  })
 
   const tableRef = useRef<MatchListMethod>()
   const matchRef = useRef<View>()
@@ -87,6 +74,7 @@ export default function MatchList({}: Props) {
 
     return final
   }, [leagues])
+
   const visibleTimeFilter = timeFilter.filter(
     (el) => fullData[el.date]?.length > 0
   )
@@ -94,78 +82,12 @@ export default function MatchList({}: Props) {
   const filteredData = useMemo(() => {
     const filterTime = fullData[selectedTime]
 
-    const euroLeagueIndex = filterTime?.findIndex(
-      (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
-    )
-
-    if (euroLeagueIndex === 0) return []
-
-    const finalData =
-      euroLeagueIndex && euroLeagueIndex > -1
-        ? filterTime?.slice(0, euroLeagueIndex)
-        : filterTime
-
-    return finalData ?? []
+    return filterTime ?? []
   }, [selectedTime, fullData])
-
-  const filteredEuroData = useMemo(() => {
-    const filterTime = fullData[selectedTime]
-
-    const euroLeagueIndex = filterTime?.findIndex(
-      (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
-    )
-
-    if (euroLeagueIndex === 0) return filterTime
-
-    const finalData =
-      euroLeagueIndex && euroLeagueIndex > 0
-        ? filterTime?.slice(euroLeagueIndex)
-        : []
-
-    return finalData ?? []
-  }, [selectedTime, fullData]) as MatchResult[]
 
   const leagueTab = useMemo(() => {
     return filteredData.filter((d) => typeof d === 'string')
   }, [filteredData]) as EntityId[]
-
-  const MatchList = useMemo(() => {
-    switch (leagueSection) {
-      case LEAGUE_SECTION.EURO_MATCH:
-        setSelectedLeague(MatchLeagueId.EURO_CUP)
-        return <EuroMatches />
-      case LEAGUE_SECTION.EURO_STANDINGS:
-        setSelectedLeague(MatchLeagueId.EURO_CUP)
-        return <EuroStandings />
-      case LEAGUE_SECTION.EURO_ODDS:
-        return (
-          <MatchListTable
-            filterKey={selectedTime}
-            ref={tableRef}
-            data={filteredEuroData}
-          />
-        )
-      case LEAGUE_SECTION.LEAGUE_ODDS:
-        setSelectedLeague(undefined)
-        return (
-          <MatchListTable
-            filterKey={selectedTime}
-            ref={tableRef}
-            data={filteredData}
-          />
-        )
-
-      default:
-        setSelectedLeague(undefined)
-        return (
-          <MatchListTable
-            filterKey={selectedTime}
-            ref={tableRef}
-            data={filteredData}
-          />
-        )
-    }
-  }, [filteredData, leagueSection, selectedTime])
 
   return isFetching ? (
     <ActivityIndicator size={'large'} />
@@ -212,8 +134,7 @@ export default function MatchList({}: Props) {
       </DripsyGradient>
       <MatchLeagueSelector
         ids={leagueTab}
-        onChange={(v, leagueSection) => {
-          setleagueSection(leagueSection)
+        onChange={(v) => {
           setSelectedLeague(v)
           matchRef?.current?.scrollIntoView({
             behavior: 'smooth',
@@ -222,14 +143,17 @@ export default function MatchList({}: Props) {
 
           const goTo = filteredData?.findIndex((el) => el === v)
           setTimeout(() => {
-            tableRef?.current?.jumpTo(
-              leagueSection === LEAGUE_SECTION.EURO_ODDS ? 0 : goTo
-            )
+            tableRef?.current?.jumpTo(goTo)
           }, 300)
         }}
         value={leagueId}
       />
-      {MatchList}
+
+      <MatchListTable
+        filterKey={selectedTime}
+        ref={tableRef}
+        data={filteredData}
+      />
     </View>
   )
 }

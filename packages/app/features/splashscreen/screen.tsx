@@ -123,7 +123,7 @@ export default function SplashScreen() {
           //   height
           // ),
         }}
-        source={require('app/assets/videos/euro-splash.mp4')}
+        source={require('app/assets/videos/ms-splash.mp4')}
         resizeMode={ResizeMode.COVER}
         useNativeControls={false}
       />

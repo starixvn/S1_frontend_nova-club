@@ -48,7 +48,7 @@ const Logo = () => {
   const LOGO_PATH =
     currency === Currency.THB
       ? `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-th.png`
-      : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-euro-cup-${lang}.gif`
+      : `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-${lang}.png`
 
   return (
     <Row sx={{ alignItems: 'center' }}>

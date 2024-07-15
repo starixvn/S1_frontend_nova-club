@@ -1,21 +1,15 @@
 import { EntityId } from '@reduxjs/toolkit'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
-import {
-  LEAGUE_SECTION,
-  MatchLeagueId,
-  MatchLeagueTabIconMapping,
-} from 'app/constants/recMatchMapping'
+import { MatchLeagueTabIconMapping } from 'app/constants/recMatchMapping'
 import { Pressable, Row, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
 import React, { Dispatch, SetStateAction, memo, useEffect } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
-import MatchSelectorEuro from './MatchSelectorEuro'
-import usePathname from 'app/hooks/usePathname'
 
 interface MatchLeagueSelectorProps {
   ids: EntityId[]
-  onChange: (args1: EntityId, args2: LEAGUE_SECTION) => void
+  onChange: (args1: EntityId) => void
   value: EntityId
   gradient?: string
 }
@@ -32,13 +26,8 @@ export default function MatchLeagueSelector({
   value,
   gradient,
 }: MatchLeagueSelectorProps) {
-  const pathname = usePathname()
   const width = useWindowDimensions().width
   const maxWidth = Math.min(700, width * 0.8)
-
-  const handleEuroPress = (leagueSection) => {
-    onChange(MatchLeagueId.EURO_CUP, leagueSection)
-  }
 
   return (
     <DripsyGradient gradient={gradient} sx={{ my: '$1', zIndex: 2 }}>
@@ -62,19 +51,13 @@ export default function MatchLeagueSelector({
           my: '$1',
         }}
       >
-        {pathname.includes('/sportsbook') && (
-          <MatchSelectorEuro
-            active={value === MatchLeagueId.EURO_CUP}
-            onPress={handleEuroPress}
-          />
-        )}
         {ids.map((id) => {
           return (
             <MatchLeagueSelectorTab
               key={id}
               id={id}
               active={value === id}
-              onPress={() => onChange(id, LEAGUE_SECTION.LEAGUE_ODDS)}
+              onPress={() => onChange(id)}
             />
           )
         })}

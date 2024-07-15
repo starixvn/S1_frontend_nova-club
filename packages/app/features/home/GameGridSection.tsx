@@ -50,14 +50,14 @@ const config = [
   // },
   {
     col: 2,
-    src: EURO_IMG,
-    type: 'image',
-    fallback: EURO_IMG,
+    src: COCKFIGHTING_IMG,
+    type: 'video',
+    title: 'game.category.cockfighting',
+    fallback: COCKFIGHTING_IMG,
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        uri: '/sportsbook',
-        params: { section: 'euro-match' },
+        uri: '/games/cockfighting',
       },
     },
   },
