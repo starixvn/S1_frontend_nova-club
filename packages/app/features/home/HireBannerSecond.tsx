@@ -22,16 +22,8 @@ export default function HireBannerSecond() {
   const isDesktop = useIsDesktop()
 
   const handlePress = () => {
-    if (token) {
-      if (isDesktop) {
-        push('/rewards/redeem/list')
-        setTimeout(() => {
-          openModal('DailyCheckInModal')
-        }, 500)
-      } else {
-        push('/rewards/daily')
-      }
-    } else {
+    if (token) push('/rewards/redeem/list')
+    else {
       isDesktop ? openModal('RegisterModal') : push('/auth/register/?t=member')
     }
   }

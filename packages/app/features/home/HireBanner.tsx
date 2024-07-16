@@ -1,19 +1,24 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useMemo } from 'react'
+import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 import { Currency } from 'utils/constant'
 
 export default function HireBanner() {
   const { t } = useLocalization()
   const { push } = useRouter()
+  const token = useAppSelector((state) => state.auth.info?.token)
   const currency = useAppSelector((state) => state.setting.currency)
   const { showAlert } = useAlert()
+  const { openModal } = useModal()
+  const isDesktop = useIsDesktop()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const show = useResponsiveValue([false, true])
   const handleDesktopAccountVerification = () => {
@@ -50,7 +55,18 @@ export default function HireBanner() {
   )
 
   const handlePress = () => {
-    push('/euro-cup/prediction')
+    if (token) {
+      if (isDesktop) {
+        push('/rewards/redeem/list')
+        setTimeout(() => {
+          openModal('DailyCheckInModal')
+        }, 500)
+      } else {
+        push('/rewards/daily')
+      }
+    } else {
+      isDesktop ? openModal('RegisterModal') : push('/auth/register/?t=member')
+    }
   }
 
   return (
@@ -136,7 +152,7 @@ export const AnimatedButton = ({ children }) => {
             color: '$error',
             fontWeight: '900',
             lineHeight: 12,
-            fontSize: [8, 10],
+            fontSize: [8, 9],
             textAlign: 'center',
           }}
         >
