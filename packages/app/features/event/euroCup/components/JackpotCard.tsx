@@ -1,10 +1,11 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { Text, View } from 'dripsy'
+import { censorString } from 'app/utils'
+import { View } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
 import { WinnerText } from '../Winner'
 
-const WINNER_LIST = ['Name1', 'Name2', 'Name3', 'Name4', 'Name5', 'Name6']
+const WINNER_LIST = ['thaomy18', 'tuananh', 'minhtu43', 'hoasen63', 'khanhvy']
 
 const JackpotCard = ({ contentWidth, haveWinner }) => {
   return (
@@ -36,10 +37,20 @@ const JackpotCard = ({ contentWidth, haveWinner }) => {
             height={120}
             alt=""
           />
-          <View sx={{ height: 105, mt: 18, width: ['70%', '70%'] }}>
+          <View
+            sx={{
+              height: 105,
+              mt: 18,
+              width: ['70%', '70%'],
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             {haveWinner ? (
               WINNER_LIST.map((item, index) => (
-                <WinnerText key={index}>{item}</WinnerText>
+                <WinnerText key={index}>
+                  {censorString(item, 2, item.length - 2)}
+                </WinnerText>
               ))
             ) : (
               <View sx={{ alignItems: 'center' }}>

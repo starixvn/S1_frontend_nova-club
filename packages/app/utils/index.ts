@@ -348,3 +348,12 @@ export const desktopScrollToElement = (elementId) => {
     }
   }
 }
+
+export function censorString(str, start, end) {
+  if (start >= end || start < 0 || end > str.length) {
+    return str
+  }
+  const partToCensor = str.slice(start, end)
+  const censoredPart = '*'.repeat(partToCensor.length)
+  return str.slice(0, start) + censoredPart + str.slice(end)
+}
