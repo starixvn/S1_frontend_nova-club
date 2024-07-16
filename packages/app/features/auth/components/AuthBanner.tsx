@@ -17,8 +17,8 @@ const AuthBanner = (props: AuthBannerProps) => {
   useDefaultParamSelector()
 
   const BannerImage = {
-    AGENT: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/agent-banner-${currency.toLowerCase()}.jpg`,
-    PLAYER: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/member-banner-${currency.toLowerCase()}.jpg`,
+    AGENT: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/agent-banner-en.jpg`,
+    PLAYER: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/member-banner-en.jpg`,
   } as const
 
   const imageSrc = isAgent ? BannerImage.AGENT : BannerImage.PLAYER

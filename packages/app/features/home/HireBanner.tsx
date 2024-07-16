@@ -32,7 +32,7 @@ export default function HireBanner() {
   const animatedText = useMemo(
     () => (
       <MotiView
-        key={t('home.banner.n3')}
+        key={t(`home.banner.${currency?.toLowerCase()}.n3`)}
         from={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{
@@ -45,27 +45,37 @@ export default function HireBanner() {
         }}
       >
         <Label sx={{ color: '#00FFFF' }}>
-          {t(
-            currency === Currency.THB ? 'home.banner.n3thb' : 'home.banner.n3'
-          )}
+          {t(`home.banner.${currency?.toLowerCase()}.n3`)}
         </Label>
       </MotiView>
     ),
-    [t('home.banner.n3'), currency]
+    [t(`home.banner.${currency?.toLowerCase()}.n3`), currency]
   )
 
   const handlePress = () => {
-    if (token) {
-      if (isDesktop) {
-        push('/rewards/redeem/list')
-        setTimeout(() => {
-          openModal('DailyCheckInModal')
-        }, 500)
+    if (currency === Currency.THB) {
+      if (token) {
+        push('/account/referral')
       } else {
-        push('/rewards/daily')
+        isDesktop
+          ? openModal('RegisterModal')
+          : push('/auth/register/?t=member')
       }
     } else {
-      isDesktop ? openModal('RegisterModal') : push('/auth/register/?t=member')
+      if (token) {
+        if (isDesktop) {
+          push('/rewards/redeem/list')
+          setTimeout(() => {
+            openModal('DailyCheckInModal')
+          }, 500)
+        } else {
+          push('/rewards/daily')
+        }
+      } else {
+        isDesktop
+          ? openModal('RegisterModal')
+          : push('/auth/register/?t=member')
+      }
     }
   }
 
@@ -94,7 +104,7 @@ export default function HireBanner() {
               textAlign: 'center',
             }}
           >
-            {t('home.banner.n1')}
+            {t(`home.banner.${currency?.toLowerCase()}.n1`)}
           </Label>
         </View>
         <Row
@@ -112,13 +122,15 @@ export default function HireBanner() {
             }}
           >
             <Label sx={{ flex: 1, color: '$secondary.100' }}>
-              {t('home.banner.n2')}
+              {t(`home.banner.${currency?.toLowerCase()}.n2`)}
             </Label>
 
             <Row sx={{ flex: 1, alignItems: 'center' }}>{animatedText}</Row>
           </View>
 
-          <AnimatedButton>{t('home.banner.button')}</AnimatedButton>
+          <AnimatedButton>
+            {t(`home.banner.${currency?.toLowerCase()}.button`)}
+          </AnimatedButton>
         </Row>
       </Row>
     </Pressable>
@@ -133,12 +145,12 @@ const Label = styled(Text)({
 
 export const AnimatedButton = ({ children }) => {
   const { t } = useLocalization()
-  const lang = useAppSelector((state) => state.setting.locale)
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const animatedText = useMemo(
     () => (
       <MotiView
-        key={t('home.banner.button')}
+        key={t(`home.banner.${currency?.toLowerCase()}.button`)}
         from={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -160,7 +172,7 @@ export const AnimatedButton = ({ children }) => {
         </Label>
       </MotiView>
     ),
-    [t('home.banner.button')]
+    [t(`home.banner.${currency?.toLowerCase()}.button`)]
   )
 
   return (

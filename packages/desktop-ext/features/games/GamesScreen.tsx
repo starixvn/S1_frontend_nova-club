@@ -22,7 +22,7 @@ import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
 import { LatestWinnerType } from 'services/gameApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { SolitoImage } from 'solito/image'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
+import { Currency, GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import GameList from './GameList'
 import { useAppSelector } from 'app/provider/redux/store'
 import { BannerPage } from 'services/contentApi.type'
@@ -34,6 +34,8 @@ function GamesScreen({}: Props) {
   const { route, filteredGames, onFilterClicked, gameCategoryTagTranslation } =
     useGameScreen(SUB_ROUTES.local.route)
   const showSlotVideo = useResponsiveValue([false, false, false, false, true])
+
+  const currency = useAppSelector((state) => state.setting.currency)
 
   // const currency = useAppSelector((s) => s.setting.currency)
 
@@ -77,7 +79,11 @@ function GamesScreen({}: Props) {
             fill
             contentFit="cover"
             style={{ width: '100%', height: '100%' }}
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/game/vGaming.jpg`}
+            src={
+              currency === Currency.THB
+                ? `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/game/vGaming-thb.jpg`
+                : `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/game/vGaming-vnd.jpg`
+            }
           />
           {/* <BannerCarousel data={banners} ratio={480 / 320} /> */}
         </Pressable>
