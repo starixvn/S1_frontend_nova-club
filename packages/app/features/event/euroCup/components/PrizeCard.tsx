@@ -4,6 +4,7 @@ import React from 'react'
 import { SolitoImage } from 'solito/image'
 import { WinnerText } from '../Winner'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import { censorString } from 'app/utils'
 
 type PrizeCardProps = {
   contentWidth: number
@@ -111,9 +112,11 @@ const PrizeCard = ({
         </View>
 
         {winner ? (
-          <View sx={{ mt: '$1', justifyContent: 'space-evenly', flex: 1 }}>
+          <View sx={{ mt: '$1', justifyContent: 'center', flex: 1 }}>
             {winner?.map((item, index) => (
-              <WinnerText key={index}>{item}</WinnerText>
+              <WinnerText key={index}>
+                {censorString(item, 2, item.length - 2)}
+              </WinnerText>
             ))}
           </View>
         ) : (

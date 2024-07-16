@@ -67,68 +67,68 @@ export const WINNER_PRIZE: WINNER[] = [
 
 export const WINNER_LIST = [
   {
-    winner: ['Name1'],
+    winner: ['ngocphuong'],
   },
   {
-    winner: ['Name1', 'Name2'],
+    winner: ['minh8anh', 'qunam24'],
   },
   {
-    winner: ['Name1', 'Name2', 'Name3', 'Name4', 'Name5'],
+    winner: ['mailinh123', 'datviet99', 'thaoyen6', 'tuankiet', 'linhtran87'],
   },
   {
     winner: [
-      'Name1',
-      'Name2',
-      'Name3',
-      'Name4',
-      'Name5',
-      'Name6',
-      'Name7',
-      'Name8',
-      'Name9',
-      'Name10',
+      'tunguyenn',
+      'shohand121322',
+      'nothingtolose',
+      'khanh55',
+      'dony789pp',
+      'dehien09',
+      'minhtung',
+      'teytay268',
+      'gamnon78',
+      'duan123bb',
     ],
   },
   {
     winner: [
-      'Name1',
-      'Name2',
-      'Name3',
-      'Name4',
-      'Name5',
-      'Name6',
-      'Name7',
-      'Name8',
-      'Name9',
-      'Name10',
+      'minhduong67',
+      'batstmtp',
+      'admin219',
+      'vukhai2001',
+      'danhbuol',
+      'huy1994',
+      'thienhuong',
+      'trunghieu7',
+      'lananh88',
+      'hoangnam24',
     ],
   },
   {
     winner: [
-      'Name1',
-      'Name2',
-      'Name3',
-      'Name4',
-      'Name5',
-      'Name6',
-      'Name7',
-      'Name8',
-      'Name9',
-      'Name10',
+      'thu0ha',
+      'huyviet99',
+      'phuong6',
+      'quocbao',
+      'linhchi87',
+      'khoatran55',
+      'thanhnhan',
+      'ndiep77',
+      'vanhien96',
+      'hanhthu8',
     ],
   },
   {
     winner: [
-      'Name1',
-      'Name2',
-      'Name3',
-      'Name4',
-      'Name5',
-      'Name6',
-      'Name7',
-      'Name8',
-      'Name9',
-      'Name10',
+      'ductuan45',
+      'kimanh123',
+      'phuo82',
+      'quanminh9',
+      'nganhong67',
+      'taivietnam',
+      'vankhanh',
+      'xuanphat33',
+      'ngocyen79',
+      'dinhhulk',
     ],
   },
 ]
@@ -215,6 +215,10 @@ const Winner = () => {
   )
 }
 
-export const WinnerText = styled(Text)({ color: 'black', fontSize: 11 })
+export const WinnerText = styled(Text)({
+  color: 'black',
+  fontSize: 11,
+  fontWeight: 'bold',
+})
 
 export default Winner
