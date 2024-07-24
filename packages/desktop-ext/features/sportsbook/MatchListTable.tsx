@@ -4,7 +4,7 @@ import Button from 'app/components/common/Button'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import { SabaGamePayload } from 'app/constants/game'
-import { MatchHandicapType, MatchLeagueId } from 'app/constants/recMatchMapping'
+import { MatchHandicapType } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { logEvent } from 'app/integrations/analytic'
 import { GAEvents } from 'app/integrations/analytic/events'
@@ -209,14 +209,8 @@ const MatchListCellRow = ({
     borderWidth: 2,
     borderColor: 'transparent',
   }
-  const EuroVariant = {
-    bg: index % 2 ? '$primaryEuro.500' : 'transparent',
-    borderWidth: 2,
-    borderColor: '$primaryEuro.500',
-  }
 
-  const variant =
-    item.LeagueId === MatchLeagueId.EURO_CUP ? EuroVariant : defaultVariant
+  const variant = defaultVariant
 
   return (
     <View
@@ -266,10 +260,7 @@ const MatchListCellData = ({
   const { t } = useLocalization()
   const isLoggedIn = useAppSelector((state) => state.auth.info?.token)
 
-  const borderColorVariant =
-    item.LeagueId === MatchLeagueId.EURO_CUP
-      ? 'transparent'
-      : 'rgba(255,255,255,0.6)'
+  const borderColorVariant = 'rgba(255,255,255,0.6)'
 
   return (
     <DataTableRow key={dateTime} sx={{ height: 44 }}>

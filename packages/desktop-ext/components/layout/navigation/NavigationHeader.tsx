@@ -6,14 +6,11 @@ import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Container, Pressable, Row, Text, View, styled } from 'dripsy'
-import { MotiView } from 'moti'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
 import React, { startTransition, useMemo } from 'react'
 import { ViewStyle } from 'react-native'
-import { SolitoImage } from 'solito/image'
 import { useLink } from 'solito/link'
 import { Currency } from 'utils/constant'
-import FloatingEuroCupNavigation from './FloatingEuroCupNavigation'
 import FloatingLiveChatDesktop from './FloatingLiveChatDesktop'
 import {
   NAVIGATION_DROPDOWN_MENU,
@@ -177,9 +174,6 @@ export default function NavigationHeader({}) {
         </Pressable>
       </View>
       <FloatingLiveChatDesktop />
-      {pathname.includes('/euro-cup') && !pathname.includes('/winner') && (
-        <FloatingEuroCupNavigation />
-      )}
 
       {/* <FloatingContent BottomTabBarHeight={BOTTOM_TAB_BAR_HEIGHT} /> */}
     </>
@@ -201,29 +195,6 @@ const MenuButton = ({
   const setDropdownMenu = useNavigationHeader()
   const { t } = useLocalization()
 
-  const AnimatedLogo = useMemo(
-    () => (
-      <MotiView
-        key={image}
-        from={{ transform: [{ rotate: '-15deg' }] }}
-        animate={{ transform: [{ rotate: '15deg' }] }}
-        transition={{
-          loop: true,
-          type: 'timing',
-          duration: 1000,
-        }}
-        style={{
-          height: '80%',
-          aspectRatio: 1 / 1,
-          alignItems: 'center',
-        }}
-      >
-        <SolitoImage src={image} width={32} height={32} alt="euro-cup" />
-      </MotiView>
-    ),
-    [image]
-  )
-
   return (
     <DripsyMotiPressable
       sx={{
@@ -241,13 +212,6 @@ const MenuButton = ({
     >
       {icon ? (
         <Icon name={icon} size={22} />
-      ) : image ? (
-        <>
-          {AnimatedLogo}
-          <Text sx={{ fontSize: 9, position: 'absolute', bottom: 0 }}>
-            2024
-          </Text>
-        </>
       ) : (
         <View>
           <Text sx={{ fontSize: [10, 10, 10, 12, 13] }}>

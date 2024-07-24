@@ -38,11 +38,6 @@ const DynammicRewardLayout = dynamic(() => import('./RewardLayout'), {
   ssr: false,
 })
 
-const DynammicEuroTabLayout = dynamic(() => import('./EuroTabLayout'), {
-  loading: () => <AdaptiveLayoutLoader />,
-  ssr: false,
-})
-
 export const DesktopBaseLayout: Layout = (component) => (
   <AdaptivePageProvider>
     <DynamicBaseLayout>{component}</DynamicBaseLayout>
@@ -73,11 +68,6 @@ export const DesktopInfoLayout: Layout = (component) =>
 export const DesktopRewardLayout: Layout = (component, props) =>
   DesktopBaseLayout(
     <DynammicRewardLayout {...props}>{component}</DynammicRewardLayout>
-  )
-
-export const DesktopEuroTabLayout: Layout = (component, props) =>
-  DesktopBaseLayout(
-    <DynammicEuroTabLayout {...props}>{component}</DynammicEuroTabLayout>
   )
 
 export const EmptyLayout: Layout = (component) => <>{component}</>
