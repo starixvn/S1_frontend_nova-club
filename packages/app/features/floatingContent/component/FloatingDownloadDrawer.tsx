@@ -1,15 +1,10 @@
-import { Pressable, styled, View } from 'dripsy'
+import { REFERRAL_DOMAIN } from '@env'
+import useLocalization from 'app/provider/localization'
+import { Pressable, styled, Text, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
-import PlinkoEvent from './event/PlinkoEvent'
-import LiveChatButton from './LiveChatButton'
-import isDesktop from 'app/utils/isDesktop'
+import { Linking } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { REFERRAL_DOMAIN } from '@env'
-import { Linking, Platform } from 'react-native'
-import { Text } from 'dripsy'
-import useLocalization from 'app/provider/localization'
-import { getOs } from 'utils/platform'
 
 interface FloatingContentSwitchProps {
   visible: boolean
