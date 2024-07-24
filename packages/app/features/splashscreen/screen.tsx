@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
-import { ResizeMode, Video, Audio } from 'expo-av'
+import { Audio, ResizeMode, Video } from 'expo-av'
 // import { MotiView } from 'moti'
 import { useCodePush } from 'app/provider/CodePushProvider'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
@@ -18,7 +18,6 @@ import CodePush from 'react-native-code-push'
 import { useRouter } from 'solito/router'
 import CodePushUpdateBar from './CodePushUpdateBar'
 import { checkMaintenance, checkVersionUpdated } from './splashScreenChecks'
-import { isCNY } from 'app/components/navigation/header/MainHeader'
 
 /* https://github.com/expo/expo/issues/5472#issuecomment-1123485723
    fix on IOS : [Error: Play encountered an error: audio session not activated.]
@@ -70,12 +69,6 @@ export default function SplashScreen() {
 
   useEffect(() => {
     if (status) {
-      // if (loginResult?.token) {
-      //   replace('/')
-      // } else if (agentToken) {
-      //   handleAgentLogin()
-      // } else
-      // console.log('test')
       dispatch(TempSettingActions.setSplashScreenLoaded(true))
       replace('/', undefined, {
         experimental: {
@@ -87,10 +80,6 @@ export default function SplashScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status])
 
-  //clear token/logout first
-  // useEffect(() => {
-  //   LogOut()
-  // }, [])
   return (
     <View sx={{ flex: 1, bg: '$primary.500' }}>
       {showCodePushDownload && <CodePushUpdateBar progress={progress} />}
@@ -117,50 +106,14 @@ export default function SplashScreen() {
           left: 0,
           right: 0,
           zIndex: -1,
-          // width: '100%',
-          // height: Math.max(
-          //   width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
-          //   height
-          // ),
         }}
-        source={require('app/assets/videos/ms-splash.mp4')}
+        source={require('app/assets/videos/olympic-splash.mp4')}
         resizeMode={ResizeMode.COVER}
         useNativeControls={false}
       />
     </View>
   )
 }
-
-// const PromoText = () => {
-//   return (
-//     <MotiView
-//       from={{
-//         opacity: 0,
-//         translateY: 100,
-//       }}
-//       animate={{ translateY: 0, opacity: 1 }}
-//       transition={{
-//         type: 'timing',
-//         duration: 2000,
-//         easing: Easing.bezier(0.25, 1, 0.5, 1),
-//       }}
-//       style={{
-//         position: 'absolute',
-//         left: 0,
-//         right: 0,
-//         top: '20%',
-//       }}
-//     >
-//       <Text style={styles.promoLabel}>Đăng ký làm đại lý,</Text>
-//       <Text style={styles.promoLabel}>
-//         <Text>
-//           nhận hoa hồng đến
-//           <Text sx={{ color: 'gold', fontSize: 30 }}> 0.5%</Text>
-//         </Text>
-//       </Text>
-//     </MotiView>
-//   )
-// }
 
 const styles = StyleSheet.create({
   promoLabel: {
