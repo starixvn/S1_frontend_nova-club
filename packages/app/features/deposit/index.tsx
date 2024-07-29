@@ -2,14 +2,11 @@ import RefreshButton from 'app/components/RefreshButton'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
-import { DepositMethodId } from 'app/config/deposit'
-import useDailyCheckinPrompt from 'app/hooks/useDailyCheckinPrompt'
 import { logEvent } from 'app/integrations/analytic'
 import { GAEvents } from 'app/integrations/analytic/events'
 import useLocalization from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
-import { useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useGetAvailableDepositAmountQuery } from 'services/deposit'
 import { usePlayerReportQuery } from 'services/playerApi'
@@ -37,8 +34,8 @@ const Deposit = () => {
     refetchOnMountOrArgChange: true,
   })
 
-  const { skipCheckPrompting, triggerDailyCheckinPromptWithCondition } =
-    useDailyCheckinPrompt()
+  // const { skipCheckPrompting, triggerDailyCheckinPromptWithCondition } =
+  //   useDailyCheckinPrompt()
 
   const {
     depositHistory,
@@ -67,17 +64,17 @@ const Deposit = () => {
     }
   )
 
-  useEffect(() => {
-    if (!isUninitialized && !transactionIsLoading && !skipCheckPrompting) {
-      triggerDailyCheckinPromptWithCondition(depositHistory)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    depositHistory,
-    isUninitialized,
-    transactionIsLoading,
-    skipCheckPrompting,
-  ])
+  // useEffect(() => {
+  //   if (!isUninitialized && !transactionIsLoading && !skipCheckPrompting) {
+  //     triggerDailyCheckinPromptWithCondition(depositHistory)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [
+  //   depositHistory,
+  //   isUninitialized,
+  //   transactionIsLoading,
+  //   skipCheckPrompting,
+  // ])
 
   return (
     <PageWithBackHeader

@@ -1,13 +1,14 @@
-import useDailyCheckinPrompt from 'app/hooks/useDailyCheckinPrompt'
 import dayjs from 'dayjs'
-import { ReactNode, useEffect } from 'react'
+import { ReactNode } from 'react'
 import { usePlayerReportQuery } from 'services/playerApi'
 import { ReportDepositItem } from 'services/playerApi.type'
 import { ReportCommonStatus, ReportTransactionType } from 'utils/constant'
+
 const EmptyRecord: ReportDepositItem[] = []
+
 export default function DepositLayout({ children }: { children: ReactNode }) {
-  const { skipCheckPrompting, triggerDailyCheckinPromptWithCondition } =
-    useDailyCheckinPrompt()
+  // const { skipCheckPrompting, triggerDailyCheckinPromptWithCondition } =
+  //   useDailyCheckinPrompt()
 
   const {
     depositHistory,
@@ -34,17 +35,17 @@ export default function DepositLayout({ children }: { children: ReactNode }) {
     }
   )
 
-  useEffect(() => {
-    if (!isUninitialized && !transactionIsLoading && !skipCheckPrompting) {
-      triggerDailyCheckinPromptWithCondition(depositHistory)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    depositHistory,
-    isUninitialized,
-    transactionIsLoading,
-    skipCheckPrompting,
-  ])
+  // useEffect(() => {
+  //   if (!isUninitialized && !transactionIsLoading && !skipCheckPrompting) {
+  //     triggerDailyCheckinPromptWithCondition(depositHistory)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [
+  //   depositHistory,
+  //   isUninitialized,
+  //   transactionIsLoading,
+  //   skipCheckPrompting,
+  // ])
 
   return children
 }
