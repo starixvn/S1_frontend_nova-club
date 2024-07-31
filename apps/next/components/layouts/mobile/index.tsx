@@ -16,11 +16,6 @@ const DynamicRewardLayout = dynamic(() => import('./RewardLayout'), {
   ssr: false,
 })
 
-const DynamicEuroTabLayout = dynamic(() => import('./EuroTabLayout'), {
-  loading: () => <AdaptiveLayoutLoader />,
-  ssr: false,
-})
-
 export const MobileTabLayout: Layout = (component) => (
   <DynamicTabLayout>{component}</DynamicTabLayout>
 )
@@ -31,8 +26,4 @@ export const MobileInfoLayout: Layout = (component) => (
 
 export const MobileRewardLayout: Layout = (component) => (
   <DynamicRewardLayout>{component}</DynamicRewardLayout>
-)
-
-export const MobileEuroTabLayout: Layout = (component) => (
-  <DynamicEuroTabLayout>{component}</DynamicEuroTabLayout>
 )

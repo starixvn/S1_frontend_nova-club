@@ -101,9 +101,6 @@ type DefaultModalStackParams = {
   HomeEventModal: {
     data: HomeEventModalData[]
   }
-  EuroModal: {
-    message: string
-  }
   ConnectionModal: {
     message: string
     title: string
@@ -172,7 +169,6 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   RewardTncModal: () => import('app/components/modal/RewardTncModal'),
   ActionableModal: () => import('app/components/modal/ActionableModal'),
   HomeEventModal: () => import('app/features/home/EventModal/HomeEventModal'),
-  EuroModal: () => import('app/components/modal/EuroModal'),
   ConnectionModal: () => import('app/components/modal/ConnectionModal'),
   VipInfoModal: () => import('app/components/modal/VipInfoModal'),
 }
@@ -275,9 +271,6 @@ const modalConfig: ModalConfigType = {
   HomeEventModal: {
     modal: getDynamicComponent('HomeEventModal'),
     transitionOptions: (animatedValue) => ({}),
-  },
-  EuroModal: {
-    modal: getDynamicComponent('EuroModal'),
   },
   ConnectionModal: {
     modal: getDynamicComponent('ConnectionModal'),

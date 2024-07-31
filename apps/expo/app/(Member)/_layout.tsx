@@ -2,7 +2,6 @@ import SessionHandler from 'app/components/SessionHandler'
 import BottomTabBar from 'app/components/navigation/BottomTabBar'
 import LanguageDropdown from 'app/components/navigation/LanguageDropdown'
 import MainHeader from 'app/components/navigation/header/MainHeader'
-import DraggableFloatingEuroCup from 'app/features/floatingContent/DraggableFloatingEuroCup'
 import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Tabs } from 'expo-router'
@@ -20,7 +19,6 @@ export default function Root() {
           <SessionHandler />
           <MainHeader />
           {/** APP floating mystery */}
-          <DraggableFloatingEuroCup />
           <DraggableFloatingMystery />
           <LanguageDropdown />
         </>

@@ -3,7 +3,6 @@ import BottomTabBar, {
   BOTTOM_TAB_BAR_HEIGHT,
 } from 'app/components/navigation/BottomTabBar'
 import MainHeader from 'app/components/navigation/header/MainHeader'
-import DraggableFloatingEuroCup from 'app/features/floatingContent/DraggableFloatingEuroCup'
 import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
 import { ReactNode } from 'react'
 import { HEADER_HEIGHT } from 'utils/constant'
@@ -52,7 +51,6 @@ const FloatedBottomBar = () => {
         height: BOTTOM_TAB_BAR_HEIGHT + 15,
       }}
     >
-      <DraggableFloatingEuroCup />
       <DraggableFloatingMystery />
       <BottomTabBar />
     </div>

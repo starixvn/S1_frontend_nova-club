@@ -6,7 +6,6 @@ import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import { getOs } from 'utils/platform'
-import { CnyFlower, CnyRedPacket } from './CnyTheme'
 import GameGridSectionItem from './GameGridSectionItem'
 
 export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/agent-recruitment_220.mp4`

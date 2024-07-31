@@ -1,6 +1,5 @@
 import LazyIndicator from 'app/components/LazyIndicator'
 import MainHeader from 'app/components/navigation/header/MainHeader'
-import DraggableFloatingEuroCup from 'app/features/floatingContent/DraggableFloatingEuroCup'
 import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
 import withLazyLoad from 'app/hoc/withLazyLoad'
 import LiveChat from 'components/LiveChat'
@@ -22,17 +21,11 @@ const Footer = dynamic(() => import('desktop-ext/components/layout/Footer'), {
 
 const LazyFooter = withLazyLoad(Footer)
 
-const HIDE_FLOATING_ROUTE = ['/euro-cup']
-
 export default function BaseLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
   const [url, setUrl] = useState()
-
-  const isVisible = !HIDE_FLOATING_ROUTE.some((el) =>
-    router.asPath.startsWith(el)
-  )
 
   useEffect(() => {
     const handleStart = (url) => url !== router.asPath && setLoading(true)
@@ -92,12 +85,8 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
         )}
       </AnimatePresence>
       {/** Desktop floating mystery */}
-      {isVisible && (
-        <>
-          <DraggableFloatingMystery />
-          <DraggableFloatingEuroCup />
-        </>
-      )}
+      <DraggableFloatingMystery />
+
       <LiveChat />
       <LazyFooter />
     </div>

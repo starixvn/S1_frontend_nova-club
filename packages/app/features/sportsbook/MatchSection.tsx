@@ -25,19 +25,6 @@ export default function MatchSection() {
     }
   )
 
-  // const filteredIds = useMemo(() => {
-  //   const euroLeagueIndex = leagues.ids?.findIndex(
-  //     (el) => el.toString() === MatchLeagueId.EURO_CUP.toString()
-  //   )
-
-  //   const finalData =
-  //     euroLeagueIndex > -1
-  //       ? leagues.ids?.slice(0, euroLeagueIndex)
-  //       : leagues.ids
-
-  //   return finalData ?? []
-  // }, [leagues])
-
   const leagueId = selectedLeague ?? leagues.ids[0] ?? ''
 
   const handleLeagueSelector = (v) => {

@@ -25,7 +25,5 @@ export const baseApiWithTag = baseApi.enhanceEndpoints({
     'AvailableAmount',
     'AvailableDepositAmount',
     'DepositPaymentList',
-    'EuroCupTicket',
-    'EuroCupSubmittedTeam',
   ],
 })
