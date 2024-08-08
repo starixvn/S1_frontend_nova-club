@@ -70,17 +70,17 @@ export default function DrawerContent() {
         }
       },
     },
-    {
-      iconName: 'deposit',
-      text: 'common.deposit',
-      onPress: () => {
-        isPlayerName
-          ? push('/deposit')
-          : desktop
-          ? handleDesktopAccountVerification()
-          : push('/account/account-verification')
-      },
-    },
+    // {
+    //   iconName: 'deposit',
+    //   text: 'common.deposit',
+    //   onPress: () => {
+    //     isPlayerName
+    //       ? push('/deposit')
+    //       : desktop
+    //       ? handleDesktopAccountVerification()
+    //       : push('/account/account-verification')
+    //   },
+    // },
     {
       iconName: 'withdraw',
       text: 'common.withdraw',

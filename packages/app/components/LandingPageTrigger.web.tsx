@@ -25,18 +25,18 @@ export default function LandingPageTrigger({}) {
       return
     }
 
-    if (code) {
-      const filteredCode = code.replace(/[^0-9a-zA-Z]/g, '')
-      dispatch(SettingActions.setLandingPagePromoCode(filteredCode))
-      setCode(undefined)
+    // if (code) {
+    //   const filteredCode = code.replace(/[^0-9a-zA-Z]/g, '')
+    //   dispatch(SettingActions.setLandingPagePromoCode(filteredCode))
+    //   setCode(undefined)
 
-      if (isDesktop)
-        setTimeout(() => {
-          !pathname.includes('/auth/login') && openModal('RegisterModal')
-        }, 2000)
-      else push('/auth/register')
-      // }
-    }
+    //   if (isDesktop)
+    //     setTimeout(() => {
+    //       !pathname.includes('/auth/login') && openModal('RegisterModal')
+    //     }, 2000)
+    //   else push('/auth/register')
+    //   // }
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code, token])
 

@@ -71,7 +71,7 @@ export default function HomeScreen() {
           <BannerSection />
           <View sx={{ gap: ['$2', '$3'], pt: ['$2', '$3'], px: '$3' }}>
             <AnnouncementSection />
-            <HireBanner />
+            {/* <HireBanner /> */}
           </View>
           <GameGridSection />
           {isFocused && <Deferrable />}

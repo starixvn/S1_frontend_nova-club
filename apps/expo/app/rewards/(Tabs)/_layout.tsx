@@ -30,7 +30,7 @@ export default function RewardLayout({}: Props) {
       )}
     >
       {/*  listing this to preserve the sequence  */}
-      <MaterialTopTab.Screen name="daily" />
+      {/* <MaterialTopTab.Screen name="daily" /> */}
       <MaterialTopTab.Screen name="redeem/list" />
       <MaterialTopTab.Screen name="redeem/how-to-earn" />
       <MaterialTopTab.Screen name="redeem/rules" />

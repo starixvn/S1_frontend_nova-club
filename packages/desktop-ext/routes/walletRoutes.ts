@@ -14,12 +14,12 @@ const _Routes: Readonly<DesktopRoute[]> = [
     icon: 'transfer',
     route: '/transfer',
   },
-  {
-    key: WALLET_PATH.DEPOSIT,
-    title: 'common.deposit',
-    icon: 'deposit',
-    route: '/deposit',
-  },
+  // {
+  //   key: WALLET_PATH.DEPOSIT,
+  //   title: 'common.deposit',
+  //   icon: 'deposit',
+  //   route: '/deposit',
+  // },
   {
     key: WALLET_PATH.WITHDRAWAL,
     title: 'common.withdraw',

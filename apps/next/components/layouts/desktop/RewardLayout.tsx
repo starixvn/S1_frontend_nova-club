@@ -133,7 +133,7 @@ const LeftPanel = () => {
               />
             )
           })}
-        <View sx={{ mt: '$3' }}>
+        {/* <View sx={{ mt: '$3' }}>
           <Pressable
             onPress={handleDailyCheckInModal}
             disabled={!enableCheckIn}
@@ -157,7 +157,7 @@ const LeftPanel = () => {
             />
             {!enableCheckIn && <DisabledOverlay />}
           </Pressable>
-        </View>
+        </View> */}
       </View>
     </LeftPanelContainer>
   )

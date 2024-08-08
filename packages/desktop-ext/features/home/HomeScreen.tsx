@@ -83,14 +83,14 @@ export default function HomeScreen() {
           }}
         >
           <AnnouncementSection />
-          <Row sx={{ gap: '$pagePadding' }}>
+          {/* <Row sx={{ gap: '$pagePadding' }}>
             <View sx={{ flex: 1 }}>
               <HireBanner />
             </View>
             <View sx={{ flex: 1 }}>
               <HireBannerSecond />
             </View>
-          </Row>
+          </Row> */}
         </View>
         <TopGameSection />
         <LazyDeferredSection />

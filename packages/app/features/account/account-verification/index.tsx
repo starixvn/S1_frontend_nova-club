@@ -60,9 +60,9 @@ const AccountVerification = () => {
         if (success) {
           actions.resetForm()
 
-          setTimeout(() => {
-            replace('/deposit')
-          }, 150)
+          // setTimeout(() => {
+          //   replace('/deposit')
+          // }, 150)
         }
       }
     } catch (error) {

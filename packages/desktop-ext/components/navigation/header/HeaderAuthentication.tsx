@@ -177,7 +177,7 @@ const HeaderAuthentication = () => {
         </Pressable>
       )}
 
-      <HeaderButton
+      {/* <HeaderButton
         sx={{ bg: '$primary.300' }}
         contentProps={{
           sx: { py: '$2' },
@@ -187,7 +187,7 @@ const HeaderAuthentication = () => {
         }
       >
         {t('authentication.register')}
-      </HeaderButton>
+      </HeaderButton> */}
 
       <HeaderLanguageToggle />
       <AgentLoginButton />

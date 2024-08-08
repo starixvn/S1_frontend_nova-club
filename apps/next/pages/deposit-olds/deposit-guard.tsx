@@ -31,11 +31,11 @@ const DepositGuard = (
             : replace('/account/account-verification')
         }
       }
-      if (data && guardType === 'account-verification') {
-        if (isPlayerName) {
-          replace('/deposit')
-        }
-      }
+      // if (data && guardType === 'account-verification') {
+      //   if (isPlayerName) {
+      //     replace('/deposit')
+      //   }
+      // }
     }, [isFetching])
 
     if (data === undefined || isFetching) {

@@ -31,11 +31,7 @@ const HeaderDeposit = ({ isPlayerName }: { isPlayerName: boolean }) => {
     >
       <Pressable
         onPress={() => {
-          isPlayerName
-            ? push('/deposit')
-            : desktop
-            ? handleDesktopAccountVerification()
-            : push('/account/account-verification')
+          push('/withdrawal')
         }}
         sx={{
           borderRadius: 50,
@@ -64,7 +60,7 @@ const HeaderDeposit = ({ isPlayerName }: { isPlayerName: boolean }) => {
                 }),
           }}
         >
-          {t('deposit.depositTitle')}
+          {t('withdrawal.withdrawalTitle')}
         </Text>
       </Pressable>
     </Gradient>

@@ -35,11 +35,11 @@ export const Profile_Wallet_Route: Route[] = [
     path: '/transfer/receive',
     icon: 'transfer',
   },
-  {
-    label: 'common.deposit',
-    path: '/deposit',
-    icon: 'deposit',
-  },
+  // {
+  //   label: 'common.deposit',
+  //   path: '/deposit',
+  //   icon: 'deposit',
+  // },
   {
     label: 'common.withdraw',
     path: '/withdrawal',

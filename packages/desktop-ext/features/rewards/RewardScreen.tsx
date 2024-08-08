@@ -22,6 +22,7 @@ const RewardScreen = () => {
   useEffect(() => {
     if (isContentLoaded && query.tab && typeof query.tab === 'string') {
       const element = document.getElementById(query.tab)
+      console.log('🚀 ~ useEffect ~ element:', element)
 
       if (element) {
         const elementTop = element.getBoundingClientRect().top
@@ -47,17 +48,17 @@ const RewardScreen = () => {
       >
         <RewardGameList onLoaded={() => setContentLoaded(true)} />
       </PageSection>
-      <PageSection
+      {/* <PageSection
         icon={'question'}
         text={t('rewards.earn.title')}
         nativeID={RewardRoutes[1].key}
       >
         <RewardEarnCoinInfo />
-      </PageSection>
+      </PageSection> */}
       <PageSection
         icon={'exclaimation'}
         text={t('rewards.rule.title')}
-        nativeID={RewardRoutes[2].key}
+        nativeID={RewardRoutes[1].key}
       >
         <View sx={{ width: '80%', alignSelf: 'center', paddingVertical: '$3' }}>
           {REWARD_GENERAL_RULE_NOTES.map((e, i) => {

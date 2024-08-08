@@ -33,9 +33,9 @@ const RewardsHubScreen = () => {
   const [tab = RewardRoutes[0].key] = useParam('tab')
 
   switch (tab) {
+    // case RewardRoutes[1].key:
+    //   return <DynamicHow />
     case RewardRoutes[1].key:
-      return <DynamicHow />
-    case RewardRoutes[2].key:
       return <DynamicRules />
     default:
       return <DynamicRewardList />

@@ -70,9 +70,9 @@ const ProfileDetails = () => {
 
         if (success) {
           Toast.show({ type: 'success', text1: message })
-          setTimeout(() => {
-            push('/deposit')
-          }, 150)
+          // setTimeout(() => {
+          //   push('/deposit')
+          // }, 150)
         }
       }
     } catch (error) {

@@ -29,7 +29,7 @@ const HeaderAuthentication = () => {
       >
         {t('authentication.login')}
       </Button>
-      <Button
+      {/* <Button
         sx={{ bg: '$primary.300', minWidth: 90, borderRadius: 20 }}
         contentStyle={{
           paddingLeft: 6,
@@ -41,7 +41,7 @@ const HeaderAuthentication = () => {
         onPress={() => push('/auth/register')}
       >
         {t('authentication.register')}
-      </Button>
+      </Button> */}
       <HeaderLanguageToggle />
     </View>
   )

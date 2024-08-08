@@ -27,7 +27,7 @@ export default function RewardsTabBar({}: Props) {
 
   return (
     <TopTabBar>
-      <View>
+      {/* <View>
         <MotiPressable
           style={{ marginHorizontal: 4 }}
           onPress={() => {
@@ -48,7 +48,7 @@ export default function RewardsTabBar({}: Props) {
             sx={{ opacity: enableCheckIn ? 1 : 0.2 }}
           />
         </MotiPressable>
-      </View>
+      </View> */}
 
       {rewardRoutes.map((r, i) => {
         const isActive = pathname.startsWith(r.route)

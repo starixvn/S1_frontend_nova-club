@@ -36,11 +36,11 @@ export default function ReferralTrigger({}) {
         })
       )
 
-      if (isDesktop)
-        setTimeout(() => {
-          !pathname.includes('/auth/login') && openModal('RegisterModal')
-        }, 2000)
-      else push('/auth/register')
+      // if (isDesktop)
+      //   setTimeout(() => {
+      //     !pathname.includes('/auth/login') && openModal('RegisterModal')
+      //   }, 2000)
+      // else push('/auth/register')
       // }
     }
   }, [ref, token])

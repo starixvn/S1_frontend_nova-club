@@ -188,7 +188,7 @@ const LoginForm = ({
         {t('authentication.login')}
       </Button>
 
-      <Button
+      {/* <Button
         onPress={() => {
           if (isAgentLoginWithDesktopModal) {
             closeModal('AgentLoginModal', () => {
@@ -211,7 +211,7 @@ const LoginForm = ({
         sx={{ bg: '$primary.300', my: '$2' }}
       >
         {t('authentication.register')}
-      </Button>
+      </Button> */}
     </StyledFormContainer>
   )
 }

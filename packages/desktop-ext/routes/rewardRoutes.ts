@@ -8,13 +8,13 @@ const _Routes = [
     base: '/rewards/redeem',
     route: '/rewards/redeem/list',
   },
-  {
-    key: 'how-to-earn',
-    title: 'rewards.scrollMenu.how',
-    icon: 'tnc',
-    base: '/rewards/redeem',
-    route: '/rewards/redeem/how-to-earn',
-  },
+  // {
+  //   key: 'how-to-earn',
+  //   title: 'rewards.scrollMenu.how',
+  //   icon: 'tnc',
+  //   base: '/rewards/redeem',
+  //   route: '/rewards/redeem/how-to-earn',
+  // },
   {
     key: 'rules',
     title: 'rewards.scrollMenu.rule',
