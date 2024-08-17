@@ -153,41 +153,41 @@ const BannerCard = ({
     item.banner_url === '' ? true : Platform.OS === 'web' ? disable : false
 
   const onPressCallback = useCallback(() => {
-    if (token) {
-      if (item.banner_url?.startsWith('/')) {
-        push(item.banner_url)
-      } else {
-        const bannerUrl = item.banner_url.startsWith('www')
-          ? 'https://' + item.banner_url
-          : item.banner_url
-
-        if (item.banner_url_redirection === 'ext') Linking.openURL(bannerUrl)
-        else push(item.banner_url)
-      }
+    // if (token) {
+    if (item.banner_url?.startsWith('/')) {
+      push(item.banner_url)
     } else {
-      const bannerAction = {
-        desktopType: CarouselBannerActionType.MODAL,
-        type: CarouselBannerActionType.INTERNAL_REDIRECT,
-        payload: {
-          uri: '/auth/register',
-          desktopUri: 'RegisterModal',
-          params: {
-            locale: 'vn',
-          },
-        },
-      }
+      const bannerUrl = item.banner_url.startsWith('www')
+        ? 'https://' + item.banner_url
+        : item.banner_url
 
-      const actionType = isDesktop
-        ? bannerAction.desktopType
-        : bannerAction.type
-
-      const action = getCarouselBannerActionGenerator(
-        bannerAction,
-        isDesktop,
-        actionType
-      )
-      action({ push, locale, openModal })
+      if (item.banner_url_redirection === 'ext') Linking.openURL(bannerUrl)
+      else push(item.banner_url)
     }
+    // } else {
+    //   const bannerAction = {
+    //     desktopType: CarouselBannerActionType.MODAL,
+    //     type: CarouselBannerActionType.INTERNAL_REDIRECT,
+    //     payload: {
+    //       uri: '/auth/register',
+    //       desktopUri: 'RegisterModal',
+    //       params: {
+    //         locale: 'vn',
+    //       },
+    //     },
+    //   }
+
+    //   const actionType = isDesktop
+    //     ? bannerAction.desktopType
+    //     : bannerAction.type
+
+    //   const action = getCarouselBannerActionGenerator(
+    //     bannerAction,
+    //     isDesktop,
+    //     actionType
+    //   )
+    //   action({ push, locale, openModal })
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.banner_url, locale, token])
 

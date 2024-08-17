@@ -347,13 +347,13 @@ const HintButton = ({
       }}
       onPress={() => {
         // closeModal('RegisterModal')
-        if (windowWidth < 992) {
-          push('/auth/register/?t=member')
-          onPress()
-        } else {
-          openModal('RegisterModal')
-          onPress()
-        }
+        // if (windowWidth < 992) {
+        //   push('/auth/register/?t=member')
+        //   onPress()
+        // } else {
+        //   openModal('RegisterModal')
+        //   onPress()
+        // }
       }}
     >
       <View sx={{ flexDirection: 'row', mx: 2, alignItems: 'center' }}>
